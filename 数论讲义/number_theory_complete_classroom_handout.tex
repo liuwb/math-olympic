@@ -1,0 +1,2933 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.5cm,bottom=2.6cm,left=2.35cm,right=2.35cm,headheight=18pt,headsep=0.55cm,footskip=26pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{multicol}
+\usepackage{pdflscape}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black,
+  citecolor=blue!50!black
+}
+
+\setstretch{1.18}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.35em}
+\setlength{\columnsep}{0.95cm}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.3em, topsep=0.3em, leftmargin=2.3em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=2em}
+\setcounter{tocdepth}{2}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{accent}{RGB}{153,76,0}
+\definecolor{rulegray}{RGB}{110,118,128}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.25em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.3em}{0.9em}
+\titleformat{\subsection}{\large\bfseries\color{mainblue}}{\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{1.1em}{0.55em}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{accent}}{\thesubsubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 数论专题课堂讲义}
+\fancyhead[C]{\small 同余、一次同余方程组、勾股数与不定方程}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtheoremstyle{formaltheorem}
+  {0.8em}{0.8em}{\normalfont}{}{\bfseries\color{mainblue}}{．}{0.6em}{}
+\newtheoremstyle{formalexample}
+  {0.8em}{0.8em}{\normalfont}{}{\bfseries\color{accent}}{．}{0.6em}{}
+
+\theoremstyle{formaltheorem}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{proposition}{命题}[section]
+\theoremstyle{formalexample}
+\newtheorem{example}{例题}[section]
+\newtheorem{exercise}{练习}[section]
+
+\newenvironment{solution}{\par\noindent\textbf{解：}}{\hfill$\square$\par}
+
+\newtcolorbox{goalbox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{notebox}[1]{
+  breakable,
+  colback=lightgray,
+  colframe=black!50,
+  boxrule=0.55pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newcommand{\classblank}{\vspace{2.2cm}}
+\newcommand{\smallblank}{\vspace{1.2cm}}
+\newcommand{\ans}[1]{\textbf{答案：}#1}
+\newcommand{\partdivider}[2]{%
+  \clearpage
+  \thispagestyle{empty}
+  \vspace*{\fill}
+  \begin{center}
+  \begin{tcolorbox}[
+    enhanced,
+    width=0.78\textwidth,
+    colback=lightblue,
+    colframe=mainblue,
+    boxrule=0.9pt,
+    arc=0mm,
+    left=6mm,
+    right=6mm,
+    top=8mm,
+    bottom=8mm
+  ]
+  \centering
+  {\fontsize{24}{30}\selectfont\bfseries #1\par}
+  \vspace{0.6cm}
+  {\large #2\par}
+  \end{tcolorbox}
+  \end{center}
+  \vspace*{\fill}
+  \clearpage
+}
+
+\begin{document}
+
+% =========================
+% 封面
+% =========================
+\thispagestyle{empty}
+\begin{titlepage}
+\centering
+\vspace*{1.2cm}
+
+\begin{tcolorbox}[
+  enhanced,
+  width=0.92\textwidth,
+  colback=white,
+  colframe=mainblue,
+  boxrule=1pt,
+  arc=0mm,
+  left=6mm,
+  right=6mm,
+  top=8mm,
+  bottom=8mm
+]
+\centering
+
+{\fontsize{24}{30}\selectfont\bfseries 数论专题完整课堂讲义\par}
+\vspace{0.7cm}
+{\fontsize{17}{22}\selectfont 同余、一次同余方程组、中国剩余定理、勾股数与不定方程\par}
+
+\vspace{1.2cm}
+\color{rulegray}\rule{0.72\textwidth}{0.7pt}\par
+\vspace{1.1cm}
+
+\begin{tcolorbox}[colback=lightblue,colframe=mainblue,width=0.82\textwidth,boxrule=1pt]
+\centering
+{\Large 适合对象：小学高年级数学竞赛学生}\\[0.4em]
+{\large 具备较好的代数基础，接触过方程与因式分解即可}
+\end{tcolorbox}
+
+\vspace{1.5cm}
+
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{>{\bfseries}p{3.5cm}p{8cm}}
+讲义作者： & 刘文博 \\
+内容结构： & 基础内容与拓展内容结合，适合课堂讲授与课后复习 \\
+建议课时： & 4--6 课时，可按学生情况灵活调整 \\
+编译方式： & XeLaTeX \\
+\end{tabular}
+
+\vspace{1.4cm}
+\color{rulegray}\rule{0.72\textwidth}{0.7pt}\par
+\vspace{0.9cm}
+
+{\large \bfseries 使用说明\par}
+\vspace{0.4cm}
+{\normalsize 例题适合课堂讲解与板书示范，练习可先独立完成；文末附录统一给出参考答案，便于课后核对与订正。\par}
+
+{\large \today\par}
+\end{tcolorbox}
+\end{titlepage}
+
+\pagenumbering{Roman}
+\pagestyle{plain}
+\tableofcontents
+\newpage
+\pagestyle{fancy}
+\pagenumbering{arabic}
+
+\section{使用说明与学习目标}
+
+\begin{goalbox}{本讲义的使用方式}
+本讲义按照由浅入深的顺序编排，分为两个部分：
+\begin{itemize}
+  \item \textbf{基础篇}：整除、最大公因数、同余、一次不定方程；
+  \item \textbf{拓展篇}：一次同余方程组、中国剩余定理、勾股数、进阶不定方程。
+\end{itemize}
+建议课堂上先完成例题讲解，再安排对应练习；学生可先独立思考，再参考附录答案进行订正。
+\end{goalbox}
+
+\begin{goalbox}{本讲目标}
+通过本讲的学习，学生将逐步达到以下目标：
+\begin{itemize}
+  \item 理解整除、最大公因数、欧几里得算法与裴蜀定理；
+  \item 学会使用同余处理余数、整除、末位数与不可能性证明；
+  \item 会解一次同余方程
+  \[
+  ax\equiv b\pmod m;
+  \]
+  \item 会解简单的一次同余方程组，能处理韩信点兵类问题；
+  \item 会解二元一次不定方程
+  \[
+  ax+by=c;
+  \]
+  \item 会用因式分解法解决平方差型、倒数型、乘积型不定方程；
+  \item 了解勾股数的结构与参数表示。
+\end{itemize}
+\end{goalbox}
+
+\begin{notebox}{授课安排参考}
+\begin{itemize}
+  \item 第 1 课时：整除、最大公因数、同余基础；
+  \item 第 2 课时：同余应用、一次同余方程；
+  \item 第 3 课时：一次不定方程、因式分解法；
+  \item 第 4 课时：中国剩余定理与韩信点兵；
+  \item 第 5 课时：勾股数与进阶不定方程；
+  \item 第 6 课时：专题训练与讲评。
+\end{itemize}
+\end{notebox}
+
+\partdivider{基础篇}{整除、同余与一次不定方程的核心方法}
+
+\section{基础篇：整除与最大公因数}
+
+\subsection{整除}
+
+如果整数 $a,b$ 满足存在整数 $k$ 使得
+\[
+a=bk,
+\]
+那么称 $b$ \textbf{整除} $a$，记作
+\[
+b\mid a.
+\]
+
+例如：
+\[
+3\mid 18,\qquad 5\nmid 18.
+\]
+
+\subsection{最大公因数}
+
+两个整数 $a,b$ 的最大公因数记作
+\[
+(a,b)\quad\text{或}\quad \gcd(a,b).
+\]
+
+例如：
+\[
+(18,24)=6.
+\]
+
+\subsection{欧几里得算法}
+
+若
+\[
+a=bq+r\qquad (0\le r<b),
+\]
+则
+\[
+(a,b)=(b,r).
+\]
+这就是欧几里得算法（辗转相除法）的核心。
+
+\begin{example}
+求 $(252,198)$，并把它写成 $252x+198y$ 的形式。
+\end{example}
+
+\begin{solution}
+先用辗转相除法：
+\[
+252=198+54,
+\]
+\[
+198=3\times 54+36,
+\]
+\[
+54=36+18,
+\]
+\[
+36=2\times 18.
+\]
+因此
+\[
+(252,198)=18.
+\]
+
+再反代：
+\[
+18=54-36,
+\]
+\[
+36=198-3\times 54,
+\]
+所以
+\[
+18=54-(198-3\times 54)=4\times 54-198.
+\]
+又因为
+\[
+54=252-198,
+\]
+所以
+\[
+18=4(252-198)-198=4\times 252-5\times 198.
+\]
+故
+\[
+\boxed{18=4\times 252-5\times 198}.
+\]
+\end{solution}
+
+\subsection{裴蜀定理}
+
+\begin{theorem}[裴蜀定理]
+设 $d=(a,b)$，则存在整数 $x,y$，使得
+\[
+ax+by=d.
+\]
+\end{theorem}
+
+它立刻推出一个重要结论：
+
+\begin{theorem}
+二元一次不定方程
+\[
+ax+by=c
+\]
+有整数解，当且仅当
+\[
+(a,b)\mid c.
+\]
+\end{theorem}
+
+\begin{notebox}{课堂笔记区}
+请写下：为什么“最大公因数能整除右边”会成为一次不定方程有解的必要条件？
+\classblank
+\end{notebox}
+
+\section{基础篇：同余}
+
+\subsection{同余的定义}
+
+若整数 $a,b,m$ 满足 $m>0$，并且
+\[
+m\mid (a-b),
+\]
+那么称 $a$ 与 $b$ \textbf{模 $m$ 同余}，记作
+\[
+a\equiv b\pmod m.
+\]
+
+这句话等价于：$a$ 和 $b$ 除以 $m$ 的余数相同。
+
+例如：
+\[
+38\equiv 3\pmod 7,
+\]
+因为
+\[
+38-3=35,
+\]
+而 $7\mid 35$。
+
+\subsection{同余的基本性质}
+
+若
+\[
+a\equiv b\pmod m,\qquad c\equiv d\pmod m,
+\]
+则有：
+\begin{enumerate}
+  \item 加法性质：
+  \[
+  a+c\equiv b+d\pmod m;
+  \]
+  \item 减法性质：
+  \[
+  a-c\equiv b-d\pmod m;
+  \]
+  \item 乘法性质：
+  \[
+  ac\equiv bd\pmod m;
+  \]
+  \item 乘方性质：
+  \[
+  a^n\equiv b^n\pmod m\qquad (n\in \mathbb{N}^+).
+  \]
+\end{enumerate}
+
+\subsection{约去一个因子要小心}
+
+在同余里，不是任何因子都能随便约掉。只有当
+\[
+(c,m)=1
+\]
+时，若
+\[
+ac\equiv bc\pmod m,
+\]
+才可推出
+\[
+a\equiv b\pmod m.
+\]
+
+\subsection{常见整除判定的同余解释}
+
+\begin{itemize}
+  \item 被 $3$、$9$ 整除：看各位数字和；
+  \item 被 $4$ 整除：看末两位；
+  \item 被 $8$ 整除：看末三位；
+  \item 被 $11$ 整除：看奇数位和与偶数位和的差。
+\end{itemize}
+
+例如，因为
+\[
+10\equiv 1\pmod 9,
+\]
+所以十进制数
+\[
+a_n10^n+\cdots +a_110+a_0
+\]
+模 $9$ 的余数等于
+\[
+a_n+\cdots +a_1+a_0
+\]
+模 $9$ 的余数。
+
+\subsection{同余例题}
+
+\begin{example}
+求 $2^{100}$ 除以 $7$ 的余数。
+\end{example}
+
+\begin{solution}
+先找循环：
+\[
+2^1\equiv 2\pmod 7,
+\]
+\[
+2^2\equiv 4\pmod 7,
+\]
+\[
+2^3\equiv 8\equiv 1\pmod 7.
+\]
+因此余数循环节为 $3$。因为
+\[
+100\div 3=33\text{ 余 }1,
+\]
+所以
+\[
+2^{100}\equiv 2\pmod 7.
+\]
+余数是 \boxed{2}。
+\end{solution}
+
+\begin{example}
+证明：任意整数的平方除以 $4$ 的余数只能是 $0$ 或 $1$。
+\end{example}
+
+\begin{solution}
+任意整数 $n$ 不是偶数就是奇数。
+
+若 $n=2k$，则
+\[
+n^2=4k^2\equiv 0\pmod 4.
+\]
+若 $n=2k+1$，则
+\[
+n^2=(2k+1)^2=4k^2+4k+1\equiv 1\pmod 4.
+\]
+所以平方数模 $4$ 只能余 $0$ 或 $1$。
+\end{solution}
+
+\begin{example}
+判断是否存在整数 $n$，使得
+\[
+5\mid (n^2+n+1).
+\]
+\end{example}
+
+\begin{solution}
+只需考察 $n$ 模 $5$ 的五种情况：
+\[
+n\equiv 0,1,2,3,4\pmod 5.
+\]
+分别代入：
+\[
+0^2+0+1\equiv 1,
+\]
+\[
+1^2+1+1\equiv 3,
+\]
+\[
+2^2+2+1=7\equiv 2,
+\]
+\[
+3^2+3+1=13\equiv 3,
+\]
+\[
+4^2+4+1=21\equiv 1\pmod 5.
+\]
+没有一种情况余 $0$，所以不存在这样的整数 $n$。
+\end{solution}
+
+\begin{notebox}{课堂笔记区}
+请总结：什么时候用“找循环节”，什么时候用“分类讨论模 $m$ 的各种情况”？
+\classblank
+\end{notebox}
+
+\section{基础篇：一次同余方程}
+
+\subsection{基本结论}
+
+形如
+\[
+ax\equiv b\pmod m
+\]
+的方程叫作 \textbf{一次同余方程}。
+
+\begin{theorem}
+一次同余方程
+\[
+ax\equiv b\pmod m
+\]
+有解，当且仅当
+\[
+(a,m)\mid b.
+\]
+\end{theorem}
+
+若设
+\[
+d=(a,m),
+\]
+且
+\[
+d\mid b,
+\]
+那么模 $m$ 下恰有 $d$ 个两两不同余的解。
+
+\subsection{什么是逆元}
+
+在解一次同余方程时，我们经常会说“求 $a$ 在模 $m$ 下的逆元”。这里的“逆元”虽然名字听起来有些抽象，但含义其实很直观。
+
+\begin{goalbox}{逆元的直观理解}
+在普通算式里，如果
+\[
+a\cdot \frac1a=1,
+\]
+那么 $\frac1a$ 就相当于 $a$ 的“乘法倒数”。
+
+在模 $m$ 的世界里，如果某个整数 $u$ 满足
+\[
+au\equiv 1\pmod m,
+\]
+那么就称 $u$ 是 $a$ 在模 $m$ 下的\textbf{逆元}。
+\end{goalbox}
+
+也就是说，逆元就是“模意义下能够把 $a$ 乘回到 $1$ 的那个数”。
+
+例如：
+\[
+3\times 5=15\equiv 1\pmod 7,
+\]
+所以 $5$ 是 $3$ 在模 $7$ 下的逆元。
+
+又如：
+\[
+7\times 7=49\equiv 1\pmod{12},
+\]
+所以 $7$ 是 $7$ 在模 $12$ 下的逆元。
+
+\begin{theorem}
+整数 $a$ 在模 $m$ 下有逆元，当且仅当
+\[
+(a,m)=1.
+\]
+\end{theorem}
+
+这条结论非常重要。它告诉我们：只有当 $a$ 与模数 $m$ 互素时，才可以在同余方程里“除以 $a$”。
+
+\subsection{怎样方便地求逆元}
+
+\begin{goalbox}{求逆元的三种常用方法}
+\begin{enumerate}
+  \item \textbf{直接试乘法}：模数不大时，直接试 $1,2,3,\dots,m-1$；
+  \item \textbf{观察凑成 $1$}：利用熟悉的小乘法表快速判断；
+  \item \textbf{用裴蜀定理或辗转相除法}：把
+  \[
+  ax+my=1
+  \]
+  解出来，其中 $x$ 就是 $a$ 的一个逆元。
+\end{enumerate}
+\end{goalbox}
+
+\subsubsection{方法一：直接试乘法}
+
+如果模数比较小，最方便的办法就是直接试。
+
+例如要求 $3$ 在模 $7$ 下的逆元，只需试：
+\[
+3\times 1\equiv 3,\quad
+3\times 2\equiv 6,\quad
+3\times 3\equiv 2,\quad
+3\times 4\equiv 5,\quad
+3\times 5\equiv 1\pmod 7.
+\]
+所以逆元就是
+\[
+\boxed{5}.
+\]
+
+\subsubsection{方法二：利用熟悉恒等变形}
+
+有时可以直接观察。
+
+例如要求 $8$ 在模 $15$ 下的逆元，只需看
+\[
+8\times 2=16\equiv 1\pmod{15},
+\]
+所以逆元是
+\[
+\boxed{2}.
+\]
+
+再如要求 $11$ 在模 $12$ 下的逆元，由于
+\[
+11\equiv -1\pmod{12},
+\]
+所以
+\[
+11\times 11\equiv (-1)\times(-1)=1\pmod{12},
+\]
+故逆元是
+\[
+\boxed{11}.
+\]
+
+\subsubsection{方法三：用裴蜀定理求逆元}
+
+如果 $a$ 与 $m$ 互素，那么根据裴蜀定理，存在整数 $x,y$ 使得
+\[
+ax+my=1.
+\]
+把这个式子模 $m$ 来看，就得到
+\[
+ax\equiv 1\pmod m,
+\]
+所以 $x$ 就是 $a$ 在模 $m$ 下的一个逆元。
+
+\begin{example}
+求 $17$ 在模 $43$ 下的逆元。
+\end{example}
+
+\begin{solution}
+用辗转相除法：
+\[
+43=2\times 17+9,
+\]
+\[
+17=1\times 9+8,
+\]
+\[
+9=1\times 8+1.
+\]
+
+反代：
+\[
+1=9-8,
+\]
+\[
+8=17-9,
+\]
+所以
+\[
+1=9-(17-9)=2\times 9-17.
+\]
+又因为
+\[
+9=43-2\times 17,
+\]
+所以
+\[
+1=2(43-2\times 17)-17=2\times 43-5\times 17.
+\]
+即
+\[
+(-5)\times 17+2\times 43=1.
+\]
+
+因此
+\[
+17\times(-5)\equiv 1\pmod{43}.
+\]
+所以 $17$ 在模 $43$ 下的逆元可以取为
+\[
+\boxed{-5}.
+\]
+通常把它化成最小正整数，得到
+\[
+\boxed{38}.
+\]
+\end{solution}
+
+\begin{notebox}{方法提示}
+\begin{itemize}
+  \item 逆元不是“普通分数意义上的倒数”，而是“模意义下的乘法倒数”；
+  \item 求逆元前一定先检查是否互素；
+  \item 小模数优先试乘法，大模数优先用辗转相除法。
+\end{itemize}
+\end{notebox}
+
+\subsection{标准步骤}
+
+\begin{goalbox}{一次同余方程四步法}
+\begin{enumerate}
+  \item 求 $d=(a,m)$；
+  \item 判断 $d\mid b$ 是否成立；
+  \item 若不成立，则无解；
+  \item 若成立，则两边除以 $d$，再求逆元。
+\end{enumerate}
+\end{goalbox}
+
+\begin{example}
+解同余方程
+\[
+7x\equiv 5\pmod{12}.
+\]
+\end{example}
+
+\begin{solution}
+因为
+\[
+7\times 7=49\equiv 1\pmod{12},
+\]
+所以 $7$ 在模 $12$ 下的逆元是 $7$。两边同乘 $7$：
+\[
+x\equiv 35\equiv 11\pmod{12}.
+\]
+因此
+\[
+\boxed{x\equiv 11\pmod{12}}.
+\]
+\end{solution}
+
+\begin{example}
+解同余方程
+\[
+8x\equiv 14\pmod{30}.
+\]
+\end{example}
+
+\begin{solution}
+先求
+\[
+(8,30)=2.
+\]
+因为 $2\mid 14$，所以有解。两边除以 $2$，得
+\[
+4x\equiv 7\pmod{15}.
+\]
+又因为
+\[
+4\times 4=16\equiv 1\pmod{15},
+\]
+所以
+\[
+x\equiv 4\times 7=28\equiv 13\pmod{15}.
+\]
+因此模 $30$ 下的全部解为
+\[
+\boxed{x\equiv 13,\,28\pmod{30}}.
+\]
+\end{solution}
+
+\begin{example}
+判断同余方程
+\[
+6x\equiv 5\pmod{21}
+\]
+是否有解。
+\end{example}
+
+\begin{solution}
+因为
+\[
+(6,21)=3,
+\]
+但
+\[
+3\nmid 5,
+\]
+所以无解。
+\end{solution}
+
+\section{基础篇：二元一次不定方程}
+
+\subsection{基本结论}
+
+\begin{theorem}
+方程
+\[
+ax+by=c
+\]
+有整数解，当且仅当
+\[
+(a,b)\mid c.
+\]
+\end{theorem}
+
+若 $(x_0,y_0)$ 是一组整数解，设
+\[
+d=(a,b),
+\]
+则全部整数解为
+\[
+x=x_0+\frac{b}{d}t,\qquad y=y_0-\frac{a}{d}t,\qquad t\in \mathbb{Z}.
+\]
+
+\subsection{例题}
+
+\begin{example}
+求方程
+\[
+12x+18y=84
+\]
+的所有正整数解。
+\end{example}
+
+\begin{solution}
+两边同除以 $6$：
+\[
+2x+3y=14.
+\]
+容易看出一组解是
+\[
+x=1,\qquad y=4.
+\]
+所以全部整数解为
+\[
+x=1+3t,\qquad y=4-2t,\qquad t\in \mathbb{Z}.
+\]
+要求正整数解：
+\[
+1+3t>0,\qquad 4-2t>0.
+\]
+解得
+\[
+t=0,1.
+\]
+故两组正整数解为
+\[
+\boxed{(x,y)=(1,4),(4,2)}.
+\]
+\end{solution}
+
+\begin{example}
+求方程
+\[
+5x+7y=59
+\]
+的所有正整数解。
+\end{example}
+
+\begin{solution}
+由
+\[
+5x+7y=59
+\]
+可得
+\[
+5x\equiv 59\equiv 3\pmod 7.
+\]
+因为
+\[
+5\times 3=15\equiv 1\pmod 7,
+\]
+所以
+\[
+x\equiv 3\times 3=9\equiv 2\pmod 7.
+\]
+设
+\[
+x=2+7t.
+\]
+代回原方程：
+\[
+5(2+7t)+7y=59,
+\]
+所以
+\[
+y=7-5t.
+\]
+要求正整数解，则 $t=0,1$。故正整数解为
+\[
+\boxed{(x,y)=(2,7),(9,2)}.
+\]
+\end{solution}
+
+\begin{notebox}{课堂笔记区}
+请总结：为什么一次不定方程常常配合同余来做？
+\classblank
+\end{notebox}
+
+\section{基础篇：因式分解法求不定方程}
+
+\subsection{平方差型}
+
+看到
+\[
+x^2-y^2=n
+\]
+时，应立刻想到
+\[
+x^2-y^2=(x-y)(x+y).
+\]
+
+\begin{example}
+求正整数解
+\[
+x^2-y^2=45.
+\]
+\end{example}
+
+\begin{solution}
+化为
+\[
+(x-y)(x+y)=45.
+\]
+45 的正因数对有
+\[
+1\times 45,\quad 3\times 15,\quad 5\times 9.
+\]
+分别得到
+\[
+(x,y)=(23,22),(9,6),(7,2).
+\]
+因此全部正整数解为
+\[
+\boxed{(23,22),(9,6),(7,2)}.
+\]
+\end{solution}
+
+\subsection{倒数型}
+
+看到
+\[
+\frac1x+\frac1y=\frac1n
+\]
+时，通常通分后配方：
+\[
+(x-n)(y-n)=n^2.
+\]
+
+\begin{example}
+求正整数解
+\[
+\frac1x+\frac1y=\frac16.
+\]
+\end{example}
+
+\begin{solution}
+原方程化为
+\[
+6x+6y=xy.
+\]
+移项并配方：
+\[
+xy-6x-6y+36=36,
+\]
+即
+\[
+(x-6)(y-6)=36.
+\]
+36 的正因数有
+\[
+1,2,3,4,6,9,12,18,36.
+\]
+因此全部正整数解为
+\[
+\boxed{(7,42),(8,24),(9,18),(10,15),(12,12),(15,10),(18,9),(24,8),(42,7)}.
+\]
+\end{solution}
+
+\subsection{乘积型}
+
+看到
+\[
+xy=x+y+n
+\]
+时，常移项并加 $1$：
+\[
+xy-x-y=n\Rightarrow (x-1)(y-1)=n+1.
+\]
+
+\begin{example}
+求整数解
+\[
+x+y+xy=19.
+\]
+\end{example}
+
+\begin{solution}
+两边加 $1$：
+\[
+xy+x+y+1=20,
+\]
+即
+\[
+(x+1)(y+1)=20.
+\]
+枚举 $20$ 的正负因数对，可得所有整数解：
+\[
+\boxed{(0,19),(1,9),(3,4),(4,3),(9,1),(19,0),}
+\]
+\[
+\boxed{(-2,-21),(-3,-11),(-5,-6),(-6,-5),(-11,-3),(-21,-2).}
+\]
+\end{solution}
+
+\partdivider{拓展篇}{一次同余方程组、中国剩余定理、勾股数与进阶不定方程}
+
+\section{拓展篇：一次同余方程组}
+
+\subsection{最朴素的方法：逐步代入}
+
+\begin{example}
+解方程组
+\[
+\begin{cases}
+x\equiv 2\pmod 3,\\
+x\equiv 3\pmod 5.
+\end{cases}
+\]
+\end{example}
+
+\begin{solution}
+由第一式设
+\[
+x=2+3t.
+\]
+代入第二式：
+\[
+2+3t\equiv 3\pmod 5,
+\]
+即
+\[
+3t\equiv 1\pmod 5.
+\]
+因为 $3$ 在模 $5$ 下的逆元是 $2$，所以
+\[
+t\equiv 2\pmod 5.
+\]
+设
+\[
+t=2+5k,
+\]
+则
+\[
+x=2+3(2+5k)=8+15k.
+\]
+所以
+\[
+\boxed{x\equiv 8\pmod{15}}.
+\]
+\end{solution}
+
+\subsection{模数不互素时的判定}
+
+\begin{theorem}
+同余方程组
+\[
+\begin{cases}
+x\equiv a\pmod m,\\
+x\equiv b\pmod n
+\end{cases}
+\]
+有解，当且仅当
+\[
+a\equiv b\pmod{(m,n)}.
+\]
+若有解，则解在模 $[m,n]$ 的意义下唯一。
+\end{theorem}
+
+\begin{example}
+解方程组
+\[
+\begin{cases}
+x\equiv 1\pmod 4,\\
+x\equiv 3\pmod 6.
+\end{cases}
+\]
+\end{example}
+
+\begin{solution}
+因为
+\[
+(4,6)=2,
+\]
+且
+\[
+1\equiv 3\pmod 2,
+\]
+所以有解。
+
+由第一式设
+\[
+x=1+4t.
+\]
+代入第二式：
+\[
+1+4t\equiv 3\pmod 6,
+\]
+即
+\[
+4t\equiv 2\pmod 6.
+\]
+两边除以 $2$：
+\[
+2t\equiv 1\pmod 3.
+\]
+所以
+\[
+t\equiv 2\pmod 3.
+\]
+设
+\[
+t=2+3k,
+\]
+则
+\[
+x=9+12k.
+\]
+因此
+\[
+\boxed{x\equiv 9\pmod{12}}.
+\]
+\end{solution}
+
+\section{拓展篇：中国剩余定理}
+
+\begin{theorem}[中国剩余定理]
+如果
+\[
+m_1,m_2,\dots,m_k
+\]
+两两互素，那么同余方程组
+\[
+\begin{cases}
+x\equiv a_1\pmod{m_1},\\
+x\equiv a_2\pmod{m_2},\\
+\cdots\\
+x\equiv a_k\pmod{m_k}
+\end{cases}
+\]
+一定有解，而且解在模
+\[
+M=m_1m_2\cdots m_k
+\]
+的意义下唯一。
+\end{theorem}
+
+\begin{goalbox}{一句话理解}
+当模数两两互素时，多个余数条件不会打架，而且一定能拼成一个唯一的总答案。
+\end{goalbox}
+
+\subsection{韩信点兵}
+
+\begin{example}[韩信点兵]
+某数被 $3$ 除余 $2$，被 $5$ 除余 $3$，被 $7$ 除余 $2$。求这个数最小是多少？并写出全部解。
+\end{example}
+
+\begin{solution}
+要求解
+\[
+\begin{cases}
+x\equiv 2\pmod 3,\\
+x\equiv 3\pmod 5,\\
+x\equiv 2\pmod 7.
+\end{cases}
+\]
+
+由第一式设
+\[
+x=2+3t.
+\]
+代入第二式：
+\[
+2+3t\equiv 3\pmod 5
+\Rightarrow 3t\equiv 1\pmod 5.
+\]
+所以
+\[
+t\equiv 2\pmod 5.
+\]
+设
+\[
+t=2+5s,
+\]
+则
+\[
+x=8+15s.
+\]
+再代入第三式：
+\[
+8+15s\equiv 2\pmod 7
+\Rightarrow 1+s\equiv 2\pmod 7.
+\]
+所以
+\[
+s\equiv 1\pmod 7.
+\]
+设
+\[
+s=1+7k,
+\]
+则
+\[
+x=23+105k.
+\]
+因此最小正整数解为
+\[
+\boxed{23},
+\]
+全部解为
+\[
+\boxed{x\equiv 23\pmod{105}}.
+\]
+\end{solution}
+
+\subsection{构造法简介}
+
+设
+\[
+M=m_1m_2\cdots m_k,\qquad M_i=\frac{M}{m_i}.
+\]
+因为
+\[
+(M_i,m_i)=1,
+\]
+所以存在整数 $t_i$ 使得
+\[
+M_it_i\equiv 1\pmod{m_i}.
+\]
+那么
+\[
+x\equiv a_1M_1t_1+a_2M_2t_2+\cdots+a_kM_kt_k\pmod M
+\]
+就是一个解。
+
+\begin{example}
+解方程组
+\[
+\begin{cases}
+x\equiv 1\pmod 2,\\
+x\equiv 2\pmod 3,\\
+x\equiv 4\pmod 5.
+\end{cases}
+\]
+\end{example}
+
+\begin{solution}
+总模数
+\[
+M=2\times 3\times 5=30.
+\]
+取
+\[
+M_1=15,\qquad M_2=10,\qquad M_3=6.
+\]
+又因为
+\[
+15\equiv 1\pmod 2,\qquad 10\equiv 1\pmod 3,\qquad 6\equiv 1\pmod 5,
+\]
+所以三个逆元都可取为 $1$。
+因此
+\[
+x\equiv 1\cdot 15+2\cdot 10+4\cdot 6=59\equiv 29\pmod{30}.
+\]
+故
+\[
+\boxed{x\equiv 29\pmod{30}}.
+\]
+\end{solution}
+
+\begin{notebox}{课堂笔记区}
+请自己写一个“韩信点兵题”的解题模板：
+\classblank
+\end{notebox}
+
+\section{拓展篇：勾股数}
+
+\subsection{基本概念}
+
+满足
+\[
+a^2+b^2=c^2
+\]
+的正整数三元组 $(a,b,c)$ 叫作 \textbf{勾股数}。
+
+例如：
+\[
+(3,4,5),\quad (5,12,13),\quad (8,15,17).
+\]
+
+若
+\[
+(a,b,c)=1,
+\]
+则称为 \textbf{原始勾股数}。
+
+\begin{proposition}
+若 $(a,b,c)$ 是原始勾股数，则：
+\begin{enumerate}
+  \item $a,b$ 中恰有一个是偶数；
+  \item $c$ 一定是奇数；
+  \item $a,b$ 互素。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+因为 $(a,b,c)$ 是原始勾股数，所以
+\[
+a^2+b^2=c^2,
+\qquad (a,b,c)=1.
+\]
+
+先证明 $a,b$ 不可能同时为偶数。若 $a,b$ 都是偶数，那么 $a^2,b^2$ 都是偶数，
+从而 $c^2=a^2+b^2$ 也是偶数，于是 $c$ 也是偶数。这样一来，$a,b,c$ 都能被 $2$
+整除，这与
+\[
+(a,b,c)=1
+\]
+矛盾。
+
+再证明 $a,b$ 不可能同时为奇数。若 $a,b$ 都是奇数，则奇数平方模 $4$ 都余 $1$，
+所以
+\[
+a^2\equiv 1\pmod 4,\qquad b^2\equiv 1\pmod 4.
+\]
+因此
+\[
+c^2=a^2+b^2\equiv 1+1\equiv 2\pmod 4.
+\]
+但任意整数的平方模 $4$ 只能余 $0$ 或 $1$，不可能余 $2$，矛盾。
+
+由于 $a,b$ 既不可能同时为偶数，也不可能同时为奇数，所以 $a,b$ 中恰有一个是偶数，
+另一个是奇数，这就证明了第 1 条。
+
+由第 1 条可知，$a^2,b^2$ 中恰有一个是偶数，另一个是奇数，所以
+\[
+c^2=a^2+b^2
+\]
+是奇数，从而 $c$ 也是奇数，这就证明了第 2 条。
+
+最后证明 $a,b$ 互素。若 $a,b$ 不互素，那么存在整数 $d>1$，使得
+\[
+d\mid a,\qquad d\mid b.
+\]
+于是
+\[
+d\mid a^2,\qquad d\mid b^2,
+\]
+从而
+\[
+d\mid (a^2+b^2)=c^2.
+\]
+这说明 $d$ 是 $c^2$ 的因数。由于素因数若整除一个平方数，就必整除这个数本身，
+所以 $d$ 的每个素因数都整除 $c$，从而 $a,b,c$ 有公共素因数，这与
+\[
+(a,b,c)=1
+\]
+矛盾。因此 $a,b$ 互素，第 3 条也得证。
+\end{proof}
+
+\subsection{参数公式}
+
+\begin{theorem}
+所有原始勾股数都可以表示为
+\[
+a=m^2-n^2,\qquad b=2mn,\qquad c=m^2+n^2,
+\]
+其中
+\[
+m>n\ge 1,\qquad (m,n)=1,
+\]
+并且 $m,n$ 一奇一偶。
+\end{theorem}
+
+\begin{proof}
+设 $(a,b,c)$ 是一个原始勾股数，即
+\[
+a^2+b^2=c^2,
+\qquad (a,b,c)=1.
+\]
+由前面的命题可知，$a,b$ 中恰有一个是偶数，$c$ 是奇数。不妨设
+\[
+b \text{ 为偶数},\qquad a \text{ 为奇数}.
+\]
+
+由
+\[
+a^2+b^2=c^2
+\]
+可得
+\[
+b^2=c^2-a^2=(c+a)(c-a).
+\]
+因为 $a,c$ 都是奇数，所以
+\[
+c+a,\qquad c-a
+\]
+都是偶数。于是可设
+\[
+c+a=2u,\qquad c-a=2v,
+\]
+其中 $u,v$ 是正整数，且 $u>v$。将它们代回上式，得到
+\[
+b^2=(2u)(2v)=4uv,
+\]
+所以
+\[
+\left(\frac{b}{2}\right)^2=uv.
+\]
+
+下面证明 $u,v$ 互素。若整数 $d$ 同时整除 $u,v$，则 $d$ 整除它们的和与差：
+\[
+d\mid (u+v)=c,\qquad d\mid (u-v)=a.
+\]
+于是 $d$ 同时整除 $a,c$。再由
+\[
+b^2=c^2-a^2
+\]
+可知 $d$ 也整除 $b^2$，从而整除 $b$。这就说明 $a,b,c$ 有公共因数，与
+\[
+(a,b,c)=1
+\]
+矛盾。因此
+\[
+(u,v)=1.
+\]
+
+现在，$u$ 与 $v$ 互素，并且它们的乘积 $uv$ 是一个完全平方数。于是 $u,v$
+本身都必须是完全平方数。设
+\[
+u=m^2,\qquad v=n^2,
+\]
+其中
+\[
+m>n\ge 1.
+\]
+那么
+\[
+\left(\frac{b}{2}\right)^2=uv=m^2n^2,
+\]
+所以
+\[
+\frac{b}{2}=mn,
+\]
+即
+\[
+b=2mn.
+\]
+
+再由
+\[
+c+a=2m^2,\qquad c-a=2n^2
+\]
+两式相加、相减，得到
+\[
+c=m^2+n^2,\qquad a=m^2-n^2.
+\]
+于是
+\[
+a=m^2-n^2,\qquad b=2mn,\qquad c=m^2+n^2.
+\]
+
+下面证明 $(m,n)=1$ 且 $m,n$ 一奇一偶。
+
+若 $m,n$ 有公因数 $d>1$，则 $d^2$ 同时整除 $m^2$ 与 $n^2$，从而整除
+\[
+a=m^2-n^2,\qquad c=m^2+n^2.
+\]
+又因为
+\[
+b=2mn,
+\]
+所以 $d$ 也整除 $b$。这与 $(a,b,c)=1$ 矛盾。因此
+\[
+(m,n)=1.
+\]
+
+再看奇偶性。若 $m,n$ 同为偶数，则它们不互素；若 $m,n$ 同为奇数，则
+\[
+a=m^2-n^2
+\]
+为偶数，这与前面约定的 $a$ 为奇数矛盾。因此 $m,n$ 必为一奇一偶。
+
+这就证明了：任意原始勾股数都可以表示成
+\[
+a=m^2-n^2,\qquad b=2mn,\qquad c=m^2+n^2,
+\]
+其中
+\[
+m>n\ge 1,\qquad (m,n)=1,
+\]
+并且 $m,n$ 一奇一偶。
+
+反过来，若 $m,n$ 满足这些条件，令
+\[
+a=m^2-n^2,\qquad b=2mn,\qquad c=m^2+n^2,
+\]
+则直接计算可得
+\[
+a^2+b^2=(m^2-n^2)^2+(2mn)^2=(m^2+n^2)^2=c^2.
+\]
+因此 $(a,b,c)$ 是勾股数。
+
+再证明它是原始的。设 $d$ 同时整除 $a,b$，则
+\[
+d\mid (m^2-n^2),\qquad d\mid 2mn.
+\]
+由于 $a=m^2-n^2$ 为奇数，所以 $d$ 也是奇数。于是若素数 $p$ 整除 $d$，则
+$p$ 整除 $mn$，不妨设 $p\mid m$。又因为
+\[
+p\mid (m^2-n^2)
+\]
+且 $p\mid m^2$，所以 $p\mid n^2$，从而 $p\mid n$。这与
+\[
+(m,n)=1
+\]
+矛盾。因此 $(a,b)=1$。
+
+再设某个整数 $d$ 同时整除 $a,c$。由于 $a,c$ 都是奇数，所以 $d$ 也是奇数。
+若素数 $p$ 整除 $d$，则
+\[
+p\mid (a+c)=2m^2,\qquad p\mid (c-a)=2n^2.
+\]
+因为 $p$ 是奇素数，所以
+\[
+p\mid m^2,\qquad p\mid n^2,
+\]
+从而
+\[
+p\mid m,\qquad p\mid n,
+\]
+这与 $(m,n)=1$ 矛盾。因此 $(a,c)=1$。
+
+同理，若某个整数 $d$ 同时整除 $b,c$，则任何整除 $d$ 的素数 $p$ 都满足
+\[
+p\mid 2mn,\qquad p\mid m^2+n^2.
+\]
+因为 $c=m^2+n^2$ 为奇数，所以 $p\ne 2$。不妨设 $p\mid m$，则由
+\[
+p\mid (m^2+n^2)
+\]
+可得 $p\mid n^2$，从而 $p\mid n$，仍与 $(m,n)=1$ 矛盾。因此 $(b,c)=1$。
+
+于是
+\[
+(a,b)=(a,c)=(b,c)=1,
+\]
+从而
+\[
+(a,b,c)=1.
+\]
+所以由这样的 $m,n$ 构造出的勾股数一定是原始勾股数。
+\end{proof}
+
+\begin{example}
+写出斜边小于 $30$ 的全部原始勾股数。
+\end{example}
+
+\begin{solution}
+枚举
+\[
+c=m^2+n^2<30.
+\]
+满足条件的 $(m,n)$ 为：
+\begin{enumerate}
+  \item $m=2,n=1$，得 $(3,4,5)$；
+  \item $m=3,n=2$，得 $(5,12,13)$；
+  \item $m=4,n=1$，得 $(8,15,17)$；
+  \item $m=4,n=3$，得 $(7,24,25)$；
+  \item $m=5,n=2$，得 $(20,21,29)$。
+\end{enumerate}
+因此全部原始勾股数为
+\[
+\boxed{(3,4,5),(5,12,13),(8,15,17),(7,24,25),(20,21,29)}.
+\]
+\end{solution}
+
+\begin{example}
+求周长为 $84$ 的全部直角三角形整数边长。
+\end{example}
+
+\begin{solution}
+设三边为
+\[
+ka,\ kb,\ kc,
+\]
+其中 $(a,b,c)$ 是原始勾股数，则
+\[
+k(a+b+c)=84.
+\]
+检查常见原始勾股数的周长：
+\begin{itemize}
+  \item $(3,4,5)$ 的周长为 $12$，可取 $k=7$，得 $(21,28,35)$；
+  \item $(12,35,37)$ 的周长正好为 $84$。
+\end{itemize}
+因此全部整数边长为
+\[
+\boxed{(21,28,35),(12,35,37)}.
+\]
+\end{solution}
+
+\begin{notebox}{课堂笔记区}
+请写下你最熟悉的 5 组常见勾股数：
+\classblank
+\end{notebox}
+
+\section{拓展篇：进阶不定方程}
+
+\subsection{平方差型进阶}
+
+\begin{theorem}
+方程
+\[
+x^2-y^2=n
+\]
+有整数解，当且仅当
+\[
+n\not\equiv 2\pmod 4.
+\]
+\end{theorem}
+
+\begin{example}
+求正整数解
+\[
+x^2-y^2=105.
+\]
+\end{example}
+
+\begin{solution}
+化为
+\[
+(x-y)(x+y)=105.
+\]
+枚举正因数对：
+\[
+1\times 105,\quad 3\times 35,\quad 5\times 21,\quad 7\times 15.
+\]
+分别得到
+\[
+(x,y)=(53,52),(19,16),(13,8),(11,4).
+\]
+故全部正整数解为
+\[
+\boxed{(53,52),(19,16),(13,8),(11,4)}.
+\]
+\end{solution}
+
+\begin{example}
+判断方程
+\[
+x^2-y^2=2026
+\]
+是否有整数解，并说明理由。
+\end{example}
+
+\begin{solution}
+因为
+\[
+2026\equiv 2\pmod 4,
+\]
+而平方差不可能模 $4$ 余 $2$，所以原方程无整数解。
+\end{solution}
+
+\subsection{倒数型进阶}
+
+\begin{example}
+求正整数解
+\[
+\frac1x+\frac1y=\frac1{12}.
+\]
+\end{example}
+
+\begin{solution}
+化为
+\[
+12x+12y=xy.
+\]
+移项并配方：
+\[
+xy-12x-12y+144=144,
+\]
+所以
+\[
+(x-12)(y-12)=144.
+\]
+若设 $d\mid 144$ 且 $d>0$，则
+\[
+x=12+d,\qquad y=12+\frac{144}{d}.
+\]
+故全部正整数解可统一写成
+\[
+\boxed{x=12+d,\quad y=12+\frac{144}{d}\qquad (d\mid 144,\ d>0).}
+\]
+\end{solution}
+
+\subsection{乘积型进阶}
+
+\begin{example}
+求正整数解
+\[
+xy=x+y+56.
+\]
+\end{example}
+
+\begin{solution}
+移项并加 $1$：
+\[
+xy-x-y=56\Rightarrow (x-1)(y-1)=57.
+\]
+因为
+\[
+57=1\times 57=3\times 19,
+\]
+所以全部正整数解为
+\[
+\boxed{(2,58),(4,20),(20,4),(58,2)}.
+\]
+\end{solution}
+
+\subsection{线性不定方程与同余结合}
+
+\begin{example}
+求正整数解
+\[
+7x+11y=100.
+\]
+\end{example}
+
+\begin{solution}
+由
+\[
+7x+11y=100
+\]
+可得
+\[
+7x\equiv 100\equiv 1\pmod{11}.
+\]
+因为
+\[
+7\times 8=56\equiv 1\pmod{11},
+\]
+所以
+\[
+x\equiv 8\pmod{11}.
+\]
+设
+\[
+x=8+11t,
+\]
+代回得
+\[
+y=4-7t.
+\]
+为使 $y>0$，只能取 $t=0$，故唯一正整数解为
+\[
+\boxed{(x,y)=(8,4)}.
+\]
+\end{solution}
+
+\begin{example}
+证明方程
+\[
+x^2+2=y^2
+\]
+没有整数解。
+\end{example}
+
+\begin{solution}
+移项得
+\[
+y^2-x^2=2,
+\]
+即
+\[
+(y-x)(y+x)=2.
+\]
+而 $y-x$ 与 $y+x$ 同奇偶：
+\begin{itemize}
+  \item 若都为奇数，则乘积为奇数；
+  \item 若都为偶数，则乘积至少能被 $4$ 整除。
+\end{itemize}
+都不可能等于 $2$，故原方程无整数解。
+\end{solution}
+
+\section{方法总表}
+
+\begin{goalbox}{看见什么，就想到什么}
+\begin{itemize}
+  \item 看见大幂次、末位数、余数问题：想到 \textbf{同余}；
+  \item 看见一次同余方程：先看 \textbf{$(a,m)\mid b$}；
+  \item 看见多个余数条件：想到 \textbf{逐步代入法 / 中国剩余定理}；
+  \item 看见一次不定方程：先看 \textbf{$(a,b)\mid c$}；
+  \item 看见 $x^2-y^2=n$：想到 \textbf{平方差分解}；
+  \item 看见 $\frac1x+\frac1y=\frac1n$：想到 \textbf{$(x-n)(y-n)=n^2$}；
+  \item 看见 $xy=x+y+n$：想到 \textbf{$(x-1)(y-1)=n+1$}；
+  \item 看见直角三角形整数边：想到 \textbf{勾股数参数公式}。
+\end{itemize}
+\end{goalbox}
+
+\section{课堂练习}
+
+\begin{goalbox}{练习使用说明}
+A 组以基础巩固为主，B 组加入适度拓展内容。建议先独立完成，再翻到附录核对。
+\end{goalbox}
+
+\subsection{A组：基础巩固}
+
+\begin{multicols}{2}
+
+\begin{exercise}
+求下列各式的余数：
+\begin{enumerate}
+  \item $37^{50}$ 除以 $8$ 的余数；
+  \item $2^{60}+3^{60}$ 除以 $5$ 的余数；
+  \item $10^{100}+1$ 除以 $11$ 的余数。
+\end{enumerate}
+\end{exercise}
+\smallblank
+
+\begin{exercise}
+解下列同余方程：
+\begin{enumerate}
+  \item $3x\equiv 4\pmod 7$；
+  \item $6x\equiv 9\pmod{15}$。
+\end{enumerate}
+\end{exercise}
+\smallblank
+
+\begin{exercise}
+证明：任意整数的平方除以 $8$ 的余数只能是 $0,1,4$。
+\end{exercise}
+\smallblank
+
+\begin{exercise}
+求所有小于 $50$ 的正整数 $n$，满足
+\[
+n\equiv 2\pmod 3,\qquad n\equiv 1\pmod 4.
+\]
+\end{exercise}
+\smallblank
+
+\begin{exercise}
+求所有整数 $n$，使得
+\[
+7\mid (n^2+3n+4).
+\]
+\end{exercise}
+\smallblank
+
+\begin{exercise}
+求最小正整数 $n$，使得
+\[
+n\equiv 3\pmod 5,\qquad n\equiv 4\pmod 7.
+\]
+并写出全部整数解。
+\end{exercise}
+\smallblank
+
+\begin{exercise}
+求方程
+\[
+14x+21y=35
+\]
+的所有整数解。
+\end{exercise}
+\smallblank
+
+\begin{exercise}
+求方程
+\[
+3x+4y=100
+\]
+的所有正整数解。
+\end{exercise}
+\smallblank
+
+\begin{exercise}
+判断方程
+\[
+15x+25y=7
+\]
+是否有整数解，并说明理由。
+\end{exercise}
+\smallblank
+
+\begin{exercise}
+求正整数解
+\[
+x^2-y^2=36.
+\]
+\end{exercise}
+\smallblank
+
+\begin{exercise}
+求正整数解
+\[
+\frac1x+\frac1y=\frac14.
+\]
+\end{exercise}
+\smallblank
+
+\begin{exercise}
+求整数解
+\[
+x+y+xy=19.
+\]
+\end{exercise}
+\smallblank
+
+\end{multicols}
+
+\subsection{B组：拓展训练}
+
+\begin{multicols}{2}
+
+\begin{exercise}
+解下列同余方程：
+\begin{enumerate}
+  \item $10x\equiv 15\pmod{35}$；
+  \item $12x\equiv 7\pmod{25}$；
+  \item $14x\equiv 5\pmod{21}$。
+\end{enumerate}
+\end{exercise}
+\smallblank
+
+\begin{exercise}
+解方程组
+\[
+\begin{cases}
+x\equiv 1\pmod 2,\\
+x\equiv 2\pmod 3,\\
+x\equiv 4\pmod 5.
+\end{cases}
+\]
+\end{exercise}
+\smallblank
+
+\begin{exercise}
+解方程组
+\[
+\begin{cases}
+x\equiv 3\pmod 7,\\
+x\equiv 4\pmod 9,\\
+x\equiv 5\pmod{11}.
+\end{cases}
+\]
+\end{exercise}
+\smallblank
+
+\begin{exercise}
+解方程组
+\[
+\begin{cases}
+x\equiv 2\pmod 4,\\
+x\equiv 8\pmod 6.
+\end{cases}
+\]
+\end{exercise}
+\smallblank
+
+\begin{exercise}
+判断下列方程组是否有解：
+\[
+\begin{cases}
+x\equiv 1\pmod 6,\\
+x\equiv 4\pmod 9.
+\end{cases}
+\]
+\end{exercise}
+\smallblank
+
+\begin{exercise}
+某数被 $4$ 除余 $3$，被 $5$ 除余 $1$，被 $7$ 除余 $6$。求最小正整数解。
+\end{exercise}
+\smallblank
+
+\begin{exercise}
+写出斜边小于 $40$ 的全部原始勾股数。
+\end{exercise}
+\smallblank
+
+\begin{exercise}
+求周长为 $60$ 的全部直角三角形整数边长。
+\end{exercise}
+\smallblank
+
+\begin{exercise}
+求正整数解
+\[
+x^2-y^2=96.
+\]
+\end{exercise}
+\smallblank
+
+\begin{exercise}
+判断方程
+\[
+x^2-y^2=2026
+\]
+是否有整数解，并说明理由。
+\end{exercise}
+\smallblank
+
+\begin{exercise}
+求正整数解
+\[
+xy=x+y+35.
+\]
+\end{exercise}
+\smallblank
+
+\begin{exercise}
+求正整数解
+\[
+\frac1x+\frac1y=\frac18.
+\]
+\end{exercise}
+\smallblank
+
+\begin{exercise}
+求正整数解
+\[
+9x+14y=121.
+\]
+\end{exercise}
+\smallblank
+
+\begin{exercise}
+证明：不存在整数 $x,y$，使得
+\[
+x^2+y^2=3.
+\]
+\end{exercise}
+\smallblank
+
+\end{multicols}
+
+\begin{notebox}{随堂总结区}
+请写出今天你最重要的 3 个收获：
+\classblank
+\end{notebox}
+
+\newpage
+\appendix
+\section{附录：练习参考答案}
+
+\subsection{A组参考答案}
+
+\begin{exercise}[A1]
+求下列各式的余数：
+\begin{enumerate}
+  \item $37^{50}$ 除以 $8$ 的余数；
+  \item $2^{60}+3^{60}$ 除以 $5$ 的余数；
+  \item $10^{100}+1$ 除以 $11$ 的余数。
+\end{enumerate}
+\end{exercise}
+
+\begin{solution}
+\begin{enumerate}
+  \item 因为
+  \[
+  37\equiv 5\pmod 8,\qquad 5^2=25\equiv 1\pmod 8,
+  \]
+  所以
+  \[
+  37^{50}\equiv 5^{50}=(5^2)^{25}\equiv 1\pmod 8.
+  \]
+  余数为 \boxed{1}。
+
+  \item 因为
+  \[
+  2^4\equiv 1\pmod 5,\qquad 3^4\equiv 1\pmod 5,
+  \]
+  又 $60$ 是 $4$ 的倍数，所以
+  \[
+  2^{60}\equiv 1,\qquad 3^{60}\equiv 1\pmod 5.
+  \]
+  因此
+  \[
+  2^{60}+3^{60}\equiv 2\pmod 5.
+  \]
+  余数为 \boxed{2}。
+
+  \item 因为
+  \[
+  10\equiv -1\pmod{11},
+  \]
+  所以
+  \[
+  10^{100}+1\equiv (-1)^{100}+1=2\pmod{11}.
+  \]
+  余数为 \boxed{2}。
+\end{enumerate}
+\end{solution}
+
+\begin{exercise}[A2]
+解下列同余方程：
+\begin{enumerate}
+  \item $3x\equiv 4\pmod 7$；
+  \item $6x\equiv 9\pmod{15}$。
+\end{enumerate}
+\end{exercise}
+
+\begin{solution}
+\begin{enumerate}
+  \item 因为
+  \[
+  3\times 5=15\equiv 1\pmod 7,
+  \]
+  所以
+  \[
+  x\equiv 5\times 4=20\equiv 6\pmod 7.
+  \]
+  即
+  \[
+  \boxed{x\equiv 6\pmod 7}.
+  \]
+
+  \item 因为
+  \[
+  (6,15)=3,\qquad 3\mid 9,
+  \]
+  所以有解。两边除以 $3$ 得
+  \[
+  2x\equiv 3\pmod 5.
+  \]
+  又因 $2^{-1}\equiv 3\pmod 5$，故
+  \[
+  x\equiv 3\times 3=9\equiv 4\pmod 5.
+  \]
+  因此全部解为
+  \[
+  \boxed{x=4+5k\quad (k\in \mathbb{Z})}.
+  \]
+\end{enumerate}
+\end{solution}
+
+\begin{exercise}[A3]
+证明：任意整数的平方除以 $8$ 的余数只能是 $0,1,4$。
+\end{exercise}
+
+\begin{solution}
+分奇偶讨论：
+
+若 $n$ 为偶数，设 $n=2k$，则
+\[
+n^2=4k^2.
+\]
+若 $k$ 为偶数，则 $n^2\equiv 0\pmod 8$；若 $k$ 为奇数，则 $n^2\equiv 4\pmod 8$。
+
+若 $n$ 为奇数，设 $n=2k+1$，则
+\[
+n^2=(2k+1)^2=4k(k+1)+1.
+\]
+由于 $k(k+1)$ 为偶数，所以
+\[
+n^2\equiv 1\pmod 8.
+\]
+综上，平方数模 $8$ 只能余
+\[
+\boxed{0,1,4}.
+\]
+\end{solution}
+
+\begin{exercise}[A4]
+求所有小于 $50$ 的正整数 $n$，满足
+\[
+n\equiv 2\pmod 3,\qquad n\equiv 1\pmod 4.
+\]
+\end{exercise}
+
+\begin{solution}
+列出小于 $50$ 且模 $3$ 余 $2$ 的数：
+\[
+2,5,8,11,14,17,20,23,26,29,32,35,38,41,44,47.
+\]
+其中模 $4$ 余 $1$ 的是
+\[
+\boxed{5,17,29,41}.
+\]
+\end{solution}
+
+\begin{exercise}[A5]
+求所有整数 $n$，使得
+\[
+7\mid (n^2+3n+4).
+\]
+\end{exercise}
+
+\begin{solution}
+注意到
+\[
+4(n^2+3n+4)=(2n+3)^2+7.
+\]
+若 $7\mid (n^2+3n+4)$，则
+\[
+(2n+3)^2\equiv 0\pmod 7,
+\]
+所以
+\[
+2n+3\equiv 0\pmod 7.
+\]
+即
+\[
+2n\equiv 4\pmod 7.
+\]
+因为 $2^{-1}\equiv 4\pmod 7$，故
+\[
+n\equiv 16\equiv 2\pmod 7.
+\]
+因此全部解为
+\[
+\boxed{n\equiv 2\pmod 7}.
+\]
+\end{solution}
+
+\begin{exercise}[A6]
+求最小正整数 $n$，使得
+\[
+n\equiv 3\pmod 5,\qquad n\equiv 4\pmod 7.
+\]
+并写出全部整数解。
+\end{exercise}
+
+\begin{solution}
+列出模 $5$ 余 $3$ 的数：
+\[
+3,8,13,18,23,\dots
+\]
+其中模 $7$ 余 $4$ 的最小正整数是
+\[
+\boxed{18}.
+\]
+因为 $5,7$ 互素，所以全部解为
+\[
+\boxed{n=18+35k\quad (k\in \mathbb{Z})}.
+\]
+\end{solution}
+
+\begin{exercise}[A7]
+求方程
+\[
+14x+21y=35
+\]
+的所有整数解。
+\end{exercise}
+
+\begin{solution}
+两边同除以 $7$，得
+\[
+2x+3y=5.
+\]
+一组解为
+\[
+x=1,\qquad y=1.
+\]
+故全部整数解为
+\[
+\boxed{x=1+3t,\qquad y=1-2t\qquad (t\in \mathbb{Z})}.
+\]
+\end{solution}
+
+\begin{exercise}[A8]
+求方程
+\[
+3x+4y=100
+\]
+的所有正整数解。
+\end{exercise}
+
+\begin{solution}
+由
+\[
+3x\equiv 0\pmod 4
+\]
+得
+\[
+x\equiv 0\pmod 4.
+\]
+设
+\[
+x=4t.
+\]
+代回得
+\[
+y=25-3t.
+\]
+要求正整数解，所以
+\[
+t=1,2,3,4,5,6,7,8.
+\]
+故全部正整数解为
+\[
+\boxed{(4,22),(8,19),(12,16),(16,13),(20,10),(24,7),(28,4),(32,1)}.
+\]
+\end{solution}
+
+\begin{exercise}[A9]
+判断方程
+\[
+15x+25y=7
+\]
+是否有整数解，并说明理由。
+\end{exercise}
+
+\begin{solution}
+因为
+\[
+(15,25)=5,
+\]
+但
+\[
+5\nmid 7,
+\]
+所以无整数解。
+\end{solution}
+
+\begin{exercise}[A10]
+求正整数解
+\[
+x^2-y^2=36.
+\]
+\end{exercise}
+
+\begin{solution}
+化为
+\[
+(x-y)(x+y)=36.
+\]
+在正因数对中，只有
+\[
+2\times 18
+\]
+能得到正整数解：
+\[
+x=10,\qquad y=8.
+\]
+所以唯一正整数解为
+\[
+\boxed{(10,8)}.
+\]
+\end{solution}
+
+\begin{exercise}[A11]
+求正整数解
+\[
+\frac1x+\frac1y=\frac14.
+\]
+\end{exercise}
+
+\begin{solution}
+化为
+\[
+(x-4)(y-4)=16.
+\]
+枚举 $16$ 的正因数，可得
+\[
+\boxed{(5,20),(6,12),(8,8),(12,6),(20,5)}.
+\]
+\end{solution}
+
+\begin{exercise}[A12]
+求整数解
+\[
+x+y+xy=19.
+\]
+\end{exercise}
+
+\begin{solution}
+化为
+\[
+(x+1)(y+1)=20.
+\]
+枚举正负因数对，得全部整数解：
+\[
+\boxed{(0,19),(1,9),(3,4),(4,3),(9,1),(19,0),}
+\]
+\[
+\boxed{(-2,-21),(-3,-11),(-5,-6),(-6,-5),(-11,-3),(-21,-2).}
+\]
+\end{solution}
+
+\subsection{B组参考答案}
+
+\begin{exercise}[B1]
+解下列同余方程：
+\begin{enumerate}
+  \item $10x\equiv 15\pmod{35}$；
+  \item $12x\equiv 7\pmod{25}$；
+  \item $14x\equiv 5\pmod{21}$。
+\end{enumerate}
+\end{exercise}
+
+\begin{solution}
+\begin{enumerate}
+  \item 因为
+  \[
+  (10,35)=5,\qquad 5\mid 15,
+  \]
+  两边除以 $5$ 得
+  \[
+  2x\equiv 3\pmod 7.
+  \]
+  所以
+  \[
+  x\equiv 5\pmod 7.
+  \]
+  因此模 $35$ 下的全部解为
+  \[
+  \boxed{x\equiv 5,12,19,26,33\pmod{35}}.
+  \]
+
+  \item 因为
+  \[
+  (12,25)=1,
+  \]
+  且
+  \[
+  12\times 23=276\equiv 1\pmod{25},
+  \]
+  所以
+  \[
+  x\equiv 23\times 7=161\equiv 11\pmod{25}.
+  \]
+  即
+  \[
+  \boxed{x\equiv 11\pmod{25}}.
+  \]
+
+  \item 因为
+  \[
+  (14,21)=7,
+  \]
+  但
+  \[
+  7\nmid 5,
+  \]
+  所以无解。
+\end{enumerate}
+\end{solution}
+
+\begin{exercise}[B2]
+解方程组
+\[
+\begin{cases}
+x\equiv 1\pmod 2,\\
+x\equiv 2\pmod 3,\\
+x\equiv 4\pmod 5.
+\end{cases}
+\]
+\end{exercise}
+
+\begin{solution}
+由中国剩余定理可得
+\[
+\boxed{x\equiv 29\pmod{30}}.
+\]
+\end{solution}
+
+\begin{exercise}[B3]
+解方程组
+\[
+\begin{cases}
+x\equiv 3\pmod 7,\\
+x\equiv 4\pmod 9,\\
+x\equiv 5\pmod{11}.
+\end{cases}
+\]
+\end{exercise}
+
+\begin{solution}
+设
+\[
+x=3+7t.
+\]
+代入第二式，得
+\[
+7t\equiv 1\pmod 9\Rightarrow t\equiv 4\pmod 9.
+\]
+设
+\[
+t=4+9s,
+\]
+则
+\[
+x=31+63s.
+\]
+代入第三式：
+\[
+31+63s\equiv 5\pmod{11}
+\Rightarrow 8s\equiv 7\pmod{11}.
+\]
+因为 $8^{-1}\equiv 7\pmod{11}$，所以
+\[
+s\equiv 5\pmod{11}.
+\]
+设
+\[
+s=5+11k,
+\]
+则
+\[
+x=346+693k.
+\]
+故
+\[
+\boxed{x\equiv 346\pmod{693}}.
+\]
+\end{solution}
+
+\begin{exercise}[B4]
+解方程组
+\[
+\begin{cases}
+x\equiv 2\pmod 4,\\
+x\equiv 8\pmod 6.
+\end{cases}
+\]
+\end{exercise}
+
+\begin{solution}
+第二式等价于
+\[
+x\equiv 2\pmod 6.
+\]
+所以方程组变成
+\[
+\begin{cases}
+x\equiv 2\pmod 4,\\
+x\equiv 2\pmod 6.
+\end{cases}
+\]
+故
+\[
+\boxed{x\equiv 2\pmod{12}}.
+\]
+\end{solution}
+
+\begin{exercise}[B5]
+判断下列方程组是否有解：
+\[
+\begin{cases}
+x\equiv 1\pmod 6,\\
+x\equiv 4\pmod 9.
+\end{cases}
+\]
+\end{exercise}
+
+\begin{solution}
+因为
+\[
+(6,9)=3,
+\]
+且
+\[
+1\equiv 4\pmod 3,
+\]
+所以有解。
+设
+\[
+x=1+6t,
+\]
+代入第二式，得
+\[
+6t\equiv 3\pmod 9\Rightarrow 2t\equiv 1\pmod 3.
+\]
+故
+\[
+t\equiv 2\pmod 3.
+\]
+所以
+\[
+\boxed{x\equiv 13\pmod{18}}.
+\]
+\end{solution}
+
+\begin{exercise}[B6]
+某数被 $4$ 除余 $3$，被 $5$ 除余 $1$，被 $7$ 除余 $6$。求最小正整数解。
+\end{exercise}
+
+\begin{solution}
+设
+\[
+x=3+4t.
+\]
+代入第二个条件：
+\[
+3+4t\equiv 1\pmod 5
+\Rightarrow 4t\equiv 3\pmod 5
+\Rightarrow t\equiv 2\pmod 5.
+\]
+设
+\[
+t=2+5s,
+\]
+则
+\[
+x=11+20s.
+\]
+代入第三个条件：
+\[
+11+20s\equiv 6\pmod 7
+\Rightarrow 6s\equiv 2\pmod 7.
+\]
+所以
+\[
+s\equiv 5\pmod 7.
+\]
+取最小 $s=5$，得
+\[
+\boxed{x=111}.
+\]
+\end{solution}
+
+\begin{exercise}[B7]
+写出斜边小于 $40$ 的全部原始勾股数。
+\end{exercise}
+
+\begin{solution}
+枚举可得
+\[
+\boxed{(3,4,5),(5,12,13),(8,15,17),(7,24,25),(20,21,29),(12,35,37)}.
+\]
+\end{solution}
+
+\begin{exercise}[B8]
+求周长为 $60$ 的全部直角三角形整数边长。
+\end{exercise}
+
+\begin{solution}
+由原始勾股数 $(3,4,5)$ 放大 $5$ 倍，得
+\[
+(15,20,25).
+\]
+由原始勾股数 $(5,12,13)$ 放大 $2$ 倍，得
+\[
+(10,24,26).
+\]
+故全部解为
+\[
+\boxed{(15,20,25),(10,24,26)}.
+\]
+\end{solution}
+
+\begin{exercise}[B9]
+求正整数解
+\[
+x^2-y^2=96.
+\]
+\end{exercise}
+
+\begin{solution}
+化为
+\[
+(x-y)(x+y)=96.
+\]
+枚举偶因数对：
+\[
+2\times 48,\quad 4\times 24,\quad 6\times 16,\quad 8\times 12.
+\]
+对应得到
+\[
+\boxed{(25,23),(14,10),(11,5),(10,2)}.
+\]
+\end{solution}
+
+\begin{exercise}[B10]
+判断方程
+\[
+x^2-y^2=2026
+\]
+是否有整数解，并说明理由。
+\end{exercise}
+
+\begin{solution}
+因为
+\[
+2026\equiv 2\pmod 4,
+\]
+而平方差不可能模 $4$ 余 $2$，所以无整数解。
+\end{solution}
+
+\begin{exercise}[B11]
+求正整数解
+\[
+xy=x+y+35.
+\]
+\end{exercise}
+
+\begin{solution}
+化为
+\[
+(x-1)(y-1)=36.
+\]
+枚举正因数对，可得
+\[
+\boxed{(2,37),(3,19),(4,13),(5,10),(7,7),(10,5),(13,4),(19,3),(37,2)}.
+\]
+\end{solution}
+
+\begin{exercise}[B12]
+求正整数解
+\[
+\frac1x+\frac1y=\frac18.
+\]
+\end{exercise}
+
+\begin{solution}
+化为
+\[
+(x-8)(y-8)=64.
+\]
+所以全部正整数解为
+\[
+\boxed{(9,72),(10,40),(12,24),(16,16),(24,12),(40,10),(72,9)}.
+\]
+\end{solution}
+
+\begin{exercise}[B13]
+求正整数解
+\[
+9x+14y=121.
+\]
+\end{exercise}
+
+\begin{solution}
+由
+\[
+9x\equiv 121\equiv 9\pmod{14}
+\]
+得
+\[
+x\equiv 1\pmod{14}.
+\]
+设
+\[
+x=1+14t,
+\]
+代回得
+\[
+y=8-9t.
+\]
+要使 $y>0$，只能取 $t=0$，所以唯一正整数解为
+\[
+\boxed{(x,y)=(1,8)}.
+\]
+\end{solution}
+
+\begin{exercise}[B14]
+证明：不存在整数 $x,y$，使得
+\[
+x^2+y^2=3.
+\]
+\end{exercise}
+
+\begin{solution}
+任意整数平方模 $4$ 只能余 $0$ 或 $1$，因此
+\[
+x^2+y^2
+\]
+模 $4$ 只能余 $0,1,2$，不可能余 $3$。故无整数解。
+\end{solution}
+
+\section{教学说明}
+
+\begin{notebox}{教学建议}
+\begin{itemize}
+  \item 同余部分要让学生自己发现“循环节”和“分类讨论”的使用场景；
+  \item 一次同余方程建议反复强调“先看最大公因数”；
+  \item 韩信点兵先用逐步代入法，再介绍中国剩余定理；
+  \item 勾股数部分不必一开始追求完整证明，但应逐步熟悉参数公式的使用；
+  \item 不定方程部分重点培养“看结构、凑因式、做变形”的意识。
+\end{itemize}
+\end{notebox}
+
+\begin{notebox}{课后加练建议}
+可继续补充三类题：
+\begin{enumerate}
+  \item 多条件余数问题与韩信点兵变式；
+  \item 周长、面积、斜边限制下的勾股数问题；
+  \item 结合模运算证明无解的拓展题。
+\end{enumerate}
+\end{notebox}
+
+\begin{landscape}
+\newpage
+\section{附加页：常用逆元速查表}
+
+\begin{goalbox}{查表说明}
+如果整数 $a$ 与模数 $m$ 互素，那么表中的“逆元”就是满足
+\[
+ax\equiv 1\pmod m
+\]
+的那个数。解一次同余方程时，如果模数比较小，可以直接查表使用。
+\end{goalbox}
+
+\begin{notebox}{查表提示}
+\begin{itemize}
+  \item 只有与模数互素的数才有逆元；
+  \item 一个数的逆元不一定和它不同，例如模 $7$ 下的 $6$ 的逆元还是 $6$；
+  \item 如果 $a$ 的逆元是 $b$，那么 $b$ 的逆元也是 $a$。
+\end{itemize}
+\end{notebox}
+
+\subsection*{横向速查表}
+
+\[
+\renewcommand{\arraystretch}{1.35}
+\begin{array}{c|cccccccccccc}
+\text{模数} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 \\
+\hline
+7  & 1 & 4 & 5 & 2 & 3 & 6 & - & - & - & - & - & - \\
+9  & 1 & 5 & - & 7 & 2 & - & 4 & 8 & - & - & - & - \\
+11 & 1 & 6 & 4 & 3 & 9 & 2 & 8 & 7 & 5 & 10 & - & - \\
+12 & 1 & - & - & - & 5 & - & 7 & - & - & - & 11 & - \\
+13 & 1 & 7 & 9 & 10 & 8 & 11 & 2 & 5 & 3 & 4 & 6 & 12
+\end{array}
+\]
+
+\begin{notebox}{读表示例}
+例如在“模 $11$”这一行、数字 $7$ 这一列，查到的结果是 $8$，表示
+\[
+7^{-1}\equiv 8\pmod{11}.
+\]
+横线 “$-$” 表示该数与模数不互素，因此不存在逆元。
+\end{notebox}
+
+\begin{notebox}{记忆提示}
+这些表不要求死记硬背，但下面几组建议优先熟悉：
+\[
+2^{-1}\equiv 4\pmod 7,\qquad
+3^{-1}\equiv 5\pmod 7,\qquad
+2^{-1}\equiv 5\pmod 9,
+\]
+\[
+3^{-1}\equiv 4\pmod{11},\qquad
+7^{-1}\equiv 8\pmod{11},\qquad
+4^{-1}\equiv 10\pmod{13}.
+\]
+这些在竞赛题中出现得很频繁。
+\end{notebox}
+\end{landscape}
+
+\newpage
+\section{附加页：常用平方数模表}
+
+\begin{goalbox}{平方数模表的用途}
+很多题目需要判断一个式子是否可能等于某个平方数，或者判断方程是否无解。
+这时只要先看“平方数除以某个数后可能余什么”，常常就能迅速排除不可能的情况。
+\end{goalbox}
+
+\begin{notebox}{使用说明}
+例如模 $8$ 的平方数只可能余 $0,1,4$，所以如果某个数模 $8$ 余 $3$、$5$、$6$ 或 $7$，它就不可能是平方数。
+\end{notebox}
+
+\subsection*{常用平方数模表}
+
+\[
+\renewcommand{\arraystretch}{1.4}
+\begin{array}{c|c}
+\text{模数} & \text{平方数可能的余数} \\
+\hline
+4 & 0,\,1 \\
+8 & 0,\,1,\,4 \\
+3 & 0,\,1 \\
+5 & 0,\,1,\,4 \\
+7 & 0,\,1,\,2,\,4 \\
+9 & 0,\,1,\,4,\,7
+\end{array}
+\]
+
+\subsection*{从哪里来：以模 $7$ 为例}
+
+只要把模 $7$ 的所有可能余数平方一遍即可：
+\[
+0^2\equiv 0,\quad 1^2\equiv 1,\quad 2^2\equiv 4,\quad 3^2\equiv 2\pmod 7.
+\]
+后面的
+\[
+4^2,\ 5^2,\ 6^2
+\]
+分别与前面重复，所以平方数模 $7$ 只可能余
+\[
+0,1,2,4.
+\]
+
+\begin{notebox}{记忆提示}
+下面几条最常用，建议优先记熟：
+\begin{itemize}
+  \item 平方数模 $4$ 只能余 $0$ 或 $1$；
+  \item 平方数模 $8$ 只能余 $0,1,4$；
+  \item 平方数模 $3$ 只能余 $0$ 或 $1$；
+  \item 平方数模 $5$ 只能余 $0,1,4$。
+\end{itemize}
+这几条在证明“不可能是平方数”时特别高频。
+\end{notebox}
+
+\end{document}
