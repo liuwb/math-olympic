@@ -1,0 +1,889 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.35cm,bottom=2.55cm,left=2.3cm,right=2.3cm,headheight=18pt,headsep=0.55cm,footskip=26pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black,
+  citecolor=blue!50!black
+}
+
+\setstretch{1.15}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.28em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.35em, topsep=0.35em, leftmargin=2.2em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=1.9em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{accent}{RGB}{153,76,0}
+\definecolor{rulegray}{RGB}{110,118,128}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.25em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.2em}{0.8em}
+\titleformat{\subsection}{\large\bfseries\color{mainblue}}{\thesubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 组合专题提高训练题单}
+\fancyhead[C]{\small 排列组合计数、抽屉原理与染色问题}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{goalbox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{notebox}[1]{
+  breakable,
+  colback=lightgray,
+  colframe=black!50,
+  boxrule=0.55pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtheoremstyle{formalexample}
+  {0.8em}{0.8em}{\normalfont}{}{\bfseries\color{accent}}{．}{0.6em}{}
+\theoremstyle{formalexample}
+\newtheorem{exercise}{题目}[section]
+\newenvironment{solution}{\par\noindent\textbf{解：}}{\hfill$\square$\par}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{titlepage}
+\centering
+\vspace*{0.9cm}
+\begin{tcolorbox}[
+  enhanced,
+  width=0.92\textwidth,
+  colback=white,
+  colframe=mainblue,
+  boxrule=1pt,
+  arc=0mm,
+  left=6mm,
+  right=6mm,
+  top=8mm,
+  bottom=8mm
+]
+\centering
+{\fontsize{24}{30}\selectfont\bfseries 组合专题提高训练题单\par}
+\vspace{0.6cm}
+{\fontsize{17}{22}\selectfont 适合小学高年级至初中低年级数学竞赛过渡训练\par}
+
+\vspace{1cm}
+\begin{tcolorbox}[colback=lightblue,colframe=mainblue,width=0.84\textwidth,boxrule=1pt]
+\centering
+{\large 训练目标：把课堂方法真正变成可迁移的解题能力}\\[0.35em]
+{\normalsize 建议分 3 次完成：计数 1 次，抽屉 1 次，染色与综合 1 次}
+\end{tcolorbox}
+
+\vspace{1cm}
+\renewcommand{\arraystretch}{1.42}
+\begin{tabular}{>{\bfseries}p{3.5cm}p{8cm}}
+题目数量： & 24 题，按难度递进 \\
+建议使用： & 课后训练、周末专题练习、阶段测验 \\
+答案形式： & 末尾附较详细解答，适合独立完成后对照订正 \\
+编译方式： & XeLaTeX \\
+\end{tabular}
+
+\vspace{0.9cm}
+{\large \today\par}
+\end{tcolorbox}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{使用建议}
+
+\begin{goalbox}{建议做题方式}
+\begin{itemize}
+  \item 每题先写“题型判断”：计数、存在性还是不可能性；
+  \item 再写“首选方法”：分类、插空、抽屉、染色等；
+  \item 最后才进入计算或证明。
+\end{itemize}
+\end{goalbox}
+
+\begin{notebox}{建议计时}
+\begin{itemize}
+  \item 基础题：每题 5--8 分钟；
+  \item 中档题：每题 10--15 分钟；
+  \item 压轴题：先思考 8 分钟再看提示，不要一开始就翻答案。
+\end{itemize}
+\end{notebox}
+
+\section{排列组合计数}
+
+\begin{exercise}
+用数字 $0,1,2,3,4,5,6$ 组成没有重复数字的四位偶数，共有多少个？
+\end{exercise}
+
+\begin{exercise}
+6 个男生、4 个女生站成一排，要求女生互不相邻，共有多少种排法？
+\end{exercise}
+
+\begin{exercise}
+7 本不同的书排成一行，其中数学、语文、英语三本书必须排在一起，共有多少种排法？
+\end{exercise}
+
+\begin{exercise}
+从 8 名同学中选出 4 人站成一排，其中甲、乙两人不能相邻，共有多少种方法？
+\end{exercise}
+
+\begin{exercise}
+用数字 $1,2,3,4,5,6$ 组成没有重复数字的五位数，其中恰有 3 个偶数数字，共有多少个？
+\end{exercise}
+
+\begin{exercise}
+将单词“BANANA”的 6 个字母排成一排，共有多少种不同排法？其中两个 $N$ 不相邻的有多少种？
+\end{exercise}
+
+\begin{exercise}
+8 名同学围成一圈坐下，甲、乙不相邻，共有多少种不同坐法？
+\end{exercise}
+
+\begin{exercise}
+5 个不同的小球放入 3 个不同的盒子，每个盒子至少放 1 个球，共有多少种放法？
+\end{exercise}
+
+\section{抽屉原理}
+
+\begin{exercise}
+任取 7 个整数，证明其中一定有两个整数的差是 6 的倍数。
+\end{exercise}
+
+\begin{exercise}
+从 $1$ 到 $30$ 中任取 16 个整数，证明其中一定有两个数互质。
+\end{exercise}
+
+\begin{exercise}
+在边长为 3 的正方形内任取 5 个点，证明其中一定有两个点的距离不超过 $\dfrac{3\sqrt{2}}{2}$。
+\end{exercise}
+
+\begin{exercise}
+任取 11 个不同的自然数，证明其中一定有两个数除以 10 的余数相同。
+\end{exercise}
+
+\begin{exercise}
+从 $1,2,3,\ldots,50$ 中任取 26 个数，证明其中一定有两个数，一个是另一个的倍数。
+\end{exercise}
+
+\begin{exercise}
+平面上任取 5 个格点，证明其中一定能找到两点，使得这两点连线的中点仍是格点。
+\end{exercise}
+
+\begin{exercise}
+任取 8 个整数，证明其中一定有两个数，它们的和或差是 7 的倍数。
+\end{exercise}
+
+\begin{exercise}
+有 25 名同学参加测试，成绩都是 0 到 100 之间的整数。证明至少有 3 名同学的成绩落在同一个 10 分分数段内。
+\end{exercise}
+
+\section{染色问题}
+
+\begin{exercise}
+$8\times 8$ 棋盘去掉两个对角角格后，剩余部分能否被 $1\times 2$ 骨牌完全覆盖？请说明理由。
+\end{exercise}
+
+\begin{exercise}
+$7\times 7$ 棋盘去掉一个角格后，剩余部分能否被 $1\times 2$ 骨牌完全覆盖？请说明理由。
+\end{exercise}
+
+\begin{exercise}
+一只棋盘上的马从黑格出发，走 9 步后能否停在黑格上？为什么？
+\end{exercise}
+
+\begin{exercise}
+把平面整数格点按 $x+y$ 的奇偶性染成两色。一只青蛙每次向上、下、左、右跳 1 格。它能否从 $(0,0)$ 跳到 $(4,4)$ 并且恰好跳 7 步？
+\end{exercise}
+
+\begin{exercise}
+将所有整数按除以 3 的余数染成三种颜色。证明任意 4 个连续整数中，至少有两个整数颜色相同。
+\end{exercise}
+
+\begin{exercise}
+一个 $5\times 5$ 棋盘删去正中心格后，剩余部分黑白格数量有什么特点？仅凭这一点能否立刻判断能否被骨牌覆盖？
+\end{exercise}
+
+\section{综合提高}
+
+\begin{exercise}
+从数字 $0,1,2,3,4,5,6,7$ 中选出 5 个不同数字组成五位数，要求这个五位数是偶数，且相邻两位数字不同奇偶，共有多少个？
+\end{exercise}
+
+\begin{exercise}
+从 $1$ 到 $100$ 中任取 51 个数，判断下列两个结论的真假，并说明理由：
+\begin{enumerate}
+  \item 其中一定存在两个数，它们的差是奇数；
+  \item 其中一定存在两个数，一个是另一个的倍数，且这两个数的差还是奇数。
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+在一个 $6\times 6$ 棋盘上填入 6 枚棋子，使得每行恰有 1 枚、每列恰有 1 枚。把棋盘按黑白相间染色。判断黑格上的棋子数与白格上的棋子数是否一定相同；若不一定，请举例说明。
+\end{exercise}
+
+\begin{exercise}
+把集合
+\[
+\{1,2,3,\ldots,18\}
+\]
+分成若干组，使得任取 10 个数时一定有两个数来自同一组且互质。请给出一种分组思路。
+\end{exercise}
+
+\newpage
+\appendix
+\section{详细解答}
+
+\subsection*{排列组合计数}
+
+\textbf{1}\begin{solution}
+因为四位数是偶数，所以末位只能是 $0,2,4,6$。
+
+\textbf{第一类：末位是 $0$。}  
+千位可从 $1,2,3,4,5,6$ 中选，有 $6$ 种；百位再选剩下的 $5$ 个数字之一；十位再选剩下的 $4$ 个数字之一。  
+所以这一类有
+\[
+6\times 5\times 4=120
+\]
+个。
+
+\textbf{第二类：末位是 $2,4,6$ 中的一个。}  
+末位有 $3$ 种选法。选定末位后，千位不能为 $0$，可从其余 5 个非零数字中选，有 $5$ 种；百位有 $5$ 种；十位有 $4$ 种。  
+所以这一类有
+\[
+3\times 5\times 5\times 4=300
+\]
+个。
+
+总数为
+\[
+120+300=420.
+\]
+\end{solution}
+
+\textbf{2}\begin{solution}
+先排 6 个男生，有
+\[
+6!
+\]
+种排法。
+
+男生排好后形成 7 个空位：
+\[
+\square B \square B \square B \square B \square B \square B \square
+\]
+要使 4 个女生互不相邻，就必须从这 7 个空位中选出 4 个给女生站，因此选空位有
+\[
+\binom{7}{4}
+\]
+种。
+
+4 个女生彼此不同，还要在这 4 个空位中排列，有
+\[
+4!
+\]
+种。
+
+所以总排法为
+\[
+6!\binom{7}{4}4!.
+\]
+\end{solution}
+
+\textbf{3}\begin{solution}
+把数学、语文、英语三本书捆绑成一个整体，那么就变成 5 个对象排成一行，所以外部排法有
+\[
+5!
+\]
+种。
+
+而这三本书在这个整体内部还可以再排列，有
+\[
+3!
+\]
+种。
+
+因此总排法为
+\[
+5!\times 3!=720.
+\]
+\end{solution}
+
+\textbf{4}\begin{solution}
+先从 8 名同学中选出 4 人，再把他们排成一行。
+
+若不加限制，总方法数为
+\[
+\binom{8}{4}\times 4!=70\times 24=1680.
+\]
+
+现在计算甲、乙相邻的坏情况。若甲、乙都被选中，则另外 2 人要从剩下 6 人中选：
+\[
+\binom{6}{2}=15.
+\]
+把甲、乙看成一个整体，与另外两人共 3 个对象排成一行，有
+\[
+3!
+\]
+种；甲乙内部还可交换顺序，有
+\[
+2!
+\]
+种。
+
+所以坏情况共有
+\[
+\binom{6}{2}\times 3!\times 2!=15\times 6\times 2=180.
+\]
+
+因此满足条件的方法数是
+\[
+1680-180=1500.
+\]
+\end{solution}
+
+\textbf{5}\begin{solution}
+偶数数字是 $2,4,6$，奇数数字是 $1,3,5$。题目要求五位数中恰有 3 个偶数数字，因此：
+\begin{itemize}
+  \item 3 个偶数只能把 $2,4,6$ 全部选上；
+  \item 2 个奇数从 $1,3,5$ 中任选 2 个。
+\end{itemize}
+
+选奇数有
+\[
+\binom{3}{2}=3
+\]
+种。
+
+选好 5 个不同数字后，把它们排成五位数即可，有
+\[
+5!=120
+\]
+种。
+
+所以总数为
+\[
+3\times 120=360.
+\]
+\end{solution}
+
+\textbf{6}\begin{solution}
+单词 ``BANANA'' 中共有 6 个字母，其中 $A$ 有 3 个，$N$ 有 2 个，$B$ 有 1 个。
+
+\textbf{先求不同排法总数。}  
+若 6 个字母都不同，则有 $6!$ 种；但 3 个 $A$ 彼此不可区分，2 个 $N$ 彼此不可区分，因此总数为
+\[
+\frac{6!}{3!2!}=60.
+\]
+
+\textbf{再求两个 $N$ 不相邻的排法。}  
+先求两个 $N$ 相邻的排法，再用总数减去它。
+
+把两个 $N$ 捆绑成一个整体，连同 3 个 $A$ 和 1 个 $B$，一共是 5 个对象，其中 3 个 $A$ 相同，所以排法数为
+\[
+\frac{5!}{3!}=20.
+\]
+
+因此两个 $N$ 不相邻的排法数为
+\[
+60-20=40.
+\]
+\end{solution}
+
+\textbf{7}\begin{solution}
+围成一圈的排列，通常先固定一人。固定其中一名同学后，其余 7 人围坐有
+\[
+7!=5040
+\]
+种不同坐法。
+
+现在计算甲、乙相邻的坏情况。固定甲以后，乙只能坐在甲的左边或右边，共 2 种选法。其余 6 人任意排列，有
+\[
+6!
+\]
+种。
+
+所以坏情况为
+\[
+2\times 6!=2\times 720=1440.
+\]
+
+满足甲、乙不相邻的坐法为
+\[
+7!-2\times 6!=5040-1440=3600.
+\]
+\end{solution}
+
+\textbf{8}\begin{solution}
+把 5 个不同小球放入 3 个不同盒子，且每盒至少 1 个。按每个盒子中的球数分类。
+
+因为
+\[
+5=3+1+1=2+2+1,
+\]
+所以只有两种分配类型。
+
+\textbf{第一类：}分配成 $(3,1,1)$。  
+先选哪个盒子装 3 个球，有 $3$ 种；再从 5 个球中选 3 个放进去，有
+\[
+\binom{5}{3}=10
+\]
+种；剩下 2 个球分给另外两个盒子，有
+\[
+2!
+\]
+种。
+
+所以这一类有
+\[
+3\times 10\times 2=60
+\]
+种。
+
+\textbf{第二类：}分配成 $(2,2,1)$。  
+先选哪个盒子装 1 个球，有 $3$ 种；再选哪 1 个球放进去，有 $5$ 种；剩下 4 个球中给另一个盒子选 2 个，有
+\[
+\binom{4}{2}=6
+\]
+种，最后 2 个球自动进入最后一个盒子。
+
+所以这一类有
+\[
+3\times 5\times 6=90
+\]
+种。
+
+总数为
+\[
+60+90=150.
+\]
+\end{solution}
+
+\subsection*{抽屉原理}
+
+\textbf{9}\begin{solution}
+把整数按除以 6 的余数分类。余数只有
+\[
+0,1,2,3,4,5
+\]
+这 6 类，也就是 6 个抽屉。
+
+任取 7 个整数，按抽屉原理，至少有两个整数落在同一类，也就是它们除以 6 的余数相同。
+
+设这两个数是 $a,b$，则
+\[
+a\equiv b\pmod 6,
+\]
+所以
+\[
+a-b\equiv 0\pmod 6.
+\]
+也就是说，它们的差是 6 的倍数。
+\end{solution}
+
+\textbf{10}\begin{solution}
+把 $1$ 到 $30$ 分成 15 组：
+\[
+\{1,2\},\{3,4\},\{5,6\},\ldots,\{29,30\}.
+\]
+
+每一组中的两个数是连续整数，因此一定互质。
+
+现在从 30 个整数中任取 16 个数，相当于从这 15 个组中取 16 个元素。根据抽屉原理，至少有一组中取到了两个数。
+
+而这一组中的两个数是连续整数，所以它们互质。
+
+因此任取 16 个整数，必有两个数互质。
+\end{solution}
+
+\textbf{11}\begin{solution}
+把边长为 3 的正方形平均分成 4 个边长为
+\[
+\frac32
+\]
+的小正方形。
+
+这 4 个小正方形就是 4 个抽屉，任取的 5 个点就是 5 个物体。由抽屉原理，至少有两个点落在同一个小正方形内。
+
+同一个小正方形内两点间的最大距离，不会超过这个小正方形的对角线长。对角线长为
+\[
+\frac32\sqrt{2}=\frac{3\sqrt{2}}{2}.
+\]
+
+所以这两个点的距离不超过
+\[
+\frac{3\sqrt{2}}{2}.
+\]
+\end{solution}
+
+\textbf{12}\begin{solution}
+自然数除以 10 的余数只有
+\[
+0,1,2,\ldots,9
+\]
+共 10 种可能。
+
+任取 11 个不同的自然数，把它们按除以 10 的余数放入 10 个抽屉中。根据抽屉原理，至少有两个数落在同一个抽屉，也就是它们除以 10 的余数相同。
+\end{solution}
+
+\textbf{13}\begin{solution}
+这是一个经典的进阶抽屉题。
+
+把每个正整数唯一地写成
+\[
+2^k\times m,
+\]
+其中 $m$ 是奇数。例如
+\[
+12=2^2\times 3,\qquad 40=2^3\times 5.
+\]
+
+我们把“奇数部分相同”的数放入同一个抽屉。  
+从 1 到 50 的奇数共有 25 个：
+\[
+1,3,5,\ldots,49.
+\]
+因此一共只有 25 个抽屉。
+
+现在任取 26 个数，按抽屉原理，至少有两个数落入同一个抽屉。设它们是
+\[
+2^a m,\qquad 2^b m
+\]
+且不妨设 $a<b$，那么
+\[
+2^b m=2^{b-a}(2^a m),
+\]
+所以较大的那个数是较小的那个数的倍数。
+
+故结论成立。
+\end{solution}
+
+\textbf{14}\begin{solution}
+格点的横坐标有奇、偶两种情况，纵坐标也有奇、偶两种情况，因此格点按横纵坐标奇偶性最多分成 4 类：
+\[
+(\text{奇},\text{奇}),\ (\text{奇},\text{偶}),\ (\text{偶},\text{奇}),\ (\text{偶},\text{偶}).
+\]
+
+任取 5 个格点，按抽屉原理，至少有两个点落在同一类。设这两个点为
+\[
+(x_1,y_1),\qquad (x_2,y_2).
+\]
+因为它们在同一类，所以 $x_1,x_2$ 同奇偶，$y_1,y_2$ 也同奇偶。
+
+于是
+\[
+\frac{x_1+x_2}{2},\qquad \frac{y_1+y_2}{2}
+\]
+都是整数，所以这两点连线中点
+\[
+\left(\frac{x_1+x_2}{2},\frac{y_1+y_2}{2}\right)
+\]
+仍是格点。
+\end{solution}
+
+\textbf{15}\begin{solution}
+把整数按除以 7 的余数分成下面 4 类：
+\[
+\{0\},\qquad \{1,6\},\qquad \{2,5\},\qquad \{3,4\}.
+\]
+
+为什么这样分？因为：
+\begin{itemize}
+  \item 余数相同，则两数之差是 7 的倍数；
+  \item 余数互为补数（如 1 和 6），则两数之和是 7 的倍数。
+\end{itemize}
+
+现在任取 8 个整数，把它们按除以 7 的余数放进上述 4 类中。由于 8 个物体放进 4 个抽屉，按加强型抽屉原理，至少有一个抽屉里有 2 个数。
+
+若这两个数来自 $\{0\}$ 这一类，则它们余数都为 0，差是 7 的倍数。  
+若这两个数来自其他某一类，例如 $\{1,6\}$，那么它们要么余数相同，此时差是 7 的倍数；要么一个余 1，一个余 6，此时和是 7 的倍数。
+
+所以总能找到两个数，它们的和或差是 7 的倍数。
+\end{solution}
+
+\textbf{16}\begin{solution}
+把分数段分成 10 个抽屉，例如：
+\[
+0\text{--}9,\ 10\text{--}19,\ 20\text{--}29,\ \ldots,\ 80\text{--}89,\ 90\text{--}100.
+\]
+
+这 10 个分数段覆盖了所有 0 到 100 之间的整数成绩。
+
+现在有 25 名同学，相当于 25 个物体放入 10 个抽屉。由加强型抽屉原理，至少有一个抽屉中的人数不少于
+\[
+\left\lceil \frac{25}{10}\right\rceil=3.
+\]
+
+所以至少有 3 名同学的成绩落在同一个 10 分分数段内。
+\end{solution}
+
+\subsection*{染色问题}
+
+\textbf{17}\begin{solution}
+不能覆盖。
+
+把 $8\times 8$ 棋盘染成黑白相间。每块 $1\times 2$ 骨牌无论横放还是竖放，都恰好覆盖一个黑格和一个白格。
+
+而 $8\times 8$ 棋盘的两个对角角格颜色相同。去掉它们以后，剩余棋盘中的黑白格个数就不再相等。
+
+如果还能被骨牌完全覆盖，那么所有骨牌一共覆盖到的黑格数和白格数应该相等，这与上面的黑白格数量不相等矛盾。
+
+因此不能完全覆盖。
+\end{solution}
+
+\textbf{18}\begin{solution}
+能覆盖。
+
+不妨设去掉的是左上角。此时第一行还剩下 6 个格子，可以用 3 块横放骨牌覆盖。
+
+而第 2 行到第 7 行一共构成一个
+\[
+6\times 7
+\]
+的长方形。这个长方形可以按列用竖放骨牌全部覆盖：每一列有 6 个格子，可用 3 块竖放骨牌盖满；共有 7 列，因此正好覆盖完。
+
+所以整个去角后的 $7\times 7$ 棋盘可以被骨牌完全覆盖。
+\end{solution}
+
+\textbf{19}\begin{solution}
+不能。
+
+把棋盘染成黑白相间。马走一步时，横纵坐标的变化总是一奇一偶，因此落点颜色一定改变一次，也就是说：
+\begin{itemize}
+  \item 从黑格走一步必到白格；
+  \item 从白格走一步必到黑格。
+\end{itemize}
+
+所以马走奇数步后，一定落在与出发点颜色不同的格子上；走偶数步后，才会回到同色格。
+
+题中从黑格出发，走了 9 步，而 9 是奇数，因此不可能停在黑格上。
+\end{solution}
+
+\textbf{20}\begin{solution}
+不能。
+
+把所有整数格点按 $x+y$ 的奇偶性染成两色。
+
+从一个格点向上、下、左、右跳 1 格，相当于坐标和 $x+y$ 增加 1 或减少 1，所以奇偶性一定改变，也就是每跳一步都会换色。
+
+起点 $(0,0)$ 的
+\[
+0+0=0
+\]
+是偶数；终点 $(4,4)$ 的
+\[
+4+4=8
+\]
+也是偶数，因此起点和终点同色。
+
+但如果跳 7 步，因为 7 是奇数，颜色应当改变奇数次，最后落在异色格上，这与终点同色矛盾。
+
+因此不可能恰好跳 7 步到达 $(4,4)$。
+\end{solution}
+
+\textbf{21}\begin{solution}
+把整数按除以 3 的余数染成三种颜色。
+
+任意 4 个连续整数可以写成
+\[
+n,\ n+1,\ n+2,\ n+3.
+\]
+而连续 3 个整数的余数一定刚好是
+\[
+0,1,2
+\]
+三种各一次。到了第 4 个整数，它的余数又会和第 1 个整数相同。
+
+因此在这 4 个连续整数里，三种颜色的分布一定是
+\[
+2,1,1.
+\]
+于是至少有两个整数颜色相同。
+\end{solution}
+
+\textbf{22}\begin{solution}
+在 $5\times 5$ 棋盘上，若按黑白相间染色，则黑格与白格数分别是
+\[
+13,\ 12.
+\]
+
+正中心格与四个角颜色相同，因此它属于数量较多的那一色。删去中心格以后，剩余部分的黑白格数量就变成
+\[
+12,\ 12,
+\]
+也就是黑白格数量相等。
+
+但是，仅凭“黑白格数量相等”还不能立刻判断一定能否覆盖。因为：
+\begin{itemize}
+  \item 黑白格数量不相等时，一定不能覆盖；
+  \item 黑白格数量相等时，只说明染色法没有推出矛盾，这是\textbf{必要条件}，不是充分条件。
+\end{itemize}
+
+所以本题的回答是：删去中心后黑白格数量相等；但仅凭这一点，还不能立刻判断是否能被骨牌覆盖。
+\end{solution}
+
+\subsection*{综合提高}
+
+\textbf{23}\begin{solution}
+相邻两位数字奇偶不同，说明整个五位数的奇偶性必须交替出现。
+
+又因为这个五位数是偶数，所以末位必须是偶数。对 5 位数来说，满足交替且末位为偶数的奇偶模式只有一种：
+\[
+\text{偶}\ \text{奇}\ \text{偶}\ \text{奇}\ \text{偶}.
+\]
+
+因此第 1、3、5 位都放偶数，第 2、4 位都放奇数。
+
+偶数数字有
+\[
+0,2,4,6
+\]
+共 4 个；奇数数字有
+\[
+1,3,5,7
+\]
+共 4 个。
+
+\textbf{先安排奇数位。}  
+第 2、4 位要放 2 个不同奇数：先选再排，
+\[
+\binom{4}{2}\times 2!=6\times 2=12
+\]
+种。
+
+\textbf{再安排偶数位。}  
+第 1、3、5 位要放 3 个不同偶数，但第 1 位不能是 0。
+
+\begin{itemize}
+  \item 若选出的 3 个偶数中含 $0$，则从 $\{2,4,6\}$ 中再选 2 个，有
+  \[
+  \binom{3}{2}=3
+  \]
+  种。每组数字排到第 1、3、5 位的总方法数为 $3!$，但第 1 位取 0 的坏情况有 $2!$ 种，因此合法排法有
+  \[
+  3!-2!=6-2=4
+  \]
+  种。此类共
+  \[
+  3\times 4=12
+  \]
+  种。
+  \item 若选出的 3 个偶数中不含 $0$，则只能是 $\{2,4,6\}$ 这一组，排法有
+  \[
+  3!=6
+  \]
+  种。
+\end{itemize}
+
+所以偶数位总排法为
+\[
+12+6=18.
+\]
+
+最后总数为
+\[
+12\times 18=216.
+\]
+\end{solution}
+
+\textbf{24}\begin{solution}
+\textbf{(1) 一定存在两个数，它们的差是奇数。}
+
+这个结论为真。  
+因为从 1 到 100 中，奇数有 50 个，偶数也有 50 个。若选出 51 个数，不可能全是奇数，也不可能全是偶数，因此必然同时选到了奇数和偶数。
+
+而一奇一偶两个数的差一定是奇数，所以第 1 个结论成立。
+
+\textbf{(2) 一定存在两个数，一个是另一个的倍数，且这两个数的差还是奇数。}
+
+这个结论为假。我们给出反例：
+\[
+1,3,5,7,\ldots,99,\ 2.
+\]
+这 51 个数由全部 50 个奇数和数字 2 组成。
+
+在这组数中，确实会出现整除关系，例如
+\[
+1\mid 3,\qquad 3\mid 9.
+\]
+但是任意两个奇数之差都是偶数，所以所有“奇数整除奇数”的例子差都不是奇数。
+
+而数字 2 在这组数中没有别的偶数倍数，因为 4,6,8,\ldots 都没有被选入；奇数也不可能是 2 的倍数。
+
+所以在这 51 个数中，不存在一对“一个是另一个的倍数且差为奇数”的数。
+
+因此第 2 个结论是假的。
+\end{solution}
+
+\textbf{25}\begin{solution}
+不一定相同。
+
+因为“每行恰有 1 枚、每列恰有 1 枚”只说明这 6 枚棋子的位置对应于一个排列，但并不能保证黑白格上棋子数自动平衡。
+
+举一个反例：把 6 枚棋子都放在主对角线上，即放在
+\[
+(1,1),(2,2),(3,3),(4,4),(5,5),(6,6)
+\]
+这 6 个格子上。
+
+这些格子的行号与列号之和分别为
+\[
+2,4,6,8,10,12,
+\]
+全部是偶数，因此它们全都落在同一种颜色的格子上。
+
+于是黑格上的棋子数与白格上的棋子数显然不相同。
+
+所以题中的结论并不一定成立。
+\end{solution}
+
+\textbf{26}\begin{solution}
+一种很自然的分组方法是把 1 到 18 分成 9 组连续整数：
+\[
+\{1,2\},\{3,4\},\{5,6\},\{7,8\},\{9,10\},\{11,12\},\{13,14\},\{15,16\},\{17,18\}.
+\]
+
+为什么这样分有用？因为每一组中的两个数是连续整数，而连续整数一定互质。
+
+现在任取 10 个数，相当于从这 9 个组中取出 10 个元素。根据抽屉原理，至少有一组中取到了两个数。
+
+而同一组中的两个数是连续整数，所以这两个数互质。
+
+因此，这样分组后，任取 10 个数时一定能找到两个来自同一组且互质的数。
+
+这就给出了一种可行的分组思路。
+\end{solution}
+
+\end{document}

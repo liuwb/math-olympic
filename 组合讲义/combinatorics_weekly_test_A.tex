@@ -1,0 +1,305 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.25cm,bottom=2.45cm,left=2.25cm,right=2.25cm,headheight=18pt,headsep=0.55cm,footskip=24pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black
+}
+
+\setstretch{1.13}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.25em}
+\setlist[enumerate]{itemsep=0.45em, topsep=0.35em, leftmargin=2.4em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=1.9em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{rulegray}{RGB}{110,118,128}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.2em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.1em}{0.7em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 组合专题周测 A 卷}
+\fancyhead[C]{\small 排列组合计数、抽屉原理与染色问题}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{infobox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newenvironment{solution}{\par\noindent\textbf{参考解答：}}{\hfill$\square$\par}
+\newcommand{\answerspace}{\vspace{2.4cm}}
+\newcommand{\biganswerspace}{\vspace{3.2cm}}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{center}
+{\fontsize{22}{28}\selectfont\bfseries 组合专题周测 A 卷\par}
+\vspace{0.4cm}
+{\large 适合小学高年级至初中低年级数学竞赛训练\par}
+\end{center}
+
+\begin{infobox}{考试说明}
+\begin{itemize}
+  \item 测试时间：75 分钟
+  \item 满分：100 分
+  \item 建议先完成计数题，再处理证明题；书写证明题时，要把“为什么这样分类/分组/染色”写清楚。
+\end{itemize}
+\end{infobox}
+
+\section{试题}
+
+\begin{enumerate}
+  \item （12 分）用数字 $0,1,2,3,4,5$ 组成没有重复数字的四位偶数，共有多少个？
+  \answerspace
+
+  \item （12 分）5 个男生和 3 个女生站成一排，要求女生互不相邻，共有多少种排法？
+  \answerspace
+
+  \item （12 分）5 个不同的小球放入 3 个不同的盒子，每个盒子至少放 1 个球，共有多少种放法？
+  \biganswerspace
+
+  \item （12 分）任取 7 个整数，证明其中一定有两个整数的差是 6 的倍数。
+  \answerspace
+
+  \item （12 分）从 $1$ 到 $30$ 中任取 16 个整数，证明其中一定有两个数互质。
+  \answerspace
+
+  \item （14 分）$8\times 8$ 棋盘去掉两个对角角格后，剩余部分能否被 $1\times 2$ 骨牌完全覆盖？请说明理由。
+  \biganswerspace
+
+  \item （12 分）把平面整数格点按 $x+y$ 的奇偶性染成两色。一只青蛙每次向上、下、左、右跳 1 格。它能否从 $(0,0)$ 跳到 $(4,4)$ 并且恰好跳 7 步？为什么？
+  \answerspace
+
+  \item （14 分）从 $1,2,3,\ldots,50$ 中任取 26 个数，证明其中一定有两个数，一个是另一个的倍数。
+  \biganswerspace
+\end{enumerate}
+
+\newpage
+\section{详细解答}
+
+\begin{enumerate}
+  \item \begin{solution}
+  四位偶数的末位只能是 $0,2,4$。
+
+  \textbf{第一类：末位是 $0$。}  
+  千位有 $5$ 种选法，百位有 $4$ 种，十位有 $3$ 种，所以这一类有
+  \[
+  5\times 4\times 3=60
+  \]
+  个。
+
+  \textbf{第二类：末位是 $2$ 或 $4$。}  
+  末位有 $2$ 种。确定末位后，千位不能为 $0$，可从剩下的 4 个非零数字中选，有 $4$ 种；百位有 $4$ 种；十位有 $3$ 种。
+  所以这一类有
+  \[
+  2\times 4\times 4\times 3=96
+  \]
+  个。
+
+  因此总数为
+  \[
+  60+96=156.
+  \]
+
+  \end{solution}
+
+  \item \begin{solution}
+  先排 5 个男生，有
+  \[
+  5!
+  \]
+  种排法。
+
+  男生排好后形成 6 个空位：
+  \[
+  \square B \square B \square B \square B \square B \square
+  \]
+  要使 3 个女生互不相邻，就要从这 6 个空位中选 3 个放女生，有
+  \[
+  \binom{6}{3}
+  \]
+  种。
+
+  3 个女生彼此不同，还要在 3 个位置中排列，有
+  \[
+  3!
+  \]
+  种。
+
+  所以总排法为
+  \[
+  5!\binom{6}{3}3!=120\times 20\times 6=14400.
+  \]
+
+  \end{solution}
+
+  \item \begin{solution}
+  因为每个盒子至少放 1 个球，而一共只有 5 个球，所以分配类型只有两类：
+  \[
+  (3,1,1)\qquad \text{和}\qquad (2,2,1).
+  \]
+
+  \textbf{第一类：}$(3,1,1)$。  
+  先选哪个盒子放 3 个球，有 $3$ 种；再从 5 个球中选 3 个放进去，有
+  \[
+  \binom{5}{3}=10
+  \]
+  种；剩余 2 个球分给另外两个盒子，有
+  \[
+  2!
+  \]
+  种。
+  所以这一类有
+  \[
+  3\times 10\times 2=60
+  \]
+  种。
+
+  \textbf{第二类：}$(2,2,1)$。  
+  先选哪个盒子放 1 个球，有 $3$ 种；再选哪 1 个球放进去，有 $5$ 种；再从剩下 4 个球中选 2 个放入另一个盒子，有
+  \[
+  \binom{4}{2}=6
+  \]
+  种。
+  所以这一类有
+  \[
+  3\times 5\times 6=90
+  \]
+  种。
+
+  总数为
+  \[
+  60+90=150.
+  \]
+
+  \end{solution}
+
+  \item \begin{solution}
+  把整数按除以 6 的余数分成 6 类：
+  \[
+  0,1,2,3,4,5.
+  \]
+
+  任取 7 个整数，把它们按余数放入这 6 类中。根据抽屉原理，至少有两个整数落在同一类，也就是它们除以 6 的余数相同。
+
+  设这两个数为 $a,b$，则
+  \[
+  a\equiv b\pmod 6,
+  \]
+  所以
+  \[
+  a-b\equiv 0\pmod 6.
+  \]
+  因此 $a-b$ 是 6 的倍数。
+
+  \end{solution}
+
+  \item \begin{solution}
+  把 $1$ 到 $30$ 分成 15 组连续整数：
+  \[
+  \{1,2\},\{3,4\},\{5,6\},\ldots,\{29,30\}.
+  \]
+
+  每一组中的两个数都是连续整数，因此一定互质。
+
+  现在任取 16 个整数，相当于从这 15 个组中取了 16 个数。根据抽屉原理，至少有一组中取到了两个数。
+
+  而同一组中的两个数互质，因此任取 16 个整数，必有两个数互质。
+
+  \end{solution}
+
+  \item \begin{solution}
+  不能覆盖。
+
+  把棋盘染成黑白相间。每一块 $1\times 2$ 骨牌无论横放还是竖放，都恰好覆盖一个黑格和一个白格。
+
+  在 $8\times 8$ 棋盘中，两个对角角格颜色相同。去掉这两个格子以后，剩余棋盘中的黑格数和白格数不相等。
+
+  如果剩余部分还能被骨牌完全覆盖，那么所有骨牌覆盖到的黑格总数和白格总数应当相等，这与黑白格数量不相等矛盾。
+
+  所以剩余部分不能被骨牌完全覆盖。
+
+  \end{solution}
+
+  \item \begin{solution}
+  不能。
+
+  因为每次向上、下、左、右跳 1 格时，$x+y$ 都会增加或减少 1，所以 $x+y$ 的奇偶性每跳一步都会改变一次。
+
+  起点 $(0,0)$ 的
+  \[
+  0+0=0
+  \]
+  是偶数；终点 $(4,4)$ 的
+  \[
+  4+4=8
+  \]
+  也是偶数，因此起点和终点同色。
+
+  但若跳 7 步，因为 7 是奇数，颜色会改变奇数次，最后应落在与起点异色的格点上，这与终点同色矛盾。
+
+  所以不可能恰好跳 7 步到达 $(4,4)$。
+
+  \end{solution}
+
+  \item \begin{solution}
+  把每个正整数唯一地写成
+  \[
+  2^k\times m,
+  \]
+  其中 $m$ 是奇数。把“奇数部分相同”的数放在同一个抽屉里。
+
+  从 1 到 50 的奇数共有 25 个：
+  \[
+  1,3,5,\ldots,49.
+  \]
+  因此这样的抽屉一共只有 25 个。
+
+  现在任取 26 个数，根据抽屉原理，至少有两个数落入同一个抽屉。设这两个数为
+  \[
+  2^a m,\qquad 2^b m
+  \]
+  且 $a<b$，那么
+  \[
+  2^b m=2^{b-a}(2^a m),
+  \]
+  所以较大的那个数是较小的那个数的倍数。
+
+  因此结论成立。
+
+  \end{solution}
+\end{enumerate}
+
+\end{document}

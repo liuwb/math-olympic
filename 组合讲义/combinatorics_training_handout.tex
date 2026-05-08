@@ -1,0 +1,1064 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.4cm,bottom=2.6cm,left=2.35cm,right=2.35cm,headheight=18pt,headsep=0.55cm,footskip=26pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+\usepackage{tikz}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black,
+  citecolor=blue!50!black
+}
+
+\setstretch{1.16}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.35em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.32em, topsep=0.32em, leftmargin=2.3em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=2em}
+\setcounter{tocdepth}{2}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{accent}{RGB}{153,76,0}
+\definecolor{rulegray}{RGB}{110,118,128}
+\definecolor{softgreen}{RGB}{236,247,240}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.25em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.3em}{0.9em}
+\titleformat{\subsection}{\large\bfseries\color{mainblue}}{\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{1.05em}{0.55em}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{accent}}{\thesubsubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 组合专题课堂讲义}
+\fancyhead[C]{\small 排列组合计数、抽屉原理与染色问题}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtheoremstyle{formaltheorem}
+  {0.8em}{0.8em}{\normalfont}{}{\bfseries\color{mainblue}}{．}{0.6em}{}
+\newtheoremstyle{formalexample}
+  {0.8em}{0.8em}{\normalfont}{}{\bfseries\color{accent}}{．}{0.6em}{}
+
+\theoremstyle{formaltheorem}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{proposition}{命题}[section]
+\newtheorem{method}{方法}[section]
+\theoremstyle{formalexample}
+\newtheorem{example}{例题}[section]
+\newtheorem{exercise}{练习}[section]
+
+\newenvironment{solution}{\par\noindent\textbf{解：}}{\hfill$\square$\par}
+
+\newtcolorbox{goalbox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{notebox}[1]{
+  breakable,
+  colback=lightgray,
+  colframe=black!50,
+  boxrule=0.55pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{skillbox}[1]{
+  breakable,
+  colback=softgreen,
+  colframe=green!40!black,
+  boxrule=0.65pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newcommand{\partdivider}[2]{%
+  \clearpage
+  \thispagestyle{empty}
+  \vspace*{\fill}
+  \begin{center}
+  \begin{tcolorbox}[
+    enhanced,
+    width=0.78\textwidth,
+    colback=lightblue,
+    colframe=mainblue,
+    boxrule=0.9pt,
+    arc=0mm,
+    left=6mm,
+    right=6mm,
+    top=8mm,
+    bottom=8mm
+  ]
+  \centering
+  {\fontsize{24}{30}\selectfont\bfseries #1\par}
+  \vspace{0.6cm}
+  {\large #2\par}
+  \end{tcolorbox}
+  \end{center}
+  \vspace*{\fill}
+  \clearpage
+}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{titlepage}
+\centering
+\vspace*{0.8cm}
+
+\begin{tcolorbox}[
+  enhanced,
+  width=0.92\textwidth,
+  colback=white,
+  colframe=mainblue,
+  boxrule=1pt,
+  arc=0mm,
+  left=6mm,
+  right=6mm,
+  top=8mm,
+  bottom=8mm
+]
+\centering
+
+{\fontsize{24}{30}\selectfont\bfseries 组合专题课堂讲义\par}
+\vspace{0.7cm}
+{\fontsize{17}{22}\selectfont 排列组合计数、抽屉原理与染色问题\par}
+
+\vspace{1.2cm}
+\color{rulegray}\rule{0.72\textwidth}{0.7pt}\par
+\vspace{1.1cm}
+
+\begin{tcolorbox}[colback=lightblue,colframe=mainblue,width=0.82\textwidth,boxrule=1pt]
+\centering
+{\Large 适合对象：小学高年级至初中低年级数学竞赛学生}\\[0.4em]
+{\large 已具备初中数学基础，学过加法原理、乘法原理与基本排列组合}
+\end{tcolorbox}
+
+\vspace{1.1cm}
+
+\renewcommand{\arraystretch}{1.42}
+\begin{tabular}{>{\bfseries}p{3.5cm}p{8cm}}
+讲义作者： & 刘文博 \\
+专题目标： & 搭建竞赛组合专题的核心方法框架，形成从计数到证明的完整思维链条 \\
+建议课时： & 5--7 课时，可分成 ``计数深化'' ``抽屉原理'' ``染色问题'' 三个单元 \\
+内容特色： & 以方法归纳为主，例题难度呈阶梯上升，适合课堂讲授与课后复盘 \\
+编译方式： & XeLaTeX \\
+\end{tabular}
+
+\vspace{1.0cm}
+\color{rulegray}\rule{0.72\textwidth}{0.7pt}\par
+\vspace{0.7cm}
+
+{\large \bfseries 使用说明\par}
+\vspace{0.4cm}
+{\normalsize 建议先理解每节中的 ``方法总结''，再独立尝试例题与练习；遇到计数问题时，优先判断应当分类、分步、补集，还是转化为更熟悉的模型。抽屉原理与染色问题尤其重视 ``为什么这样想''，不要只记结论。\par}
+
+{\large \today\par}
+\end{tcolorbox}
+\end{titlepage}
+
+\pagenumbering{Roman}
+\pagestyle{plain}
+\tableofcontents
+\newpage
+\pagestyle{fancy}
+\pagenumbering{arabic}
+
+\section{学习目标与整体安排}
+
+\begin{goalbox}{本专题要解决什么问题}
+组合问题有两个明显特点：
+\begin{itemize}
+  \item 题目常常不要求解方程，而是要求\textbf{数一数}、\textbf{证一证}、\textbf{说明不可能}；
+  \item 许多题目表面不同，但本质方法相通，例如：分类、分步、补集、构造抽屉、选择合适的颜色。
+\end{itemize}
+因此，本专题的重点不是公式堆积，而是建立一套遇题能调用的方法库。
+\end{goalbox}
+
+\begin{goalbox}{学完以后希望达到的能力}
+\begin{itemize}
+  \item 会把较复杂的计数问题拆成若干简单步骤；
+  \item 掌握常见计数方法：分类计数、分步计数、插空法、捆绑法、补集法、对应转化；
+  \item 理解并会使用抽屉原理及其加强形式；
+  \item 学会从奇偶性、棋盘色、模数余数等角度设计染色；
+  \item 能读懂并尝试解决竞赛中的中档组合题。
+\end{itemize}
+\end{goalbox}
+
+\begin{notebox}{建议课时安排}
+\begin{itemize}
+  \item 第 1 课时：分类与分步、排列组合基础回顾；
+  \item 第 2 课时：插空法、捆绑法、补集法；
+  \item 第 3 课时：抽屉原理基础与应用；
+  \item 第 4 课时：抽屉原理进阶题型；
+  \item 第 5 课时：染色问题基础模型；
+  \item 第 6--7 课时：综合训练与讲评。
+\end{itemize}
+\end{notebox}
+
+\partdivider{第一部分}{排列组合计数：把“难数”变成“会数”}
+
+\section{计数问题的基本思想}
+
+\subsection{先问自己哪三个问题}
+每当遇到一道计数题，可以先问自己：
+\begin{enumerate}
+  \item \textbf{是分类做，还是分步做？} 分类看“不同情况互不重叠”，分步看“每一步都要完成”。
+  \item \textbf{是正面数方便，还是反面数方便？} 有时直接数太乱，数总数减去坏情况更简单。
+  \item \textbf{能否转化成排座位、选位置、填盒子这样的熟悉模型？}
+\end{enumerate}
+
+\begin{method}[分类与分步的区别]
+\begin{itemize}
+  \item \textbf{分类计数}：先分成若干类，每一类内部再去数，最后相加；
+  \item \textbf{分步计数}：一件事要按顺序完成若干步，每一步都有若干种方法，最后相乘。
+\end{itemize}
+\end{method}
+
+\begin{example}
+从数字 $1,2,3,4,5$ 中选出两个不同数字组成一个两位数，一共有多少个？
+\end{example}
+
+\begin{solution}
+这是分步计数。十位有 $5$ 种选法，个位还剩 $4$ 种选法，所以共有
+\[
+5\times 4=20
+\]
+个。
+\end{solution}
+
+\begin{example}
+从数字 $1,2,3,4,5$ 中选出两个不同数字组成一个两位偶数，一共有多少个？
+\end{example}
+
+\begin{solution}
+这是分类更方便。个位必须是偶数，因此个位有两类：
+\begin{itemize}
+  \item 个位是 $2$：十位可从其余 $4$ 个数字中选；
+  \item 个位是 $4$：十位也有 $4$ 种选法。
+\end{itemize}
+所以共有
+\[
+4+4=8
+\]
+个。
+\end{solution}
+
+\begin{skillbox}{计数习惯}
+组合题里最常见的错误不是不会做，而是\textbf{重复计数}或\textbf{漏计}。每一步都要问自己：
+\begin{itemize}
+  \item 我是不是把同一种情况数了两次？
+  \item 我列出的情况真的把所有可能都覆盖了吗？
+\end{itemize}
+\end{skillbox}
+
+\subsection{排列与组合的再理解}
+
+\begin{notebox}{不必死记公式，先记意思}
+\begin{itemize}
+  \item \textbf{排列}：选出来后，顺序不同算不同；
+  \item \textbf{组合}：只关心选了谁，不关心站位顺序。
+\end{itemize}
+例如，选甲乙两人排前后，甲前乙后与乙前甲后不同，这是排列；如果只是选出两人去参赛，这只是组合。
+\end{notebox}
+
+\begin{example}
+7 名同学中选 3 名站成一排拍照，共有多少种方法？
+\end{example}
+
+\begin{solution}
+先选 3 人，再给他们排顺序：
+\[
+\binom{7}{3}\times 3!=35\times 6=210.
+\]
+这说明许多排列题可以看成“先组合，再排列”。
+\end{solution}
+
+\begin{example}
+5 本不同的书送给甲、乙、丙三位同学，每人至少 1 本，有多少种送法？
+\end{example}
+
+\begin{solution}
+这是一个“分配”问题。直接按书来送较乱，按人数情况分类更自然。
+
+因为每人至少 1 本，而一共只有 5 本，所以分配类型只有两类：
+\[
+3,1,1 \qquad \text{或} \qquad 2,2,1.
+\]
+
+\textbf{第一类：}一人得 3 本，另外两人各得 1 本。
+\begin{itemize}
+  \item 先选哪位同学得 3 本：$3$ 种；
+  \item 从 5 本书中选 3 本给他：$\binom{5}{3}=10$ 种；
+  \item 剩下 2 本书分给另外两人：$2!$ 种。
+\end{itemize}
+这一类共
+\[
+3\times 10\times 2=60
+\]
+种。
+
+\textbf{第二类：}一人得 1 本，另外两人各得 2 本。
+\begin{itemize}
+  \item 先选哪位同学得 1 本：$3$ 种；
+  \item 选哪 1 本给他：$5$ 种；
+  \item 剩下 4 本中选 2 本给另外两人中的一位：$\binom{4}{2}=6$ 种。
+\end{itemize}
+最后另一位自动得到剩下 2 本，所以这一类共
+\[
+3\times 5\times 6=90
+\]
+种。
+
+总数为
+\[
+60+90=150.
+\]
+\end{solution}
+
+\section{常用计数方法}
+
+\subsection{插空法：相邻限制问题}
+\begin{method}[插空法]
+当题目要求“某些元素不能相邻”时，可以先把主要元素排好，再利用它们之间形成的空位来安插其他元素。
+\end{method}
+
+\begin{example}
+把字母 $A,A,B,B,C$ 排成一行，要求两个 $A$ 不相邻，有多少种排法？
+\end{example}
+
+\begin{solution}
+先排 $B,B,C$。因为有两个 $B$ 相同，所以 $B,B,C$ 的不同排法共有
+\[
+\frac{3!}{2!}=3
+\]
+种。
+
+无论怎样排，三个字母会形成 4 个空位：
+\[
+\square\ \cdot\ \square\ \cdot\ \square\ \cdot\ \square
+\]
+要使两个 $A$ 不相邻，就必须放进不同空位中，因此从 4 个空位中选 2 个：
+\[
+\binom{4}{2}=6.
+\]
+所以总数为
+\[
+3\times 6=18.
+\]
+\end{solution}
+
+\begin{example}
+4 个男生和 3 个女生排成一排，要求女生互不相邻，有多少种排法？
+\end{example}
+
+\begin{solution}
+先排 4 个男生，有
+\[
+4!=24
+\]
+种。此时形成 5 个空位：
+\[
+\square M \square M \square M \square M \square
+\]
+从中选 3 个给女生站，每个空位至多站 1 名女生，选空位有
+\[
+\binom{5}{3}=10
+\]
+种，再排 3 个女生有
+\[
+3!=6
+\]
+种。
+所以总数为
+\[
+24\times 10\times 6=1440.
+\]
+\end{solution}
+
+\subsection{捆绑法：必须相邻问题}
+\begin{method}[捆绑法]
+当题目要求“某些元素必须相邻”时，可以先把这些元素看成一个整体，先排整体，再排整体内部。
+\end{method}
+
+\begin{example}
+6 名同学站成一排，其中甲、乙必须相邻，共有多少种站法？
+\end{example}
+
+\begin{solution}
+把甲乙看成一个整体，那么共有 5 个对象要排，所以外部排法有
+\[
+5!
+\]
+种；甲乙内部还可以交换顺序，有
+\[
+2!
+\]
+种。
+所以共有
+\[
+5!\times 2!=240
+\]
+种。
+\end{solution}
+
+\subsection{补集法：从总数里减去坏情况}
+\begin{method}[补集法]
+若“满足条件”的情况不好数，而“不满足条件”的坏情况容易数，就先数总数，再减去坏情况。
+\end{method}
+
+\begin{example}
+从 $1$ 到 $999$ 的整数中，数字互不相同的三位数有多少个？
+\end{example}
+
+\begin{solution}
+直接数最清楚。百位可选 $1\sim 9$ 共 $9$ 种，十位可选 $0\sim 9$ 中除去百位的一个数字，因此有 $9$ 种，个位再从剩下的数字里选，有 $8$ 种。
+\[
+9\times 9\times 8=648.
+\]
+\end{solution}
+
+\begin{example}
+从 $1$ 到 $999$ 的整数中，至少有两个数字相同的三位数有多少个？
+\end{example}
+
+\begin{solution}
+这题用补集法更方便。
+
+三位数总共有
+\[
+999-99=900
+\]
+个。
+
+数字互不相同的三位数上一题已经求出有 $648$ 个，所以至少有两个数字相同的三位数有
+\[
+900-648=252
+\]
+个。
+\end{solution}
+
+\subsection{对应转化：换一种角度数同一件事}
+\begin{example}
+平面上有 8 条直线，其中任意两条不平行，任意三条不共点。这 8 条直线最多把平面分成多少块？
+\end{example}
+
+\begin{solution}
+一条直线把平面分成 2 块。以后每增加一条新直线，只要它与前面的每条都相交且没有三线共点，它就会被前面的直线分成若干段，而每一段都会把原来的某一块再切成两块。
+
+第 $n$ 条直线与前面 $n-1$ 条直线相交，得到 $n$ 段，因此会新增 $n$ 块区域。
+
+所以总块数为
+\[
+2+2+3+4+5+6+7+8
+=1+(1+2+3+\cdots +8)
+=1+\frac{8\times 9}{2}
+=37.
+\]
+\end{solution}
+
+\begin{skillbox}{计数方法小结}
+遇到排列组合题时，可以优先尝试下面的关键词：
+\begin{itemize}
+  \item 有限制条件：分类、补集；
+  \item 不能相邻：插空；
+  \item 必须相邻：捆绑；
+  \item 直接数太乱：换顺序、换角度、先选后排；
+  \item 同一个结果被重复数：考虑除以重复次数，或重新设计计数顺序。
+\end{itemize}
+\end{skillbox}
+
+\section{计数专题例题精讲}
+
+\begin{example}
+用数字 $0,1,2,3,4,5$ 组成没有重复数字的四位数，其中恰有两个偶数数字，一共有多少个？
+\end{example}
+
+\begin{solution}
+偶数数字是 $0,2,4$，奇数数字是 $1,3,5$。题目要求 4 位数中恰有两个偶数。
+
+分两类讨论。
+
+\textbf{第一类：含有数字 $0$。}
+
+此时另一个偶数需从 $2,4$ 中选 1 个，奇数需从 $1,3,5$ 中选 2 个，所以先选数字：
+\[
+\binom{2}{1}\binom{3}{2}=2\times 3=6
+\]
+种。
+
+选好后是 4 个不同数字，其中一个是 $0$。四位数排法总数为 $4!$，但首位不能是 $0$，首位取 $0$ 的排法有 $3!$，故合法排法有
+\[
+4!-3!=24-6=18
+\]
+种。
+
+这一类共
+\[
+6\times 18=108
+\]
+种。
+
+\textbf{第二类：不含数字 $0$。}
+
+则从偶数 $2,4$ 中必须都选，再从奇数 $1,3,5$ 中选 2 个：
+\[
+\binom{3}{2}=3
+\]
+种。选好后 4 个数字都非零，可任意排列，有
+\[
+4!=24
+\]
+种。
+
+这一类共
+\[
+3\times 24=72
+\]
+种。
+
+总数为
+\[
+108+72=180.
+\]
+\end{solution}
+
+\begin{example}
+有 5 面不同的小旗，要插入 8 个连续的旗座中，要求任意两个旗之间至少空 1 个旗座，共有多少种插法？
+\end{example}
+
+\begin{solution}
+任意两个旗之间至少空 1 个旗座，因此在 5 面旗之间至少要留出 4 个空位。
+
+所以最少需要的位置数是
+\[
+5+(5-1)=9
+\]
+个位置，然而只有 8 个位置，所以\textbf{根本无法插放}。
+
+因此答案是
+\[
+0.
+\]
+\end{solution}
+
+\begin{notebox}{这一题很值得讲}
+它提醒我们：做组合题之前，先做一个\textbf{数量级检查}。如果基本空间都不够，根本不需要进入复杂计算。
+\end{notebox}
+
+\begin{exercise}
+6 个不同数字中任选 4 个组成四位数，要求这个四位数是 4 的倍数。试自己设计一种分类方法，并完成计数。
+\end{exercise}
+
+\begin{exercise}
+7 本不同的书排成一行，其中数学书、语文书、英语书三本互不相邻，共有多少种排法？
+\end{exercise}
+
+\partdivider{第二部分}{抽屉原理：从“必有”出发的存在性证明}
+
+\section{抽屉原理基础}
+
+\subsection{最基本的抽屉原理}
+\begin{theorem}[抽屉原理]
+如果把 $n+1$ 个物体放入 $n$ 个抽屉，那么至少有一个抽屉里放了不少于 2 个物体。
+\end{theorem}
+
+\begin{notebox}{为什么它这么重要}
+抽屉原理常常不告诉你“是哪一个”，却能保证“某个东西一定存在”。这在竞赛里非常有力，因为许多题目只要求证明存在，不要求找出来。
+\end{notebox}
+
+\begin{example}
+任取 13 个人，至少有两个人出生在同一个月份。为什么？
+\end{example}
+
+\begin{solution}
+把 12 个月看成 12 个抽屉，把 13 个人看成 13 个物体。由于
+\[
+13>12,
+\]
+所以至少有一个月份里有 2 个人，即至少两个人出生在同一个月份。
+\end{solution}
+
+\begin{example}
+从整数 $1$ 到 $20$ 中任取 11 个数，证明其中一定有两个数相差 10。
+\end{example}
+
+\begin{solution}
+把这些数分成 10 个组：
+\[
+(1,11),(2,12),\ldots,(10,20).
+\]
+每组看成一个抽屉。任取 11 个数放入 10 个抽屉，按抽屉原理，至少有一个抽屉里取到了两个数。那两个数正好相差 10。
+\end{solution}
+
+\subsection{加强型抽屉原理}
+\begin{theorem}[加强型抽屉原理]
+把 $N$ 个物体放入 $k$ 个抽屉，则至少有一个抽屉中的物体数不少于
+\[
+\left\lceil \frac{N}{k}\right\rceil.
+\]
+\end{theorem}
+
+\begin{example}
+把 100 个苹果放入 9 个篮子，至少有一个篮子里有多少个苹果？
+\end{example}
+
+\begin{solution}
+\[
+\left\lceil \frac{100}{9}\right\rceil=12.
+\]
+所以至少有一个篮子里有 12 个苹果。
+\end{solution}
+
+\begin{skillbox}{抽屉原理的关键}
+抽屉原理本身很短，难点在于：
+\begin{itemize}
+  \item \textbf{谁是物体？}
+  \item \textbf{谁是抽屉？}
+  \item \textbf{想证明的结论，对应的“撞在一起”究竟是什么？}
+\end{itemize}
+能把抽屉构造对，题目通常就完成了一半。
+\end{skillbox}
+
+\section{抽屉原理的典型模型}
+
+\subsection{余数抽屉}
+\begin{example}
+任取 6 个整数，证明其中一定有两个整数的差是 5 的倍数。
+\end{example}
+
+\begin{solution}
+整数除以 5 的余数只有
+\[
+0,1,2,3,4
+\]
+这 5 类。把“余数相同”看作同一个抽屉，任取 6 个整数放入 5 个抽屉，必有两个数落在同一抽屉，即它们除以 5 的余数相同，所以它们的差是 5 的倍数。
+\end{solution}
+
+\begin{example}
+任意写出 11 个不同的自然数，证明其中一定有两个数除以 10 的余数相同。
+\end{example}
+
+\begin{solution}
+除以 10 的余数只有 10 类，而选了 11 个数，所以至少有两个数余数相同。
+\end{solution}
+
+\subsection{区间抽屉}
+\begin{example}
+在长度为 1 的线段上任取 5 个点，证明其中一定有两个点的距离不超过 $\frac14$。
+\end{example}
+
+\begin{solution}
+把长度为 1 的线段平均分成 4 段，每段长度都是
+\[
+\frac14.
+\]
+这 4 段看成 4 个抽屉，5 个点看成 5 个物体。按抽屉原理，至少有两个点落在同一小段内，因此它们之间的距离不超过这段的长度，即不超过
+\[
+\frac14.
+\]
+\end{solution}
+
+\subsection{配对抽屉}
+\begin{example}
+从集合
+\[
+\{1,2,3,\ldots,19\}
+\]
+中任取 10 个数，证明其中一定有两个数互质。
+\end{example}
+
+\begin{solution}
+把这些数配成 10 组：
+\[
+\{1\},\{2,3\},\{4,5\},\{6,7\},\ldots,\{18,19\}.
+\]
+每组看成一个抽屉。任取 10 个数放入 10 个抽屉，如果每个抽屉最多取 1 个数，那么必须恰好每组取 1 个数。
+
+但注意每一组连续整数都互质，例如
+\[
+\gcd(8,9)=1.
+\]
+如果某一组取到了两个数，就已经找到一对互质数；如果每一组都只取一个数，那么一定取到了 $1$，而 $1$ 与任何数都互质。
+
+所以无论如何，都一定能找到两个互质数。
+\end{solution}
+
+\section{抽屉原理进阶题}
+
+\begin{example}
+从 $1,2,3,\ldots,100$ 中任取 51 个数，证明其中必有两个数，一个是另一个的倍数。
+\end{example}
+
+\begin{solution}
+这是竞赛中非常经典的构造题。
+
+把每个正整数唯一地写成
+\[
+2^k\times m,
+\]
+其中 $m$ 是奇数。例如
+\[
+12=2^2\times 3,\qquad 40=2^3\times 5.
+\]
+
+于是每个数都对应一个奇数部分 $m$。从 1 到 100 的奇数共有 50 个：
+\[
+1,3,5,\ldots,99.
+\]
+把“奇数部分相同”的数放进同一个抽屉，那么一共只有 50 个抽屉。
+
+任取 51 个数，按抽屉原理，至少有两个数落在同一个抽屉。设它们是
+\[
+2^a m,\qquad 2^b m \quad (a<b),
+\]
+则
+\[
+2^b m=2^{b-a}(2^a m),
+\]
+所以较大的那个是较小的那个的倍数。
+\end{solution}
+
+\begin{example}
+平面上任取 5 个格点（横纵坐标均为整数的点），证明其中必有两个点连线的中点不是格点，或必有两个点的横纵坐标同奇偶。哪一种表述更自然？
+\end{example}
+
+\begin{solution}
+更自然的表述是：\textbf{必有两个点的横纵坐标同奇偶性。}
+
+因为一个格点的横纵坐标分别只有两种奇偶性：奇或偶，所以格点按
+\[
+(\text{奇},\text{奇}),(\text{奇},\text{偶}),(\text{偶},\text{奇}),(\text{偶},\text{偶})
+\]
+最多分成 4 类。
+
+任取 5 个格点，按抽屉原理，至少有两个点落在同一类，也就是它们的横坐标同奇偶，纵坐标也同奇偶。
+
+这时这两点中点的坐标分别是两个同奇偶整数的平均数，仍是整数，所以中点是格点。
+
+因此更强的结论其实是：\textbf{必有两个点连线的中点是格点。}
+\end{solution}
+
+\begin{exercise}
+任取 8 个整数，证明其中一定存在两个数，其和或差是 7 的倍数。
+\end{exercise}
+
+\begin{exercise}
+从边长为 2 的正方形内任取 5 个点，证明其中一定有两个点的距离不超过 $\sqrt{2}$。
+\end{exercise}
+
+\partdivider{第三部分}{染色问题：用颜色看出不变量}
+
+\section{染色问题的基本想法}
+
+\begin{goalbox}{什么是染色问题}
+所谓染色问题，并不是真的为了美观上色，而是为了把图形、格点、整数或状态分成几类，从而观察：
+\begin{itemize}
+  \item 某些操作会不会改变颜色；
+  \item 某种覆盖、走法、移动是否会让两类数量失衡；
+  \item 能否用颜色把“看不见的规律”变成“看得见的规律”。
+\end{itemize}
+\end{goalbox}
+
+\begin{notebox}{染色题里最常见的三种颜色模型}
+\begin{itemize}
+  \item \textbf{黑白棋盘染色}：适合分析多米诺骨牌、马走日、路径问题；
+  \item \textbf{按奇偶或模数染色}：适合整数、格点、步长问题；
+  \item \textbf{周期染色}：例如按 3 色、4 色循环染，用于处理更长的移动或覆盖。
+\end{itemize}
+\end{notebox}
+
+\section{黑白染色与覆盖问题}
+
+\subsection{经典棋盘模型}
+\begin{example}
+国际象棋棋盘是 $8\times 8$ 的方格。去掉左上角和右下角两个方格后，剩下的 62 个方格能否被 $31$ 个 $1\times 2$ 的骨牌恰好覆盖？
+\end{example}
+
+\begin{solution}
+把棋盘染成黑白相间。每一块 $1\times 2$ 骨牌无论横放还是竖放，都恰好覆盖一个黑格和一个白格。
+
+原来的 $8\times 8$ 棋盘黑白格各有 32 个。左上角和右下角颜色相同，都是黑格，所以去掉后剩下：
+\[
+30\text{ 个黑格},\qquad 32\text{ 个白格}.
+\]
+
+如果能被 31 块骨牌覆盖，那么覆盖到的黑格数和白格数必须相等，但这里不相等，因此\textbf{不可能覆盖}。
+\end{solution}
+
+\begin{example}
+一个 $5\times 5$ 的方格表中去掉正中心的一个小方格，剩余部分能否用 $1\times 2$ 骨牌完全覆盖？
+\end{example}
+
+\begin{solution}
+$5\times 5$ 棋盘黑白格数分别为 13 和 12。正中心与四个角颜色相同，因此中心格是黑格。去掉它以后，剩下黑白格都各有 12 个。
+
+仅凭黑白格数量相等，还\textbf{不能立刻说明一定能覆盖}；但是本题事实上可以覆盖。这个例子说明：
+\begin{itemize}
+  \item 黑白染色常用来证明\textbf{不可能}；
+  \item 若黑白数量相等，只说明“没有被这个方法否定”，不代表一定可行。
+\end{itemize}
+\end{solution}
+
+\subsection{路径中的颜色变化}
+\begin{example}
+国际象棋中的马每走一步，落点颜色会发生什么变化？
+\end{example}
+
+\begin{solution}
+马走一步相当于横走 2 格再竖走 1 格，或者横走 1 格再竖走 2 格。无论哪种，总共跨过了奇数次行列变化，因此从黑格必到白格，从白格必到黑格。
+
+所以马每走一步，颜色必然改变一次。
+\end{solution}
+
+\begin{example}
+马能否从棋盘的一个黑角格出发，走 14 步后回到黑角格？
+\end{example}
+
+\begin{solution}
+可以。因为马每走一步换一次颜色，走偶数步后回到原来颜色。14 是偶数，所以从颜色上看并不矛盾。
+
+这道题告诉我们：染色法有时能证明“不可能”，有时只能判断“颜色条件没有矛盾”。若要进一步判定是否真的存在路线，还需要其他分析。
+\end{solution}
+
+\section{按奇偶与模数染色}
+
+\subsection{奇偶染色}
+\begin{example}
+桌面上有若干枚棋子。每次操作可以同时翻动恰好 3 枚棋子（正面朝上变成反面，反面朝上变成正面）。如果开始时只有 1 枚棋子正面朝上，能否经过若干次操作后让所有棋子都反面朝上？
+\end{example}
+
+\begin{solution}
+把“正面朝上的棋子数”的奇偶性看作颜色。
+
+每次翻动 3 枚棋子，正面数可能增加 3、减少 3、增加 1、减少 1，但无论怎样变化，变化量都是奇数，因此奇偶性一定改变。
+
+开始时正面数为 1，是奇数；目标状态正面数为 0，是偶数。从奇偶性看，若操作奇数次可以到偶数，操作偶数次回到奇数，所以颜色分析不能直接否定。
+
+但如果题目改成“每次翻动恰好 2 枚棋子”，那正面数变化量一定是偶数，奇偶性保持不变，就不可能从 1 变到 0。
+
+因此这类题的关键，是先判断操作保持什么不变量。
+\end{solution}
+
+\begin{example}
+在平面整数格点上，一只青蛙每次可以向上、下、左、右跳 1 格。若它从 $(0,0)$ 出发，能否跳到 $(5,6)$？
+\end{example}
+
+\begin{solution}
+考虑坐标和 $x+y$ 的奇偶性。
+
+每跳 1 格，$x+y$ 都会增加或减少 1，因此奇偶性每次改变。起点 $(0,0)$ 的 $x+y=0$ 为偶数，终点 $(5,6)$ 的 $x+y=11$ 为奇数，所以只要跳奇数步就有可能到达；从颜色条件看不矛盾。
+
+事实上当然能到达，例如向右跳 5 次、向上跳 6 次即可。
+\end{solution}
+
+\subsection{模 3、模 4 染色}
+\begin{example}
+把所有整数按除以 3 的余数染成三种颜色。证明任意三个连续整数的颜色都两两不同。
+\end{example}
+
+\begin{solution}
+三个连续整数分别可写成
+\[
+n,\ n+1,\ n+2.
+\]
+它们除以 3 的余数恰好分别是三种不同情况，所以颜色两两不同。
+\end{solution}
+
+\begin{example}
+有一条无限长方格纸带，每次可以用一个 $1\times 3$ 小纸条覆盖连续的 3 格。若只想覆盖第 1 格和第 2026 格，且不覆盖中间任何格子，可能吗？
+\end{example}
+
+\begin{solution}
+把格子按编号除以 3 的余数染成三色。一个 $1\times 3$ 小纸条无论放在哪里，都会恰好覆盖 3 种不同颜色各一个。
+
+如果只覆盖第 1 格和第 2026 格，那么被覆盖格子的总数是 2，不是 3 的倍数，当然不可能。即使把问题改成覆盖若干个不连续格子，只要三色数量不平衡，也能快速判断不可能。
+\end{solution}
+
+\section{染色问题综合例题}
+
+\begin{example}
+将 $6\times 6$ 棋盘的每个方格染成黑白两色，使得每一行每一列中黑格个数都是奇数。问这样的染色是否可能？
+\end{example}
+
+\begin{solution}
+可能。
+
+因为 6 行中每行黑格数都是奇数，所以全棋盘黑格总数是 6 个奇数之和，即偶数。
+
+另一方面，6 列中每列黑格数也都是奇数，所以总黑格数也是 6 个奇数之和，仍为偶数。两边并不矛盾，因此有可能。
+
+事实上可以直接构造。令第 $i$ 行（$i=1,2,\ldots,6$）的黑格恰好出现在第
+\[
+i,\ i+1,\ i+2
+\]
+列，其中列号按 6 循环理解（例如第 6 行的黑格在第 6、1、2 列）。
+
+这样每一行都有 3 个黑格，每一列也都有 3 个黑格，全部都是奇数，所以这样的染色\textbf{可以实现}。
+
+这题的重点不在构造细节，而在于先用\textbf{总数奇偶性}检查是否存在矛盾。
+\end{solution}
+
+\begin{example}
+把 $8\times 8$ 棋盘的每个格子都填上 $+1$ 或 $-1$。每次操作可以同时改变某一整行或某一整列中所有数的符号。问能否通过若干次操作，使得所有数之和等于 $64$？
+\end{example}
+
+\begin{solution}
+可以。因为所有数之和等于 64 等价于所有格子都变成 $+1$。
+
+若一开始任意填入 $\pm 1$，不一定总能做到；但如果把题目理解成“是否存在某种操作序列使某个给定局面变成全 $+1$”，则需要更细分析。
+
+这里介绍一个常用观察：改变一整行或一整列，相当于按模 2 改变某些位置的状态。此类题常转化为线性代数，但对当前阶段的学习，记住下面一点更重要：
+\begin{itemize}
+  \item 染色法不只用于棋盘黑白，也可以用于把状态编码成奇偶信息；
+  \item 当操作是“整体翻转”时，要优先思考是否存在某种\textbf{保持不变的量}。
+\end{itemize}
+\end{solution}
+
+\begin{exercise}
+在 $7\times 7$ 棋盘上删去一个角格，剩余部分能否被 $1\times 2$ 骨牌完全覆盖？请说明理由。
+\end{exercise}
+
+\begin{exercise}
+平面上有 9 个格点。证明其中一定能找到两个点，使它们连线的中点仍然是格点。
+\end{exercise}
+
+\partdivider{第四部分}{专题收束：方法整理与课后训练}
+
+\section{三大专题方法总表}
+
+\begin{goalbox}{一张表带走本讲核心}
+\begin{center}
+\renewcommand{\arraystretch}{1.45}
+\begin{tabular}{|p{3cm}|p{4.3cm}|p{5.4cm}|}
+\hline
+\textbf{专题} & \textbf{核心问题} & \textbf{常用方法} \\
+\hline
+排列组合计数 & 一共有多少种情况 & 分类、分步、先选后排、插空、捆绑、补集、转化 \\
+\hline
+抽屉原理 & 证明某种情况一定出现 & 找物体、找抽屉、构造同类、加强型估计 \\
+\hline
+染色问题 & 证明不可能或寻找不变量 & 黑白染色、奇偶染色、模数染色、数量平衡 \\
+\hline
+\end{tabular}
+\end{center}
+\end{goalbox}
+
+\begin{skillbox}{做题流程建议}
+\begin{enumerate}
+  \item 先判断题型：计数、存在性、覆盖不可能；
+  \item 若是计数，先看分类还是分步；
+  \item 若要证明“必有”，优先想抽屉；
+  \item 若要证明“不可能”，优先想染色与奇偶性；
+  \item 若卡住，回到最简单的模型：位置、余数、颜色、空位。
+\end{enumerate}
+\end{skillbox}
+
+\section{课后训练}
+
+\begin{exercise}
+数字 $1,2,3,4,5,6$ 组成没有重复数字的五位数，其中恰有 3 个偶数数字，共有多少个？
+\end{exercise}
+
+\begin{exercise}
+8 名同学围成一圈坐下，甲、乙不相邻，有多少种不同坐法？
+\end{exercise}
+
+\begin{exercise}
+从 1 到 30 中任取 16 个整数，证明其中一定有两个数互质。
+\end{exercise}
+
+\begin{exercise}
+把一个 $8\times 8$ 棋盘按黑白相间染色，问一条从左下角走到右上角、每步只能向上或向右的路径，经过的黑格数与白格数有什么关系？
+\end{exercise}
+
+\newpage
+\appendix
+\section{练习参考答案}
+
+\subsection*{第一部分练习}
+
+\textbf{练习 1}：
+可按末两位是否为 4 的倍数来分类，再决定前两位的选法。若采用“先选末两位，再排前两位”的思路，计数会比较清晰。
+
+\textbf{练习 2}：
+先排另外 4 本书，有 $4!$ 种。此时形成 5 个空位，要把数学、语文、英语三本书放入其中且互不相邻：选空位有 $\binom{5}{3}$ 种，三本书内部排序有 $3!$ 种。因此共有
+\[
+4!\times \binom{5}{3}\times 3!=1440
+\]
+种。
+
+\subsection*{第二部分练习}
+
+\textbf{练习 3}：
+按除以 7 的余数构造抽屉。余数为 0 的是一类；余数为 1 与 6 配成一类；余数为 2 与 5 配成一类；余数为 3 与 4 配成一类。这样共 4 类。任取 8 个整数，必有两个数落在同一类，于是它们的和或差是 7 的倍数。
+
+\textbf{练习 4}：
+把边长为 2 的正方形分成 4 个边长为 1 的小正方形。任取 5 个点，必有两个点落在同一个小正方形内，而小正方形的对角线长是 $\sqrt{2}$，所以这两点距离不超过 $\sqrt{2}$。
+
+\subsection*{第三部分练习}
+
+\textbf{练习 5}：
+$7\times 7$ 棋盘共有 49 格，去掉一个角格后剩下 48 格。删去角格后黑白格数都变成 24，因此黑白染色没有矛盾；而且这时\textbf{确实可以覆盖}。一种构造是：
+\begin{itemize}
+  \item 在第 1、3、5 行的第 2 至第 7 列全部竖放骨牌；
+  \item 在第 1 列的第 2--3 行、第 4--5 行、第 6--7 行各竖放 1 块骨牌；
+  \item 最后一行剩下的第 2 至第 7 列再横放 3 块骨牌。
+\end{itemize}
+这样恰好覆盖全部剩余方格。
+
+\textbf{练习 6}：
+格点按横纵坐标奇偶性最多分成 4 类。9 个格点中至少有 3 个在同一类，任取其中两个，它们连线中点的横坐标与纵坐标都仍是整数，所以中点是格点。
+
+\subsection*{课后训练提示}
+
+\textbf{训练 1}：先从偶数数字 $\{2,4,6\}$ 中选 3 个，再从奇数数字 $\{1,3,5\}$ 中选 2 个，然后排列。
+
+\textbf{训练 2}：围坐问题可先固定其中一人，再用补集法处理甲乙相邻。
+
+\textbf{训练 3}：可把整数按连续数配对，或借助数字 1 的特殊性。
+
+\textbf{训练 4}：起点与终点颜色相同，整条路径经过的格子数固定，因此黑白格数之差也固定，可先从最短路径入手观察。
+
+\end{document}

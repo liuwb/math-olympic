@@ -1,0 +1,302 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.25cm,bottom=2.45cm,left=2.25cm,right=2.25cm,headheight=18pt,headsep=0.55cm,footskip=24pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black
+}
+
+\setstretch{1.13}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.25em}
+\setlist[enumerate]{itemsep=0.45em, topsep=0.35em, leftmargin=2.4em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=1.9em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{rulegray}{RGB}{110,118,128}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.2em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.1em}{0.7em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 组合专题周测 B 卷}
+\fancyhead[C]{\small 排列组合计数、抽屉原理与染色问题}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{infobox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newenvironment{solution}{\par\noindent\textbf{参考解答：}}{\hfill$\square$\par}
+\newcommand{\answerspace}{\vspace{2.4cm}}
+\newcommand{\biganswerspace}{\vspace{3.2cm}}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{center}
+{\fontsize{22}{28}\selectfont\bfseries 组合专题周测 B 卷\par}
+\vspace{0.4cm}
+{\large 适合小学高年级至初中低年级数学竞赛训练\par}
+\end{center}
+
+\begin{infobox}{考试说明}
+\begin{itemize}
+  \item 测试时间：75 分钟
+  \item 满分：100 分
+  \item 本卷比 A 卷稍灵活，注意先判断题型，再决定是分类计数、抽屉构造还是染色证明。
+\end{itemize}
+\end{infobox}
+
+\section{试题}
+
+\begin{enumerate}
+  \item （12 分）从数字 $0,1,2,3,4,5,6,7$ 中选出 5 个不同数字组成五位数，要求这个五位数是奇数，且相邻两位数字奇偶不同，共有多少个？
+  \biganswerspace
+
+  \item （12 分）将单词“BANANA”的 6 个字母排成一排，共有多少种不同排法？其中两个 $N$ 不相邻的有多少种？
+  \answerspace
+
+  \item （12 分）8 名同学围成一圈坐下，甲、乙不相邻，共有多少种不同坐法？
+  \answerspace
+
+  \item （12 分）7 本不同的书排成一行，其中数学书、语文书、英语书三本互不相邻，共有多少种排法？
+  \biganswerspace
+
+  \item （12 分）任取 8 个整数，证明其中一定有两个数，它们的和或差是 7 的倍数。
+  \answerspace
+
+  \item （12 分）平面上任取 5 个格点，证明其中一定能找到两点，使得这两点连线的中点仍是格点。
+  \answerspace
+
+  \item （14 分）$7\times 7$ 棋盘去掉一个角格后，剩余部分能否被 $1\times 2$ 骨牌完全覆盖？请说明理由。
+  \biganswerspace
+
+  \item （14 分）从 $1$ 到 $100$ 中任取 51 个数，判断下列两个结论的真假，并说明理由：
+  \begin{enumerate}
+    \item 一定存在两个数，它们的差是奇数；
+    \item 一定存在两个数，一个是另一个的倍数，且这两个数的差还是奇数。
+  \end{enumerate}
+  \biganswerspace
+\end{enumerate}
+
+\newpage
+\section{详细解答}
+
+\begin{enumerate}
+  \item \begin{solution}
+  因为相邻两位奇偶不同，又要求整个五位数是奇数，所以末位必须是奇数，整个奇偶模式只能是
+  \[
+  \text{奇}\ \text{偶}\ \text{奇}\ \text{偶}\ \text{奇}.
+  \]
+
+  奇数数字有 $1,3,5,7$ 共 4 个，从中选 3 个并排列到第 1、3、5 位，有
+  \[
+  4\times 3\times 2=24
+  \]
+  种。
+
+  偶数数字有 $0,2,4,6$ 共 4 个，从中选 2 个并排列到第 2、4 位，有
+  \[
+  4\times 3=12
+  \]
+  种。
+
+  所以总数为
+  \[
+  24\times 12=288.
+  \]
+
+  \end{solution}
+
+  \item \begin{solution}
+  字母一共有 6 个，其中 $A$ 有 3 个，$N$ 有 2 个，$B$ 有 1 个。
+
+  \textbf{总排法：}
+  \[
+  \frac{6!}{3!2!}=60.
+  \]
+
+  \textbf{求两个 $N$ 不相邻的排法。}  
+  先求两个 $N$ 相邻的情况。把两个 $N$ 捆成一个整体，则连同 3 个 $A$ 与 1 个 $B$ 一共是 5 个对象，其中 3 个 $A$ 相同，所以排法数为
+  \[
+  \frac{5!}{3!}=20.
+  \]
+
+  所以两个 $N$ 不相邻的排法数为
+  \[
+  60-20=40.
+  \]
+
+  \end{solution}
+
+  \item \begin{solution}
+  围成一圈时，先固定一人。固定其中一名同学后，其余 7 人围坐有
+  \[
+  7!
+  \]
+  种不同坐法。
+
+  现在求甲、乙相邻的坏情况。固定甲以后，乙只能坐在甲的左边或右边，共 2 种选法，其余 6 人任意排列，有
+  \[
+  6!
+  \]
+  种。
+
+  所以坏情况为
+  \[
+  2\times 6!.
+  \]
+
+  故甲、乙不相邻的坐法为
+  \[
+  7!-2\times 6!=5040-1440=3600.
+  \]
+
+  \end{solution}
+
+  \item \begin{solution}
+  先排另外 4 本普通书，有
+  \[
+  4!
+  \]
+  种。
+
+  这 4 本书排好后形成 5 个空位：
+  \[
+  \square B \square B \square B \square B \square
+  \]
+  要使数学、语文、英语三本书互不相邻，就必须从这 5 个空位中选 3 个空位给它们放入，有
+  \[
+  \binom{5}{3}
+  \]
+  种。
+
+  这三本书彼此不同，所以还可以在 3 个空位中排列，有
+  \[
+  3!
+  \]
+  种。
+
+  总排法为
+  \[
+  4!\binom{5}{3}3!=24\times 10\times 6=1440.
+  \]
+
+  \end{solution}
+
+  \item \begin{solution}
+  把整数按除以 7 的余数分成下面 4 类：
+  \[
+  \{0\},\qquad \{1,6\},\qquad \{2,5\},\qquad \{3,4\}.
+  \]
+
+  为什么这样分？因为：
+  \begin{itemize}
+    \item 如果两个数余数相同，那么它们的差是 7 的倍数；
+    \item 如果两个数余数互为补数，例如一个余 1，一个余 6，那么它们的和是 7 的倍数。
+  \end{itemize}
+
+  现在任取 8 个整数，把它们放入这 4 类中。根据抽屉原理，至少有一类中有 2 个数。
+
+  于是这两个数要么余数相同，此时差是 7 的倍数；要么余数互为补数，此时和是 7 的倍数。
+
+  所以一定有两个数，它们的和或差是 7 的倍数。
+
+  \end{solution}
+
+  \item \begin{solution}
+  格点的横坐标只有奇、偶两种情况，纵坐标也只有奇、偶两种情况，因此格点按横纵坐标奇偶性最多分成 4 类：
+  \[
+  (\text{奇},\text{奇}),\ (\text{奇},\text{偶}),\ (\text{偶},\text{奇}),\ (\text{偶},\text{偶}).
+  \]
+
+  任取 5 个格点，根据抽屉原理，至少有两个格点落在同一类。设它们是
+  \[
+  (x_1,y_1),\qquad (x_2,y_2).
+  \]
+
+  因为它们在同一类，所以 $x_1,x_2$ 同奇偶，$y_1,y_2$ 也同奇偶。
+
+  于是
+  \[
+  \frac{x_1+x_2}{2},\qquad \frac{y_1+y_2}{2}
+  \]
+  都是整数，所以这两点连线的中点仍然是格点。
+
+  \end{solution}
+
+  \item \begin{solution}
+  能覆盖。
+
+  去掉一个角格以后，第一行还剩下 6 个格子，可以用 3 块横放骨牌盖住。
+
+  此时剩余部分正好是第 2 行到第 7 行构成的一个
+  \[
+  6\times 7
+  \]
+  长方形。对这个长方形，可以按列用竖放骨牌全部覆盖：每一列有 6 个格子，可用 3 块竖放骨牌盖满，共 7 列。
+
+  因此整个去角后的 $7\times 7$ 棋盘可以被骨牌完全覆盖。
+
+  \end{solution}
+
+  \item \begin{solution}
+  \textbf{(1) 一定存在两个数，它们的差是奇数。}
+
+  这个结论为真。因为从 1 到 100 中，奇数有 50 个，偶数也有 50 个。任取 51 个数，不可能全是奇数，也不可能全是偶数，所以一定同时取到了奇数和偶数。
+
+  一奇一偶两个数的差一定是奇数，因此第 1 个结论成立。
+
+  \textbf{(2) 一定存在两个数，一个是另一个的倍数，且这两个数的差还是奇数。}
+
+  这个结论为假。给出反例：
+  \[
+  1,3,5,7,\ldots,99,\ 2.
+  \]
+  这 51 个数由全部 50 个奇数和数字 2 组成。
+
+  在这组数里，确实存在整除关系，例如
+  \[
+  1\mid 3,\qquad 3\mid 9.
+  \]
+  但这类数都是两个奇数，它们的差都是偶数。
+
+  至于数字 2，它的其他偶数倍数如 4,6,8,\ldots 都没有被选入，而奇数不可能是 2 的倍数。
+
+  所以这组 51 个数中不存在“一对既成倍数关系又差为奇数的数”。因此第 2 个结论为假。
+
+  \end{solution}
+\end{enumerate}
+
+\end{document}
