@@ -1,0 +1,283 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.25cm,bottom=2.45cm,left=2.25cm,right=2.25cm,headheight=18pt,headsep=0.55cm,footskip=24pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black
+}
+
+\setstretch{1.13}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.25em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.45em, topsep=0.35em, leftmargin=2.4em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=1.9em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{rulegray}{RGB}{110,118,128}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.2em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.1em}{0.7em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 数论方法中的组合构造周测 A 卷}
+\fancyhead[C]{\small 组合专题：奇偶性、模运算与基础不变量}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{infobox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newenvironment{solution}{\par\noindent\textbf{参考解答：}}{\hfill$\square$\par}
+\newcommand{\answerspace}{\vspace{2.3cm}}
+\newcommand{\biganswerspace}{\vspace{3.1cm}}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{center}
+{\fontsize{22}{28}\selectfont\bfseries 数论方法中的组合构造周测 A 卷\par}
+\vspace{0.4cm}
+{\large 适合小学高年级至初中低年级数学竞赛训练\par}
+\end{center}
+
+\begin{infobox}{考试说明}
+\begin{itemize}
+  \item 测试时间：70--75 分钟
+  \item 满分：100 分
+  \item A 卷侧重奇偶性、按模分类和基础不变量，建议先判断“该按什么模分类”，再动手计算。
+\end{itemize}
+\end{infobox}
+
+\section{试题}
+
+\begin{enumerate}
+  \item （10 分）从 $1$ 到 $10$ 中任取 $6$ 个数，证明其中必有两个数的差是偶数。
+  \answerspace
+
+  \item （12 分）黑板上写着 $1,2,3,4,5,6,7,8$。每次擦去其中两个数 $a,b$，再写上 $a+b-1$。反复操作，直到只剩下一个数。求最后剩下的数。
+  \answerspace
+
+  \item （12 分）从 $1$ 到 $9$ 中选出 $4$ 个数，使它们的和能被 $3$ 整除，有多少种选法？
+  \biganswerspace
+
+  \item （12 分）从 $1$ 到 $15$ 中任取 $8$ 个数，证明其中一定有两个数的差是 $5$ 的倍数。
+  \answerspace
+
+  \item （12 分）把 $1$ 到 $12$ 分成 $6$ 对，使每对两个数的和都是 $3$ 的倍数。请给出一种分法，并说明为什么一对数的余数类型只可能是有限几种。
+  \biganswerspace
+
+  \item （14 分）从 $1$ 到 $15$ 中最多能选多少个数，使得任意两个被选出的数的和都不是 $3$ 的倍数？
+  \biganswerspace
+
+  \item （14 分）两堆石子分别有 $7$ 颗和 $7$ 颗。每次操作必须从一堆里取出 $1$ 颗石子，再从另一堆里取出 $2$ 颗石子。问能否经过若干次操作后，恰好把两堆石子全部取完？
+  \answerspace
+
+  \item （14 分）从 $1$ 到 $12$ 中任取 $6$ 个数，证明其中一定能选出 $3$ 个数，使这 $3$ 个数的和是 $3$ 的倍数。
+  \biganswerspace
+\end{enumerate}
+
+\newpage
+\section{详细解答}
+
+\begin{enumerate}
+  \item \begin{solution}
+  从 $1$ 到 $10$ 中，奇数有 $5$ 个，偶数也有 $5$ 个。
+
+  现在任取 $6$ 个数，而奇偶性只有“奇数、偶数”两类。由抽屉原理，所取的 $6$ 个数中，至少有两数同为奇数，或者至少有两数同为偶数。
+
+  两个奇数之差是偶数，两个偶数之差也是偶数。
+
+  所以必有两个数的差是偶数。
+  \end{solution}
+
+  \item \begin{solution}
+  每次把 $a,b$ 换成 $a+b-1$，黑板上所有数的总和会减少 $1$。
+
+  初始总和为
+  \[
+  1+2+3+4+5+6+7+8=36.
+  \]
+
+  从 8 个数变成 1 个数，一共需要操作
+  \[
+  8-1=7
+  \]
+  次。
+
+  所以最后总和为
+  \[
+  36-7=29.
+  \]
+
+  最后只剩一个数，因此最后剩下的数就是
+  \[
+  29.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  把 $1$ 到 $9$ 按模 $3$ 分类：
+  \[
+  0\text{ 类： }3,6,9;\qquad 1\text{ 类： }1,4,7;\qquad 2\text{ 类： }2,5,8.
+  \]
+
+  4 个数的和要能被 $3$ 整除，余数类型只可能是
+  \[
+  (0,0,1,2),\ (1,1,1,0),\ (2,2,2,0),\ (1,1,2,2).
+  \]
+
+  分别计数：
+  \[
+  \binom32\binom31\binom31=27,
+  \qquad
+  \binom33\binom31=3,
+  \qquad
+  \binom33\binom31=3,
+  \qquad
+  \binom32\binom32=9.
+  \]
+
+  所以总数为
+  \[
+  27+3+3+9=42.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  把整数按除以 $5$ 的余数分成 5 类：0 类、1 类、2 类、3 类、4 类。
+
+  现在取了 $8$ 个数，而余数类只有 $5$ 个。由抽屉原理，至少有两个数在同一个余数类中。
+
+  设这两个数为 $a,b$，则
+  \[
+  a\equiv b\pmod 5.
+  \]
+  所以
+  \[
+  a-b\equiv 0\pmod 5.
+  \]
+
+  这说明 $a-b$ 是 $5$ 的倍数。
+
+  因此一定有两个数的差是 $5$ 的倍数。
+  \end{solution}
+
+  \item \begin{solution}
+  若一对数的和是 $3$ 的倍数，则它们的余数和必须为 $0$（模 $3$）。
+
+  所以一对数的余数类型只可能是
+  \[
+  (0,0)\quad \text{或} \quad (1,2).
+  \]
+
+  把 $1$ 到 $12$ 按模 $3$ 分类：
+  \[
+  0\text{ 类： }3,6,9,12;
+  \quad
+  1\text{ 类： }1,4,7,10;
+  \quad
+  2\text{ 类： }2,5,8,11.
+  \]
+
+  一种可行分法是
+  \[
+  (3,6),\ (9,12),\ (1,2),\ (4,5),\ (7,8),\ (10,11).
+  \]
+
+  其中前两对属于 $(0,0)$ 型，后四对属于 $(1,2)$ 型，每对和都能被 $3$ 整除。
+  \end{solution}
+
+  \item \begin{solution}
+  把 $1$ 到 $15$ 按模 $3$ 分成三类，每类各有 5 个数。
+
+  若任意两个被选数的和都不能被 $3$ 整除，则：
+  \begin{itemize}
+    \item 0 类中最多选 1 个，因为两个 0 类数相加仍是 $0$（模 $3$）；
+    \item 1 类和 2 类不能同时都选，因为 $1+2\equiv 0\pmod 3$。
+  \end{itemize}
+
+  因此最多的选法是：把 1 类全部选上，再从 0 类里选 1 个；或把 2 类全部选上，再从 0 类里选 1 个。
+
+  所以最多能选
+  \[
+  5+1=6
+  \]
+  个。
+
+  例如
+  \[
+  \{1,4,7,10,13,3\}
+  \]
+  就满足条件。
+  \end{solution}
+
+  \item \begin{solution}
+  一开始总石子数为
+  \[
+  7+7=14.
+  \]
+
+  每次操作都恰好取走
+  \[
+  1+2=3
+  \]
+  颗石子，所以总石子数每次减少 3。
+
+  如果最后能把石子恰好取完，那么 14 必须是 3 的倍数。
+
+  但 14 不是 3 的倍数，所以不可能把两堆石子恰好全部取完。
+  \end{solution}
+
+  \item \begin{solution}
+  把这 6 个数按模 $3$ 的余数分成 0 类、1 类、2 类。
+
+  如果某一类里至少有 3 个数，那么取这一类中的 3 个数，它们的余数和就是
+  \[
+  0+0+0,\quad 1+1+1,\quad \text{或}\quad 2+2+2,
+  \]
+  都能被 $3$ 整除。
+
+  如果每一类都至多有 2 个数，那么由于总共有 6 个数，就只能是三类个数恰好为 $2,2,2$。
+
+  这时从三类中各取 1 个，余数和为
+  \[
+  0+1+2=3,
+  \]
+  也能被 $3$ 整除。
+
+  所以无论怎样取，必能选出 3 个数，它们的和是 3 的倍数。
+  \end{solution}
+\end{enumerate}
+
+\end{document}

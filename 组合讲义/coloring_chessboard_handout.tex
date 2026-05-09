@@ -1,0 +1,511 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.4cm,bottom=2.6cm,left=2.35cm,right=2.35cm,headheight=18pt,headsep=0.55cm,footskip=26pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black,
+  citecolor=blue!50!black
+}
+
+\setstretch{1.16}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.35em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.32em, topsep=0.32em, leftmargin=2.3em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=2em}
+\setcounter{tocdepth}{2}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{accent}{RGB}{153,76,0}
+\definecolor{rulegray}{RGB}{110,118,128}
+\definecolor{softgreen}{RGB}{236,247,240}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.25em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.3em}{0.9em}
+\titleformat{\subsection}{\large\bfseries\color{mainblue}}{\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{1.05em}{0.55em}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{accent}}{\thesubsubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 组合专题课堂讲义}
+\fancyhead[C]{\small 染色方法与棋盘问题}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtheoremstyle{formaltheorem}
+  {0.8em}{0.8em}{\normalfont}{}{\bfseries\color{mainblue}}{．}{0.6em}{}
+\newtheoremstyle{formalexample}
+  {0.8em}{0.8em}{\normalfont}{}{\bfseries\color{accent}}{．}{0.6em}{}
+
+\theoremstyle{formaltheorem}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{method}{方法}[section]
+\theoremstyle{formalexample}
+\newtheorem{example}{例题}[section]
+\newtheorem{exercise}{练习}[section]
+
+\newenvironment{solution}{\par\noindent\textbf{解：}}{\hfill$\square$\par}
+
+\newtcolorbox{goalbox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{notebox}[1]{
+  breakable,
+  colback=lightgray,
+  colframe=black!50,
+  boxrule=0.55pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{skillbox}[1]{
+  breakable,
+  colback=softgreen,
+  colframe=green!40!black,
+  boxrule=0.65pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{titlepage}
+\centering
+\vspace*{0.9cm}
+
+\begin{tcolorbox}[
+  enhanced,
+  width=0.92\textwidth,
+  colback=white,
+  colframe=mainblue,
+  boxrule=1pt,
+  arc=0mm,
+  left=6mm,
+  right=6mm,
+  top=8mm,
+  bottom=8mm
+]
+\centering
+
+{\fontsize{24}{30}\selectfont\bfseries 组合专题课堂讲义\par}
+\vspace{0.7cm}
+{\fontsize{17}{22}\selectfont 染色方法与棋盘问题\par}
+
+\vspace{1.1cm}
+\color{rulegray}\rule{0.72\textwidth}{0.7pt}\par
+\vspace{1cm}
+
+\begin{tcolorbox}[colback=lightblue,colframe=mainblue,width=0.82\textwidth,boxrule=1pt]
+\centering
+{\Large 适合对象：小学高年级至初中低年级数学竞赛学生}\\[0.4em]
+{\large 已掌握基础组合、抽屉原理与数论分类，准备学习“用染色证明不可能与存在”}
+\end{tcolorbox}
+
+\vspace{1.2cm}
+
+\renewcommand{\arraystretch}{1.42}
+\begin{tabular}{>{\bfseries}p{3.5cm}p{8cm}}
+讲义作者： & 刘文博 \\
+专题关键词： & 黑白染色、多色染色、棋盘覆盖、不变量、路径奇偶性、不可能性证明 \\
+建议课时： & 2--3 课时 \\
+专题目标： & 学会根据棋子或骨牌的形状设计合适的染色，并用颜色数量关系证明可能或不可能 \\
+编译方式： & XeLaTeX \\
+\end{tabular}
+
+\vspace{1.2cm}
+\color{rulegray}\rule{0.72\textwidth}{0.7pt}\par
+\vspace{0.8cm}
+
+{\normalsize 本讲从最基本的黑白棋盘染色出发，逐步过渡到多色染色与路径奇偶性，帮助学生把“看起来是覆盖题、路径题”的问题转化成颜色数量与不变量的分析。\par}
+
+\vspace{0.5cm}
+{\large \today\par}
+\end{tcolorbox}
+\end{titlepage}
+
+\pagenumbering{Roman}
+\pagestyle{plain}
+\tableofcontents
+\newpage
+\pagestyle{fancy}
+\pagenumbering{arabic}
+
+\section{专题目标与核心问题}
+
+\begin{goalbox}{这一讲要解决什么问题}
+很多棋盘题、骨牌覆盖题和路径题，表面上是在“摆放”“覆盖”“走格子”，但真正决定成败的，往往不是具体摆法，而是颜色分布。
+
+本讲的目标，就是学会给棋盘染色，把复杂的结构限制转化成“每一步颜色怎样变化”“每块骨牌覆盖哪些颜色”“最后颜色数量是否平衡”。
+\end{goalbox}
+
+\begin{goalbox}{学完以后希望达到的能力}
+\begin{itemize}
+  \item 会用黑白染色处理最基本的棋盘覆盖题；
+  \item 会根据棋子的形状设计两色、三色或更多颜色的染色；
+  \item 会把路径问题转化成颜色交替问题；
+  \item 会判断“颜色数目相等”是必要条件还是充分条件。
+\end{itemize}
+\end{goalbox}
+
+\begin{notebox}{这讲和前面专题的关系}
+\begin{itemize}
+  \item 和数论方法中的组合构造很像：本质上也是分类，只不过把“余数类”换成了“颜色类”；
+  \item 和抽屉原理有联系：颜色本身也可以看成一种抽屉；
+  \item 和不变量思想非常接近：很多路径题里“颜色的奇偶变化”就是不变量或半不变量。
+\end{itemize}
+\end{notebox}
+
+\section{最基础的黑白染色}
+
+\subsection{为什么棋盘要黑白相间}
+最经典的染色方法，就是像国际象棋棋盘那样黑白相间地染色，使得每个格子与上下左右相邻格颜色不同。
+
+这种染色最有用的地方在于：很多常见棋子每次都会同时碰到固定数量的黑格和白格。
+
+\begin{example}
+一个 $1\times 2$ 骨牌放在黑白相间的棋盘上时，它一定覆盖几个黑格、几个白格？
+\end{example}
+
+\begin{solution}
+一个 $1\times 2$ 骨牌覆盖两个相邻格子，而黑白染色中，相邻格颜色一定不同。
+
+所以任何一个 $1\times 2$ 骨牌都一定覆盖
+\[
+1\text{ 个黑格和 }1\text{ 个白格}。
+\]
+\end{solution}
+
+\begin{skillbox}{看到骨牌覆盖，就先数黑白格}
+如果题目里出现的是 $1\times 2$ 骨牌，第一反应往往应当是：
+\begin{itemize}
+  \item 先把棋盘黑白染色；
+  \item 再看剩下的黑格数和白格数是否相等。
+\end{itemize}
+\end{skillbox}
+
+\section{经典不可能题：残缺棋盘与骨牌}
+
+\begin{example}
+把 $8\times 8$ 国际象棋棋盘的左上角和右下角去掉，剩下的 $62$ 个格子能否被 $31$ 个 $1\times 2$ 骨牌恰好覆盖？
+\end{example}
+
+\begin{solution}
+先把棋盘按黑白相间方式染色。
+
+国际象棋棋盘上，左上角和右下角是同色的。设它们都是黑格。
+
+原来 $8\times 8$ 棋盘共有 $32$ 个黑格和 $32$ 个白格。去掉两个黑格后，剩下
+\[
+30\text{ 个黑格，}32\text{ 个白格}。
+\]
+
+而每一个 $1\times 2$ 骨牌都一定覆盖 $1$ 个黑格和 $1$ 个白格。
+
+如果能被 $31$ 个骨牌完全覆盖，那么被覆盖的黑格数和白格数必须相等。
+
+但现在黑格和白格数不相等，所以这是不可能的。
+\end{solution}
+
+\begin{notebox}{这里为什么是“必要条件”}
+黑白格数相等，是骨牌覆盖的必要条件，因为每个骨牌都会消耗一黑一白。
+
+但黑白格数相等，并不自动保证一定能覆盖成功。也就是说，黑白格数相等通常不是充分条件。
+\end{notebox}
+
+\section{路径问题中的染色与奇偶性}
+
+\subsection{马每走一步都会换色}
+在国际象棋棋盘上，马走“日”字。无论怎样走，都会从黑格跳到白格，或从白格跳到黑格。
+
+\begin{example}
+国际象棋棋盘上一匹马从一个黑格出发。它恰好走 $7$ 步后，能停在黑格上吗？恰好走 $8$ 步后呢？
+\end{example}
+
+\begin{solution}
+马每走一步，都会换一次颜色。
+
+从黑格出发：
+\begin{itemize}
+  \item 走 1 步后在白格；
+  \item 走 2 步后回到黑格；
+  \item 走 3 步后在白格；
+  \item 依此类推。
+\end{itemize}
+
+所以：
+\begin{itemize}
+  \item 走奇数步后，一定停在与起点颜色相反的格子上；
+  \item 走偶数步后，一定停在与起点颜色相同的格子上。
+\end{itemize}
+
+因此：
+\begin{itemize}
+  \item 恰好走 $7$ 步后，不能停在黑格上；
+  \item 恰好走 $8$ 步后，可以停在黑格上。
+\end{itemize}
+\end{solution}
+
+\begin{skillbox}{路径题里常问的不是“怎么走”，而是“能不能走到”}
+如果每一步都会改变颜色，那么起点和终点颜色、步数奇偶性之间就会形成强限制。
+
+这种限制往往比具体枚举路径简单得多。
+\end{skillbox}
+
+\section{多色染色：当黑白不够用时}
+
+\subsection{为什么要用三色或更多颜色}
+有些覆盖块不是 $1\times 2$ 骨牌，而是 $1\times 3$ 长条、$L$ 形三格块等。此时黑白染色未必能看出信息，就要考虑三色或更多颜色。
+
+\begin{example}
+把一个 $6\times 6$ 棋盘按 $x+y$ 除以 $3$ 的余数染成三种颜色。证明任何一个横放或竖放的 $1\times 3$ 长条，都恰好覆盖三种不同颜色各一个格子。
+\end{example}
+
+\begin{solution}
+给每个格子赋予坐标 $(x,y)$，并按
+\[
+(x+y)\bmod 3
+\]
+的值染成三种颜色。
+
+若一个 $1\times 3$ 长条横放，那么它覆盖的三个格子坐标和分别相差 $1$；若竖放，也同样相差 $1$。
+
+因此这三个格子的颜色余数恰好是连续的三个模 $3$ 余数，也就是
+\[
+0,1,2
+\]
+各出现一次。
+
+所以任何一个横放或竖放的 $1\times 3$ 长条，都恰好覆盖三种不同颜色各一个格子。
+\end{solution}
+
+\begin{example}
+一个 $6\times 6$ 棋盘按上面的三色方法染色后，去掉了三个同色格子。剩下的格子能否被若干个 $1\times 3$ 长条完全覆盖？
+\end{example}
+
+\begin{solution}
+由上一题可知，每个 $1\times 3$ 长条都恰好覆盖三种颜色各一个格子。
+
+因此如果整个棋盘能被这些长条完全覆盖，那么被覆盖的三种颜色格子数必须相等。
+
+而原来 $6\times 6$ 棋盘中三种颜色数量相等。现在去掉了三个同色格子，就会使三种颜色数量变成类似
+\[
+9,12,12
+\]
+这样的不相等状态。
+
+所以剩下的格子不可能再被 $1\times 3$ 长条完全覆盖。
+\end{solution}
+
+\section{怎样为题目选择合适的染色}
+
+\begin{method}[选染色的三个常见入口]
+\begin{enumerate}
+  \item 看覆盖块每次会碰到哪些相邻格：若总是跨两种颜色，常用黑白染色；
+  \item 看覆盖块长度是不是 $3$、$4$ 等：若有周期结构，常考虑模 $3$、模 $4$ 染色；
+  \item 看路径每走一步怎样移动：若每一步都会改变某种颜色性质，就可用颜色追踪奇偶性。
+\end{enumerate}
+\end{method}
+
+\begin{notebox}{染色的本质}
+染色不是画图好看，而是把结构中“每一步都固定发生的事”显现出来。
+
+只要一种棋子或一种操作，对颜色的作用是固定的，染色就有可能成为有效工具。
+\end{notebox}
+
+\section{常见误区}
+
+\begin{notebox}{误区 1：染了颜色，但没有说明颜色为什么有用}
+染色以后，一定要明确说明：每个骨牌、每一步走法、每个操作，对颜色到底有什么固定影响。
+\end{notebox}
+
+\begin{notebox}{误区 2：把“黑白数相等”当成充分条件}
+很多题里，黑白数相等只是必要条件，不代表一定能成功覆盖。证明“可以”通常还需要给出具体构造。
+\end{notebox}
+
+\begin{notebox}{误区 3：只会黑白染色，不会根据题目换颜色}
+如果题目中的覆盖块一次会碰到 3 个格子、4 个格子，或者路径有模 $3$、模 $4$ 周期，就要考虑三色、四色等更合适的染色方式。
+\end{notebox}
+
+\section{课堂练习}
+
+\begin{exercise}
+一个 $5\times 5$ 棋盘能否被若干个 $1\times 2$ 骨牌完全覆盖？
+\end{exercise}
+
+\begin{exercise}
+一个 $8\times 8$ 国际象棋棋盘去掉两个同色角格后，剩下的格子能否被 $1\times 2$ 骨牌完全覆盖？
+\end{exercise}
+
+\begin{exercise}
+国际象棋棋盘上一匹马从白格出发。它恰好走 $6$ 步后能停在白格上吗？恰好走 $7$ 步后呢？
+\end{exercise}
+
+\begin{exercise}
+把一个 $6\times 6$ 棋盘按 $(x+y)\bmod 3$ 的方法染成三色。说明任何一个横放或竖放的 $1\times 3$ 长条都覆盖三色各一个格子。
+\end{exercise}
+
+\begin{exercise}
+一个按上题三色方法染好的 $6\times 6$ 棋盘，若去掉了三个同色格子，能否被 $1\times 3$ 长条完全覆盖？
+\end{exercise}
+
+\begin{exercise}
+一个 $3\times 3$ 棋盘去掉中心格后，剩下的 $8$ 个格子能否被 $4$ 个 $1\times 2$ 骨牌完全覆盖？如果能，请说明为什么这说明“黑白格数相等”有时还需要配合构造来看。
+\end{exercise}
+
+\newpage
+\appendix
+\section{练习解答}
+
+\begin{exercise}
+一个 $5\times 5$ 棋盘能否被若干个 $1\times 2$ 骨牌完全覆盖？
+\end{exercise}
+
+\begin{solution}
+不能。
+
+因为一个 $1\times 2$ 骨牌每次都覆盖 $2$ 个格子，所以若要完全覆盖，棋盘的总格子数必须是偶数。
+
+但 $5\times 5$ 棋盘共有
+\[
+25
+\]
+个格子，是奇数，因此不可能被 $1\times 2$ 骨牌完全覆盖。
+\end{solution}
+
+\begin{exercise}
+一个 $8\times 8$ 国际象棋棋盘去掉两个同色角格后，剩下的格子能否被 $1\times 2$ 骨牌完全覆盖？
+\end{exercise}
+
+\begin{solution}
+不能。
+
+按黑白相间方式染色后，两个同色角格要么都黑，要么都白。
+
+原来 $8\times 8$ 棋盘中黑白格各有 $32$ 个。去掉两个同色格后，黑白格数变成
+\[
+30\text{ 和 }32
+\]
+或
+\[
+32\text{ 和 }30.
+\]
+
+而任何一个 $1\times 2$ 骨牌都一定覆盖一黑一白。
+
+如果可以完全覆盖，那么被覆盖的黑格数和白格数必须相等。但现在不相等，所以不可能完全覆盖。
+\end{solution}
+
+\begin{exercise}
+国际象棋棋盘上一匹马从白格出发。它恰好走 $6$ 步后能停在白格上吗？恰好走 $7$ 步后呢？
+\end{exercise}
+
+\begin{solution}
+马每走一步都会换色。
+
+因此：
+\begin{itemize}
+  \item 走奇数步后，一定停在与起点颜色相反的格子上；
+  \item 走偶数步后，一定停在与起点颜色相同的格子上。
+\end{itemize}
+
+从白格出发：
+\begin{itemize}
+  \item 走 $6$ 步后可以停在白格上；
+  \item 走 $7$ 步后不能停在白格上。
+\end{itemize}
+\end{solution}
+
+\begin{exercise}
+把一个 $6\times 6$ 棋盘按 $(x+y)\bmod 3$ 的方法染成三色。说明任何一个横放或竖放的 $1\times 3$ 长条都覆盖三色各一个格子。
+\end{exercise}
+
+\begin{solution}
+若长条横放，它覆盖的三个格子横坐标连续，纵坐标相同，因此 $(x+y)\bmod 3$ 的值依次增加 $1$。
+
+若长条竖放，同理可知 $(x+y)\bmod 3$ 的值也依次增加 $1$。
+
+所以无论横放还是竖放，这三个格子的颜色余数都恰好是
+\[
+0,1,2
+\]
+三种各一次。
+\end{solution}
+
+\begin{exercise}
+一个按上题三色方法染好的 $6\times 6$ 棋盘，若去掉了三个同色格子，能否被 $1\times 3$ 长条完全覆盖？
+\end{exercise}
+
+\begin{solution}
+不能。
+
+因为任何一个 $1\times 3$ 长条都一定覆盖三种颜色各一个格子，所以若若干个长条完全覆盖某个图形，那么这个图形中三种颜色的格子数必须相等。
+
+而原来的 $6\times 6$ 棋盘三种颜色数目相等。去掉三个同色格子后，三种颜色数目就不再相等。
+
+因此不可能再被 $1\times 3$ 长条完全覆盖。
+\end{solution}
+
+\begin{exercise}
+一个 $3\times 3$ 棋盘去掉中心格后，剩下的 $8$ 个格子能否被 $4$ 个 $1\times 2$ 骨牌完全覆盖？如果能，请说明为什么这说明“黑白格数相等”有时还需要配合构造来看。
+\end{exercise}
+
+\begin{solution}
+能。
+
+去掉中心格后的图形像一个“方框”，可以用 $4$ 个骨牌沿着四条边依次摆放，正好覆盖全部 $8$ 个格子。
+
+这个例子说明：
+\begin{itemize}
+  \item 黑白格数相等时，至少没有立刻出现黑白数失衡的障碍；
+  \item 但要证明“真的可以覆盖”，通常还需要进一步给出具体摆法或结构说明。
+\end{itemize}
+
+  所以“黑白格数相等”往往只是必要条件，不一定自动推出“可以覆盖”。
+\end{solution}
+
+\end{document}

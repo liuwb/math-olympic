@@ -1,0 +1,235 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.4cm,bottom=2.6cm,left=2.35cm,right=2.35cm,headheight=18pt,headsep=0.55cm,footskip=26pt]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black
+}
+
+\setstretch{1.16}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.32em}
+\setlist[enumerate]{itemsep=0.35em, topsep=0.35em, leftmargin=2.3em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=2em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{rulegray}{RGB}{110,118,128}
+\definecolor{softgreen}{RGB}{236,247,240}
+\definecolor{softyellow}{RGB}{254,249,229}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.25em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.2em}{0.8em}
+\titleformat{\subsection}{\large\bfseries\color{mainblue}}{\thesubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 组合专题总目录页}
+\fancyhead[C]{\small 讲义、题单与周测总索引}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{goalbox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{infobox}[1]{
+  breakable,
+  colback=softgreen,
+  colframe=green!40!black,
+  boxrule=0.65pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{warnbox}[1]{
+  breakable,
+  colback=softyellow,
+  colframe=orange!60!black,
+  boxrule=0.65pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{titlepage}
+\centering
+\vspace*{0.9cm}
+
+\begin{tcolorbox}[
+  enhanced,
+  width=0.92\textwidth,
+  colback=white,
+  colframe=mainblue,
+  boxrule=1pt,
+  arc=0mm,
+  left=6mm,
+  right=6mm,
+  top=8mm,
+  bottom=8mm
+]
+\centering
+
+{\fontsize{24}{30}\selectfont\bfseries 组合专题总目录页\par}
+\vspace{0.65cm}
+{\fontsize{17}{22}\selectfont 已完成专题的讲义、题单与周测总索引\par}
+
+\vspace{1cm}
+\begin{tcolorbox}[colback=lightblue,colframe=mainblue,width=0.84\textwidth,boxrule=1pt]
+\centering
+{\large 适合对象：小学高年级至初中低年级数学竞赛中的组合专题系统训练}\\[0.35em]
+{\normalsize 本目录页把已经完成的多个专题串成一条清晰的学习路线}
+\end{tcolorbox}
+
+\vspace{1.0cm}
+\renewcommand{\arraystretch}{1.42}
+\begin{tabular}{>{\bfseries}p{3.5cm}p{8cm}}
+总主题： & 组合专题训练包 \\
+已完成专题： & 错位排列、容斥原理、递推计数 \\
+资料类型： & 课堂讲义、提高训练题单、周测 A 卷、周测 B 卷、专题目录页 \\
+编译方式： & XeLaTeX \\
+\end{tabular}
+
+\vspace{0.9cm}
+{\large \today\par}
+\end{tcolorbox}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{目前已经完成的专题}
+
+\begin{goalbox}{三个已经成型的小专题}
+\begin{enumerate}
+  \item 错位排列：从标准错位排列入手，过渡到部分位置受限、恰好若干个在原位、至少若干个在原位；
+  \item 容斥原理：从重复计数与补集法出发，训练坏事件并集和一般化表达；
+  \item 递推计数：从上楼梯模型切入，逐步过渡到受限字符串、铺砖模型和状态设计。
+\end{enumerate}
+\end{goalbox}
+
+\begin{infobox}{建议总体顺序}
+\begin{itemize}
+  \item 第一阶段：先学\textbf{错位排列}，建立“位置受限计数”的直觉；
+  \item 第二阶段：再学\textbf{容斥原理}，把“部分位置受限”提升成系统方法；
+  \item 第三阶段：再学\textbf{递推计数}，从“直接计数”转向“把大问题拆成小问题”。
+\end{itemize}
+\end{infobox}
+
+\section{每个专题对应的资料}
+
+\subsection{错位排列专题}
+\begin{itemize}
+  \item 讲义：\texttt{derangements\_handout.tex} / \texttt{derangements\_handout.pdf}
+  \item 提高训练题单：\texttt{derangements\_advanced\_problem\_set.tex} / \texttt{derangements\_advanced\_problem\_set.pdf}
+  \item 周测 A 卷：\texttt{derangements\_weekly\_test\_A.tex} / \texttt{derangements\_weekly\_test\_A.pdf}
+  \item 周测 B 卷：\texttt{derangements\_weekly\_test\_B.tex} / \texttt{derangements\_weekly\_test\_B.pdf}
+  \item 专题目录页：\texttt{derangements\_topic\_index.tex} / \texttt{derangements\_topic\_index.pdf}
+\end{itemize}
+
+\subsection{容斥原理专题}
+\begin{itemize}
+  \item 讲义：\texttt{inclusion\_exclusion\_handout.tex} / \texttt{inclusion\_exclusion\_handout.pdf}
+  \item 提高训练题单：\texttt{inclusion\_exclusion\_advanced\_problem\_set.tex} / \texttt{inclusion\_exclusion\_advanced\_problem\_set.pdf}
+  \item 周测 A 卷：\texttt{inclusion\_exclusion\_weekly\_test\_A.tex} / \texttt{inclusion\_exclusion\_weekly\_test\_A.pdf}
+  \item 周测 B 卷：\texttt{inclusion\_exclusion\_weekly\_test\_B.tex} / \texttt{inclusion\_exclusion\_weekly\_test\_B.pdf}
+  \item 专题目录页：\texttt{inclusion\_exclusion\_topic\_index.tex} / \texttt{inclusion\_exclusion\_topic\_index.pdf}
+\end{itemize}
+
+\subsection{递推计数专题}
+\begin{itemize}
+  \item 讲义：\texttt{recursive\_counting\_handout.tex} / \texttt{recursive\_counting\_handout.pdf}
+  \item 提高训练题单：\texttt{recursive\_counting\_advanced\_problem\_set.tex} / \texttt{recursive\_counting\_advanced\_problem\_set.pdf}
+  \item 周测 A 卷：\texttt{recursive\_counting\_weekly\_test\_A.tex} / \texttt{recursive\_counting\_weekly\_test\_A.pdf}
+  \item 周测 B 卷：\texttt{recursive\_counting\_weekly\_test\_B.tex} / \texttt{recursive\_counting\_weekly\_test\_B.pdf}
+  \item 专题目录页：\texttt{recursive\_counting\_topic\_index.tex} / \texttt{recursive\_counting\_topic\_index.pdf}
+\end{itemize}
+
+\section{推荐学习路线}
+
+\begin{goalbox}{一个比较顺手的三专题路线}
+\begin{enumerate}
+  \item 先学错位排列：因为它和信封装信、帽子分配这类具体情境最贴近，容易建立模型感；
+  \item 再学容斥原理：把“部分对象不能回原位”提升为更一般的重叠计数方法；
+  \item 最后学递推计数：在前两类“直接数”的基础上，进一步学会“通过小规模问题递推”。
+\end{enumerate}
+\end{goalbox}
+
+\begin{warnbox}{为什么不建议一开始就学递推综合题}
+\begin{itemize}
+  \item 如果基础计数不稳，递推题里的状态会显得很抽象；
+  \item 如果还不习惯拆分类别，递推关系容易写错；
+  \item 所以前面两个专题先把“建模与分类”的基本功练扎实，后面会更顺。
+\end{itemize}
+\end{warnbox}
+
+\section{按周安排的一个示例}
+
+\begin{infobox}{一个 6--8 周的小专题安排示例}
+\begin{itemize}
+  \item 第 1--2 周：错位排列讲义 + 题单 + 周测 A/B；
+  \item 第 3--5 周：容斥原理讲义 + 题单 + 周测 A/B；
+  \item 第 6--8 周：递推计数讲义 + 题单 + 周测 A/B。
+\end{itemize}
+如果时间更紧，也可以每个专题压缩成 2 次讲练加 1 次测验。
+\end{infobox}
+
+\section{三专题学完后的能力目标}
+
+\begin{goalbox}{如果三专题都掌握较好，通常应具备下面这些能力}
+\begin{enumerate}
+  \item 能快速识别题目属于排列组合、容斥还是递推模型；
+  \item 会处理“恰好若干个在原位”“至少若干个在原位”类问题；
+  \item 会建立坏事件并正确使用容斥；
+  \item 会通过最后一步或最后一段建立递推关系；
+  \item 会在多个方法之间比较，选择更自然的解法。
+\end{enumerate}
+\end{goalbox}
+
+\section{给家长的使用建议}
+
+\begin{warnbox}{更有效的带练方式}
+\begin{itemize}
+  \item 每做一道题，先让孩子口头说“这题像哪个专题”；
+  \item 错题订正时，不只改数字，更要归类：模型看错、分类漏了、符号错了、初值错了；
+  \item 周测建议定时完成，做完后隔两三天再回做错题；
+  \item 如果一个专题里错题很多，先回到讲义与题单，不急着进入下一个专题。
+\end{itemize}
+\end{warnbox}
+
+\begin{infobox}{下一步可以自然衔接的专题}
+在这三个专题之后，比较自然的后续方向包括：图论入门中的组合计数、状态压缩递推、生成函数初步、数论中的构造与分类计数等。
+\end{infobox}
+
+\end{document}

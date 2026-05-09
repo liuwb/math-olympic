@@ -1,0 +1,352 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.25cm,bottom=2.45cm,left=2.25cm,right=2.25cm,headheight=18pt,headsep=0.55cm,footskip=24pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black
+}
+
+\setstretch{1.13}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.25em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.45em, topsep=0.35em, leftmargin=2.4em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=1.9em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{rulegray}{RGB}{110,118,128}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.2em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.1em}{0.7em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 递推计数周测 B 卷}
+\fancyhead[C]{\small 组合专题：状态设计与综合变式}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{infobox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newenvironment{solution}{\par\noindent\textbf{参考解答：}}{\hfill$\square$\par}
+\newcommand{\answerspace}{\vspace{2.3cm}}
+\newcommand{\biganswerspace}{\vspace{3.2cm}}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{center}
+{\fontsize{22}{28}\selectfont\bfseries 递推计数周测 B 卷\par}
+\vspace{0.4cm}
+{\large 适合小学高年级至初中低年级数学竞赛训练\par}
+\end{center}
+
+\begin{infobox}{考试说明}
+\begin{itemize}
+  \item 测试时间：75 分钟
+  \item 满分：100 分
+  \item B 卷更强调状态设计与模型迁移，请特别注意：分类是否完整、是否重叠、初始条件是否写对。
+\end{itemize}
+\end{infobox}
+
+\section{试题}
+
+\begin{enumerate}
+  \item （12 分）每次可以上 1 级或 2 级台阶，但不能连续两次都走 2 级。求上到第 8 级台阶的走法数。
+  \answerspace
+
+  \item （12 分）长度为 6 的 0,1 串中，1 的个数为偶数。这样的串有多少个？
+  \answerspace
+
+  \item （12 分）长度为 7 的 0,1 串中，不允许出现相邻两个 1，并且最后一位必须是 1。这样的串有多少个？
+  \answerspace
+
+  \item （12 分）用 $2\times 1$ 骨牌和 $2\times 2$ 方砖铺满 $2\times 6$ 长方形，有多少种铺法？
+  \biganswerspace
+
+  \item （12 分）证明：长度为 $n$ 的 0,1 串中，不允许出现相邻两个 1 的串数，与“每次上 1 级或 2 级台阶，上到第 $n+1$ 级”的走法数相同。
+  \biganswerspace
+
+  \item （12 分）长度为 9 的 A、B 串中，不允许出现连续三个 A。这样的串有多少个？
+  \answerspace
+
+  \item （14 分）已知错位排列满足
+  \[
+  D_n=(n-1)(D_{n-1}+D_{n-2}).
+  \]
+  用这个递推公式求 $D_7$，并解释它为什么也属于递推计数问题。
+  \biganswerspace
+
+  \item （14 分）用 $1\times 1$、$1\times 2$、$1\times 3$ 三种砖铺满 $1\times 7$ 长条，有多少种铺法？
+  \biganswerspace
+\end{enumerate}
+
+\newpage
+\section{详细解答}
+
+\begin{enumerate}
+  \item \begin{solution}
+  设合法走法数为 $f_n$。
+
+  若最后一步是 1，则前面有 $f_{n-1}$ 种；若最后一步是 2，由于不能连续两次走 2，末尾必须看成“12”结构，所以前面有 $f_{n-3}$ 种。
+
+  因此
+  \[
+  f_n=f_{n-1}+f_{n-3} \qquad (n\ge 4).
+  \]
+
+  初始条件：
+  \[
+  f_1=1,\qquad f_2=2,\qquad f_3=3.
+  \]
+
+  于是
+  \[
+  f_4=4,\quad f_5=6,\quad f_6=9,\quad f_7=13,\quad f_8=19.
+  \]
+
+  所以答案为
+  \[
+  19.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  设
+  \[
+  x_n=\text{长度为 $n$ 的 0,1 串中，1 的个数为偶数的个数},
+  \]
+  \[
+  y_n=\text{长度为 $n$ 的 0,1 串中，1 的个数为奇数的个数}.
+  \]
+
+  在长度为 $n-1$ 的串后添 0，不改变奇偶性；添 1，会改变奇偶性，所以
+  \[
+  x_n=x_{n-1}+y_{n-1},
+  \qquad
+  y_n=x_{n-1}+y_{n-1}.
+  \]
+
+  这说明偶数个 1 和奇数个 1 的数量始终相同，而长度为 6 的 0,1 串总共有
+  \[
+  2^6=64
+  \]
+  个，所以偶数个 1 的有
+  \[
+  64\div 2=32
+  \]
+  个。
+  \end{solution}
+
+  \item \begin{solution}
+  设长度为 $n$ 的不含相邻两个 1 的 0,1 串个数为 $a_n$，则
+  \[
+  a_n=a_{n-1}+a_{n-2},
+  \qquad
+  a_1=2,
+  \quad
+  a_2=3.
+  \]
+
+  所以
+  \[
+  a_3=5,\quad a_4=8,\quad a_5=13.
+  \]
+
+  现在要求长度为 7 的合法串且最后一位必须是 1，那么倒数第二位必定是 0，所以末尾固定为“01”，前面前 5 位只需任意合法。
+
+  因此答案就是
+  \[
+  a_5=13.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  设铺法数为 $s_n$。
+
+  看最左端：
+  \begin{itemize}
+    \item 若先放一块竖着的 $2\times 1$ 骨牌，则剩下有 $s_{n-1}$ 种；
+    \item 若先铺满一个 $2\times 2$ 小块，则可以用两块横骨牌，或用一块 $2\times 2$ 方砖，所以这一类共有 $2s_{n-2}$ 种。
+  \end{itemize}
+
+  因此
+  \[
+  s_n=s_{n-1}+2s_{n-2}.
+  \]
+
+  初始条件为
+  \[
+  s_1=1,\qquad s_2=3.
+  \]
+
+  所以
+  \[
+  s_3=5,\quad s_4=11,\quad s_5=21,\quad s_6=43.
+  \]
+
+  因此答案为
+  \[
+  43.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  设
+  \[
+  a_n=\text{长度为 $n$ 的 0,1 串中，不允许出现相邻两个 1 的串数},
+  \]
+  \[
+  f_n=\text{每次上 1 级或 2 级台阶，上到第 $n$ 级的走法数}.
+  \]
+
+  我们已经知道：
+  \[
+  a_n=a_{n-1}+a_{n-2},
+  \qquad a_1=2,\ a_2=3;
+  \]
+  \[
+  f_n=f_{n-1}+f_{n-2},
+  \qquad f_1=1,\ f_2=2.
+  \]
+
+  观察初值：
+  \[
+  a_1=f_2,
+  \qquad
+  a_2=f_3.
+  \]
+
+  又因为它们满足完全相同的递推关系，所以对所有 $n$ 都有
+  \[
+  a_n=f_{n+1}.
+  \]
+
+  这就证明了两类问题的答案相同。
+  \end{solution}
+
+  \item \begin{solution}
+  设合法串数为 $b_n$。
+
+  结尾只能分成三类：B、AB、AAB，因此
+  \[
+  b_n=b_{n-1}+b_{n-2}+b_{n-3}.
+  \]
+
+  初始条件：
+  \[
+  b_1=2,\qquad b_2=4,\qquad b_3=7.
+  \]
+
+  所以
+  \[
+  b_4=13,\quad b_5=24,\quad b_6=44,
+  \]
+  \[
+  b_7=81,\quad b_8=149,\quad b_9=274.
+  \]
+
+  因此答案为
+  \[
+  274.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  先用递推求值。
+
+  已知
+  \[
+  D_1=0,\qquad D_2=1.
+  \]
+
+  依次得到
+  \[
+  D_3=2(D_2+D_1)=2,
+  \]
+  \[
+  D_4=3(D_3+D_2)=9,
+  \]
+  \[
+  D_5=4(D_4+D_3)=44,
+  \]
+  \[
+  D_6=5(D_5+D_4)=265,
+  \]
+  \[
+  D_7=6(D_6+D_5)=6(265+44)=1854.
+  \]
+
+  所以
+  \[
+  D_7=1854.
+  \]
+
+  为什么这也属于递推计数？因为它本质上也是把“规模为 $n$ 的问题”拆成“规模为 $n-1$ 和 $n-2$ 的问题”。
+
+  也就是说，我们并不是直接去数所有 $n$ 个对象的错位排列，而是通过分析对象 1 的去向，把问题转化成更小规模的两个子问题，再写成递推式。这正是递推计数的核心思想。
+  \end{solution}
+
+  \item \begin{solution}
+  设铺法数为 $t_n$。
+
+  看最后一块：
+  \begin{itemize}
+    \item 若最后一块是 $1\times 1$，前面有 $t_{n-1}$ 种；
+    \item 若最后一块是 $1\times 2$，前面有 $t_{n-2}$ 种；
+    \item 若最后一块是 $1\times 3$，前面有 $t_{n-3}$ 种。
+  \end{itemize}
+
+  因此
+  \[
+  t_n=t_{n-1}+t_{n-2}+t_{n-3}.
+  \]
+
+  初始条件：
+  \[
+  t_1=1,\qquad t_2=2,\qquad t_3=4.
+  \]
+
+  递推得到
+  \[
+  t_4=7,\quad t_5=13,\quad t_6=24,\quad t_7=44.
+  \]
+
+  所以答案为
+  \[
+  44.
+  \]
+  \end{solution}
+\end{enumerate}
+
+\end{document}

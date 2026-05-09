@@ -1,0 +1,899 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.35cm,bottom=2.55cm,left=2.3cm,right=2.3cm,headheight=18pt,headsep=0.55cm,footskip=26pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black,
+  citecolor=blue!50!black
+}
+
+\setstretch{1.15}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.28em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.35em, topsep=0.35em, leftmargin=2.2em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=1.9em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{accent}{RGB}{153,76,0}
+\definecolor{rulegray}{RGB}{110,118,128}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.25em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.2em}{0.8em}
+\titleformat{\subsection}{\large\bfseries\color{mainblue}}{\thesubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 容斥原理提高训练题单}
+\fancyhead[C]{\small 组合专题：容斥原理}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{goalbox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{notebox}[1]{
+  breakable,
+  colback=lightgray,
+  colframe=black!50,
+  boxrule=0.55pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtheoremstyle{formalexample}
+  {0.8em}{0.8em}{\normalfont}{}{\bfseries\color{accent}}{．}{0.6em}{}
+\theoremstyle{formalexample}
+\newtheorem{exercise}{题目}[section]
+\newenvironment{solution}{\par\noindent\textbf{解：}}{\hfill$\square$\par}
+
+\newcommand{\Dn}{D_n}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{titlepage}
+\centering
+\vspace*{0.9cm}
+\begin{tcolorbox}[
+  enhanced,
+  width=0.92\textwidth,
+  colback=white,
+  colframe=mainblue,
+  boxrule=1pt,
+  arc=0mm,
+  left=6mm,
+  right=6mm,
+  top=8mm,
+  bottom=8mm
+]
+\centering
+{\fontsize{24}{30}\selectfont\bfseries 容斥原理提高训练题单\par}
+\vspace{0.6cm}
+{\fontsize{17}{22}\selectfont 适合小学高年级至初中低年级竞赛过渡训练\par}
+
+\vspace{1cm}
+\begin{tcolorbox}[colback=lightblue,colframe=mainblue,width=0.84\textwidth,boxrule=1pt]
+\centering
+{\large 训练目标：把“会套公式”提升到“会识别重叠、会处理坏事件”}\\[0.35em]
+{\normalsize 建议分 2--3 次完成，先独立做题，再对照详细解答订正}
+\end{tcolorbox}
+
+\vspace{1cm}
+\renewcommand{\arraystretch}{1.42}
+\begin{tabular}{>{\bfseries}p{3.5cm}p{8cm}}
+题目数量： & 18 题，按难度递进 \\
+专题重点： & 两集合、三集合、补集法、部分位置受限、与错位排列结合 \\
+答案形式： & 末尾附较详细解答，强调思路与公式来源 \\
+编译方式： & XeLaTeX \\
+\end{tabular}
+
+\vspace{0.9cm}
+{\large \today\par}
+\end{tcolorbox}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{使用建议}
+
+\begin{goalbox}{做容斥题时优先问自己的 3 个问题}
+\begin{itemize}
+  \item 题目中的条件之间会不会重叠？如果直接相加，会不会多算？
+  \item 更适合正面求“至少满足一个条件”，还是先设“坏事件”再求补集？
+  \item 是两层重叠、三层重叠，还是“前若干个对象受限”的一般模型？
+\end{itemize}
+\end{goalbox}
+
+\begin{notebox}{建议计时}
+\begin{itemize}
+  \item 基础题：每题 4--6 分钟；
+  \item 变式题：每题 8--12 分钟；
+  \item 压轴题：先独立思考 10 分钟，再看解答。
+\end{itemize}
+\end{notebox}
+
+\section{两集合与三集合基础}
+
+\begin{exercise}
+在 $1$ 到 $100$ 中，是 2 的倍数或 3 的倍数的整数有多少个？
+\end{exercise}
+
+\begin{exercise}
+在 $1$ 到 $100$ 中，是 3 的倍数或 5 的倍数或 7 的倍数的整数有多少个？
+\end{exercise}
+
+\begin{exercise}
+在 $1$ 到 $200$ 中，不是 2 的倍数也不是 3 的倍数的整数有多少个？
+\end{exercise}
+
+\begin{exercise}
+在 $1$ 到 $100$ 中，是 2 的倍数或 3 的倍数，但不是 5 的倍数的整数有多少个？
+\end{exercise}
+
+\section{补集法与坏事件}
+
+\begin{exercise}
+5 个人甲、乙、丙、丁、戊排成一行。要求甲不站在第 1 个位置，乙不站在第 2 个位置。共有多少种排法？
+\end{exercise}
+
+\begin{exercise}
+6 个人甲、乙、丙、丁、戊、己排座位。要求甲不坐 1 号位，乙不坐 2 号位，丙不坐 3 号位，丁不坐 4 号位，另外两人没有限制。共有多少种排法？
+\end{exercise}
+
+\begin{exercise}
+8 个不同数字排成一行，要求前 3 个数字都不在自己的位置上，而后 5 个数字没有限制。共有多少种排法？
+\end{exercise}
+
+\begin{exercise}
+7 个不同对象排成一行，要求前 4 个对象都不在原位，而后 3 个对象没有限制。共有多少种排法？
+\end{exercise}
+
+\section{与错位排列结合}
+
+\begin{exercise}
+用容斥原理计算 $D_5$，并与递推结果核对。
+\end{exercise}
+
+\begin{exercise}
+用容斥原理计算 $D_6$。
+\end{exercise}
+
+\begin{exercise}
+8 个不同数字排成一行，至少有 1 个数字在原位，共有多少种排法？
+\end{exercise}
+
+\begin{exercise}
+8 个不同对象排成一行，要求前 6 个对象都不在原位，后 2 个对象没有限制。共有多少种排法？
+\end{exercise}
+
+\begin{exercise}
+7 封不同的信放入 7 个对应信封中，至少有 2 封装对，共有多少种装法？
+\end{exercise}
+
+\begin{exercise}
+8 个不同数字排成一行，至少有 3 个数字在原位，共有多少种排法？
+\end{exercise}
+
+\section{综合提高}
+
+\begin{exercise}
+证明：若共有 $n$ 个对象，其中前 $m$ 个对象都不能回到原位，而其余对象没有限制，则满足条件的排列数为
+\[
+\sum_{k=0}^{m}(-1)^k\binom{m}{k}(n-k)!.
+\]
+\end{exercise}
+
+\begin{exercise}
+9 个不同对象排成一行。要求前 4 个对象中至少有 1 个在原位。共有多少种排法？
+\end{exercise}
+
+\begin{exercise}
+在 $1$ 到 $120$ 中，是 4 的倍数或 6 的倍数或 9 的倍数的整数有多少个？
+\end{exercise}
+
+\begin{exercise}
+5 个不同数字排成一行。要求第 1 个数字不在第 1 位，第 2 个数字不在第 2 位，第 3 个数字不在第 3 位。请分别用“容斥原理”和“补集思想”解释为什么答案相同。
+\end{exercise}
+
+\newpage
+\section{常见易错点总结}
+
+\begin{goalbox}{做容斥题时，最容易丢分的 6 个地方}
+\begin{enumerate}
+  \item \textbf{只会把各类情况相加，不会检查有没有重叠。}  
+  只要题目里出现“或”“至少一个满足”“多个坏事件”，就要先警觉：直接相加很可能会多算。
+
+  \item \textbf{只减单个坏事件，忘记把交集加回来。}  
+  这是最常见错误。容斥原理的核心不是“减掉坏事件”这么简单，而是要按
+  \[
+  +,-,+,-,\ldots
+  \]
+  的顺序把重叠部分反复修正。
+
+  \item \textbf{会算一个交集，却忘了乘组合数。}  
+  例如“前 4 个对象受限”时，若固定其中 2 个对象回原位，每一种交集是 $(n-2)!$，但这样的交集一共有
+  \[
+  \binom{4}{2}
+  \]
+  个，不能只写一个 $(n-2)!$。
+
+  \item \textbf{把“部分对象受限”误看成标准错位排列。}  
+  如果只有前 3 个对象不能回原位，而后面对象没有限制，那么这既不是 $D_3$，也不是 $D_n$，而应把这 3 个对象对应的坏事件列出来做容斥。
+
+  \item \textbf{补集法和容斥法没有分清层次。}  
+  补集法通常只是第一步：
+  \[
+  \text{满足要求}=\text{总数}-\text{坏事件并集}.
+  \]
+  真正难的部分，常常是“坏事件并集”的大小，而这一步正要靠容斥原理完成。
+
+  \item \textbf{算完以后不做合理性检查。}  
+  比如答案不能超过总数；“限制越多，答案通常越少”；“至少满足一个条件”的数量，应该不小于“恰好满足一个条件”的数量。做完后的数量级检查能帮你及时发现错误。
+\end{enumerate}
+\end{goalbox}
+
+\begin{notebox}{一个实用检查顺序}
+\begin{itemize}
+  \item 先问：这是“至少满足一个条件”，还是“若干坏事件都不发生”；
+  \item 再列：单个事件、两两交集、三重交集分别有多少；
+  \item 最后查：符号有没有写成“加减加减”交替，组合数有没有漏掉。
+\end{itemize}
+\end{notebox}
+
+\newpage
+\appendix
+\section{详细解答}
+
+\subsection*{两集合与三集合基础}
+
+\textbf{1}\begin{solution}
+设
+\[
+A=\{\text{2 的倍数}\},\qquad B=\{\text{3 的倍数}\}.
+\]
+
+则
+\[
+|A|=\left\lfloor\frac{100}{2}\right\rfloor=50,
+\qquad
+|B|=\left\lfloor\frac{100}{3}\right\rfloor=33.
+\]
+
+同时是 2 和 3 的倍数，就是 6 的倍数，所以
+\[
+|A\cap B|=\left\lfloor\frac{100}{6}\right\rfloor=16.
+\]
+
+由两集合容斥公式，所求为
+\[
+|A\cup B|=50+33-16=67.
+\]
+
+所以共有
+\[
+67
+\]
+个整数。
+\end{solution}
+
+\textbf{2}\begin{solution}
+设 $A,B,C$ 分别表示“3 的倍数”“5 的倍数”“7 的倍数”。
+
+单个集合大小为
+\[
+|A|=\left\lfloor\frac{100}{3}\right\rfloor=33,
+\qquad
+|B|=20,
+\qquad
+|C|=14.
+\]
+
+两两交集：
+\[
+|A\cap B|=\left\lfloor\frac{100}{15}\right\rfloor=6,
+\]
+\[
+|A\cap C|=\left\lfloor\frac{100}{21}\right\rfloor=4,
+\qquad
+|B\cap C|=\left\lfloor\frac{100}{35}\right\rfloor=2.
+\]
+
+三者交集是 105 的倍数，但 100 以内没有，所以
+\[
+|A\cap B\cap C|=0.
+\]
+
+由三集合容斥公式，所求为
+\[
+33+20+14-6-4-2+0=55.
+\]
+
+因此共有
+\[
+55
+\]
+个整数。
+\end{solution}
+
+\textbf{3}\begin{solution}
+题目要求“既不是 2 的倍数，也不是 3 的倍数”，可以先求“是 2 的倍数或 3 的倍数”的个数，再用总数减去它。
+
+设
+\[
+A=\{\text{2 的倍数}\},\qquad B=\{\text{3 的倍数}\}.
+\]
+
+则
+\[
+|A|=100,
+\qquad
+|B|=\left\lfloor\frac{200}{3}\right\rfloor=66,
+\qquad
+|A\cap B|=\left\lfloor\frac{200}{6}\right\rfloor=33.
+\]
+
+所以
+\[
+|A\cup B|=100+66-33=133.
+\]
+
+从 1 到 200 一共有 200 个整数，因此既不是 2 的倍数也不是 3 的倍数的整数有
+\[
+200-133=67
+\]
+个。
+\end{solution}
+
+\textbf{4}\begin{solution}
+先求“是 2 的倍数或 3 的倍数”的个数，再减去其中“还是 5 的倍数”的部分。
+
+由第 1 题的做法可知，1 到 100 中是 2 的倍数或 3 的倍数的整数有
+\[
+50+33-16=67
+\]
+个。
+
+下面求这些数里同时还是 5 的倍数的个数。也就是求“是 10 的倍数或 15 的倍数”的整数个数：
+\[
+\left\lfloor\frac{100}{10}\right\rfloor=10,
+\qquad
+\left\lfloor\frac{100}{15}\right\rfloor=6,
+\qquad
+\left\lfloor\frac{100}{30}\right\rfloor=3.
+\]
+
+所以这一部分有
+\[
+10+6-3=13
+\]
+个。
+
+因此所求为
+\[
+67-13=54.
+\]
+\end{solution}
+
+\subsection*{补集法与坏事件}
+
+\textbf{5}\begin{solution}
+设
+\[
+A=\text{“甲站第 1 个位置”},\qquad B=\text{“乙站第 2 个位置”}.
+\]
+
+总排法有
+\[
+5!=120
+\]
+种。
+
+单个坏事件：
+\[
+|A|=|B|=4!=24.
+\]
+
+两个坏事件同时发生：
+\[
+|A\cap B|=3!=6.
+\]
+
+因此满足要求的排法为
+\[
+120-24-24+6=78.
+\]
+
+所以共有
+\[
+78
+\]
+种排法。
+\end{solution}
+
+\textbf{6}\begin{solution}
+设
+\[
+A_1=\text{“甲坐 1 号位”},
+A_2=\text{“乙坐 2 号位”},
+A_3=\text{“丙坐 3 号位”},
+A_4=\text{“丁坐 4 号位”}.
+\]
+
+总排法有
+\[
+6!=720
+\]
+种。
+
+单个坏事件共有
+\[
+\binom41 5!=4\times 120=480
+\]
+种。
+
+两个坏事件同时发生共有
+\[
+\binom42 4!=6\times 24=144
+\]
+种。
+
+三个坏事件同时发生共有
+\[
+\binom43 3!=4\times 6=24
+\]
+种。
+
+四个坏事件同时发生共有
+\[
+\binom44 2!=2
+\]
+种。
+
+因此满足要求的排法数为
+\[
+720-480+144-24+2=362.
+\]
+\end{solution}
+
+\textbf{7}\begin{solution}
+设前 3 个数字回到原位的事件分别为 $A_1,A_2,A_3$。
+
+总排法有
+\[
+8!=40320
+\]
+种。
+
+单个坏事件共有
+\[
+\binom31 7!=3\times 5040=15120
+\]
+种。
+
+两个坏事件同时发生共有
+\[
+\binom32 6!=3\times 720=2160
+\]
+种。
+
+三个坏事件同时发生共有
+\[
+\binom33 5!=120
+\]
+种。
+
+因此满足要求的排法数为
+\[
+40320-15120+2160-120=27240.
+\]
+\end{solution}
+
+\textbf{8}\begin{solution}
+这是“前 4 个对象受限，后 3 个对象自由”的典型题。
+
+设前 4 个对象中，第 $i$ 个回到原位的事件为 $A_i$。则满足要求的排列数为
+\[
+7!-\binom41 6!+\binom42 5!-\binom43 4!+\binom44 3!.
+\]
+
+逐项计算：
+\[
+7!=5040,
+\quad
+\binom41 6!=4\times 720=2880,
+\]
+\[
+\binom42 5!=6\times 120=720,
+\quad
+\binom43 4!=4\times 24=96,
+\quad
+\binom44 3!=6.
+\]
+
+所以所求为
+\[
+5040-2880+720-96+6=2790.
+\]
+\end{solution}
+
+\subsection*{与错位排列结合}
+
+\textbf{9}\begin{solution}
+由容斥原理，
+\[
+D_5=5!-\binom51 4!+\binom52 3!-\binom53 2!+\binom54 1!-\binom55 0!.
+\]
+
+代入得
+\[
+D_5=120-120+60-20+5-1=44.
+\]
+
+而递推公式给出
+\[
+D_5=4(D_4+D_3)=4(9+2)=44.
+\]
+
+两种方法结果一致，说明计算正确。
+\end{solution}
+
+\textbf{10}\begin{solution}
+同理，
+\[
+D_6=6!-\binom61 5!+\binom62 4!-\binom63 3!+\binom64 2!-\binom65 1!+\binom66 0!.
+\]
+
+逐项代入：
+\[
+D_6=720-720+360-120+30-6+1=265.
+\]
+
+因此
+\[
+D_6=265.
+\]
+\end{solution}
+
+\textbf{11}\begin{solution}
+“至少有 1 个数字在原位”适合用补集法。
+
+总排法有
+\[
+8!=40320
+\]
+种。
+
+一个都不在原位的排法数就是
+\[
+D_8.
+\]
+由递推公式可算得
+\[
+D_7=1854,
+\qquad
+D_8=7(D_7+D_6)=7(1854+265)=14833.
+\]
+
+因此至少有 1 个数字在原位的排法数为
+\[
+40320-14833=25487.
+\]
+\end{solution}
+
+\textbf{12}\begin{solution}
+设前 6 个对象回到原位的坏事件为 $A_1,A_2,\ldots,A_6$。
+
+按容斥原理，所求排列数为
+\[
+8!-\binom61 7!+\binom62 6!-\binom63 5!+\binom64 4!-\binom65 3!+\binom66 2!.
+\]
+
+逐项计算：
+\[
+8!=40320,
+\qquad
+\binom61 7!=6\times 5040=30240,
+\]
+\[
+\binom62 6!=15\times 720=10800,
+\qquad
+\binom63 5!=20\times 120=2400,
+\]
+\[
+\binom64 4!=15\times 24=360,
+\qquad
+\binom65 3!=6\times 6=36,
+\qquad
+\binom66 2!=2.
+\]
+
+所以所求为
+\[
+40320-30240+10800-2400+360-36+2=18806.
+\]
+\end{solution}
+
+\textbf{13}\begin{solution}
+“至少有 2 封装对”可以按“恰好有几封装对”分类。
+
+\textbf{恰好有 2 封装对：}
+\[
+\binom72 D_5=21\times 44=924.
+\]
+
+\textbf{恰好有 3 封装对：}
+\[
+\binom73 D_4=35\times 9=315.
+\]
+
+\textbf{恰好有 4 封装对：}
+\[
+\binom74 D_3=35\times 2=70.
+\]
+
+\textbf{恰好有 5 封装对：}
+\[
+\binom75 D_2=21\times 1=21.
+\]
+
+\textbf{恰好有 6 封装对：}
+不可能。
+
+\textbf{恰好有 7 封装对：}
+有
+\[
+1
+\]
+种。
+
+因此总数为
+\[
+924+315+70+21+1=1331.
+\]
+\end{solution}
+
+\textbf{14}\begin{solution}
+“至少有 3 个数字在原位”可以按“恰好有几个数字在原位”分类。
+
+\textbf{恰好有 3 个在原位：}
+\[
+\binom83 D_5=56\times 44=2464.
+\]
+
+\textbf{恰好有 4 个在原位：}
+\[
+\binom84 D_4=70\times 9=630.
+\]
+
+\textbf{恰好有 5 个在原位：}
+\[
+\binom85 D_3=56\times 2=112.
+\]
+
+\textbf{恰好有 6 个在原位：}
+\[
+\binom86 D_2=28.
+\]
+
+\textbf{恰好有 7 个在原位：}
+不可能。
+
+\textbf{恰好有 8 个在原位：}
+有 1 种。
+
+所以总数为
+\[
+2464+630+112+28+1=3235.
+\]
+\end{solution}
+
+\subsection*{综合提高}
+
+\textbf{15}\begin{solution}
+设 $A_i$ 表示“前 $m$ 个受限制对象中的第 $i$ 个回到原位”。那么我们要求的是
+\[
+\overline{A_1\cup A_2\cup \cdots\cup A_m}
+\]
+的大小。
+
+总排法为
+\[
+n!.
+\]
+
+如果指定其中 $k$ 个受限制对象回到原位，那么这 $k$ 个位置就被固定住了，剩下还有
+\[
+n-k
+\]
+个对象可以任意排列，因此对应的排法数为
+\[
+(n-k)!.
+\]
+
+而这样的 $k$ 个受限制对象有
+\[
+\binom{m}{k}
+\]
+种选法。
+
+由容斥原理：
+\[
+n!-\binom{m}{1}(n-1)!+\binom{m}{2}(n-2)!-\cdots+(-1)^m\binom{m}{m}(n-m)!.
+\]
+
+也就是
+\[
+\sum_{k=0}^{m}(-1)^k\binom{m}{k}(n-k)!.
+\]
+证毕。
+\end{solution}
+
+\textbf{16}\begin{solution}
+题目要求“前 4 个对象中至少有 1 个在原位”。
+
+可以先求“前 4 个对象一个都不在原位”的排法数，再用总数减去它。
+
+总排法有
+\[
+9!=362880
+\]
+种。
+
+前 4 个对象一个都不在原位的排法数为
+\[
+9!-\binom41 8!+\binom42 7!-\binom43 6!+\binom44 5!.
+\]
+
+逐项计算：
+\[
+\binom41 8!=4\times 40320=161280,
+\]
+\[
+\binom42 7!=6\times 5040=30240,
+\]
+\[
+\binom43 6!=4\times 720=2880,
+\qquad
+\binom44 5!=120.
+\]
+
+所以这部分有
+\[
+362880-161280+30240-2880+120=229080
+\]
+种。
+
+因此前 4 个对象中至少有 1 个在原位的排法数为
+\[
+362880-229080=133800.
+\]
+\end{solution}
+
+\textbf{17}\begin{solution}
+设 $A,B,C$ 分别表示“4 的倍数”“6 的倍数”“9 的倍数”。
+
+单个集合：
+\[
+|A|=\left\lfloor\frac{120}{4}\right\rfloor=30,
+\quad
+|B|=20,
+\quad
+|C|=13.
+\]
+
+两两交集：
+\[
+|A\cap B|=\left\lfloor\frac{120}{12}\right\rfloor=10,
+\]
+\[
+|A\cap C|=\left\lfloor\frac{120}{36}\right\rfloor=3,
+\qquad
+|B\cap C|=\left\lfloor\frac{120}{18}\right\rfloor=6.
+\]
+
+三者交集对应 36 的倍数，因为
+\[
+\mathrm{lcm}(4,6,9)=36.
+\]
+因此
+\[
+|A\cap B\cap C|=\left\lfloor\frac{120}{36}\right\rfloor=3.
+\]
+
+由容斥原理：
+\[
+30+20+13-10-3-6+3=47.
+\]
+
+所以共有
+\[
+47
+\]
+个整数。
+\end{solution}
+
+\textbf{18}\begin{solution}
+把题目中的坏事件记为
+\[
+A_1=\text{“第 1 个数字在第 1 位”},
+A_2=\text{“第 2 个数字在第 2 位”},
+A_3=\text{“第 3 个数字在第 3 位”}.
+\]
+
+\textbf{用容斥原理：}
+总排法有
+\[
+5!=120
+\]
+种。
+
+单个坏事件共有
+\[
+\binom31 4!=3\times 24=72
+\]
+种。
+
+两个坏事件同时发生共有
+\[
+\binom32 3!=3\times 6=18
+\]
+种。
+
+三个坏事件同时发生共有
+\[
+\binom33 2!=2
+\]
+种。
+
+因此满足要求的排法数为
+\[
+120-72+18-2=64.
+\]
+
+\textbf{用补集思想解释：}
+补集法本质上也是在求“坏事件并集”的大小。这里的补集并不是简单减去一个单独事件，而是减去
+\[
+A_1\cup A_2\cup A_3.
+\]
+
+而这个并集的大小恰恰要靠容斥原理来计算，所以最后仍得到
+\[
+120-|A_1\cup A_2\cup A_3|=64.
+\]
+
+因此两种说法看起来不同，其实本质完全一致，答案自然相同。
+\end{solution}
+
+\end{document}

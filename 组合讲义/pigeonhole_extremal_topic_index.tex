@@ -1,0 +1,260 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.4cm,bottom=2.6cm,left=2.35cm,right=2.35cm,headheight=18pt,headsep=0.55cm,footskip=26pt]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black
+}
+
+\setstretch{1.16}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.32em}
+\setlist[enumerate]{itemsep=0.35em, topsep=0.35em, leftmargin=2.3em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=2em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{rulegray}{RGB}{110,118,128}
+\definecolor{softgreen}{RGB}{236,247,240}
+\definecolor{softyellow}{RGB}{254,249,229}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.25em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.2em}{0.8em}
+\titleformat{\subsection}{\large\bfseries\color{mainblue}}{\thesubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 抽屉原理与极值思想专题目录页}
+\fancyhead[C]{\small 组合专题资料索引}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{goalbox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{infobox}[1]{
+  breakable,
+  colback=softgreen,
+  colframe=green!40!black,
+  boxrule=0.65pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{warnbox}[1]{
+  breakable,
+  colback=softyellow,
+  colframe=orange!60!black,
+  boxrule=0.65pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{titlepage}
+\centering
+\vspace*{0.9cm}
+
+\begin{tcolorbox}[
+  enhanced,
+  width=0.92\textwidth,
+  colback=white,
+  colframe=mainblue,
+  boxrule=1pt,
+  arc=0mm,
+  left=6mm,
+  right=6mm,
+  top=8mm,
+  bottom=8mm
+]
+\centering
+
+{\fontsize{24}{30}\selectfont\bfseries 抽屉原理与极值思想专题目录页\par}
+\vspace{0.65cm}
+{\fontsize{17}{22}\selectfont 讲义、题单与周测的使用说明\par}
+
+\vspace{1cm}
+\begin{tcolorbox}[colback=lightblue,colframe=mainblue,width=0.84\textwidth,boxrule=1pt]
+\centering
+{\large 适合对象：已经掌握基础组合与数论分类，准备系统学习“最少保证”和“存在性证明”的学生}\\[0.35em]
+{\normalsize 本目录页帮助把抽屉原理与极值思想专题资料串成一个完整训练包}
+\end{tcolorbox}
+
+\vspace{1.0cm}
+\renewcommand{\arraystretch}{1.42}
+\begin{tabular}{>{\bfseries}p{3.5cm}p{8cm}}
+专题名称： & 抽屉原理与极值思想 \\
+资料组成： & 课堂讲义、提高训练题单、周测 A 卷、周测 B 卷 \\
+使用方式： & 先学讲义，再做题单，最后用 A/B 周测检查掌握情况 \\
+编译方式： & XeLaTeX \\
+\end{tabular}
+
+\vspace{0.9cm}
+{\large \today\par}
+\end{tcolorbox}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{专题包包含哪些资料}
+
+\begin{goalbox}{四份核心资料}
+\begin{enumerate}
+  \item 课堂讲义：帮助理解基础抽屉原理、加强版抽屉、最少保证和极值法入口；
+  \item 提高训练题单：用于课后巩固和变式提升，重点训练“会找抽屉、会估上界、会做经典存在性证明”；
+  \item 周测 A 卷：检查基础分组和最少保证是否稳定；
+  \item 周测 B 卷：检查综合模型、极值分析和经典构造是否真正掌握。
+\end{enumerate}
+\end{goalbox}
+
+\begin{infobox}{对应文件名}
+\begin{itemize}
+  \item 讲义：\texttt{pigeonhole\_extremal\_handout.tex} / \texttt{pigeonhole\_extremal\_handout.pdf}
+  \item 提高训练题单：\texttt{pigeonhole\_extremal\_advanced\_problem\_set.tex} / \texttt{pigeonhole\_extremal\_advanced\_problem\_set.pdf}
+  \item 周测 A 卷：\texttt{pigeonhole\_extremal\_weekly\_test\_A.tex} / \texttt{pigeonhole\_extremal\_weekly\_test\_A.pdf}
+  \item 周测 B 卷：\texttt{pigeonhole\_extremal\_weekly\_test\_B.tex} / \texttt{pigeonhole\_extremal\_weekly\_test\_B.pdf}
+\end{itemize}
+\end{infobox}
+
+\section{建议学习顺序}
+
+\begin{goalbox}{推荐顺序}
+\begin{enumerate}
+  \item 先完整学习讲义，重点吃透“物体是什么、抽屉是什么、最大安全数怎么求”；
+  \item 再完成提高训练题单，训练余数分组、区间分组、几何分割和极值法；
+  \item 接着做周测 A 卷，检查基础模型是否稳定；
+  \item 最后做周测 B 卷，检查经典构造题和较难证明题是否掌握。
+\end{enumerate}
+\end{goalbox}
+
+\begin{warnbox}{不建议的做法}
+\begin{itemize}
+  \item 一上来只背“抽屉原理”四个字，却不先想抽屉怎么构造；
+  \item 直接写结论，不说明“安全状态最多能到哪里”；
+  \item 极值题只会说“取最大值”，不会继续利用它推出新的限制；
+  \item 几何型抽屉题不先分格子，而是盲目画点尝试。
+\end{itemize}
+\end{warnbox}
+
+\section{每份资料主要解决什么问题}
+
+\subsection{课堂讲义}
+讲义适合第一次系统学习这个专题，主要解决以下问题：
+\begin{itemize}
+  \item 怎样从题目中识别“谁是物体、谁是抽屉”；
+  \item 怎样处理“至少多少个才能保证出现某种现象”；
+  \item 加强版抽屉原理和平均数思想为什么本质一致；
+  \item 极值思想在组合题里怎样和抽屉法配合使用。
+\end{itemize}
+
+\subsection{提高训练题单}
+题单适合第二阶段训练，主要用来把方法做熟。它更强调：
+\begin{itemize}
+  \item 能否按余数、区间、颜色或链分解来构造抽屉；
+  \item 能否正确求出“最大安全数”；
+  \item 能否处理几何型抽屉和线段分割问题；
+  \item 能否用极值法给出严谨的上界证明。
+\end{itemize}
+
+\subsection{周测 A 卷}
+A 卷偏基础，适合检查：
+\begin{itemize}
+  \item 余数分类是否熟练；
+  \item 最少保证题是否会做；
+  \item 线段、盒子、连续整数这些基础模型是否稳定；
+  \item 极值题中的相邻差估计是否会写。
+\end{itemize}
+
+\subsection{周测 B 卷}
+B 卷偏综合，适合检查：
+\begin{itemize}
+  \item 经典抽屉模型是否会推广到一般 $n$；
+  \item 链分解和倍数关系是否会处理；
+  \item 证明题是否真正解释清楚了“为什么这样分组”；
+  \item 上界得出后，是否还能给出达到上界的构造。
+\end{itemize}
+
+\section{一个推荐的 4 次训练安排}
+
+\begin{goalbox}{4 次完成一个小专题}
+\begin{enumerate}
+  \item 第 1 次：学习讲义前半部分，重点理解基础抽屉和最少保证；
+  \item 第 2 次：学习讲义后半部分，完成题单基础题和中档题；
+  \item 第 3 次：完成题单综合题，并把错题按“抽屉找错/上界错/极值关系漏写/构造不完整”分类订正；
+  \item 第 4 次：完成周测 A 卷或 B 卷，作为阶段性检查。
+\end{enumerate}
+\end{goalbox}
+
+\begin{infobox}{如果孩子基础较好，可以这样压缩}
+\begin{itemize}
+  \item 第 1 天：讲义 + 题单基础题；
+  \item 第 2 天：题单变式题 + 错题订正；
+  \item 第 3 天：周测 A 卷；
+  \item 第 4 天：周测 B 卷。
+\end{itemize}
+\end{infobox}
+
+\section{专题学习后的自检清单}
+
+\begin{goalbox}{如果下面 8 条都能做到，说明这个专题基本过关}
+\begin{enumerate}
+  \item 我会先判断谁是物体、谁是抽屉；
+  \item 我会处理最少保证题；
+  \item 我会把数按余数类、区间或链来分类；
+  \item 我会使用加强版抽屉原理；
+  \item 我会处理线段分割和几何型抽屉题；
+  \item 我会把“最多能选多少”写成严谨的上界证明；
+  \item 我会给出达到上界的构造例子；
+  \item 我会在解答后检查分类是否完整、是否真的证明了“保证”。
+\end{enumerate}
+\end{goalbox}
+
+\section{给家长的使用建议}
+
+\begin{warnbox}{更有效的带练方式}
+\begin{itemize}
+  \item 不要一开始就说“这是抽屉原理”，先让孩子自己说抽屉怎么分；
+  \item 如果卡住，可以只提示“先想最安全的情况最多能取几个”；
+  \item 极值题订正时，重点看孩子有没有把相邻差累加成总差；
+  \item 做完后请孩子口头复述：这题到底是按余数分、按区间分，还是按链分解解决的。
+\end{itemize}
+\end{warnbox}
+
+\begin{infobox}{和后续专题的衔接}
+这个专题学完以后，最自然的下一步就是继续学习\textbf{染色方法与棋盘问题}。因为颜色本身也可以看成一种分类，而覆盖题和路径题里很多结论都可以看成抽屉、不变量与分类思想的进一步发展。
+\end{infobox}
+
+\end{document}

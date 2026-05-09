@@ -1,0 +1,335 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.4cm,bottom=2.6cm,left=2.35cm,right=2.35cm,headheight=18pt,headsep=0.55cm,footskip=26pt]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black
+}
+
+\setstretch{1.16}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.32em}
+\setlist[enumerate]{itemsep=0.35em, topsep=0.35em, leftmargin=2.3em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=2em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{rulegray}{RGB}{110,118,128}
+\definecolor{softgreen}{RGB}{236,247,240}
+\definecolor{softyellow}{RGB}{254,249,229}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.25em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.2em}{0.8em}
+\titleformat{\subsection}{\large\bfseries\color{mainblue}}{\thesubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 组合阶段课程目录}
+\fancyhead[C]{\small 六个核心专题与后续课程路线}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{goalbox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{infobox}[1]{
+  breakable,
+  colback=softgreen,
+  colframe=green!40!black,
+  boxrule=0.65pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{warnbox}[1]{
+  breakable,
+  colback=softyellow,
+  colframe=orange!60!black,
+  boxrule=0.65pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{titlepage}
+\centering
+\vspace*{0.9cm}
+
+\begin{tcolorbox}[
+  enhanced,
+  width=0.92\textwidth,
+  colback=white,
+  colframe=mainblue,
+  boxrule=1pt,
+  arc=0mm,
+  left=6mm,
+  right=6mm,
+  top=8mm,
+  bottom=8mm
+]
+\centering
+
+{\fontsize{24}{30}\selectfont\bfseries 组合阶段课程目录\par}
+\vspace{0.65cm}
+{\fontsize{17}{22}\selectfont 六个核心专题与后续课程路线总索引\par}
+
+\vspace{1cm}
+\begin{tcolorbox}[colback=lightblue,colframe=mainblue,width=0.84\textwidth,boxrule=1pt]
+\centering
+{\large 适合对象：小学高年级至初中低年级数学竞赛中的组合专题系统训练}\\[0.35em]
+{\normalsize 本目录页把目前的六个核心专题连成一条更完整的学习路线，并给出自然的后续扩展方向}
+\end{tcolorbox}
+
+\vspace{1.0cm}
+\renewcommand{\arraystretch}{1.42}
+\begin{tabular}{>{\bfseries}p{3.5cm}p{8cm}}
+总主题： & 组合专题阶段课程 \\
+已完成专题： & 错位排列、容斥原理、递推计数、图论计数、数论方法中的组合构造、抽屉原理与极值思想 \\
+资料类型： & 课堂讲义、提高训练题单、周测 A/B、专题目录页（部分专题） \\
+编译方式： & XeLaTeX \\
+\end{tabular}
+
+\vspace{0.9cm}
+{\large \today\par}
+\end{tcolorbox}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{课程全貌}
+
+\begin{goalbox}{目前已经整理成型的六个核心专题}
+\begin{enumerate}
+  \item 错位排列：训练位置受限计数的基本直觉；
+  \item 容斥原理：系统处理重叠条件与坏事件并集；
+  \item 递推计数：从“直接数”过渡到“把大问题拆成小问题”；
+  \item 图论计数：把对象关系翻译成图，再用边数、度数和路径数来计数；
+  \item 数论方法中的组合构造：用奇偶性、余数分类和不变量处理构造、证明与操作问题；
+  \item 抽屉原理与极值思想：训练最少保证、存在性证明、平均数逼迫和极端对象分析。
+\end{enumerate}
+\end{goalbox}
+
+\begin{infobox}{建议总体顺序}
+\begin{itemize}
+  \item 第一阶段：错位排列；
+  \item 第二阶段：容斥原理；
+  \item 第三阶段：递推计数；
+  \item 第四阶段：图论计数；
+  \item 第五阶段：数论方法中的组合构造；
+  \item 第六阶段：抽屉原理与极值思想。
+\end{itemize}
+这个顺序的优点是：前面先练“分类与建模”，中间训练“递推与结构”，后面再进入“证明味更强”的组合专题。
+\end{infobox}
+
+\section{完整课程系列建议}
+
+\begin{goalbox}{一条更完整的组合专题路线}
+\begin{enumerate}
+  \item 计数基础回顾：加法原理、乘法原理、基础排列组合；
+  \item 错位排列：位置受限计数；
+  \item 容斥原理：重叠条件与坏事件；
+  \item 递推计数：状态设计与递推关系；
+  \item 图论计数：握手定理、完全图、二分图、路径计数；
+  \item 数论方法中的组合构造：奇偶性、模运算、不变量；
+  \item 抽屉原理与极值思想：存在性证明、最值构造；
+  \item 染色方法与棋盘问题：黑白染色、多色分类、不变量；
+  \item 进一步提高：欧拉路径、哈密顿路径、状态压缩递推、生成函数初步等。
+\end{enumerate}
+\end{goalbox}
+
+\begin{warnbox}{关于学习节奏}
+\begin{itemize}
+  \item 前 1--6 个专题适合作为“小学高年级到初中低年级”的主干组合课程；
+  \item 第 7、8 个专题适合作为提升阶段，和前面的图论、数论方法自然衔接；
+  \item 第 9 个专题更适合在前面方法已经比较熟练以后，再逐步加入。
+\end{itemize}
+\end{warnbox}
+
+\section{六阶段课程安排}
+
+\subsection{第一阶段：位置受限计数}
+核心专题：错位排列
+\begin{itemize}
+  \item 目标：理解“对象不能回原位”这一类模型；
+  \item 重点：标准错位排列、恰好若干个在原位、至少若干个在原位、部分对象受限；
+  \item 输出资料：讲义、提高训练题单、周测 A/B、专题目录页。
+\end{itemize}
+
+\subsection{第二阶段：重叠条件计数}
+核心专题：容斥原理
+\begin{itemize}
+  \item 目标：理解为什么直接相加会多算，并会系统修正；
+  \item 重点：两集合、三集合、补集法、坏事件模型、与错位排列结合；
+  \item 输出资料：讲义、提高训练题单、周测 A/B、专题目录页。
+\end{itemize}
+
+\subsection{第三阶段：递推与状态设计}
+核心专题：递推计数
+\begin{itemize}
+  \item 目标：学会把复杂计数问题拆成小规模问题；
+  \item 重点：上楼梯模型、受限字符串、铺砖模型、状态设计、与错位排列递推联系；
+  \item 输出资料：讲义、提高训练题单、周测 A/B、专题目录页。
+\end{itemize}
+
+\subsection{第四阶段：图结构中的计数}
+核心专题：图论计数
+\begin{itemize}
+  \item 目标：学会把关系翻译成图，并利用结构做计数与证明；
+  \item 重点：握手定理、完全图、二分图、网格路径、经典图论结论；
+  \item 输出资料：讲义、提高训练题单、周测 A/B、专题目录页。
+\end{itemize}
+
+\subsection{第五阶段：数论工具进入组合证明}
+核心专题：数论方法中的组合构造
+\begin{itemize}
+  \item 目标：把奇偶性、余数分类、不变量变成组合题里的“证明工具”；
+  \item 重点：按模分类、和差整除、操作不变量、构造与不可能性证明；
+  \item 输出资料：讲义、提高训练题单、周测 A/B。
+\end{itemize}
+
+\subsection{第六阶段：存在性证明与最值分析}
+核心专题：抽屉原理与极值思想
+\begin{itemize}
+  \item 目标：学会处理“至少存在一个”“至少取多少才能保证”“先抓最大或最小对象”这类问题；
+  \item 重点：基础与加强版抽屉原理、平均数思想、区间分组、余数分组、极值法入口；
+  \item 输出资料：目前已完成讲义，后续可继续扩展题单与周测。
+\end{itemize}
+
+\section{每个专题对应的资料}
+
+\subsection{错位排列专题}
+\begin{itemize}
+  \item 讲义：\texttt{derangements\_handout.tex} / \texttt{derangements\_handout.pdf}
+  \item 提高训练题单：\texttt{derangements\_advanced\_problem\_set.tex} / \texttt{derangements\_advanced\_problem\_set.pdf}
+  \item 周测 A 卷：\texttt{derangements\_weekly\_test\_A.tex} / \texttt{derangements\_weekly\_test\_A.pdf}
+  \item 周测 B 卷：\texttt{derangements\_weekly\_test\_B.tex} / \texttt{derangements\_weekly\_test\_B.pdf}
+  \item 专题目录页：\texttt{derangements\_topic\_index.tex} / \texttt{derangements\_topic\_index.pdf}
+\end{itemize}
+
+\subsection{容斥原理专题}
+\begin{itemize}
+  \item 讲义：\texttt{inclusion\_exclusion\_handout.tex} / \texttt{inclusion\_exclusion\_handout.pdf}
+  \item 提高训练题单：\texttt{inclusion\_exclusion\_advanced\_problem\_set.tex} / \texttt{inclusion\_exclusion\_advanced\_problem\_set.pdf}
+  \item 周测 A 卷：\texttt{inclusion\_exclusion\_weekly\_test\_A.tex} / \texttt{inclusion\_exclusion\_weekly\_test\_A.pdf}
+  \item 周测 B 卷：\texttt{inclusion\_exclusion\_weekly\_test\_B.tex} / \texttt{inclusion\_exclusion\_weekly\_test\_B.pdf}
+  \item 专题目录页：\texttt{inclusion\_exclusion\_topic\_index.tex} / \texttt{inclusion\_exclusion\_topic\_index.pdf}
+\end{itemize}
+
+\subsection{递推计数专题}
+\begin{itemize}
+  \item 讲义：\texttt{recursive\_counting\_handout.tex} / \texttt{recursive\_counting\_handout.pdf}
+  \item 提高训练题单：\texttt{recursive\_counting\_advanced\_problem\_set.tex} / \texttt{recursive\_counting\_advanced\_problem\_set.pdf}
+  \item 周测 A 卷：\texttt{recursive\_counting\_weekly\_test\_A.tex} / \texttt{recursive\_counting\_weekly\_test\_A.pdf}
+  \item 周测 B 卷：\texttt{recursive\_counting\_weekly\_test\_B.tex} / \texttt{recursive\_counting\_weekly\_test\_B.pdf}
+  \item 专题目录页：\texttt{recursive\_counting\_topic\_index.tex} / \texttt{recursive\_counting\_topic\_index.pdf}
+\end{itemize}
+
+\subsection{图论计数专题}
+\begin{itemize}
+  \item 讲义：\texttt{graph\_counting\_handout.tex} / \texttt{graph\_counting\_handout.pdf}
+  \item 提高训练题单：\texttt{graph\_counting\_advanced\_problem\_set.tex} / \texttt{graph\_counting\_advanced\_problem\_set.pdf}
+  \item 周测 A 卷：\texttt{graph\_counting\_weekly\_test\_A.tex} / \texttt{graph\_counting\_weekly\_test\_A.pdf}
+  \item 周测 B 卷：\texttt{graph\_counting\_weekly\_test\_B.tex} / \texttt{graph\_counting\_weekly\_test\_B.pdf}
+  \item 专题目录页：\texttt{graph\_counting\_topic\_index.tex} / \texttt{graph\_counting\_topic\_index.pdf}
+\end{itemize}
+
+\subsection{数论方法中的组合构造专题}
+\begin{itemize}
+  \item 讲义：\texttt{number\_theory\_constructions\_handout.tex} / \texttt{number\_theory\_constructions\_handout.pdf}
+  \item 提高训练题单：\texttt{number\_theory\_constructions\_advanced\_problem\_set.tex} / \texttt{number\_theory\_constructions\_advanced\_problem\_set.pdf}
+  \item 周测 A 卷：\texttt{number\_theory\_constructions\_weekly\_test\_A.tex} / \texttt{number\_theory\_constructions\_weekly\_test\_A.pdf}
+  \item 周测 B 卷：\texttt{number\_theory\_constructions\_weekly\_test\_B.tex} / \texttt{number\_theory\_constructions\_weekly\_test\_B.pdf}
+  \item 专题目录页：\texttt{number\_theory\_constructions\_topic\_index.tex} / \texttt{number\_theory\_constructions\_topic\_index.pdf}
+\end{itemize}
+
+\subsection{抽屉原理与极值思想专题}
+\begin{itemize}
+  \item 专题目录页：\texttt{pigeonhole\_extremal\_topic\_index.tex} / \texttt{pigeonhole\_extremal\_topic\_index.pdf}
+  \item 讲义：\texttt{pigeonhole\_extremal\_handout.tex} / \texttt{pigeonhole\_extremal\_handout.pdf}
+  \item 提高训练题单：\texttt{pigeonhole\_extremal\_advanced\_problem\_set.tex} / \texttt{pigeonhole\_extremal\_advanced\_problem\_set.pdf}
+  \item 周测 A 卷：\texttt{pigeonhole\_extremal\_weekly\_test\_A.tex} / \texttt{pigeonhole\_extremal\_weekly\_test\_A.pdf}
+  \item 周测 B 卷：\texttt{pigeonhole\_extremal\_weekly\_test\_B.tex} / \texttt{pigeonhole\_extremal\_weekly\_test\_B.pdf}
+\end{itemize}
+
+\subsection{下一步衔接专题}
+\begin{itemize}
+  \item 专题目录页：\texttt{coloring\_chessboard\_topic\_index.tex} / \texttt{coloring\_chessboard\_topic\_index.pdf}
+  \item 讲义：\texttt{coloring\_chessboard\_handout.tex} / \texttt{coloring\_chessboard\_handout.pdf}
+  \item 说明：这个专题目前已完成目录页和讲义，后续可继续补题单与周测。
+\end{itemize}
+
+\section{按周安排的一个示例}
+
+\begin{infobox}{一个 12--15 周的阶段课程示例}
+\begin{itemize}
+  \item 第 1--2 周：错位排列讲义 + 题单 + 周测 A/B；
+  \item 第 3--5 周：容斥原理讲义 + 题单 + 周测 A/B；
+  \item 第 6--8 周：递推计数讲义 + 题单 + 周测 A/B；
+  \item 第 9--10 周：图论计数讲义 + 题单 + 周测 A/B；
+  \item 第 11--13 周：数论方法中的组合构造讲义 + 题单 + 周测 A/B；
+  \item 第 14--15 周：抽屉原理与极值思想讲义 + 题单 + 周测 A/B；
+  \item 第 16 周起：继续衔接染色方法与棋盘问题。
+\end{itemize}
+如果节奏更快，也可以每个专题压缩成 2 次讲练 + 1 次测验。
+\end{infobox}
+
+\section{阶段学习后的能力目标}
+
+\begin{goalbox}{如果这六个专题都掌握较好，通常应具备下面这些能力}
+\begin{enumerate}
+  \item 能快速识别题目更像位置受限、容斥、递推、图论、数论构造，还是抽屉与极值模型；
+  \item 会处理位置限制、坏事件并集、路径计数、按模分类、不变量、最少保证等常见竞赛工具；
+  \item 能在一道题里比较多种解法，并选择更自然的方法；
+  \item 会在做完后检查答案是否合理、分类是否完整、证明是否覆盖全部情况。
+\end{enumerate}
+\end{goalbox}
+
+\section{给家长的使用建议}
+
+\begin{warnbox}{更有效的带练方式}
+\begin{itemize}
+  \item 每做一道题，先让孩子口头说“这题更像哪个专题”；
+  \item 错题订正时，不只改数字，更要归类：模型看错、分类漏了、符号错了、初值错了、建图错了，还是余数分类不完整；
+  \item 周测建议定时完成，做完后隔两三天再回做错题；
+  \item 如果一个专题里的错题还很多，就先回到讲义与题单，不急着进入下一个专题。
+\end{itemize}
+\end{warnbox}
+
+\begin{infobox}{后续自然衔接的专题}
+在这六个专题之后，比较自然的后续方向包括：染色方法、欧拉路径与哈密顿路径、状态压缩递推、生成函数初步等。
+\end{infobox}
+
+\end{document}

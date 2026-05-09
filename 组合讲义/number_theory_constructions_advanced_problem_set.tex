@@ -1,0 +1,767 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.35cm,bottom=2.55cm,left=2.3cm,right=2.3cm,headheight=18pt,headsep=0.55cm,footskip=26pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black,
+  citecolor=blue!50!black
+}
+
+\setstretch{1.15}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.28em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.35em, topsep=0.35em, leftmargin=2.2em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=1.9em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{accent}{RGB}{153,76,0}
+\definecolor{rulegray}{RGB}{110,118,128}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.25em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.2em}{0.8em}
+\titleformat{\subsection}{\large\bfseries\color{mainblue}}{\thesubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 数论方法中的组合构造提高训练题单}
+\fancyhead[C]{\small 组合专题：奇偶性、余数分类与不变量}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{goalbox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{notebox}[1]{
+  breakable,
+  colback=lightgray,
+  colframe=black!50,
+  boxrule=0.55pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtheoremstyle{formalexample}
+  {0.8em}{0.8em}{\normalfont}{}{\bfseries\color{accent}}{．}{0.6em}{}
+\theoremstyle{formalexample}
+\newtheorem{exercise}{题目}[section]
+\newenvironment{solution}{\par\noindent\textbf{解：}}{\hfill$\square$\par}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{titlepage}
+\centering
+\vspace*{0.9cm}
+\begin{tcolorbox}[
+  enhanced,
+  width=0.92\textwidth,
+  colback=white,
+  colframe=mainblue,
+  boxrule=1pt,
+  arc=0mm,
+  left=6mm,
+  right=6mm,
+  top=8mm,
+  bottom=8mm
+]
+\centering
+{\fontsize{24}{30}\selectfont\bfseries 数论方法中的组合构造提高训练题单\par}
+\vspace{0.6cm}
+{\fontsize{17}{22}\selectfont 适合小学高年级至初中低年级竞赛过渡训练\par}
+
+\vspace{1cm}
+\begin{tcolorbox}[colback=lightblue,colframe=mainblue,width=0.84\textwidth,boxrule=1pt]
+\centering
+{\large 训练目标：把“会用奇偶性与余数分类”提升到“会构造、会证明、会做操作不变量”}\\[0.35em]
+{\normalsize 建议分 2--3 次完成，先独立做题，再对照详细解答订正}
+\end{tcolorbox}
+
+\vspace{1cm}
+\renewcommand{\arraystretch}{1.42}
+\begin{tabular}{>{\bfseries}p{3.5cm}p{8cm}}
+题目数量： & 16 题，按难度递进 \\
+专题重点： & 奇偶性、模运算、余数分类、不变量、操作型问题、构造证明 \\
+答案形式： & 末尾附较详细解答，强调“为什么这样分”和“为什么这样证” \\
+编译方式： & XeLaTeX \\
+\end{tabular}
+
+\vspace{0.9cm}
+{\large \today\par}
+\end{tcolorbox}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{使用建议}
+
+\begin{goalbox}{做这类题时优先问自己的 4 个问题}
+\begin{itemize}
+  \item 题目里的关键限制，是奇偶性、模 $3$、模 $4$，还是模 $5$？
+  \item 如果是证明题，能不能先把所有对象按余数分类？
+  \item 如果是操作题，有没有“每做一步都不变”的量？
+  \item 如果是构造题，能不能先想每一组允许出现哪些余数组合？
+\end{itemize}
+\end{goalbox}
+
+\begin{notebox}{建议计时}
+\begin{itemize}
+  \item 基础题：每题 4--6 分钟；
+  \item 分类讨论题：每题 8--12 分钟；
+  \item 不变量与综合题：先独立思考 10 分钟，再看解答。
+\end{itemize}
+\end{notebox}
+
+\section{奇偶性与和差判断}
+
+\begin{exercise}
+从 $1$ 到 $10$ 中任取 $6$ 个数，证明其中必有两个数的差是偶数。
+\end{exercise}
+
+\begin{exercise}
+从 $1$ 到 $9$ 中删去一个数，再把剩下的 $8$ 个数分成 $4$ 对，使每对两个数的和都是奇数。问删去哪几个数时可能？并给出一种分法。
+\end{exercise}
+
+\begin{exercise}
+在数轴上，一个棋子从 $0$ 出发，每步只能向左或向右走 $1$ 格。它能否恰好走 $7$ 步到达 $4$？它能否恰好走 $8$ 步到达 $4$？
+\end{exercise}
+
+\begin{exercise}
+黑板上写着 $1,2,3,4,5,6,7,8$。每次擦去其中两个数 $a,b$，再写上 $a+b-1$。反复操作，直到只剩下一个数。求最后剩下的数。
+\end{exercise}
+
+\section{余数分类与按模计数}
+
+\begin{exercise}
+从 $1$ 到 $9$ 中选出 $4$ 个数，使它们的和能被 $3$ 整除，有多少种选法？
+\end{exercise}
+
+\begin{exercise}
+从 $1$ 到 $15$ 中任取 $8$ 个数，证明其中一定有两个数的差是 $5$ 的倍数。
+\end{exercise}
+
+\begin{exercise}
+把 $1$ 到 $12$ 分成 $6$ 对，使每对两个数的和都是 $3$ 的倍数。请给出一种分法，并说明一对数的余数类型只可能有哪些。
+\end{exercise}
+
+\begin{exercise}
+从 $1$ 到 $15$ 中最多能选多少个数，使得任意两个被选出的数的和都不是 $3$ 的倍数？
+\end{exercise}
+
+\section{不变量与操作}
+
+\begin{exercise}
+两堆石子分别有 $7$ 颗和 $7$ 颗。每次操作必须从一堆里取出 $1$ 颗石子，再从另一堆里取出 $2$ 颗石子。问能否经过若干次操作后，恰好把两堆石子全部取完？
+\end{exercise}
+
+\begin{exercise}
+有 $9$ 盏灯，开始时全灭。每次操作必须同时改变恰好两盏灯的状态（亮变灭，灭变亮）。问能否经过若干次操作后，恰好只有 $1$ 盏灯亮着？
+\end{exercise}
+
+\begin{exercise}
+黑板上写着 $6$ 个奇数。每次擦去其中两个数，并把它们的和写回黑板。重复操作，直到只剩下一个数。问最后剩下的数一定是奇数还是偶数？
+\end{exercise}
+
+\begin{exercise}
+在一个 $5\times 5$ 的方格棋盘上，一只棋子从左下角出发，每次只能向上、下、左、右移动 $1$ 格。它能否恰好走 $8$ 步到达右上角？它能否恰好走 $9$ 步到达右上角？
+\end{exercise}
+
+\section{综合提高与构造}
+
+\begin{exercise}
+从 $1$ 到 $12$ 中任取 $6$ 个数，证明其中一定能选出 $3$ 个数，使这 $3$ 个数的和是 $3$ 的倍数。
+\end{exercise}
+
+\begin{exercise}
+把 $1$ 到 $12$ 分成 $4$ 组，每组 $3$ 个数。能否使每组的和都是 $3$ 的倍数？若能，请给出一种构造，并说明每组的余数结构只能有哪些可能。
+\end{exercise}
+
+\begin{exercise}
+从 $1$ 到 $15$ 中最多能选多少个数，使得任意 $3$ 个被选出的数的和都不是 $3$ 的倍数？
+\end{exercise}
+
+\begin{exercise}
+从 $1$ 到 $12$ 中选出 $4$ 个数，使它们的和能被 $4$ 整除，有多少种选法？
+\end{exercise}
+
+\newpage
+\section{详细解答}
+
+\begin{enumerate}
+  \item \begin{solution}
+  先把整数按奇偶性分类。
+
+  从 $1$ 到 $10$ 中，奇数有 $5$ 个，偶数也有 $5$ 个。
+
+  现在任取 $6$ 个数，而“奇数”和“偶数”只有两类。由抽屉原理，所取出的 $6$ 个数里，至少有两数同为奇数，或者至少有两数同为偶数。
+
+  两个奇数的差是偶数，两个偶数的差也是偶数。
+
+  因此，任取 $6$ 个数，其中一定有两个数的差是偶数。
+  \end{solution}
+
+  \item \begin{solution}
+  要使每一对的和都是奇数，就必须每一对都由“一个奇数和一个偶数”组成。
+
+  先看 $1$ 到 $9$ 中奇偶数的个数：
+  \[
+  \text{奇数有 }5\text{ 个： }1,3,5,7,9;
+  \qquad
+  \text{偶数有 }4\text{ 个： }2,4,6,8.
+  \]
+
+  如果删去一个\textbf{偶数}，那么剩下奇数 $5$ 个、偶数 $3$ 个，奇偶个数不相等，不可能分成 $4$ 对且每对一奇一偶。
+
+  如果删去一个\textbf{奇数}，那么剩下奇数 $4$ 个、偶数 $4$ 个，个数相等，就可以一奇一偶地配对。
+
+  所以：\textbf{只有删去奇数时才可能。}
+
+  例如删去 $1$ 后，可分为
+  \[
+  (2,3),\ (4,5),\ (6,7),\ (8,9),
+  \]
+  每对的和分别为 $5,9,13,17$，都是奇数。
+  \end{solution}
+
+  \item \begin{solution}
+  设向右走了 $r$ 步，向左走了 $l$ 步，那么
+  \[
+  r+l=\text{总步数},
+  \qquad
+  r-l=\text{最后所在位置}.
+  \]
+
+  \textbf{先看 7 步到达 4：}
+  \[
+  r+l=7,
+  \qquad
+  r-l=4.
+  \]
+  两式相加得
+  \[
+  2r=11,
+  \]
+  这不可能，因为 $r$ 应该是整数。
+
+  所以恰好走 $7$ 步到达 $4$ \textbf{不可能}。
+
+  \textbf{再看 8 步到达 4：}
+  \[
+  r+l=8,
+  \qquad
+  r-l=4.
+  \]
+  两式相加得
+  \[
+  2r=12,
+  \qquad r=6,
+  \qquad l=2.
+  \]
+  这是可行的。
+
+  例如先向右走 $6$ 步，再向左走 $2$ 步，最后就停在 $4$。
+
+  所以恰好走 $8$ 步到达 $4$ \textbf{可以}。
+  \end{solution}
+
+  \item \begin{solution}
+  这是一道典型的不变量题，关键观察“总和怎样变化”。
+
+  原来擦去两个数 $a,b$，再写上 $a+b-1$，所以黑板上所有数的总和每次会减少 $1$。
+
+  初始总和为
+  \[
+  1+2+3+4+5+6+7+8=36.
+  \]
+
+  一共有 $8$ 个数，每次操作后数的个数减少 $1$，所以从 $8$ 个数变成 $1$ 个数，需要操作
+  \[
+  8-1=7
+  \]
+  次。
+
+  每次总和减少 $1$，做完 $7$ 次后，总和变为
+  \[
+  36-7=29.
+  \]
+
+  最后黑板上只剩下一个数，这个数就等于最后的总和，所以最后剩下的数是
+  \[
+  29.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  先把 $1$ 到 $9$ 按除以 $3$ 的余数分类：
+  \[
+  \begin{aligned}
+  0\text{ 类： }&3,6,9;\\
+  1\text{ 类： }&1,4,7;\\
+  2\text{ 类： }&2,5,8.
+  \end{aligned}
+  \]
+
+  选出 $4$ 个数，它们的和能被 $3$ 整除，说明这 $4$ 个数的余数和是 $0$（模 $3$）。
+
+  四个余数的类型只可能有下面几种：
+  \begin{itemize}
+    \item $(0,0,1,2)$；
+    \item $(1,1,1,0)$；
+    \item $(2,2,2,0)$；
+    \item $(1,1,2,2)$。
+  \end{itemize}
+
+  下面分别计数：
+
+  \textbf{1. 类型 $(0,0,1,2)$：}
+  从 0 类中选 2 个，从 1 类中选 1 个，从 2 类中选 1 个：
+  \[
+  \binom32\cdot \binom31\cdot \binom31=3\times 3\times 3=27.
+  \]
+
+  \textbf{2. 类型 $(1,1,1,0)$：}
+  1 类的 3 个数必须全选，再从 0 类选 1 个：
+  \[
+  1\cdot \binom31=3.
+  \]
+
+  \textbf{3. 类型 $(2,2,2,0)$：}
+  同理可得
+  \[
+  1\cdot \binom31=3.
+  \]
+
+  \textbf{4. 类型 $(1,1,2,2)$：}
+  从 1 类选 2 个，从 2 类选 2 个：
+  \[
+  \binom32\cdot \binom32=3\times 3=9.
+  \]
+
+  所以总数为
+  \[
+  27+3+3+9=42.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  把 $1$ 到 $15$ 按照除以 $5$ 的余数分成五类：
+  \[
+  0\text{ 类},1\text{ 类},2\text{ 类},3\text{ 类},4\text{ 类}.
+  \]
+
+  一共只有 $5$ 类，现在却取了 $8$ 个数。
+
+  由抽屉原理，至少有两个数落在同一个余数类里。设这两个数是 $a,b$，那么
+  \[
+  a\equiv b\pmod 5.
+  \]
+
+  于是
+  \[
+  a-b\equiv 0\pmod 5,
+  \]
+  说明 $a-b$ 是 $5$ 的倍数。
+
+  因此，从 $1$ 到 $15$ 中任取 $8$ 个数，其中一定有两个数的差是 $5$ 的倍数。
+  \end{solution}
+
+  \item \begin{solution}
+  若一对数的和是 $3$ 的倍数，那么它们的余数之和必须是 $0$（模 $3$）。
+
+  两个数的余数类型只可能是：
+  \[
+  (0,0)\quad \text{或} \quad (1,2).
+  \]
+
+  先把 $1$ 到 $12$ 按模 $3$ 分类：
+  \[
+  \begin{aligned}
+  0\text{ 类： }&3,6,9,12;\\
+  1\text{ 类： }&1,4,7,10;\\
+  2\text{ 类： }&2,5,8,11.
+  \end{aligned}
+  \]
+
+  因为 0 类有 4 个，所以它们正好可以配成两对 $(0,0)$；
+  1 类和 2 类各有 4 个，所以可以配成四对 $(1,2)$。
+
+  例如可分成：
+  \[
+  (3,6),\ (9,12),\ (1,2),\ (4,5),\ (7,8),\ (10,11).
+  \]
+
+  检查每对的和：
+  \[
+  9,21,3,9,15,21,
+  \]
+  都是 $3$ 的倍数。
+
+  所以这种分法是可行的，而且每一对的余数类型只可能是 $(0,0)$ 或 $(1,2)$。
+  \end{solution}
+
+  \item \begin{solution}
+  把 $1$ 到 $15$ 按模 $3$ 分类：
+  \[
+  \begin{aligned}
+  0\text{ 类： }&3,6,9,12,15;\\
+  1\text{ 类： }&1,4,7,10,13;\\
+  2\text{ 类： }&2,5,8,11,14.
+  \end{aligned}
+  \]
+
+  若任意两个被选出的数的和都不能被 $3$ 整除，那么：
+
+  \begin{itemize}
+    \item 0 类中不能选两个，因为 $0+0\equiv 0\pmod 3$；
+    \item 1 类和 2 类不能同时都选，因为 $1+2\equiv 0\pmod 3$。
+  \end{itemize}
+
+  所以选择方式只能是下面两种：
+  \begin{itemize}
+    \item 从 1 类中任意选若干个，再从 0 类里最多选 1 个；
+    \item 从 2 类中任意选若干个，再从 0 类里最多选 1 个。
+  \end{itemize}
+
+  由于 1 类和 2 类各有 $5$ 个，所以最多可选
+  \[
+  5+1=6
+  \]
+  个。
+
+  例如选
+  \[
+  \{1,4,7,10,13,3\}
+  \]
+  就满足条件：
+  \begin{itemize}
+    \item 任意两个 1 类数相加，余数为 $2$；
+    \item 0 类数与 1 类数相加，余数为 $1$；
+    \item 都不会是 $0$（模 $3$）。
+  \end{itemize}
+
+  所以最多能选 \textbf{6 个数}。
+  \end{solution}
+
+  \item \begin{solution}
+  关键看“总石子数”这个量。
+
+  一开始总石子数是
+  \[
+  7+7=14.
+  \]
+
+  每次操作取走 $1$ 颗和 $2$ 颗，总共取走
+  \[
+  1+2=3
+  \]
+  颗，所以总石子数每次都减少 $3$。
+
+  如果最后能恰好取完，那么 $14$ 必须能表示成若干个 $3$ 的和，也就是 $14$ 必须是 $3$ 的倍数。
+
+  但
+  \[
+  14\div 3 \text{ 余 }2,
+  \]
+  所以 $14$ 不是 $3$ 的倍数。
+
+  因此，不可能经过若干次这样的操作把两堆石子恰好全部取完。
+  \end{solution}
+
+  \item \begin{solution}
+  设当前亮着的灯的盏数为 $L$。
+
+  每次操作同时改变两盏灯的状态，可能发生三种情况：
+  \begin{itemize}
+    \item 两盏原来都灭，则亮灯数增加 $2$；
+    \item 两盏原来都亮，则亮灯数减少 $2$；
+    \item 一盏亮一盏灭，则亮灯数不变。
+  \end{itemize}
+
+  无论哪种情况，亮灯数的\textbf{奇偶性都不变}。
+
+  初始时全灭，所以
+  \[
+  L=0,
+  \]
+  是偶数。
+
+  因为奇偶性始终不变，所以以后任何时刻亮灯数都必须是偶数，不可能变成奇数。
+
+  而“恰好只有 1 盏灯亮着”对应的亮灯数是 $1$，是奇数。
+
+  因此这种情况\textbf{不可能发生}。
+  \end{solution}
+
+  \item \begin{solution}
+  每次把两个数换成它们的和，黑板上所有数的总和并不会改变。
+
+  因此最后剩下的那个数，一定等于最开始这 $6$ 个奇数的总和。
+
+  现在来判断这 $6$ 个奇数的和的奇偶性。
+
+  两个奇数相加得偶数；
+  6 个奇数的和可以看成 3 组“奇数 + 奇数”，每组都是偶数，所以总和仍是偶数。
+
+  也可以直接说：偶数个奇数相加，结果一定是偶数。
+
+  所以最后剩下的数一定是\textbf{偶数}。
+  \end{solution}
+
+  \item \begin{solution}
+  把左下角记作 $(0,0)$，右上角记作 $(4,4)$。
+
+  从 $(0,0)$ 到 $(4,4)$ 的最短距离是
+  \[
+  4+4=8,
+  \]
+  所以恰好走 $8$ 步是\textbf{可能}的。例如一直向右走 $4$ 步，再向上走 $4$ 步即可。
+
+  再看恰好走 $9$ 步是否可能。
+
+  每走一步，坐标和 $x+y$ 的奇偶性都会改变一次：
+  \begin{itemize}
+    \item 从偶数变成奇数，或
+    \item 从奇数变成偶数。
+  \end{itemize}
+
+  出发点 $(0,0)$ 的坐标和是
+  \[
+  0+0=0,
+  \]
+  为偶数；终点 $(4,4)$ 的坐标和是
+  \[
+  4+4=8,
+  \]
+  也为偶数。
+
+  从偶数奇偶性回到偶数奇偶性，必须走\textbf{偶数步}。
+
+  因此走 $9$ 步（奇数步）不可能到达右上角。
+
+  结论：
+  \begin{itemize}
+    \item 恰好走 $8$ 步可以到达；
+    \item 恰好走 $9$ 步不可以到达。
+  \end{itemize}
+  \end{solution}
+
+  \item \begin{solution}
+  把这 6 个数按模 $3$ 的余数分成 0 类、1 类、2 类。
+
+  我们分两种情况讨论。
+
+  \textbf{情况 1：某一类里至少有 3 个数。}
+
+  例如 1 类里至少有 3 个数，那么任选这 3 个数，它们的余数和是
+  \[
+  1+1+1=3\equiv 0\pmod 3,
+  \]
+  所以这 3 个数的和是 $3$ 的倍数。
+
+  0 类和 2 类同理。
+
+  \textbf{情况 2：每一类都至多有 2 个数。}
+
+  一共已经选了 $6$ 个数，而三类每类至多 2 个，这就说明三类的个数只能恰好是
+  \[
+  2,2,2.
+  \]
+
+  于是 0 类、1 类、2 类中各至少有 1 个数。各取一个，这 3 个数的余数和为
+  \[
+  0+1+2=3\equiv 0\pmod 3.
+  \]
+
+  所以它们的和也是 $3$ 的倍数。
+
+  两种情况都能找到这样的 3 个数，因此命题得证。
+  \end{solution}
+
+  \item \begin{solution}
+  先看余数结构。
+
+  三个数的和是 $3$ 的倍数时，这三个数的余数类型只可能是：
+  \[
+  (0,0,0),\ (1,1,1),\ (2,2,2),\ (0,1,2).
+  \]
+
+  再把 $1$ 到 $12$ 按模 $3$ 分类：
+  \[
+  \begin{aligned}
+  0\text{ 类： }&3,6,9,12;\\
+  1\text{ 类： }&1,4,7,10;\\
+  2\text{ 类： }&2,5,8,11.
+  \end{aligned}
+  \]
+
+  说明这道题\textbf{可以构造}。
+
+  一种简单分法是：
+  \[
+  (3,6,9),\ (1,4,7),\ (2,5,8),\ (10,11,12).
+  \]
+
+  它们的和分别为
+  \[
+  18,\ 12,\ 15,\ 33,
+  \]
+  都是 $3$ 的倍数。
+
+  下面说明余数结构为什么只能是前面那四种。
+
+  因为每组有 3 个数，而每组和要求是 $0$（模 $3$），所以三数余数和必须是 $0$（模 $3$）。把三个余数全部列出来，能满足这一点的只有
+  \[
+  (0,0,0),\ (1,1,1),\ (2,2,2),\ (0,1,2).
+  \]
+
+  也就是说，任何可行分组中的每一组，都只能是这四种余数结构之一。
+  \end{solution}
+
+  \item \begin{solution}
+  我们要避免“任意 3 个被选数的和是 $3$ 的倍数”。
+
+  先按模 $3$ 分成 0 类、1 类、2 类。
+
+  如果某一类里有 $3$ 个或更多个数，例如 1 类里至少有 $3$ 个，那么任选 3 个，它们的余数和就是
+  \[
+  1+1+1=3\equiv 0\pmod 3,
+  \]
+  这就不满足要求。
+
+  所以每一类最多只能选 $2$ 个。
+
+  另外，如果三类中都至少选了一个数，那么从 0 类、1 类、2 类各取一个，这三个数的余数和为
+  \[
+  0+1+2=3\equiv 0\pmod 3,
+  \]
+  仍然不满足要求。
+
+  因此，三类中\textbf{至少有一类必须一个都不选}。
+
+  于是所有被选数只能落在两类里，而且每类最多 2 个，所以总数最多为
+  \[
+  2+2=4.
+  \]
+
+  这个上界可以达到。
+
+  例如选
+  \[
+  \{1,4,2,5\},
+  \]
+  它们的余数分别是
+  \[
+  1,1,2,2.
+  \]
+  任取 3 个，余数和只可能是
+  \[
+  1+1+2=4\equiv 1\pmod 3
+  \]
+  或
+  \[
+  1+2+2=5\equiv 2\pmod 3,
+  \]
+  都不是 $0$（模 $3$）。
+
+  所以最多能选 \textbf{4 个数}。
+  \end{solution}
+
+  \item \begin{solution}
+  先把 $1$ 到 $12$ 按模 $4$ 分类：
+  \[
+  \begin{aligned}
+  0\text{ 类： }&4,8,12;\\
+  1\text{ 类： }&1,5,9;\\
+  2\text{ 类： }&2,6,10;\\
+  3\text{ 类： }&3,7,11.
+  \end{aligned}
+  \]
+
+  每一类都有 3 个数。现在要从中选 4 个数，使余数和为 $0$（模 $4$）。
+
+  先列出 4 个余数的可能类型：
+  \begin{itemize}
+    \item $(0,0,1,3)$；
+    \item $(0,0,2,2)$；
+    \item $(0,1,1,2)$；
+    \item $(0,2,3,3)$；
+    \item $(1,1,3,3)$；
+    \item $(1,2,2,3)$。
+  \end{itemize}
+
+  下面分别计数。
+
+  \textbf{1. 类型 $(0,0,1,3)$：}
+  \[
+  \binom32\cdot \binom31\cdot \binom31=3\times 3\times 3=27.
+  \]
+
+  \textbf{2. 类型 $(0,0,2,2)$：}
+  \[
+  \binom32\cdot \binom32=3\times 3=9.
+  \]
+
+  \textbf{3. 类型 $(0,1,1,2)$：}
+  \[
+  \binom31\cdot \binom32\cdot \binom31=3\times 3\times 3=27.
+  \]
+
+  \textbf{4. 类型 $(0,2,3,3)$：}
+  \[
+  \binom31\cdot \binom31\cdot \binom32=3\times 3\times 3=27.
+  \]
+
+  \textbf{5. 类型 $(1,1,3,3)$：}
+  \[
+  \binom32\cdot \binom32=3\times 3=9.
+  \]
+
+  \textbf{6. 类型 $(1,2,2,3)$：}
+  \[
+  \binom31\cdot \binom32\cdot \binom31=3\times 3\times 3=27.
+  \]
+
+  所以总数为
+  \[
+  27+9+27+27+9+27=126.
+  \]
+
+  因此，满足条件的选法共有
+  \[
+  \boxed{126\text{ 种}}.
+  \]
+  \end{solution}
+\end{enumerate}
+
+\end{document}

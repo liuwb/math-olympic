@@ -1,0 +1,584 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.4cm,bottom=2.6cm,left=2.35cm,right=2.35cm,headheight=18pt,headsep=0.55cm,footskip=26pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black,
+  citecolor=blue!50!black
+}
+
+\setstretch{1.16}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.35em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.32em, topsep=0.32em, leftmargin=2.3em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=2em}
+\setcounter{tocdepth}{2}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{accent}{RGB}{153,76,0}
+\definecolor{rulegray}{RGB}{110,118,128}
+\definecolor{softgreen}{RGB}{236,247,240}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.25em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.3em}{0.9em}
+\titleformat{\subsection}{\large\bfseries\color{mainblue}}{\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{1.05em}{0.55em}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{accent}}{\thesubsubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 组合专题课堂讲义}
+\fancyhead[C]{\small 数论方法中的组合构造}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtheoremstyle{formaltheorem}
+  {0.8em}{0.8em}{\normalfont}{}{\bfseries\color{mainblue}}{．}{0.6em}{}
+\newtheoremstyle{formalexample}
+  {0.8em}{0.8em}{\normalfont}{}{\bfseries\color{accent}}{．}{0.6em}{}
+
+\theoremstyle{formaltheorem}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{method}{方法}[section]
+\theoremstyle{formalexample}
+\newtheorem{example}{例题}[section]
+\newtheorem{exercise}{练习}[section]
+
+\newenvironment{solution}{\par\noindent\textbf{解：}}{\hfill$\square$\par}
+
+\newtcolorbox{goalbox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{notebox}[1]{
+  breakable,
+  colback=lightgray,
+  colframe=black!50,
+  boxrule=0.55pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{skillbox}[1]{
+  breakable,
+  colback=softgreen,
+  colframe=green!40!black,
+  boxrule=0.65pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{titlepage}
+\centering
+\vspace*{0.9cm}
+
+\begin{tcolorbox}[
+  enhanced,
+  width=0.92\textwidth,
+  colback=white,
+  colframe=mainblue,
+  boxrule=1pt,
+  arc=0mm,
+  left=6mm,
+  right=6mm,
+  top=8mm,
+  bottom=8mm
+]
+\centering
+
+{\fontsize{24}{30}\selectfont\bfseries 组合专题课堂讲义\par}
+\vspace{0.7cm}
+{\fontsize{17}{22}\selectfont 数论方法中的组合构造\par}
+
+\vspace{1.1cm}
+\color{rulegray}\rule{0.72\textwidth}{0.7pt}\par
+\vspace{1cm}
+
+\begin{tcolorbox}[colback=lightblue,colframe=mainblue,width=0.82\textwidth,boxrule=1pt]
+\centering
+{\Large 适合对象：小学高年级至初中低年级数学竞赛学生}\\[0.4em]
+{\large 已掌握基础计数，准备学习“用奇偶性、余数和整除性质做构造与证明”}
+\end{tcolorbox}
+
+\vspace{1.2cm}
+
+\renewcommand{\arraystretch}{1.42}
+\begin{tabular}{>{\bfseries}p{3.5cm}p{8cm}}
+讲义作者： & 刘文博 \\
+专题关键词： & 奇偶性、模运算、余数分类、构造法、不变量、反证法 \\
+建议课时： & 2--3 课时 \\
+专题目标： & 学会把数论工具用在组合构造、存在性证明和不可能性证明中 \\
+编译方式： & XeLaTeX \\
+\end{tabular}
+
+\vspace{1.2cm}
+\color{rulegray}\rule{0.72\textwidth}{0.7pt}\par
+\vspace{0.8cm}
+
+{\normalsize 本讲从奇偶性与余数分类出发，逐步过渡到不变量、构造法和数论背景下的组合证明，帮助学生把“数的性质”转化成“组合结构”的分析工具。\par}
+
+\vspace{0.5cm}
+{\large \today\par}
+\end{tcolorbox}
+\end{titlepage}
+
+\pagenumbering{Roman}
+\pagestyle{plain}
+\tableofcontents
+\newpage
+\pagestyle{fancy}
+\pagenumbering{arabic}
+
+\section{专题目标与核心问题}
+
+\begin{goalbox}{这一讲要解决什么问题}
+有些组合题表面上是在“选数、排数、分组、构造”，但真正起作用的，却是奇偶性、余数、整除性这些数论性质。
+
+本讲的目标，就是学会把“数论信息”变成“组合限制”，从而做存在性证明、不可能性证明和构造题。
+\end{goalbox}
+
+\begin{goalbox}{学完以后希望达到的能力}
+\begin{itemize}
+  \item 会用奇偶性快速判断构造是否可能；
+  \item 会按模 $n$ 的余数分类来做计数和抽屉；
+  \item 会使用不变量思想处理操作型问题；
+  \item 会把数论条件转化成组合结构中的限制。
+\end{itemize}
+\end{goalbox}
+
+\begin{notebox}{这讲和前面专题的关系}
+\begin{itemize}
+  \item 和容斥原理相比，这里更强调“数的性质”而不是“重叠修正”；
+  \item 和图论计数相比，这里更强调“余数与奇偶”而不是“点和边”；
+  \item 和染色问题也很接近，因为很多染色本质上就是按奇偶或按模分类。
+\end{itemize}
+\end{notebox}
+
+\section{最基础的工具：奇偶性}
+
+\subsection{为什么奇偶性很有力}
+奇偶性只有两类：奇数、偶数。但正因为分类简单，很多“不可能”结论会非常快地跳出来。
+
+\begin{example}
+把 1 到 9 这 9 个整数分成若干对，每对两个数之和都为奇数，这样分组可能吗？
+\end{example}
+
+\begin{solution}
+两个数之和为奇数，当且仅当这两个数一奇一偶。
+
+而 1 到 9 中，奇数有 5 个，偶数有 4 个，奇偶个数不相等。
+
+如果每一对都要一奇一偶，那么奇数和偶数的个数就必须相等。但现在不相等，因此这样的分组不可能。
+\end{solution}
+
+\begin{skillbox}{看到这些词，就要想到奇偶性}
+\begin{itemize}
+  \item 和、差、积的奇偶；
+  \item 每次操作都改变或保持奇偶性；
+  \item 分组、配对、覆盖是否可能；
+  \item 棋盘、格点、跳跃、翻转类问题。
+\end{itemize}
+\end{skillbox}
+
+\section{余数分类与模运算}
+
+\begin{example}
+任取 7 个整数，证明其中一定有两个整数的差是 6 的倍数。
+\end{example}
+
+\begin{solution}
+把整数按除以 6 的余数分成 6 类：
+\[
+0,1,2,3,4,5.
+\]
+
+任取 7 个整数，根据抽屉原理，至少有两个整数落在同一类，也就是它们除以 6 的余数相同。
+
+设这两个数为 $a,b$，则
+\[
+a\equiv b\pmod 6,
+\]
+所以
+\[
+a-b\equiv 0\pmod 6.
+\]
+
+因此 $a-b$ 是 6 的倍数。
+\end{solution}
+
+\begin{example}
+从 1 到 20 中任取 11 个整数，证明其中一定有两个数除以 10 的余数相同。
+\end{example}
+
+\begin{solution}
+把整数按除以 10 的余数分成 10 类：
+\[
+0,1,2,3,4,5,6,7,8,9.
+\]
+
+任取 11 个整数放进这 10 类中，根据抽屉原理，至少有两个整数属于同一类，也就是它们除以 10 的余数相同。
+\end{solution}
+
+\section{按模分类做构造与证明}
+
+\begin{example}
+证明：任意 4 个连续整数中，至少有两个整数除以 3 的余数相同。
+\end{example}
+
+\begin{solution}
+整数除以 3 的余数只有 3 类：0,1,2。
+
+而 4 个连续整数一共有 4 个数，放入这 3 类中，由抽屉原理，至少有两个数落入同一类。
+
+所以至少有两个整数除以 3 的余数相同。
+\end{solution}
+
+\begin{example}
+把 1 到 9 分成 3 组，每组 3 个数，能否使每组数字之和都为 3 的倍数？
+\end{example}
+
+\begin{solution}
+先看 1 到 9 除以 3 的余数：
+\begin{itemize}
+  \item 余 0 的有：3,6,9；
+  \item 余 1 的有：1,4,7；
+  \item 余 2 的有：2,5,8。
+\end{itemize}
+
+若三个数之和是 3 的倍数，则它们的余数组合必须满足：
+\begin{itemize}
+  \item 全都余 0；
+  \item 一个余 0，一个余 1，一个余 2；
+  \item 全都余 1；
+  \item 全都余 2。
+\end{itemize}
+
+这里一种简单构造是：
+\[
+(1,2,3),\quad (4,5,6),\quad (7,8,9).
+\]
+
+每组和分别是 6,15,24，都能被 3 整除。
+
+因此可以做到。
+\end{solution}
+
+\section{不变量思想}
+
+\subsection{什么是不变量}
+有些操作题里，每做一次操作，某个量始终不变，或者始终按固定规律变化。这个量就叫\textbf{不变量}或\textbf{半不变量}。
+
+\begin{example}
+黑板上写着数字 1,1。每次可以擦去其中两个数 $a,b$，写上 $a+b+1$。问无论怎样操作，最后剩下的数的奇偶性是否确定？
+\end{example}
+
+\begin{solution}
+先看一个量：所有数字之和的奇偶性。
+
+初始时，和为
+\[
+1+1=2,
+\]
+是偶数。
+
+如果把 $a,b$ 擦去，写上 $a+b+1$，那么总和会增加
+\[
+(a+b+1)-(a+b)=1.
+\]
+
+也就是说，每做一次操作，总和的奇偶性就改变一次。
+
+如果一共做了 $k$ 次操作，那么最后剩下的数的奇偶性就由初始奇偶性和操作次数共同决定。
+
+因此我们要先看操作次数是否固定。若开始有 $n$ 个数，每次操作后数的个数减少 1，所以从 2 个数变成 1 个数，恰好做 1 次操作。
+
+因此最后剩下的数一定是奇数。
+\end{solution}
+
+\section{构造题中的数论方法}
+
+\begin{example}
+从 1 到 8 中选出 4 个数，使它们的和是偶数，有多少种选法？
+\end{example}
+
+\begin{solution}
+要使 4 个数之和为偶数，选出的奇数个数必须是偶数。
+
+1 到 8 中，奇数有 4 个，偶数也有 4 个。
+
+分情况：
+\begin{itemize}
+  \item 选 0 个奇数、4 个偶数：有
+  \[
+  \binom40\binom44=1
+  \]
+  种；
+  \item 选 2 个奇数、2 个偶数：有
+  \[
+  \binom42\binom42=6\times 6=36
+  \]
+  种；
+  \item 选 4 个奇数、0 个偶数：有
+  \[
+  \binom44\binom40=1
+  \]
+  种。
+\end{itemize}
+
+所以总数为
+\[
+1+36+1=38.
+\]
+\end{solution}
+
+\begin{example}
+证明：任意 5 个整数中，一定能选出两个，使它们的和是偶数。
+\end{example}
+
+\begin{solution}
+整数只有两种奇偶性：奇数、偶数。
+
+任意取 5 个整数，把它们按奇偶性分成两类。由抽屉原理，至少有 3 个数属于同一类。
+
+从这 3 个数中任取两个，它们要么同为奇数，要么同为偶数，因此它们的和一定是偶数。
+\end{solution}
+
+\section{经典模型：棋盘、格点与模分类}
+
+\begin{example}
+在整数格点平面上，一只青蛙每次向上、下、左、右跳 1 格。它能否从 $(0,0)$ 跳到 $(3,3)$ 并且恰好跳 5 步？
+\end{example}
+
+\begin{solution}
+看坐标和 $x+y$ 的奇偶性。
+
+起点 $(0,0)$ 的 $x+y=0$，是偶数；终点 $(3,3)$ 的 $x+y=6$，也是偶数。
+
+而每跳一步，$x+y$ 都会增加或减少 1，因此奇偶性每一步都会改变一次。
+
+跳奇数步后，奇偶性应当与起点相反；跳偶数步后，奇偶性与起点相同。
+
+现在恰好跳 5 步，是奇数步，因此终点的奇偶性应与起点相反。但起点和终点的 $x+y$ 都是偶数，矛盾。
+
+所以不可能。
+\end{solution}
+
+\section{常见误区}
+
+\begin{notebox}{数论方法里的 5 个高频错误}
+\begin{itemize}
+  \item 想到奇偶性，但没有先看奇数和偶数个数是否匹配；
+  \item 知道要按模分类，却分错了余数类；
+  \item 只会验证结论，不会主动构造满足条件的例子；
+  \item 操作题里没有先找“不变量”或“每次变化多少”；
+  \item 结论不成立时，不会找最小反例。
+\end{itemize}
+\end{notebox}
+
+\section{课堂练习}
+
+\begin{exercise}
+从 1 到 10 中选 3 个数，使它们的和为偶数，共有多少种选法？
+\end{exercise}
+
+\begin{exercise}
+证明：任意 6 个整数中，一定有两个整数，它们的差是 5 的倍数。
+\end{exercise}
+
+\begin{exercise}
+在方格点上，一只棋子每次向左、右、上、下移动 1 格。它能否从 $(0,0)$ 走到 $(2,2)$ 并且恰好走 3 步？
+\end{exercise}
+
+\begin{exercise}
+从 1 到 9 中选出 4 个数，使得它们的和能被 3 整除，有多少种选法？
+\end{exercise}
+
+\begin{exercise}
+把 1 到 12 分成 4 组，每组 3 个数，能否使每组和都为 3 的倍数？请给出一种构造。
+\end{exercise}
+
+\begin{exercise}
+黑板上写着 3 个数 1,1,1。每次擦去其中两个数 $a,b$，写上 $a+b+1$。问最后剩下的数是奇数还是偶数？
+\end{exercise}
+
+\newpage
+\appendix
+\section{练习解答}
+
+\textbf{1}\begin{solution}
+1 到 10 中，奇数有 5 个，偶数有 5 个。
+
+3 个数之和为偶数时，奇数个数必须是偶数，因此只能有两种情况：
+\begin{itemize}
+  \item 选 0 个奇数、3 个偶数：
+  \[
+  \binom50\binom53=10
+  \]
+  种；
+  \item 选 2 个奇数、1 个偶数：
+  \[
+  \binom52\binom51=10\times 5=50
+  \]
+  种。
+\end{itemize}
+
+所以总数为
+\[
+10+50=60.
+\]
+\end{solution}
+
+\textbf{2}\begin{solution}
+把整数按除以 5 的余数分成 5 类：0,1,2,3,4。
+
+任取 6 个整数放入这 5 类中，由抽屉原理，至少有两个整数落入同一类，也就是它们除以 5 的余数相同。
+
+因此这两个整数的差是 5 的倍数。
+\end{solution}
+
+\textbf{3}\begin{solution}
+看坐标和 $x+y$ 的奇偶性。
+
+起点 $(0,0)$ 的 $x+y=0$ 是偶数；终点 $(2,2)$ 的 $x+y=4$ 也是偶数。
+
+每走一步，$x+y$ 的奇偶性改变一次。
+
+若恰好走 3 步，是奇数步，那么终点奇偶性应与起点相反。但现在起点和终点都是偶数，矛盾。
+
+所以不能做到。
+\end{solution}
+
+\textbf{4}\begin{solution}
+把 1 到 9 按除以 3 的余数分成三类：
+\begin{itemize}
+  \item 余 0：3,6,9，共 3 个；
+  \item 余 1：1,4,7，共 3 个；
+  \item 余 2：2,5,8，共 3 个。
+\end{itemize}
+
+4 个数和能被 3 整除，对应余数组合可分为：
+\begin{itemize}
+  \item 0,0,1,2；
+  \item 1,1,1,0；
+  \item 2,2,2,0；
+  \item 1,1,2,2。
+\end{itemize}
+
+分别计数：
+\[
+\binom20\text{不对，需仔细直接算：}
+\]
+
+第一类：选 2 个余 0 不成立，因为这里只列的是 4 个数中两个余 0？我们重新整理更稳妥。
+
+直接按四个余数和模 3 为 0 的情况分类：
+\begin{itemize}
+  \item 4 个数的余数组合为 $(0,0,1,2)$：有
+  \[
+  \binom32\binom31\binom31=3\times 3\times 3=27
+  \]
+  种；
+  \item 余数组合为 $(1,1,1,0)$：有
+  \[
+  \binom33\binom31=3
+  \]
+  种；
+  \item 余数组合为 $(2,2,2,0)$：有
+  \[
+  \binom33\binom31=3
+  \]
+  种；
+  \item 余数组合为 $(1,1,2,2)$：有
+  \[
+  \binom32\binom32=9
+  \]
+  种。
+\end{itemize}
+
+总数为
+\[
+27+3+3+9=42.
+\]
+\end{solution}
+
+\textbf{5}\begin{solution}
+可以。例如按连续三数分组：
+\[
+(1,2,3),\quad (4,5,6),\quad (7,8,9),\quad (10,11,12).
+\]
+
+它们的和分别为
+\[
+6,15,24,33,
+\]
+都能被 3 整除。
+\end{solution}
+
+\textbf{6}\begin{solution}
+看所有数字之和的奇偶性。
+
+初始时和为
+\[
+1+1+1=3,
+\]
+是奇数。
+
+每做一次操作，把 $a,b$ 替换为 $a+b+1$，所以总和增加
+\[
+(a+b+1)-(a+b)=1.
+\]
+
+也就是说，奇偶性每次改变一次。
+
+开始有 3 个数，每次操作后数的个数减少 1，所以从 3 个数变成 1 个数，需要做 2 次操作。
+
+奇偶性改变 2 次后，又回到原来的奇偶性。因此最后剩下的数仍然是奇数。
+\end{solution}
+
+\end{document}

@@ -1,0 +1,575 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.35cm,bottom=2.55cm,left=2.3cm,right=2.3cm,headheight=18pt,headsep=0.55cm,footskip=26pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black,
+  citecolor=blue!50!black
+}
+
+\setstretch{1.15}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.28em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.35em, topsep=0.35em, leftmargin=2.2em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=1.9em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{accent}{RGB}{153,76,0}
+\definecolor{rulegray}{RGB}{110,118,128}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.25em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.2em}{0.8em}
+\titleformat{\subsection}{\large\bfseries\color{mainblue}}{\thesubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 抽屉原理与极值思想提高训练题单}
+\fancyhead[C]{\small 组合专题：存在性证明与最值分析}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{goalbox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{notebox}[1]{
+  breakable,
+  colback=lightgray,
+  colframe=black!50,
+  boxrule=0.55pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtheoremstyle{formalexample}
+  {0.8em}{0.8em}{\normalfont}{}{\bfseries\color{accent}}{．}{0.6em}{}
+\theoremstyle{formalexample}
+\newtheorem{exercise}{题目}[section]
+\newenvironment{solution}{\par\noindent\textbf{解：}}{\hfill$\square$\par}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{titlepage}
+\centering
+\vspace*{0.9cm}
+\begin{tcolorbox}[
+  enhanced,
+  width=0.92\textwidth,
+  colback=white,
+  colframe=mainblue,
+  boxrule=1pt,
+  arc=0mm,
+  left=6mm,
+  right=6mm,
+  top=8mm,
+  bottom=8mm
+]
+\centering
+{\fontsize{24}{30}\selectfont\bfseries 抽屉原理与极值思想提高训练题单\par}
+\vspace{0.6cm}
+{\fontsize{17}{22}\selectfont 适合小学高年级至初中低年级竞赛过渡训练\par}
+
+\vspace{1cm}
+\begin{tcolorbox}[colback=lightblue,colframe=mainblue,width=0.84\textwidth,boxrule=1pt]
+\centering
+{\large 训练目标：把“会找抽屉”提升到“会做最少保证、加强版估计和极值构造”}\\[0.35em]
+{\normalsize 建议分 2--3 次完成，先独立做题，再对照详细解答订正}
+\end{tcolorbox}
+
+\vspace{1cm}
+\renewcommand{\arraystretch}{1.42}
+\begin{tabular}{>{\bfseries}p{3.5cm}p{8cm}}
+题目数量： & 16 题，按难度递进 \\
+专题重点： & 抽屉原理、最少保证、加强版抽屉、区间分组、余数分类、极值思想 \\
+答案形式： & 末尾附较详细解答，强调“抽屉怎样构造”“最大安全数怎样求” \\
+编译方式： & XeLaTeX \\
+\end{tabular}
+
+\vspace{0.9cm}
+{\large \today\par}
+\end{tcolorbox}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{使用建议}
+
+\begin{goalbox}{做这类题时优先问自己的 4 个问题}
+\begin{itemize}
+  \item 题目里的“物体”是什么，“抽屉”是什么？
+  \item 如果想暂时避免目标出现，每个抽屉最多能装几个？
+  \item 这题适合按余数、按区间、按颜色，还是按“奇数部分”分类？
+  \item 如果是极值题，能不能先把选出的数从小到大排列，再利用相邻差来估计？
+\end{itemize}
+\end{goalbox}
+
+\begin{notebox}{建议计时}
+\begin{itemize}
+  \item 基础题：每题 4--6 分钟；
+  \item 最少保证题：每题 6--10 分钟；
+  \item 经典综合题：先独立思考 10 分钟，再看解答。
+\end{itemize}
+\end{notebox}
+
+\section{基础抽屉与余数分组}
+
+\begin{exercise}
+从 $1$ 到 $12$ 中任取 $5$ 个数，证明其中一定有两个数除以 $4$ 的余数相同。
+\end{exercise}
+
+\begin{exercise}
+从 $1$ 到 $15$ 中任取 $8$ 个数，证明其中一定有两个数的差是 $5$ 的倍数。
+\end{exercise}
+
+\begin{exercise}
+任取 $11$ 个整数，证明其中一定有两个整数除以 $10$ 的余数相同。
+\end{exercise}
+
+\begin{exercise}
+从 $1$ 到 $21$ 中任取 $11$ 个数，证明其中一定有两个连续整数。
+\end{exercise}
+
+\section{最少保证与最大安全数}
+
+\begin{exercise}
+从 $1$ 到 $30$ 中任取多少个数，才能保证其中至少有 $4$ 个数除以 $3$ 的余数相同？
+\end{exercise}
+
+\begin{exercise}
+从 $1$ 到 $24$ 中任取多少个数，才能保证其中有一奇一偶两个数？
+\end{exercise}
+
+\begin{exercise}
+从 $1$ 到 $20$ 中任取多少个数，才能保证其中一定有两个连续整数？
+\end{exercise}
+
+\begin{exercise}
+从 $1$ 到 $40$ 中任取多少个数，才能保证其中一定有两个数的差是 $6$ 的倍数？
+\end{exercise}
+
+\section{加强版抽屉与几何型问题}
+
+\begin{exercise}
+把 $25$ 本书放入 $6$ 个书包中，证明至少有一个书包里有不少于 $5$ 本书。
+\end{exercise}
+
+\begin{exercise}
+把 $17$ 个苹果放入 $4$ 个盒子中，证明至少有一个盒子里有不少于 $5$ 个苹果。
+\end{exercise}
+
+\begin{exercise}
+在边长为 $3$ 的正方形内任取 $10$ 个点，证明其中一定有两个点之间的距离不超过 $\sqrt{2}$。
+\end{exercise}
+
+\begin{exercise}
+在长度为 $1$ 的线段上任取 $13$ 个点，证明其中一定有两个点之间的距离不超过 $\dfrac{1}{12}$。
+\end{exercise}
+
+\section{综合提高与极值思想}
+
+\begin{exercise}
+从 $1$ 到 $2n$ 中任取 $n+1$ 个数，证明其中一定有两个连续整数。
+\end{exercise}
+
+\begin{exercise}
+从 $1$ 到 $2n$ 中任取 $n+1$ 个数，证明其中一定有两个数，一个是另一个的倍数。
+\end{exercise}
+
+\begin{exercise}
+从 $1$ 到 $20$ 中最多能选多少个数，使得任意两个所选出的数的差都至少为 $3$？
+\end{exercise}
+
+\begin{exercise}
+从 $1$ 到 $20$ 中最多能选多少个数，使得任意两个所选出的数都没有一个是另一个的 $2$ 倍？
+\end{exercise}
+
+\newpage
+\section{详细解答}
+
+\begin{enumerate}
+  \item \begin{solution}
+  除以 $4$ 的余数只有
+  \[
+  0,1,2,3
+  \]
+  共 $4$ 类。
+
+  把这 $4$ 个余数类看成 $4$ 个抽屉，把任取的 $5$ 个数看成 $5$ 个物体。
+
+  由抽屉原理，至少有两个数落在同一个抽屉里，也就是至少有两个数除以 $4$ 的余数相同。
+  \end{solution}
+
+  \item \begin{solution}
+  把 $1$ 到 $15$ 按除以 $5$ 的余数分成 $5$ 类：0 类、1 类、2 类、3 类、4 类。
+
+  现在取了 $8$ 个数，而抽屉只有 $5$ 个。由抽屉原理，至少有两个数落在同一个余数类中。
+
+  设这两个数为 $a,b$，则
+  \[
+  a\equiv b\pmod 5.
+  \]
+  所以
+  \[
+  a-b\equiv 0\pmod 5,
+  \]
+  即 $a-b$ 是 $5$ 的倍数。
+
+  因此一定有两个数的差是 $5$ 的倍数。
+  \end{solution}
+
+  \item \begin{solution}
+  除以 $10$ 的余数只有
+  \[
+  0,1,2,3,4,5,6,7,8,9
+  \]
+  共 $10$ 种。
+
+  把这 $10$ 种余数看成 $10$ 个抽屉，把 $11$ 个整数看成 $11$ 个物体。
+
+  由抽屉原理，至少有两个整数落在同一个余数类中，因此它们除以 $10$ 的余数相同。
+  \end{solution}
+
+  \item \begin{solution}
+  把 $1$ 到 $21$ 分成下面 $10$ 组，再加一个单独的数：
+  \[
+  \{1,2\},\ \{3,4\},\ \{5,6\},\ \ldots,\ \{19,20\},\ \{21\}.
+  \]
+
+  其中前 $10$ 组的每一组里都包含两个连续整数。
+
+  现在任取 $11$ 个数。如果每一组前 $10$ 组里都至多取 $1$ 个数，那么连同 $21$ 在内，最多只能取
+  \[
+  10+1=11
+  \]
+  个数。
+
+  但要想恰好取到 $11$ 个数，就必须在前 $10$ 组中每组都取 $1$ 个，同时还取到 $21$。这时如果其中有一组取了两个数，就直接得到一对连续整数；如果每组都只取一个数，那么仍然可以注意到这只是“安全状态”的极限。
+
+  更标准的做法是把 $1$ 到 $20$ 分成 $10$ 组连续对：
+  \[
+  \{1,2\},\ \{3,4\},\ \ldots,\ \{19,20\}.
+  \]
+  从 $1$ 到 $21$ 中任取 $11$ 个数，不管取不取 $21$，剩下至少还有 $10$ 个数来自这 $10$ 组。如果再取到 $21$，那么其他数就至少有 $10$ 个；若不取 $21$，其他数就有 $11$ 个来自这 $10$ 组。无论哪种情况，抽屉原理都保证前 $10$ 组中至少有一组取到了两个数。
+
+  所以一定有两个连续整数。
+  \end{solution}
+
+  \item \begin{solution}
+  按除以 $3$ 的余数把数分成 $3$ 类。
+
+  如果想暂时避免“某一类里有 $4$ 个数”，那么每一类最多只能取 $3$ 个。
+
+  因此在不出问题的情况下，最多可以取
+  \[
+  3\times 3=9
+  \]
+  个数。
+
+  再多取 $1$ 个，也就是取
+  \[
+  9+1=10
+  \]
+  个数时，就一定有某一类里至少有 $4$ 个数。
+
+  所以最少取 \textbf{10 个}。
+  \end{solution}
+
+  \item \begin{solution}
+  两个数的和为奇数，当且仅当这两个数一奇一偶。
+
+  如果想尽量避免出现这种情况，那么就只能全取奇数，或者全取偶数。
+
+  $1$ 到 $24$ 中，奇数有 $12$ 个，偶数也有 $12$ 个。
+
+  因此最多可以安全地取
+  \[
+  12
+  \]
+  个数。
+
+  再多取一个，也就是取
+  \[
+  13
+  \]
+  个数时，就一定既取到了奇数，也取到了偶数，从而一定能找到一奇一偶两个数，它们的和是奇数。
+
+  所以最少取 \textbf{13 个}。
+  \end{solution}
+
+  \item \begin{solution}
+  把 $1$ 到 $20$ 分成 $10$ 组：
+  \[
+  \{1,2\},\ \{3,4\},\ \{5,6\},\ \ldots,\ \{19,20\}.
+  \]
+
+  若想避免出现连续整数，那么每一组中最多只能取 $1$ 个数。
+
+  所以最多可以安全地取
+  \[
+  10
+  \]
+  个数。
+
+  再多取 $1$ 个，也就是取
+  \[
+  11
+  \]
+  个数时，就一定有某一组里取到了两个数，而这一组中的两个数正好是连续整数。
+
+  因此最少取 \textbf{11 个}。
+  \end{solution}
+
+  \item \begin{solution}
+  如果两个数的差是 $6$ 的倍数，那么它们除以 $6$ 的余数相同。
+
+  因此只需按除以 $6$ 的余数分类。余数共有
+  \[
+  0,1,2,3,4,5
+  \]
+  共 $6$ 类。
+
+  若想暂时避免出现差为 $6$ 的倍数的两个数，那么每一类最多只能取 $1$ 个数。
+
+  所以最多可以安全地取
+  \[
+  6
+  \]
+  个数。
+
+  再多取 $1$ 个，也就是取
+  \[
+  7
+  \]
+  个数时，就一定有两数落在同一余数类中，从而它们的差是 $6$ 的倍数。
+
+  因此最少取 \textbf{7 个}。
+  \end{solution}
+
+  \item \begin{solution}
+  这是加强版抽屉原理的直接应用。
+
+  若每个书包里都至多有 $4$ 本书，那么 $6$ 个书包里最多只有
+  \[
+  6\times 4=24
+  \]
+  本书。
+
+  但现在一共有 $25$ 本书，比 $24$ 多，所以这种情况不可能。
+
+  因此至少有一个书包里有不少于 $5$ 本书。
+  \end{solution}
+
+  \item \begin{solution}
+  若每个盒子里都至多有 $4$ 个苹果，那么 $4$ 个盒子里最多只有
+  \[
+  4\times 4=16
+  \]
+  个苹果。
+
+  但现在一共有 $17$ 个苹果，已经超过 $16$，所以不可能每个盒子都不超过 $4$ 个。
+
+  因此至少有一个盒子里有不少于 $5$ 个苹果。
+  \end{solution}
+
+  \item \begin{solution}
+  把边长为 $3$ 的正方形分成 $9$ 个边长为 $1$ 的小正方形。
+
+  这 $9$ 个小正方形可以看成 $9$ 个抽屉，$10$ 个点可以看成 $10$ 个物体。
+
+  由抽屉原理，至少有一个小正方形里有至少两个点。
+
+  而同一个边长为 $1$ 的小正方形中，任意两点之间的距离都不超过它的对角线长
+  \[
+  \sqrt{1^2+1^2}=\sqrt{2}.
+  \]
+
+  所以一定有两个点之间的距离不超过 $\sqrt{2}$。
+  \end{solution}
+
+  \item \begin{solution}
+  把长度为 $1$ 的线段平均分成 $12$ 段，每一小段的长度都是
+  \[
+  \frac{1}{12}.
+  \]
+
+  这 $12$ 个小线段可以看成 $12$ 个抽屉，$13$ 个点可以看成 $13$ 个物体。
+
+  由抽屉原理，至少有两个点落在同一小线段中。
+
+  同一小线段的长度不超过 $\dfrac{1}{12}$，所以这两个点之间的距离不超过
+  \[
+  \frac{1}{12}.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  把 $1$ 到 $2n$ 分成 $n$ 组：
+  \[
+  \{1,2\},\ \{3,4\},\ \ldots,\ \{2n-1,2n\}.
+  \]
+
+  每一组中恰好是一对连续整数。
+
+  现在任取 $n+1$ 个数，而只有 $n$ 组。由抽屉原理，至少有一组中取到了两个数。
+
+  而这一组中的两个数正好是连续整数。
+
+  因此命题得证。
+  \end{solution}
+
+  \item \begin{solution}
+  这是一个经典题。关键在于把每个数写成“奇数部分 $\times$ $2$ 的幂”的形式。
+
+  对于 $1$ 到 $2n$ 中的每一个整数 $m$，都可以唯一写成
+  \[
+  m=(\text{奇数})\times 2^k.
+  \]
+
+  这里前面的奇数部分只能取
+  \[
+  1,3,5,\ldots,2n-1
+  \]
+  中不超过 $2n$ 的奇数，一共只有 $n$ 种。
+
+  把“奇数部分相同”的数放进同一个抽屉中，于是总共只有 $n$ 个抽屉。
+
+  现在任取了 $n+1$ 个数，由抽屉原理，至少有两个数的奇数部分相同。
+
+  设这两个数是
+  \[
+  a=u\cdot 2^r,
+  \qquad
+  b=u\cdot 2^s,
+  \]
+  其中 $u$ 是同一个奇数，且不妨设 $r<s$。
+
+  那么
+  \[
+  b=u\cdot 2^s=(u\cdot 2^r)\cdot 2^{s-r}=a\cdot 2^{s-r}.
+  \]
+
+  这说明 $b$ 是 $a$ 的倍数。
+
+  因此一定有两个数，一个是另一个的倍数。
+  \end{solution}
+
+  \item \begin{solution}
+  设选出的数从小到大排列为
+  \[
+  a_1<a_2<\cdots<a_k.
+  \]
+
+  题目要求任意两个所选数的差都至少为 $3$，所以特别有
+  \[
+  a_2-a_1\ge 3,\quad a_3-a_2\ge 3,\quad \ldots,\quad a_k-a_{k-1}\ge 3.
+  \]
+
+  把这些不等式相加，得到
+  \[
+  a_k-a_1\ge 3(k-1).
+  \]
+
+  又因为所有数都在 $1$ 到 $20$ 之间，所以
+  \[
+  a_1\ge 1,\qquad a_k\le 20,
+  \]
+  从而
+  \[
+  20-1\ge a_k-a_1\ge 3(k-1).
+  \]
+
+  即
+  \[
+  19\ge 3(k-1).
+  \]
+
+  所以
+  \[
+  k-1\le 6,
+  \qquad
+  k\le 7.
+  \]
+
+  这个上界可以达到，例如选
+  \[
+  1,4,7,10,13,16,19.
+  \]
+  任意两个相邻所选数的差都正好是 $3$，因此满足条件。
+
+  所以最多能选 \textbf{7 个数}。
+  \end{solution}
+
+  \item \begin{solution}
+  把 $1$ 到 $20$ 中的数按“奇数部分”分成若干条链：
+  \[
+  \{1,2,4,8,16\},\quad \{3,6,12\},\quad \{5,10,20\},\quad \{7,14\},\quad \{9,18\},
+  \]
+  以及单独的
+  \[
+  \{11\},\ \{13\},\ \{15\},\ \{17\},\ \{19\}.
+  \]
+
+  在同一条链里，相邻两个数恰好互为 $2$ 倍。例如在
+  \[
+  \{1,2,4,8,16\}
+  \]
+  中，$2$ 是 $1$ 的 $2$ 倍，$4$ 是 $2$ 的 $2$ 倍，$8$ 是 $4$ 的 $2$ 倍，$16$ 是 $8$ 的 $2$ 倍。
+
+  因此，为了避免“任意两个所选数中有一个是另一个的 $2$ 倍”，在每条链中就不能同时选相邻的两个数。
+
+  于是：
+  \begin{itemize}
+    \item 长度为 $5$ 的链 $\{1,2,4,8,16\}$ 最多选 $3$ 个；
+    \item 长度为 $3$ 的链 $\{3,6,12\}$、$\{5,10,20\}$ 各最多选 $2$ 个；
+    \item 长度为 $2$ 的链 $\{7,14\}$、$\{9,18\}$ 各最多选 $1$ 个；
+    \item 5 条长度为 $1$ 的链各最多选 $1$ 个。
+  \end{itemize}
+
+  所以总数最多为
+  \[
+  3+2+2+1+1+1+1+1+1+1=14.
+  \]
+
+  这个上界可以达到，例如选
+  \[
+  \{1,3,4,5,7,9,11,12,13,15,16,17,19,20\}.
+  \]
+  在每条链中，我们都采取“隔一个取一个”的方式，因此不会出现某个数恰好是另一个数的 $2$ 倍。
+
+  所以最多能选 \textbf{14 个数}。
+  \end{solution}
+\end{enumerate}
+
+\end{document}

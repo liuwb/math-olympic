@@ -1,0 +1,845 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.4cm,bottom=2.6cm,left=2.35cm,right=2.35cm,headheight=18pt,headsep=0.55cm,footskip=26pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black,
+  citecolor=blue!50!black
+}
+
+\setstretch{1.16}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.35em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.32em, topsep=0.32em, leftmargin=2.3em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=2em}
+\setcounter{tocdepth}{2}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{accent}{RGB}{153,76,0}
+\definecolor{rulegray}{RGB}{110,118,128}
+\definecolor{softgreen}{RGB}{236,247,240}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.25em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.3em}{0.9em}
+\titleformat{\subsection}{\large\bfseries\color{mainblue}}{\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{1.05em}{0.55em}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{accent}}{\thesubsubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 组合专题课堂讲义}
+\fancyhead[C]{\small 错位排列专题}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtheoremstyle{formaltheorem}
+  {0.8em}{0.8em}{\normalfont}{}{\bfseries\color{mainblue}}{．}{0.6em}{}
+\newtheoremstyle{formalexample}
+  {0.8em}{0.8em}{\normalfont}{}{\bfseries\color{accent}}{．}{0.6em}{}
+
+\theoremstyle{formaltheorem}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{proposition}{命题}[section]
+\newtheorem{method}{方法}[section]
+\theoremstyle{formalexample}
+\newtheorem{example}{例题}[section]
+\newtheorem{exercise}{练习}[section]
+
+\newenvironment{solution}{\par\noindent\textbf{解：}}{\hfill$\square$\par}
+
+\newtcolorbox{goalbox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{notebox}[1]{
+  breakable,
+  colback=lightgray,
+  colframe=black!50,
+  boxrule=0.55pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{skillbox}[1]{
+  breakable,
+  colback=softgreen,
+  colframe=green!40!black,
+  boxrule=0.65pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newcommand{\Dn}{D_n}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{titlepage}
+\centering
+\vspace*{0.9cm}
+
+\begin{tcolorbox}[
+  enhanced,
+  width=0.92\textwidth,
+  colback=white,
+  colframe=mainblue,
+  boxrule=1pt,
+  arc=0mm,
+  left=6mm,
+  right=6mm,
+  top=8mm,
+  bottom=8mm
+]
+\centering
+
+{\fontsize{24}{30}\selectfont\bfseries 组合专题课堂讲义\par}
+\vspace{0.7cm}
+{\fontsize{17}{22}\selectfont 错位排列专题\par}
+
+\vspace{1.1cm}
+\color{rulegray}\rule{0.72\textwidth}{0.7pt}\par
+\vspace{1cm}
+
+\begin{tcolorbox}[colback=lightblue,colframe=mainblue,width=0.82\textwidth,boxrule=1pt]
+\centering
+{\Large 适合对象：小学高年级至初中低年级数学竞赛学生}\\[0.4em]
+{\large 已学过排列组合基础，想进一步掌握“位置受限”计数问题}
+\end{tcolorbox}
+
+\vspace{1.2cm}
+
+\renewcommand{\arraystretch}{1.42}
+\begin{tabular}{>{\bfseries}p{3.5cm}p{8cm}}
+讲义作者： & 刘文博 \\
+专题关键词： & 错位排列、至少一个在原位、补集法、递推、容斥 \\
+建议课时： & 2--3 课时 \\
+专题目标： & 从具体枚举出发，逐步建立错位排列的三种常见解法框架 \\
+编译方式： & XeLaTeX \\
+\end{tabular}
+
+\vspace{1.2cm}
+\color{rulegray}\rule{0.72\textwidth}{0.7pt}\par
+\vspace{0.8cm}
+
+{\normalsize 本讲以“信封装信”“帽子发错人”“数字不回原位”为核心模型，帮助学生从具体情境中理解错位排列，并能处理竞赛中的变式题。\par}
+
+\vspace{0.5cm}
+{\large \today\par}
+\end{tcolorbox}
+\end{titlepage}
+
+\pagenumbering{Roman}
+\pagestyle{plain}
+\tableofcontents
+\newpage
+\pagestyle{fancy}
+\pagenumbering{arabic}
+
+\section{专题目标与使用说明}
+
+\begin{goalbox}{本讲要学什么}
+错位排列是一类非常经典的组合计数问题。它的核心特点是：
+\begin{itemize}
+  \item 有若干对象要放回若干位置；
+  \item 每个对象都\textbf{不能回到自己的原位}；
+  \item 表面是在排列，实质上是“带限制的排列计数”。
+\end{itemize}
+本讲不只要会做几道题，更要建立三种常用思路：\textbf{直接枚举}、\textbf{补集与容斥}、\textbf{递推构造}。
+\end{goalbox}
+
+\begin{goalbox}{学完以后希望达到的能力}
+\begin{itemize}
+  \item 能准确理解“错位排列”到底在限制什么；
+  \item 会求小规模错位排列数 $\Dn$；
+  \item 会使用递推公式
+  \[
+  \Dn=(n-1)(D_{n-1}+D_{n-2});
+  \]
+  \item 了解公式
+  \[
+  \Dn=n!\left(1-\frac1{1!}+\frac1{2!}-\frac1{3!}+\cdots+(-1)^n\frac1{n!}\right);
+  \]
+  \item 能处理“至少一个在原位”“恰好两个在原位”等常见变式。
+\end{itemize}
+\end{goalbox}
+
+\begin{notebox}{建议学习顺序}
+\begin{itemize}
+  \item 第一步：先拿 $n=2,3,4$ 做具体枚举，建立直观；
+  \item 第二步：理解为什么“总排列减去有原位的情况”是自然思路；
+  \item 第三步：重点掌握递推公式的构造方法；
+  \item 第四步：再去看容斥公式，会更顺畅。
+\end{itemize}
+\end{notebox}
+
+\section{什么是错位排列}
+
+\subsection{基本定义}
+
+有 $n$ 个对象 $1,2,\ldots,n$，原来各自在位置 $1,2,\ldots,n$。现在重新排列这些对象，要求每个对象都不在原来的位置上，这样的排列叫做一个\textbf{错位排列}。
+
+记 $n$ 个对象的错位排列总数为
+\[
+\Dn.
+\]
+
+\begin{example}
+有 3 封不同的信 $A,B,C$，要分别装入写着 $A,B,C$ 的 3 个信封里，要求每封信都不能装进自己的信封。这样的装法有多少种？
+\end{example}
+
+\begin{solution}
+这就是一个标准的错位排列问题，也就是求
+\[
+D_3.
+\]
+我们暂时不急着用公式，先直接枚举。
+
+所有 $A,B,C$ 的排列中，不允许 $A$ 在第 1 位，不允许 $B$ 在第 2 位，不允许 $C$ 在第 3 位。
+
+可以验证，满足条件的只有
+\[
+(B,C,A),\qquad (C,A,B)
+\]
+两种。
+
+因此
+\[
+D_3=2.
+\]
+\end{solution}
+
+\subsection{先算几个最小的值}
+
+\begin{example}
+求 $D_1,D_2,D_3,D_4$。
+\end{example}
+
+\begin{solution}
+\textbf{(1) }$D_1$：只有 1 个对象，必须不在原位，但根本没有别的位置，所以
+\[
+D_1=0.
+\]
+
+\textbf{(2) }$D_2$：对象为 $1,2$，只有一种互换方式
+\[
+(2,1),
+\]
+所以
+\[
+D_2=1.
+\]
+
+\textbf{(3) }$D_3=2$，上一题已经算过。
+
+\textbf{(4) }$D_4$ 可以先直接枚举，也可以稍后用递推算。这里先给结果：
+\[
+D_4=9.
+\]
+\end{solution}
+
+\begin{skillbox}{最开始最重要的事}
+学错位排列时，不要一上来背公式。先把
+\[
+D_1=0,\qquad D_2=1,\qquad D_3=2,\qquad D_4=9
+\]
+这几个最小值真正理解清楚，后面的递推和公式才不会变成死记硬背。
+\end{skillbox}
+
+\section{从小规模枚举到补集思路}
+
+\subsection{“不许回原位”很适合想补集}
+
+\begin{method}[补集法的自然想法]
+若题目要求“每一个都不在原位”，那么它的反面就是“至少有一个在原位”。很多时候：
+\begin{itemize}
+  \item 直接数“全都不在原位”较难；
+  \item 先数总排列，再减去“至少一个在原位”的情况，往往更自然。
+\end{itemize}
+\end{method}
+
+\begin{example}
+求 $D_4$。
+\end{example}
+
+\begin{solution}
+4 个对象全排列共有
+\[
+4!=24
+\]
+种。
+
+如果直接去数“没有一个在原位”，比较麻烦；但如果数“至少有一个在原位”，又会碰到重叠问题：例如某个排列可能既有第 1 个在原位，又有第 3 个在原位。
+
+这说明：\textbf{单纯的总数减坏情况还不够，需要更细的方法处理重叠。} 这就是容斥原理会出现的原因。
+
+不过对于 $n=4$，我们先用递推或直接分类更合适，稍后再回头看容斥。
+\end{solution}
+
+\begin{notebox}{为什么错位排列会引出容斥}
+因为“对象 $i$ 回到原位”这类事件并不是互不重叠的。
+
+例如：
+\begin{itemize}
+  \item 事件 $A_1$：第 1 个对象在原位；
+  \item 事件 $A_2$：第 2 个对象在原位。
+\end{itemize}
+某些排列会同时属于 $A_1$ 和 $A_2$，所以不能简单地把各自数量相加。
+\end{notebox}
+
+\section{错位排列的递推公式}
+
+\subsection{最核心的方法：分情况构造}
+
+\begin{theorem}[递推公式]
+对于 $n\ge 2$，错位排列数满足
+\[
+\Dn=(n-1)(D_{n-1}+D_{n-2}).
+\]
+\end{theorem}
+
+\begin{solution}
+我们来考虑对象 1 放到哪里去。因为它不能放回位置 1，所以它有
+\[
+n-1
+\]
+个位置可以选择。设它被放到了位置 $k$（$k\ne 1$）。
+
+接下来分两类：
+
+\textbf{第一类：位置 $k$ 上原来那个对象 $k$ 被放到位置 1。}
+
+这样对象 1 和对象 $k$ 形成一个“互换”。剩下的 $n-2$ 个对象必须在剩下的 $n-2$ 个位置中继续错位排列，因此有
+\[
+D_{n-2}
+\]
+种。
+
+\textbf{第二类：对象 $k$ 没有被放到位置 1。}
+
+这时我们把“位置 1 已经被对象 1 占掉、对象 $k$ 又不能去位置 $k$”这一局面重新理解，就等价于在 $n-1$ 个对象上做一个错位排列，因此有
+\[
+D_{n-1}
+\]
+种。
+
+由于对象 1 的目标位置 $k$ 有 $n-1$ 种选法，所以总数为
+\[
+\Dn=(n-1)(D_{n-2}+D_{n-1}).
+\]
+\end{solution}
+
+\begin{skillbox}{如何记住这个递推}
+只要记住一句话：
+\begin{itemize}
+  \item \textbf{先看 1 去哪里；}
+  \item \textbf{再看它占了谁的位置，那个人是否回到 1 号位。}
+\end{itemize}
+这两类恰好对应
+\[
+D_{n-2}\quad \text{和}\quad D_{n-1}.
+\]
+\end{skillbox}
+
+\subsection{用递推算出前几个值}
+
+已知
+\[
+D_1=0,\qquad D_2=1.
+\]
+
+由递推公式：
+\[
+D_3=(3-1)(D_2+D_1)=2(1+0)=2;
+\]
+\[
+D_4=(4-1)(D_3+D_2)=3(2+1)=9;
+\]
+\[
+D_5=(5-1)(D_4+D_3)=4(9+2)=44;
+\]
+\[
+D_6=(6-1)(D_5+D_4)=5(44+9)=265.
+\]
+
+\begin{example}
+5 个人分别拿回自己的帽子，要求没有人拿到自己的帽子，共有多少种拿法？
+\end{example}
+
+\begin{solution}
+这就是求
+\[
+D_5.
+\]
+由上面的递推结果可知
+\[
+D_5=44.
+\]
+\end{solution}
+
+\section{容斥公式的直观理解}
+
+\subsection{从“至少一个在原位”出发}
+
+设事件
+\[
+A_i=\text{“第 }i\text{ 个对象在原位”}.
+\]
+
+那么错位排列数就是：
+\[
+\Dn=n!-\bigl|A_1\cup A_2\cup \cdots \cup A_n\bigr|.
+\]
+
+容斥原理告诉我们：
+\[
+\left|A_1\cup A_2\cup \cdots \cup A_n\right|
+\]
+不能只靠逐个相加，而要加加减减地纠正重叠。
+
+\begin{theorem}[错位排列公式]
+\[
+\Dn=n!\left(1-\frac1{1!}+\frac1{2!}-\frac1{3!}+\cdots+(-1)^n\frac1{n!}\right).
+\]
+\end{theorem}
+
+\begin{solution}
+若指定 1 个对象在原位，那么其余 $n-1$ 个对象任意排列，有
+\[
+(n-1)!
+\]
+种。这样的指定共有
+\[
+\binom{n}{1}
+\]
+种。
+
+若指定 2 个对象在原位，那么其余 $n-2$ 个对象任意排列，有
+\[
+(n-2)!
+\]
+种。这样的指定共有
+\[
+\binom{n}{2}
+\]
+种。
+
+继续下去，容斥原理给出
+\[
+\Dn=n!-\binom{n}{1}(n-1)!+\binom{n}{2}(n-2)!-\binom{n}{3}(n-3)!+\cdots+(-1)^n.
+\]
+
+把每一项都提出 $n!$，得到
+\[
+\Dn=n!\left(1-\frac1{1!}+\frac1{2!}-\frac1{3!}+\cdots+(-1)^n\frac1{n!}\right).
+\]
+\end{solution}
+
+\begin{notebox}{当前阶段怎样对待这个公式}
+对于小学高年级和初中低年级学生来说：
+\begin{itemize}
+  \item \textbf{会用递推}是第一目标；
+  \item \textbf{能理解容斥公式为什么这样写}是第二目标；
+  \item 不一定要求每次都从头完整推导容斥，但要知道它是怎么来的。
+\end{itemize}
+\end{notebox}
+
+\subsection{近似关系}
+
+因为
+\[
+1-\frac1{1!}+\frac1{2!}-\frac1{3!}+\cdots
+\]
+非常接近
+\[
+\frac1e,
+\]
+所以错位排列数常常近似于
+\[
+\Dn\approx \frac{n!}{e}.
+\]
+
+更准确地说，$\Dn$ 是最接近 $\dfrac{n!}{e}$ 的整数。
+
+\begin{example}
+估计 $D_6$ 的值，并与准确值比较。
+\end{example}
+
+\begin{solution}
+\[
+\frac{6!}{e}\approx \frac{720}{2.71828}\approx 264.87.
+\]
+最接近它的整数是
+\[
+265.
+\]
+而我们用递推算出的准确值正好是
+\[
+D_6=265.
+\]
+\end{solution}
+
+\section{错位排列的常见题型}
+
+\subsection{标准型：全都不能回原位}
+
+\begin{example}
+数字 $1,2,3,4,5$ 排成一行，要求数字 $i$ 不在第 $i$ 个位置上，共有多少种排法？
+\end{example}
+
+\begin{solution}
+这是标准错位排列，答案就是
+\[
+D_5=44.
+\]
+\end{solution}
+
+\subsection{变式一：恰好有几个在原位}
+
+\begin{example}
+5 个不同数字 $1,2,3,4,5$ 排成一行，要求恰好有 2 个数字在原位，共有多少种排法？
+\end{example}
+
+\begin{solution}
+先从 5 个位置中选出 2 个保持原位，有
+\[
+\binom{5}{2}
+\]
+种。
+
+剩下的 3 个数字必须全部错位排列，所以有
+\[
+D_3=2
+\]
+种。
+
+因此总数为
+\[
+\binom{5}{2}D_3=10\times 2=20.
+\]
+\end{solution}
+
+\begin{method}[恰好 $k$ 个在原位]
+若一共有 $n$ 个对象，要求恰好有 $k$ 个在原位，那么通常做法是：
+\[
+\binom{n}{k}D_{n-k}.
+\]
+\end{method}
+
+\subsection{变式二：至少有几个在原位}
+
+\begin{example}
+5 个不同数字排成一行，至少有 1 个数字在原位的排法有多少种？
+\end{example}
+
+\begin{solution}
+总排列数为
+\[
+5!=120.
+\]
+没有一个在原位的排法为
+\[
+D_5=44.
+\]
+
+因此至少有 1 个在原位的排法为
+\[
+120-44=76.
+\]
+\end{solution}
+
+\subsection{变式三：带有部分限制的位置问题}
+
+\begin{example}
+4 个人甲、乙、丙、丁排座位。要求甲不坐 1 号位，乙不坐 2 号位，丙不坐 3 号位，丁不坐 4 号位。问共有多少种坐法？
+\end{example}
+
+\begin{solution}
+这仍然是一个标准错位排列问题，答案为
+\[
+D_4=9.
+\]
+\end{solution}
+
+\begin{example}
+4 个人甲、乙、丙、丁排座位。要求甲不坐 1 号位，乙不坐 2 号位，但丙、丁没有限制。共有多少种坐法？
+\end{example}
+
+\begin{solution}
+这就不再是标准错位排列，因为并不是每个人都有限制。
+
+我们用补集法：
+
+总排法有
+\[
+4!=24
+\]
+种。
+
+设
+\[
+A=\text{“甲坐 1 号位”},\qquad B=\text{“乙坐 2 号位”}.
+\]
+
+则
+\[
+|A|=3!,\qquad |B|=3!,\qquad |A\cap B|=2!.
+\]
+
+所以满足要求的排法为
+\[
+24-3!-3!+2!=24-6-6+2=14.
+\]
+\end{solution}
+
+\section{例题精讲}
+
+\begin{example}
+6 个人分别把自己的礼物放进 6 个编号盒子里，要求没有人把礼物放进自己的编号盒子，共有多少种放法？
+\end{example}
+
+\begin{solution}
+这是标准错位排列问题，所以答案是
+\[
+D_6.
+\]
+
+由递推可得
+\[
+D_6=5(D_5+D_4)=5(44+9)=265.
+\]
+
+因此共有
+\[
+265
+\]
+种放法。
+\end{solution}
+
+\begin{example}
+6 个不同数字排成一行，恰好有 3 个数字在原位，共有多少种排法？
+\end{example}
+
+\begin{solution}
+先选出哪 3 个数字在原位，有
+\[
+\binom{6}{3}=20
+\]
+种。
+
+剩下的 3 个数字必须全部错位排列，有
+\[
+D_3=2
+\]
+种。
+
+所以总数为
+\[
+\binom{6}{3}D_3=20\times 2=40.
+\]
+\end{solution}
+
+\begin{example}
+5 封不同的信随机装入 5 个不同的信封。求至少有 2 封信装对信封的装法数。
+\end{example}
+
+\begin{solution}
+我们按“恰好有几封装对”来分类。
+
+\textbf{恰好有 2 封装对：}
+\[
+\binom{5}{2}D_3=10\times 2=20.
+\]
+
+\textbf{恰好有 3 封装对：}
+剩下 2 封信若都不装对，就只能互换，所以有
+\[
+\binom{5}{3}D_2=10\times 1=10.
+\]
+
+\textbf{恰好有 4 封装对：}
+这是不可能的。因为若前 4 封都装对，第 5 封也只能装对。
+
+\textbf{恰好有 5 封装对：}
+只有
+\[
+1
+\]
+种。
+
+因此至少有 2 封装对的装法总数为
+\[
+20+10+1=31.
+\]
+\end{solution}
+
+\section{方法总结}
+
+\begin{goalbox}{错位排列的三层方法}
+\begin{itemize}
+  \item \textbf{第一层：小规模直接枚举}，建立直观；
+  \item \textbf{第二层：递推公式}，解决大多数常规题；
+  \item \textbf{第三层：补集与容斥}，处理公式推导和部分限制变式。
+\end{itemize}
+\end{goalbox}
+
+\begin{skillbox}{见到这类题先想什么}
+\begin{enumerate}
+  \item 是不是标准错位排列？
+  \item 如果不是标准型，是不是“恰好有 $k$ 个在原位”？
+  \item 如果还有额外限制，能不能转化成补集法或容斥法？
+\end{enumerate}
+\end{skillbox}
+
+\begin{notebox}{容易错的地方}
+\begin{itemize}
+  \item 把“至少一个在原位”误当成几个互不重叠的情况直接相加；
+  \item 记住了递推公式，却忘了初值
+  \[
+  D_1=0,\qquad D_2=1;
+  \]
+  \item 看到“恰好 $k$ 个在原位”时，没有想到
+  \[
+  \binom{n}{k}D_{n-k}.
+  \]
+\end{itemize}
+\end{notebox}
+
+\section{课后练习}
+
+\begin{exercise}
+求 $D_5,D_6,D_7$。
+\end{exercise}
+
+\begin{exercise}
+4 个不同数字排成一行，恰好有 1 个数字在原位，共有多少种排法？
+\end{exercise}
+
+\begin{exercise}
+5 个人随机拿帽子，至少有 1 个人拿到自己帽子的拿法有多少种？
+\end{exercise}
+
+\begin{exercise}
+6 个不同数字排成一行，恰好有 2 个数字在原位，共有多少种排法？
+\end{exercise}
+
+\begin{exercise}
+5 封不同的信放进 5 个信封中，恰好有 3 封装对，共有多少种装法？
+\end{exercise}
+
+\newpage
+\appendix
+\section{练习参考答案}
+
+\textbf{练习 1}：
+\[
+D_5=44,\qquad D_6=265,\qquad D_7=1854.
+\]
+其中
+\[
+D_7=6(D_6+D_5)=6(265+44)=1854.
+\]
+
+\textbf{练习 2}：
+先选出哪 1 个数字在原位，有
+\[
+\binom{4}{1}=4
+\]
+种；剩下 3 个数字必须错位排列，有
+\[
+D_3=2
+\]
+种，所以共有
+\[
+4\times 2=8
+\]
+种。
+
+\textbf{练习 3}：
+总拿法有
+\[
+5!=120
+\]
+种，没有人拿对的有
+\[
+D_5=44
+\]
+种，所以至少 1 个人拿对的有
+\[
+120-44=76
+\]
+种。
+
+\textbf{练习 4}：
+先选出哪 2 个数字在原位，有
+\[
+\binom{6}{2}=15
+\]
+种；剩下 4 个数字错位排列，有
+\[
+D_4=9
+\]
+种，所以共有
+\[
+15\times 9=135
+\]
+种。
+
+\textbf{练习 5}：
+先选出哪 3 封装对，有
+\[
+\binom{5}{3}=10
+\]
+种；剩下 2 封必须互换，因此有
+\[
+D_2=1
+\]
+种，所以共有
+\[
+10
+\]
+种。
+
+\end{document}

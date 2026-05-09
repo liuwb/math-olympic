@@ -1,0 +1,263 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.25cm,bottom=2.45cm,left=2.25cm,right=2.25cm,headheight=18pt,headsep=0.55cm,footskip=24pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black
+}
+
+\setstretch{1.13}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.25em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.45em, topsep=0.35em, leftmargin=2.4em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=1.9em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{rulegray}{RGB}{110,118,128}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.2em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.1em}{0.7em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 抽屉原理与极值思想周测 A 卷}
+\fancyhead[C]{\small 组合专题：基础抽屉与最少保证}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{infobox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newenvironment{solution}{\par\noindent\textbf{参考解答：}}{\hfill$\square$\par}
+\newcommand{\answerspace}{\vspace{2.3cm}}
+\newcommand{\biganswerspace}{\vspace{3.1cm}}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{center}
+{\fontsize{22}{28}\selectfont\bfseries 抽屉原理与极值思想周测 A 卷\par}
+\vspace{0.4cm}
+{\large 适合小学高年级至初中低年级数学竞赛训练\par}
+\end{center}
+
+\begin{infobox}{考试说明}
+\begin{itemize}
+  \item 测试时间：70--75 分钟
+  \item 满分：100 分
+  \item A 卷侧重基础抽屉、最少保证和简单极值，请先想清楚“抽屉怎样分”“安全状态最多到哪里”。
+\end{itemize}
+\end{infobox}
+
+\section{试题}
+
+\begin{enumerate}
+  \item （10 分）从 $1$ 到 $12$ 中任取 $5$ 个数，证明其中一定有两个数除以 $4$ 的余数相同。
+  \answerspace
+
+  \item （12 分）从 $1$ 到 $15$ 中任取 $8$ 个数，证明其中一定有两个数的差是 $5$ 的倍数。
+  \answerspace
+
+  \item （12 分）从 $1$ 到 $30$ 中任取多少个数，才能保证其中至少有 $4$ 个数除以 $3$ 的余数相同？
+  \answerspace
+
+  \item （12 分）从 $1$ 到 $20$ 中任取多少个数，才能保证其中一定有两个连续整数？
+  \answerspace
+
+  \item （12 分）把 $25$ 本书放入 $6$ 个书包中，证明至少有一个书包里有不少于 $5$ 本书。
+  \answerspace
+
+  \item （14 分）在长度为 $1$ 的线段上任取 $13$ 个点，证明其中一定有两个点之间的距离不超过 $\dfrac{1}{12}$。
+  \biganswerspace
+
+  \item （14 分）从 $1$ 到 $10$ 中任取 $6$ 个数，证明其中一定有两个连续整数。
+  \answerspace
+
+  \item （14 分）从 $1$ 到 $20$ 中最多能选多少个数，使得任意两个所选出的数的差都至少为 $3$？
+  \biganswerspace
+\end{enumerate}
+
+\newpage
+\section{详细解答}
+
+\begin{enumerate}
+  \item \begin{solution}
+  除以 $4$ 的余数只有 $0,1,2,3$ 共 $4$ 类。
+
+  把这 $4$ 个余数类看成 $4$ 个抽屉，把任取的 $5$ 个数看成 $5$ 个物体。
+
+  由抽屉原理，至少有两个数落在同一个余数类中，因此它们除以 $4$ 的余数相同。
+  \end{solution}
+
+  \item \begin{solution}
+  把 $1$ 到 $15$ 按除以 $5$ 的余数分成 $5$ 类。
+
+  现在取了 $8$ 个数，而余数类只有 $5$ 个。由抽屉原理，至少有两个数落在同一余数类中。
+
+  设这两个数为 $a,b$，则
+  \[
+  a\equiv b\pmod 5.
+  \]
+  所以
+  \[
+  a-b\equiv 0\pmod 5.
+  \]
+
+  因此它们的差是 $5$ 的倍数。
+  \end{solution}
+
+  \item \begin{solution}
+  把 $1$ 到 $30$ 按除以 $3$ 的余数分成 $3$ 类。
+
+  如果想避免“某一类里有 $4$ 个数”，那么每一类最多只能取 $3$ 个数。
+
+  所以最多可以安全地取
+  \[
+  3\times 3=9
+  \]
+  个数。
+
+  再多取 $1$ 个，也就是取 $10$ 个数时，就一定有某一类里至少有 $4$ 个数。
+
+  所以最少取
+  \[
+  10
+  \]
+  个数。
+  \end{solution}
+
+  \item \begin{solution}
+  把 $1$ 到 $20$ 分成 $10$ 组：
+  \[
+  \{1,2\},\ \{3,4\},\ \ldots,\ \{19,20\}.
+  \]
+
+  每组中恰好是一对连续整数。
+
+  若想避免出现连续整数，那么每组中最多只能取 $1$ 个数，所以最多可以安全地取 $10$ 个数。
+
+  因此再多取 $1$ 个，也就是取
+  \[
+  11
+  \]
+  个数时，就一定会取到一组中的两个数，从而得到两个连续整数。
+  \end{solution}
+
+  \item \begin{solution}
+  若每个书包里都至多有 $4$ 本书，那么 $6$ 个书包里最多只有
+  \[
+  6\times 4=24
+  \]
+  本书。
+
+  但现在共有 $25$ 本书，已经超过了 $24$。
+
+  因此不可能每个书包都不超过 $4$ 本，所以至少有一个书包里有不少于 $5$ 本书。
+  \end{solution}
+
+  \item \begin{solution}
+  把长度为 $1$ 的线段平均分成 $12$ 段，每一小段长度为
+  \[
+  \frac{1}{12}.
+  \]
+
+  这 $12$ 个小线段就是 $12$ 个抽屉，而 $13$ 个点是 $13$ 个物体。
+
+  由抽屉原理，至少有两个点落在同一个小线段中。
+
+  同一小线段的长度不超过 $\dfrac{1}{12}$，所以这两个点之间的距离不超过
+  \[
+  \frac{1}{12}.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  把 $1$ 到 $10$ 分成 $5$ 组：
+  \[
+  \{1,2\},\ \{3,4\},\ \{5,6\},\ \{7,8\},\ \{9,10\}.
+  \]
+
+  任取 $6$ 个数，而抽屉只有 $5$ 个。由抽屉原理，至少有一组里取到了两个数。
+
+  由于每组中的两个数正好是连续整数，所以一定有两个连续整数。
+  \end{solution}
+
+  \item \begin{solution}
+  设选出的数从小到大排列为
+  \[
+  a_1<a_2<\cdots<a_k.
+  \]
+
+  题目要求任意两个所选数的差都至少为 $3$，所以特别有
+  \[
+  a_2-a_1\ge 3,\quad a_3-a_2\ge 3,\quad \ldots,\quad a_k-a_{k-1}\ge 3.
+  \]
+
+  把这些不等式相加，得到
+  \[
+  a_k-a_1\ge 3(k-1).
+  \]
+
+  又因为所有数都在 $1$ 到 $20$ 之间，所以
+  \[
+  a_1\ge 1,\qquad a_k\le 20.
+  \]
+  因此
+  \[
+  20-1\ge a_k-a_1\ge 3(k-1).
+  \]
+
+  即
+  \[
+  19\ge 3(k-1).
+  \]
+
+  所以
+  \[
+  k\le 7.
+  \]
+
+  这个上界可以达到，例如选
+  \[
+  1,4,7,10,13,16,19.
+  \]
+
+  因此最多能选
+  \[
+  7
+  \]
+  个数。
+  \end{solution}
+\end{enumerate}
+
+\end{document}

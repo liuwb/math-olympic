@@ -1,0 +1,706 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.35cm,bottom=2.55cm,left=2.3cm,right=2.3cm,headheight=18pt,headsep=0.55cm,footskip=26pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black,
+  citecolor=blue!50!black
+}
+
+\setstretch{1.15}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.28em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.35em, topsep=0.35em, leftmargin=2.2em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=1.9em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{accent}{RGB}{153,76,0}
+\definecolor{rulegray}{RGB}{110,118,128}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.25em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.2em}{0.8em}
+\titleformat{\subsection}{\large\bfseries\color{mainblue}}{\thesubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 错位排列提高训练题单}
+\fancyhead[C]{\small 组合专题：错位排列}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{goalbox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{notebox}[1]{
+  breakable,
+  colback=lightgray,
+  colframe=black!50,
+  boxrule=0.55pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtheoremstyle{formalexample}
+  {0.8em}{0.8em}{\normalfont}{}{\bfseries\color{accent}}{．}{0.6em}{}
+\theoremstyle{formalexample}
+\newtheorem{exercise}{题目}[section]
+\newenvironment{solution}{\par\noindent\textbf{解：}}{\hfill$\square$\par}
+
+\newcommand{\Dn}{D_n}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{titlepage}
+\centering
+\vspace*{0.9cm}
+\begin{tcolorbox}[
+  enhanced,
+  width=0.92\textwidth,
+  colback=white,
+  colframe=mainblue,
+  boxrule=1pt,
+  arc=0mm,
+  left=6mm,
+  right=6mm,
+  top=8mm,
+  bottom=8mm
+]
+\centering
+{\fontsize{24}{30}\selectfont\bfseries 错位排列提高训练题单\par}
+\vspace{0.6cm}
+{\fontsize{17}{22}\selectfont 适合小学高年级至初中低年级竞赛过渡训练\par}
+
+\vspace{1cm}
+\begin{tcolorbox}[colback=lightblue,colframe=mainblue,width=0.84\textwidth,boxrule=1pt]
+\centering
+{\large 训练目标：把“会用公式”提升到“会识别题型、会处理变式”}\\[0.35em]
+{\normalsize 建议分 2--3 次完成，先独立做题，再对照详细解答订正}
+\end{tcolorbox}
+
+\vspace{1cm}
+\renewcommand{\arraystretch}{1.42}
+\begin{tabular}{>{\bfseries}p{3.5cm}p{8cm}}
+题目数量： & 18 题，按难度递进 \\
+专题重点： & 标准错位排列、恰好若干个在原位、至少若干个在原位、部分位置受限 \\
+答案形式： & 末尾附较详细解答，强调思路与转化方法 \\
+编译方式： & XeLaTeX \\
+\end{tabular}
+
+\vspace{0.9cm}
+{\large \today\par}
+\end{tcolorbox}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{使用建议}
+
+\begin{goalbox}{做题时优先问自己的 3 个问题}
+\begin{itemize}
+  \item 这是标准错位排列，还是只有部分对象不能回原位？
+  \item 题目问的是“全都不在原位”“恰好有几个在原位”，还是“至少有几个在原位”？
+  \item 更适合用递推、公式，还是直接用
+  \[
+  \binom{n}{k}D_{n-k}
+  \]
+  这种转化？
+\end{itemize}
+\end{goalbox}
+
+\begin{notebox}{建议计时}
+\begin{itemize}
+  \item 基础题：每题 4--6 分钟；
+  \item 变式题：每题 8--12 分钟；
+  \item 压轴题：先独立思考 10 分钟，再看解答。
+\end{itemize}
+\end{notebox}
+
+\section{基础巩固}
+
+\begin{exercise}
+已知
+\[
+D_1=0,\qquad D_2=1,
+\]
+用递推公式求 $D_3,D_4,D_5,D_6$。
+\end{exercise}
+
+\begin{exercise}
+6 个人分别拿回自己的帽子，要求没有人拿到自己的帽子，共有多少种拿法？
+\end{exercise}
+
+\begin{exercise}
+数字 $1,2,3,4,5,6,7$ 排成一行，要求数字 $i$ 不在第 $i$ 个位置上，共有多少种排法？
+\end{exercise}
+
+\begin{exercise}
+5 封不同的信分别装入写着对应姓名的 5 个信封里，要求每封信都不能装进自己的信封，共有多少种装法？
+\end{exercise}
+
+\section{恰好若干个在原位}
+
+\begin{exercise}
+6 个不同数字排成一行，恰好有 2 个数字在原位，共有多少种排法？
+\end{exercise}
+
+\begin{exercise}
+7 封不同的信放入 7 个对应信封中，恰好有 3 封装对，共有多少种装法？
+\end{exercise}
+
+\begin{exercise}
+4 个不同数字排成一行，恰好有 1 个数字在原位，共有多少种排法？
+\end{exercise}
+
+\begin{exercise}
+7 个人排座位，恰好有 5 个人坐回自己的座位，共有多少种排法？
+\end{exercise}
+
+\section{至少若干个在原位}
+
+\begin{exercise}
+5 个人随机拿帽子，至少有 1 个人拿到自己帽子的拿法有多少种？
+\end{exercise}
+
+\begin{exercise}
+5 封不同的信放进 5 个信封里，至少有 2 封装对，共有多少种装法？
+\end{exercise}
+
+\begin{exercise}
+6 个不同数字排成一行，至多有 1 个数字在原位，共有多少种排法？
+\end{exercise}
+
+\begin{exercise}
+证明：$n$ 个对象的排列中，“恰好有 $n-1$ 个对象在原位”的情况不可能发生。
+\end{exercise}
+
+\section{部分位置受限}
+
+\begin{exercise}
+4 个人甲、乙、丙、丁排座位。要求甲不坐 1 号位，乙不坐 2 号位，丙不坐 3 号位，丁没有限制。共有多少种排法？
+\end{exercise}
+
+\begin{exercise}
+6 个不同数字 $1,2,3,4,5,6$ 排成一行，要求 $1,2,3$ 都不在自己的位置上，而 $4,5,6$ 没有限制。共有多少种排法？
+\end{exercise}
+
+\begin{exercise}
+7 个对象排成一行，要求前 5 个对象都不在原位，后 2 个对象没有限制。共有多少种排法？
+\end{exercise}
+
+\section{综合提高}
+
+\begin{exercise}
+用容斥公式计算 $D_5$，并与递推结果核对。
+\end{exercise}
+
+\begin{exercise}
+7 个人排座位，恰好有 2 个人没有坐回自己的座位，共有多少种排法？
+\end{exercise}
+
+\begin{exercise}
+8 个不同数字排成一行，恰好有 1 个数字在原位，共有多少种排法？
+\end{exercise}
+
+\newpage
+\section{常见易错点总结}
+
+\begin{goalbox}{做错位排列题时，最容易丢分的 6 个地方}
+\begin{enumerate}
+  \item \textbf{把“恰好有 $k$ 个在原位”误算成 $\binom{n}{k}(n-k)!$。}  
+  选出在原位的对象以后，剩下的对象不是“随便排”，而是必须\textbf{全部不在原位}，所以应写成
+  \[
+  \binom{n}{k}D_{n-k}.
+  \]
+
+  \item \textbf{把“至少有几个在原位”只算成一类。}  
+  “至少有 2 个在原位”通常要拆成“恰好有 2 个、3 个、4 个……”逐类求和；或者改用补集法。
+
+  \item \textbf{忘记“恰好有 $n-1$ 个在原位”不可能。}  
+  这是错位排列题里非常高频的陷阱：如果前 $n-1$ 个都在原位，最后 1 个也只能在原位。
+
+  \item \textbf{把“部分对象不能在原位”也直接当作 $D_m$。}  
+  如果只有前 5 个对象受限制、后 2 个没有限制，那么这不是 $D_7$，也不是 $D_5$，通常应该对“坏事件”用容斥原理。
+
+  \item \textbf{公式里的阶乘对象数看错。}  
+  例如 7 个对象中若指定 2 个已经在原位，剩下应排的是 5 个对象，所以用的是 $D_5$，不是 $D_7$，也不是 $5!$。
+
+  \item \textbf{不会检查答案是否合理。}  
+  做完以后最好快速判断：答案是否小于总排法 $n!$？是否比标准错位排列 $D_n$ 大或小得合理？这样能及时发现明显错误。
+\end{enumerate}
+\end{goalbox}
+
+\begin{notebox}{一个实用检查顺序}
+\begin{itemize}
+  \item 先判断：标准错位、恰好若干个在原位，还是部分位置受限；
+  \item 再决定：用 $\binom{n}{k}D_{n-k}$、补集法，还是容斥原理；
+  \item 最后检查：有没有把“不可能情形”误算进去，例如“恰好有 $n-1$ 个在原位”。
+\end{itemize}
+\end{notebox}
+
+\newpage
+\appendix
+\section{详细解答}
+
+\subsection*{基础巩固}
+
+\textbf{1}\begin{solution}
+错位排列的递推公式是
+\[
+D_n=(n-1)(D_{n-1}+D_{n-2}).
+\]
+
+因此
+\[
+D_3=2(D_2+D_1)=2(1+0)=2;
+\]
+\[
+D_4=3(D_3+D_2)=3(2+1)=9;
+\]
+\[
+D_5=4(D_4+D_3)=4(9+2)=44;
+\]
+\[
+D_6=5(D_5+D_4)=5(44+9)=265.
+\]
+\end{solution}
+
+\textbf{2}\begin{solution}
+这是标准错位排列，答案就是
+\[
+D_6.
+\]
+由上一题可知
+\[
+D_6=265.
+\]
+所以共有
+\[
+265
+\]
+种拿法。
+\end{solution}
+
+\textbf{3}\begin{solution}
+这也是标准错位排列，即求
+\[
+D_7.
+\]
+
+由递推公式
+\[
+D_7=6(D_6+D_5)=6(265+44)=6\times 309=1854.
+\]
+
+因此共有
+\[
+1854
+\]
+种排法。
+\end{solution}
+
+\textbf{4}\begin{solution}
+5 封不同的信全部不能装入自己的信封，就是标准错位排列，所以答案为
+\[
+D_5=44.
+\]
+\end{solution}
+
+\subsection*{恰好若干个在原位}
+
+\textbf{5}\begin{solution}
+先选出哪 2 个数字在原位，有
+\[
+\binom{6}{2}=15
+\]
+种。
+
+剩下 4 个数字必须全部错位排列，因此有
+\[
+D_4=9
+\]
+种。
+
+所以总数为
+\[
+\binom{6}{2}D_4=15\times 9=135.
+\]
+\end{solution}
+
+\textbf{6}\begin{solution}
+先从 7 封信中选出恰好装对的 3 封，有
+\[
+\binom{7}{3}=35
+\]
+种。
+
+剩下 4 封必须全部装错，所以有
+\[
+D_4=9
+\]
+种。
+
+因此总数为
+\[
+\binom{7}{3}D_4=35\times 9=315.
+\]
+\end{solution}
+
+\textbf{7}\begin{solution}
+先选哪 1 个数字在原位，有
+\[
+\binom{4}{1}=4
+\]
+种。
+
+剩下 3 个数字必须错位排列，有
+\[
+D_3=2
+\]
+种。
+
+所以总数为
+\[
+\binom{4}{1}D_3=4\times 2=8.
+\]
+\end{solution}
+
+\textbf{8}\begin{solution}
+若恰好有 5 个人坐回自己的座位，那么剩下 2 个人必须都不在自己的座位上。
+
+先选出哪 5 个人在原位，有
+\[
+\binom{7}{5}=21
+\]
+种。
+
+剩下的 2 个人只能互换位置，因此有
+\[
+D_2=1
+\]
+种。
+
+所以总数为
+\[
+\binom{7}{5}D_2=21.
+\]
+\end{solution}
+
+\subsection*{至少若干个在原位}
+
+\textbf{9}\begin{solution}
+总拿法有
+\[
+5!=120
+\]
+种。
+
+没有人拿对的拿法有
+\[
+D_5=44
+\]
+种。
+
+所以至少有 1 个人拿对的拿法为
+\[
+120-44=76.
+\]
+\end{solution}
+
+\textbf{10}\begin{solution}
+“至少有 2 封装对”可以按“恰好有几封装对”分类。
+
+\textbf{恰好有 2 封装对：}
+\[
+\binom{5}{2}D_3=10\times 2=20.
+\]
+
+\textbf{恰好有 3 封装对：}
+\[
+\binom{5}{3}D_2=10\times 1=10.
+\]
+
+\textbf{恰好有 4 封装对：}
+不可能。因为若 4 封都装对，第 5 封也只能装对。
+
+\textbf{恰好有 5 封装对：}
+有
+\[
+1
+\]
+种。
+
+因此至少有 2 封装对的装法总数为
+\[
+20+10+1=31.
+\]
+\end{solution}
+
+\textbf{11}\begin{solution}
+“至多有 1 个在原位”包含两类：
+\begin{itemize}
+  \item 没有一个在原位；
+  \item 恰好有 1 个在原位。
+\end{itemize}
+
+第一类有
+\[
+D_6=265
+\]
+种。
+
+第二类：先选哪 1 个在原位，有
+\[
+\binom{6}{1}=6
+\]
+种；剩下 5 个全部错位排列，有
+\[
+D_5=44
+\]
+种。
+
+所以第二类有
+\[
+6\times 44=264
+\]
+种。
+
+总数为
+\[
+265+264=529.
+\]
+\end{solution}
+
+\textbf{12}\begin{solution}
+假设恰好有 $n-1$ 个对象在原位。
+
+那么最后剩下的那 1 个对象如果不在原位，就必须去占据别人的位置；但其他 $n-1$ 个位置都已经被各自的对象占住了，它根本无处可去。
+
+换句话说，只要前 $n-1$ 个对象都在原位，最后 1 个对象也被迫在原位。
+
+因此“恰好有 $n-1$ 个对象在原位”是不可能的。
+\end{solution}
+
+\subsection*{部分位置受限}
+
+\textbf{13}\begin{solution}
+设
+\[
+A=\text{“甲坐 1 号位”},\quad
+B=\text{“乙坐 2 号位”},\quad
+C=\text{“丙坐 3 号位”}.
+\]
+
+总排法有
+\[
+4!=24
+\]
+种。
+
+有
+\[
+|A|=|B|=|C|=3!=6,
+\]
+所以
+\[
+|A|+|B|+|C|=18.
+\]
+
+再看交集：
+\[
+|A\cap B|=|A\cap C|=|B\cap C|=2!=2,
+\]
+三项共
+\[
+6.
+\]
+
+三者同时发生时：
+\[
+|A\cap B\cap C|=1!=1.
+\]
+
+由容斥原理，满足要求的排法为
+\[
+24-18+6-1=11.
+\]
+\end{solution}
+
+\textbf{14}\begin{solution}
+这里只要求数字 $1,2,3$ 不在原位，而 $4,5,6$ 没有限制。
+
+设
+\[
+A_1=\text{“1 在第 1 位”},\quad
+A_2=\text{“2 在第 2 位”},\quad
+A_3=\text{“3 在第 3 位”}.
+\]
+
+总排法有
+\[
+6!=720
+\]
+种。
+
+单个坏事件的排法数：
+\[
+|A_1|=|A_2|=|A_3|=5!=120.
+\]
+三项共
+\[
+3\times 120=360.
+\]
+
+两个坏事件同时发生：
+\[
+|A_1\cap A_2|=|A_1\cap A_3|=|A_2\cap A_3|=4!=24.
+\]
+三项共
+\[
+3\times 24=72.
+\]
+
+三个坏事件同时发生：
+\[
+|A_1\cap A_2\cap A_3|=3!=6.
+\]
+
+因此满足要求的排法数为
+\[
+720-360+72-6=426.
+\]
+\end{solution}
+
+\textbf{15}\begin{solution}
+要求前 5 个对象都不在原位，后 2 个对象没有限制。
+
+这和上一题完全类似，只不过现在总对象数是 7，受限制的位置有 5 个。
+
+设前 5 个对象中，第 $i$ 个回原位的事件为 $A_i$。那么满足要求的排列数为
+\[
+7!-\binom51 6!+\binom52 5!-\binom53 4!+\binom54 3!-\binom55 2!.
+\]
+
+逐项计算：
+\[
+7!=5040,
+\]
+\[
+\binom51 6!=5\times 720=3600,
+\]
+\[
+\binom52 5!=10\times 120=1200,
+\]
+\[
+\binom53 4!=10\times 24=240,
+\]
+\[
+\binom54 3!=5\times 6=30,
+\]
+\[
+\binom55 2!=2.
+\]
+
+所以结果为
+\[
+5040-3600+1200-240+30-2=2428.
+\]
+\end{solution}
+
+\subsection*{综合提高}
+
+\textbf{16}\begin{solution}
+由容斥公式，
+\[
+D_5=5!\left(1-\frac1{1!}+\frac1{2!}-\frac1{3!}+\frac1{4!}-\frac1{5!}\right).
+\]
+
+因为
+\[
+5!=120,
+\]
+所以
+\[
+D_5=120\left(1-1+\frac12-\frac16+\frac1{24}-\frac1{120}\right).
+\]
+
+括号内先通分到 120：
+\[
+\frac{60-20+5-1}{120}=\frac{44}{120}.
+\]
+
+因此
+\[
+D_5=120\times \frac{44}{120}=44.
+\]
+
+与递推公式算出的结果完全一致。
+\end{solution}
+
+\textbf{17}\begin{solution}
+如果恰好有 2 个人没有坐回自己的座位，那么其余 5 个人都在原位。
+
+而这 2 个没回原位的人只能互换座位，否则仍会有人坐回原位或者无座可坐。
+
+所以先选出哪 2 个人没有坐回原位，有
+\[
+\binom{7}{2}=21
+\]
+种；选定后他们的坐法只有
+\[
+1
+\]
+种。
+
+故总数为
+\[
+21.
+\]
+\end{solution}
+
+\textbf{18}\begin{solution}
+恰好有 1 个数字在原位，做法是：
+\begin{itemize}
+  \item 先选哪 1 个数字在原位；
+  \item 剩下 7 个数字全部错位排列。
+\end{itemize}
+
+所以总数为
+\[
+\binom81 D_7=8\times 1854=14832.
+\]
+\end{solution}
+
+\end{document}

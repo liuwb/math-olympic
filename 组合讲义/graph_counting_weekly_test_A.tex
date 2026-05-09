@@ -1,0 +1,215 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.25cm,bottom=2.45cm,left=2.25cm,right=2.25cm,headheight=18pt,headsep=0.55cm,footskip=24pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black
+}
+
+\setstretch{1.13}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.25em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.45em, topsep=0.35em, leftmargin=2.4em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=1.9em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{rulegray}{RGB}{110,118,128}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.2em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.1em}{0.7em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 图论计数周测 A 卷}
+\fancyhead[C]{\small 组合专题：握手定理与基础建图}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{infobox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newenvironment{solution}{\par\noindent\textbf{参考解答：}}{\hfill$\square$\par}
+\newcommand{\answerspace}{\vspace{2.3cm}}
+\newcommand{\biganswerspace}{\vspace{3.1cm}}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{center}
+{\fontsize{22}{28}\selectfont\bfseries 图论计数周测 A 卷\par}
+\vspace{0.4cm}
+{\large 适合小学高年级至初中低年级数学竞赛训练\par}
+\end{center}
+
+\begin{infobox}{考试说明}
+\begin{itemize}
+  \item 测试时间：70--75 分钟
+  \item 满分：100 分
+  \item A 卷侧重点、边、度数、完全图、二分图和基础网格路径，建议先把题目翻译成图再下手。
+\end{itemize}
+\end{infobox}
+
+\section{试题}
+
+\begin{enumerate}
+  \item （10 分）完全图 $K_8$ 有多少条边？
+  \answerspace
+
+  \item （12 分）一个图有 10 个点，每个点的度数都等于 4。求这个图的边数。
+  \answerspace
+
+  \item （12 分）证明：图中不可能恰好有 3 个奇度数点。
+  \answerspace
+
+  \item （12 分）一个二分图两部分点数分别为 6 和 7，问边数最多是多少？
+  \answerspace
+
+  \item （12 分）8 个同学参加循环赛，每两人比赛 1 场，共有多少场比赛？
+  \answerspace
+
+  \item （14 分）从 $(0,0)$ 到 $(4,3)$，每次只能向右或向上走 1 格，共有多少条最短路径？
+  \answerspace
+
+  \item （14 分）从 $(0,0)$ 到 $(4,4)$，每次只能向右或向上走 1 格，但要求必须经过点 $(2,1)$。共有多少条最短路径？
+  \biganswerspace
+
+  \item （14 分）某个聚会共有 9 人，每个人都恰好认识 4 人。问一共有多少对认识关系？
+  \biganswerspace
+\end{enumerate}
+
+\newpage
+\section{详细解答}
+
+\begin{enumerate}
+  \item \begin{solution}
+  完全图 $K_8$ 的边数就是从 8 个点中任选 2 个点的方法数：
+  \[
+  \binom82=28.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  总度数为
+  \[
+  10\times 4=40.
+  \]
+
+  由握手定理
+  \[
+  2E=40,
+  \]
+  所以
+  \[
+  E=20.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  由握手定理，图中所有点的度数之和一定是偶数。
+
+  如果恰好有 3 个奇度数点，那么奇度数点的度数和是奇数；其余偶度数点的度数和是偶数；奇数加偶数仍是奇数。
+
+  这就与总度数和必须是偶数矛盾。
+
+  因此图中不可能恰好有 3 个奇度数点。
+  \end{solution}
+
+  \item \begin{solution}
+  二分图两部分点数分别为 6 和 7 时，边数最多为
+  \[
+  6\times 7=42.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  8 个同学两两比赛 1 场，就是完全图 $K_8$ 的边数，因此总场数为
+  \[
+  \binom82=28.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  从 $(0,0)$ 到 $(4,3)$，要走 4 步向右和 3 步向上，共 7 步。
+
+  所以最短路径条数为
+  \[
+  \binom73=35.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  先从 $(0,0)$ 走到 $(2,1)$：需要 2 步向右、1 步向上，所以有
+  \[
+  \binom31=3
+  \]
+  条。
+
+  再从 $(2,1)$ 走到 $(4,4)$：需要 2 步向右、3 步向上，所以有
+  \[
+  \binom53=10
+  \]
+  条。
+
+  因此经过 $(2,1)$ 的最短路径共有
+  \[
+  3\times 10=30
+  \]
+  条。
+  \end{solution}
+
+  \item \begin{solution}
+  把每个人看成一个点，把“认识”看成一条无向边。
+
+  因为每个人都恰好认识 4 人，所以总度数是
+  \[
+  9\times 4=36.
+  \]
+
+  由握手定理
+  \[
+  2E=36,
+  \]
+  所以
+  \[
+  E=18.
+  \]
+
+  因此一共有
+  \[
+  18
+  \]
+  对认识关系。
+  \end{solution}
+\end{enumerate}
+
+\end{document}

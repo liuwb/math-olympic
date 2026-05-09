@@ -1,0 +1,260 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.4cm,bottom=2.6cm,left=2.35cm,right=2.35cm,headheight=18pt,headsep=0.55cm,footskip=26pt]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black
+}
+
+\setstretch{1.16}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.32em}
+\setlist[enumerate]{itemsep=0.35em, topsep=0.35em, leftmargin=2.3em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=2em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{rulegray}{RGB}{110,118,128}
+\definecolor{softgreen}{RGB}{236,247,240}
+\definecolor{softyellow}{RGB}{254,249,229}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.25em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.2em}{0.8em}
+\titleformat{\subsection}{\large\bfseries\color{mainblue}}{\thesubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 数论方法中的组合构造专题目录页}
+\fancyhead[C]{\small 组合专题资料索引}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{goalbox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{infobox}[1]{
+  breakable,
+  colback=softgreen,
+  colframe=green!40!black,
+  boxrule=0.65pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{warnbox}[1]{
+  breakable,
+  colback=softyellow,
+  colframe=orange!60!black,
+  boxrule=0.65pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{titlepage}
+\centering
+\vspace*{0.9cm}
+
+\begin{tcolorbox}[
+  enhanced,
+  width=0.92\textwidth,
+  colback=white,
+  colframe=mainblue,
+  boxrule=1pt,
+  arc=0mm,
+  left=6mm,
+  right=6mm,
+  top=8mm,
+  bottom=8mm
+]
+\centering
+
+{\fontsize{24}{30}\selectfont\bfseries 数论方法中的组合构造专题目录页\par}
+\vspace{0.65cm}
+{\fontsize{17}{22}\selectfont 讲义、题单与周测的使用说明\par}
+
+\vspace{1cm}
+\begin{tcolorbox}[colback=lightblue,colframe=mainblue,width=0.84\textwidth,boxrule=1pt]
+\centering
+{\large 适合对象：已经掌握基础计数、准备把“奇偶性和余数分类”真正用进组合题的学生}\\[0.35em]
+{\normalsize 本目录页帮助把“数论工具进入组合证明”的资料串成一个完整训练包}
+\end{tcolorbox}
+
+\vspace{1.0cm}
+\renewcommand{\arraystretch}{1.42}
+\begin{tabular}{>{\bfseries}p{3.5cm}p{8cm}}
+专题名称： & 数论方法中的组合构造 \\
+资料组成： & 课堂讲义、提高训练题单、周测 A 卷、周测 B 卷 \\
+使用方式： & 先学讲义，再做题单，最后用 A/B 周测检查掌握情况 \\
+编译方式： & XeLaTeX \\
+\end{tabular}
+
+\vspace{0.9cm}
+{\large \today\par}
+\end{tcolorbox}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{专题包包含哪些资料}
+
+\begin{goalbox}{四份核心资料}
+\begin{enumerate}
+  \item 课堂讲义：帮助理解奇偶性、模运算、余数分类、不变量与基础构造；
+  \item 提高训练题单：用于课后巩固和变式提升，重点训练“会分类、会证明、会做操作题”；
+  \item 周测 A 卷：检查基础按模分类和不变量是否稳定；
+  \item 周测 B 卷：检查综合构造、存在性证明和较难分类题是否真正掌握。
+\end{enumerate}
+\end{goalbox}
+
+\begin{infobox}{对应文件名}
+\begin{itemize}
+  \item 讲义：\texttt{number\_theory\_constructions\_handout.tex} / \texttt{number\_theory\_constructions\_handout.pdf}
+  \item 提高训练题单：\texttt{number\_theory\_constructions\_advanced\_problem\_set.tex} / \texttt{number\_theory\_constructions\_advanced\_problem\_set.pdf}
+  \item 周测 A 卷：\texttt{number\_theory\_constructions\_weekly\_test\_A.tex} / \texttt{number\_theory\_constructions\_weekly\_test\_A.pdf}
+  \item 周测 B 卷：\texttt{number\_theory\_constructions\_weekly\_test\_B.tex} / \texttt{number\_theory\_constructions\_weekly\_test\_B.pdf}
+\end{itemize}
+\end{infobox}
+
+\section{建议学习顺序}
+
+\begin{goalbox}{推荐顺序}
+\begin{enumerate}
+  \item 先完整学习讲义，重点吃透“为什么只看奇偶性就能判断不可能”“为什么按余数分类能做存在性证明”；
+  \item 再完成提高训练题单，训练把“看起来是选数题”的问题转化成模 $2$、模 $3$、模 $4$ 的分类；
+  \item 接着做周测 A 卷，检查基础按模分类与简单不变量是否稳定；
+  \item 最后做周测 B 卷，检查较难构造、操作题与综合证明是否掌握。
+\end{enumerate}
+\end{goalbox}
+
+\begin{warnbox}{不建议的做法}
+\begin{itemize}
+  \item 一看到数论味道就盲目上同余式，而不先判断“按模几分类最自然”；
+  \item 只会验证一个构造例子，却不会说明为什么所有情况都只能这样；
+  \item 操作题只跟着做，不先找“每一步都不变”的量；
+  \item 证明题里把“至少存在一个”误写成“任意一个都如此”。
+\end{itemize}
+\end{warnbox}
+
+\section{每份资料主要解决什么问题}
+
+\subsection{课堂讲义}
+讲义适合第一次系统学习这个专题，主要解决以下问题：
+\begin{itemize}
+  \item 什么情况下先看奇偶性就够了；
+  \item 什么情况下应按模 $3$、模 $4$、模 $5$ 分类；
+  \item 操作型问题里不变量该怎么找；
+  \item 棋盘、格点、选数分组这些题里，数论工具怎样转化成组合限制。
+\end{itemize}
+
+\subsection{提高训练题单}
+题单适合第二阶段训练，主要用来把方法做熟。它更强调：
+\begin{itemize}
+  \item 能否快速判断该按什么模分类；
+  \item 能否完整列出所有可能余数结构；
+  \item 能否证明“最多”“至少”“不可能”这类结论；
+  \item 能否从操作中识别出总和、奇偶性、余数等不变量。
+\end{itemize}
+
+\subsection{周测 A 卷}
+A 卷偏基础，适合检查：
+\begin{itemize}
+  \item 奇偶性与余数分类是否熟练；
+  \item 简单构造题是否会做；
+  \item 抽屉 + 按模分类是否能结合使用；
+  \item 基础不变量题是否会判断可能与不可能。
+\end{itemize}
+
+\subsection{周测 B 卷}
+B 卷偏综合，适合检查：
+\begin{itemize}
+  \item 分类是否完整；
+  \item 证明是否覆盖所有情况；
+  \item 会不会把“模运算”和“组合结构”结合起来；
+  \item 能否自己构造一个满足条件的分组或反例。
+\end{itemize}
+
+\section{一个推荐的 4 次训练安排}
+
+\begin{goalbox}{4 次完成一个小专题}
+\begin{enumerate}
+  \item 第 1 次：学习讲义前半部分，重点理解奇偶性、模运算和基础例题；
+  \item 第 2 次：学习讲义后半部分，完成题单基础题和中档题；
+  \item 第 3 次：完成题单综合题，并把错题按“模数选错/分类漏了/不变量没抓到/构造不完整”分类订正；
+  \item 第 4 次：完成周测 A 卷或 B 卷，作为阶段性检查。
+\end{enumerate}
+\end{goalbox}
+
+\begin{infobox}{如果孩子基础较好，可以这样压缩}
+\begin{itemize}
+  \item 第 1 天：讲义 + 题单基础题；
+  \item 第 2 天：题单变式题 + 错题订正；
+  \item 第 3 天：周测 A 卷；
+  \item 第 4 天：周测 B 卷。
+\end{itemize}
+\end{infobox}
+
+\section{专题学习后的自检清单}
+
+\begin{goalbox}{如果下面 8 条都能做到，说明这个专题基本过关}
+\begin{enumerate}
+  \item 我会判断一道题更适合看奇偶性还是看模 $3$、模 $4$、模 $5$；
+  \item 我会把一个集合按余数类完整分类；
+  \item 我会列出若干个数和为某个模数的所有余数结构；
+  \item 我会证明“至少存在一个”类型的结论；
+  \item 我会证明“不可能”类型的结论；
+  \item 我会找到一些简单操作题里的不变量；
+  \item 我会构造一个满足和为 $3$ 的倍数或 $4$ 的倍数的分组；
+  \item 我会在解答后检查分类是否完整、论证是否遗漏情况。
+\end{enumerate}
+\end{goalbox}
+
+\section{给家长的使用建议}
+
+\begin{warnbox}{更有效的带练方式}
+\begin{itemize}
+  \item 不要一开始就提示“用模运算”，先让孩子自己说“这题该按什么分”；
+  \item 如果卡住，可以只提示“先把数按余数分组看看”；
+  \item 操作题订正时，重点看孩子有没有主动寻找不变量；
+  \item 做完后请孩子口头复述：这题到底是用奇偶性、抽屉、余数分类，还是不变量解决的。
+\end{itemize}
+\end{warnbox}
+
+\begin{infobox}{和后续专题的衔接}
+这个专题学完以后，最自然的下一步是继续学习\textbf{抽屉原理与极值思想}以及\textbf{染色方法}。因为很多存在性证明、不可能性证明和棋盘问题，都会和按模分类、不变量思想自然结合起来。
+\end{infobox}
+
+\end{document}

@@ -1,0 +1,724 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.4cm,bottom=2.6cm,left=2.35cm,right=2.35cm,headheight=18pt,headsep=0.55cm,footskip=26pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black,
+  citecolor=blue!50!black
+}
+
+\setstretch{1.16}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.35em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.32em, topsep=0.32em, leftmargin=2.3em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=2em}
+\setcounter{tocdepth}{2}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{accent}{RGB}{153,76,0}
+\definecolor{rulegray}{RGB}{110,118,128}
+\definecolor{softgreen}{RGB}{236,247,240}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.25em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.3em}{0.9em}
+\titleformat{\subsection}{\large\bfseries\color{mainblue}}{\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{1.05em}{0.55em}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{accent}}{\thesubsubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 组合专题课堂讲义}
+\fancyhead[C]{\small 容斥原理入门与提高}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtheoremstyle{formaltheorem}
+  {0.8em}{0.8em}{\normalfont}{}{\bfseries\color{mainblue}}{．}{0.6em}{}
+\newtheoremstyle{formalexample}
+  {0.8em}{0.8em}{\normalfont}{}{\bfseries\color{accent}}{．}{0.6em}{}
+
+\theoremstyle{formaltheorem}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{method}{方法}[section]
+\theoremstyle{formalexample}
+\newtheorem{example}{例题}[section]
+\newtheorem{exercise}{练习}[section]
+
+\newenvironment{solution}{\par\noindent\textbf{解：}}{\hfill$\square$\par}
+
+\newtcolorbox{goalbox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{notebox}[1]{
+  breakable,
+  colback=lightgray,
+  colframe=black!50,
+  boxrule=0.55pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{skillbox}[1]{
+  breakable,
+  colback=softgreen,
+  colframe=green!40!black,
+  boxrule=0.65pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newcommand{\Dn}{D_n}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{titlepage}
+\centering
+\vspace*{0.9cm}
+
+\begin{tcolorbox}[
+  enhanced,
+  width=0.92\textwidth,
+  colback=white,
+  colframe=mainblue,
+  boxrule=1pt,
+  arc=0mm,
+  left=6mm,
+  right=6mm,
+  top=8mm,
+  bottom=8mm
+]
+\centering
+
+{\fontsize{24}{30}\selectfont\bfseries 组合专题课堂讲义\par}
+\vspace{0.7cm}
+{\fontsize{17}{22}\selectfont 容斥原理入门与提高\par}
+
+\vspace{1.1cm}
+\color{rulegray}\rule{0.72\textwidth}{0.7pt}\par
+\vspace{1cm}
+
+\begin{tcolorbox}[colback=lightblue,colframe=mainblue,width=0.82\textwidth,boxrule=1pt]
+\centering
+{\Large 适合对象：小学高年级至初中低年级数学竞赛学生}\\[0.4em]
+{\large 已具备基础计数能力，准备学习“有重叠限制”的系统处理方法}
+\end{tcolorbox}
+
+\vspace{1.2cm}
+
+\renewcommand{\arraystretch}{1.42}
+\begin{tabular}{>{\bfseries}p{3.5cm}p{8cm}}
+讲义作者： & 刘文博 \\
+专题关键词： & 容斥原理、补集法、重叠计数、部分位置受限、错位排列 \\
+建议课时： & 2--3 课时 \\
+专题目标： & 学会处理“至少满足一个条件”“多个坏事件重叠”这两类典型计数问题 \\
+编译方式： & XeLaTeX \\
+\end{tabular}
+
+\vspace{1.2cm}
+\color{rulegray}\rule{0.72\textwidth}{0.7pt}\par
+\vspace{0.8cm}
+
+{\normalsize 本讲从“为什么会多算”出发，建立容斥原理的直观，再把它应用到倍数计数、部分位置受限、错位排列等竞赛常见模型中。\par}
+
+\vspace{0.5cm}
+{\large \today\par}
+\end{tcolorbox}
+\end{titlepage}
+
+\pagenumbering{Roman}
+\pagestyle{plain}
+\tableofcontents
+\newpage
+\pagestyle{fancy}
+\pagenumbering{arabic}
+
+\section{专题目标与核心问题}
+
+\begin{goalbox}{这一讲要解决什么问题}
+前面学加法原理、乘法原理时，很多题目都能“分开算再相加”或“分步算再相乘”。
+但当不同条件之间会\textbf{重叠}时，直接相加常常会\textbf{重复计算}。
+容斥原理正是处理这类重复计数问题的标准工具。
+\end{goalbox}
+
+\begin{goalbox}{学完以后希望达到的能力}
+\begin{itemize}
+  \item 能说清楚为什么“直接相加”会多算；
+  \item 会使用两个集合、三个集合的容斥公式；
+  \item 能把“至少一个满足”“都不满足”转化为容斥问题；
+  \item 能处理竞赛中常见的“部分位置受限”与“错位排列”题目。
+\end{itemize}
+\end{goalbox}
+
+\begin{notebox}{本讲和补集法的关系}
+补集法其实是容斥原理的一种最简单的表现：
+\[
+\text{满足要求}=\text{总数}-\text{不满足要求}.
+\]
+当“不满足要求”只有一类时，补集法就够了；当“不满足要求”分成很多互相重叠的坏事件时，就需要进一步使用容斥原理。
+\end{notebox}
+
+\section{为什么会出现“容斥”}
+
+\subsection{从一个最简单的重叠开始}
+
+\begin{example}
+在 $1$ 到 $30$ 中，求“是 2 的倍数或 3 的倍数”的整数个数。
+\end{example}
+
+\begin{solution}
+如果直接算：
+\[
+\lfloor 30/2\rfloor=15,
+\qquad
+\lfloor 30/3\rfloor=10.
+\]
+相加得到 $15+10=25$。
+
+但这个答案偏大，因为既是 2 的倍数又是 3 的倍数，也就是 6 的倍数，被重复计算了两次。
+
+而 1 到 30 中，6 的倍数有
+\[
+\lfloor 30/6\rfloor=5
+\]
+个。
+
+所以正确答案应为
+\[
+15+10-5=20.
+\]
+这就是最朴素的“先加后减”的思想。
+\end{solution}
+
+\subsection{两个集合公式}
+
+\begin{theorem}
+若 $A,B$ 是两个有限集合，则
+\[
+|A\cup B|=|A|+|B|-|A\cap B|.
+\]
+\end{theorem}
+
+\begin{solution}
+把属于 $A\cap B$ 的元素想象成被同时算进了 $|A|$ 和 $|B|$，于是它们被重复计算了 2 次，而在并集里本来只应算 1 次，所以需要减去 1 次。
+\end{solution}
+
+\begin{skillbox}{看到这类词就要想到容斥}
+\begin{itemize}
+  \item “至少满足一个条件”
+  \item “是 A 类或 B 类或 C 类”
+  \item “不允许出现某些坏情况”
+  \item “有若干个位置受限制”
+\end{itemize}
+\end{skillbox}
+
+\section{三个集合与一般形式}
+
+\subsection{三个集合公式}
+
+\begin{theorem}
+若 $A,B,C$ 是三个有限集合，则
+\[
+|A\cup B\cup C|
+=|A|+|B|+|C|-|A\cap B|-|A\cap C|-|B\cap C|+|A\cap B\cap C|.
+\]
+\end{theorem}
+
+\begin{solution}
+先把三个集合的大小全部相加时，属于两个集合交集的元素被多算了，属于三个集合公共部分的元素被算了 3 次。
+
+减去两两交集后，三者公共部分又被多减了，所以最后还要加回一次。于是符号呈现出
+\[
++,-,+
+\]
+交替出现的规律。
+\end{solution}
+
+\begin{notebox}{三个集合为什么是“加减加”}
+可以把它记成一句话：
+\begin{itemize}
+  \item 单个集合先全加；
+  \item 两两交集要减掉；
+  \item 三者公共部分再补回来。
+\end{itemize}
+以后推广到更多集合时，也是“奇数层加，偶数层减”的交替结构。
+\end{notebox}
+
+\subsection{一般形式先知道就够}
+若坏事件有 $A_1,A_2,\ldots,A_n$，则
+\[
+\left|\bigcup_{i=1}^n A_i\right|
+=\sum |A_i|-
+\sum |A_i\cap A_j|+
+\sum |A_i\cap A_j\cap A_k|-\cdots.
+\]
+对现阶段训练来说，不必死记一般公式，更重要的是理解：
+\begin{itemize}
+  \item 先加单个坏事件；
+  \item 再减两两重叠；
+  \item 再加三重重叠；
+  \item 一直交替下去。
+\end{itemize}
+
+\section{计数题里的三种常见用法}
+
+\subsection{用法一：求“至少满足一个条件”}
+
+\begin{example}
+在 $1$ 到 $100$ 中，是 2 的倍数或 3 的倍数或 5 的倍数的整数有多少个？
+\end{example}
+
+\begin{solution}
+设
+\begin{align*}
+A&=\{\text{2 的倍数}\},\\
+B&=\{\text{3 的倍数}\},\\
+C&=\{\text{5 的倍数}\}.
+\end{align*}
+
+先算单个集合：
+\[
+|A|=50,\qquad |B|=33,\qquad |C|=20.
+\]
+
+再算两两交集：
+\[
+|A\cap B|=\lfloor 100/6\rfloor=16,
+\]
+\[
+|A\cap C|=\lfloor 100/10\rfloor=10,
+\qquad
+|B\cap C|=\lfloor 100/15\rfloor=6.
+\]
+
+三者交集：
+\[
+|A\cap B\cap C|=\lfloor 100/30\rfloor=3.
+\]
+
+所以
+\[
+|A\cup B\cup C|=50+33+20-16-10-6+3=74.
+\]
+
+因此共有
+\[
+74
+\]
+个整数。
+\end{solution}
+
+\subsection{用法二：求“都不满足若干坏条件”}
+
+\begin{example}
+4 个人甲、乙、丙、丁排座位。要求甲不坐 1 号位，乙不坐 2 号位，丙不坐 3 号位，丁没有限制。共有多少种排法？
+\end{example}
+
+\begin{solution}
+设
+\[
+A=\text{“甲坐 1 号位”},\quad B=\text{“乙坐 2 号位”},\quad C=\text{“丙坐 3 号位”}.
+\]
+
+我们真正要求的是：坏事件 $A,B,C$ 都不发生的排法数。
+
+总排法有
+\[
+4!=24
+\]
+种。
+
+单个坏事件：
+\[
+|A|=|B|=|C|=3!=6,
+\]
+所以单项总数为 $18$。
+
+两两交集：
+\[
+|A\cap B|=|A\cap C|=|B\cap C|=2!=2,
+\]
+总数为 $6$。
+
+三重交集：
+\[
+|A\cap B\cap C|=1!=1.
+\]
+
+因此满足要求的排法为
+\[
+24-18+6-1=11.
+\]
+\end{solution}
+
+\subsection{用法三：处理部分位置受限与错位排列}
+
+\begin{example}
+6 个不同数字 $1,2,3,4,5,6$ 排成一行，要求 $1,2,3$ 都不在自己的位置上，而 $4,5,6$ 没有限制。共有多少种排法？
+\end{example}
+
+\begin{solution}
+设
+\[
+A_1=\text{“1 在第 1 位”},\quad A_2=\text{“2 在第 2 位”},\quad A_3=\text{“3 在第 3 位”}.
+\]
+
+总排法有
+\[
+6!=720
+\]
+种。
+
+单个坏事件共有
+\[
+3\times 5!=3\times 120=360
+\]
+种。
+
+两个坏事件同时发生共有
+\[
+\binom32 4!=3\times 24=72
+\]
+种。
+
+三个坏事件同时发生有
+\[
+3!=6
+\]
+种。
+
+因此满足要求的排法数为
+\[
+720-360+72-6=426.
+\]
+
+这类题最容易误判成 $D_3$ 或 $D_6$，其实都不对，因为这里只限制了前 3 个对象。
+\end{solution}
+
+\section{错位排列是容斥原理的重要应用}
+
+\begin{example}
+用容斥原理计算 $D_5$。
+\end{example}
+
+\begin{solution}
+设 $A_i$ 表示“第 $i$ 个对象在原位”，其中 $i=1,2,3,4,5$。
+
+那么 $D_5$ 就等于总排法减去至少有一个对象在原位的排法：
+\[
+D_5=5!-\left|A_1\cup A_2\cup A_3\cup A_4\cup A_5\right|.
+\]
+
+按容斥展开：
+\[
+D_5=5!-\binom51 4!+\binom52 3!-\binom53 2!+\binom54 1!-\binom55 0!.
+\]
+
+逐项计算：
+\[
+5!=120,
+\]
+\[
+\binom51 4!=5\times 24=120,
+\]
+\[
+\binom52 3!=10\times 6=60,
+\]
+\[
+\binom53 2!=10\times 2=20,
+\]
+\[
+\binom54 1!=5,
+\qquad
+\binom55 0!=1.
+\]
+
+因此
+\[
+D_5=120-120+60-20+5-1=44.
+\]
+
+这和递推得到的结果完全一致。
+\end{solution}
+
+\begin{skillbox}{和错位排列结合时的固定套路}
+若共有 $n$ 个对象，而其中前 $m$ 个对象不能回原位，则可以把
+\[
+A_i=\text{“第 $i$ 个受限制对象回到原位”}
+\qquad (1\le i\le m)
+\]
+作为坏事件，最后写成
+\[
+\sum_{k=0}^{m}(-1)^k\binom{m}{k}(n-k)!
+\]
+的形式。
+\end{skillbox}
+
+\section{解题步骤与常见误区}
+
+\begin{method}
+遇到容斥题时，建议按下面 4 步走：
+\begin{enumerate}
+  \item 先确定“好事件”还是“坏事件”更容易描述；
+  \item 给每一个坏事件取名字，如 $A_1,A_2,A_3$；
+  \item 依次计算单项、两两交集、三重交集；
+  \item 最后检查符号是否是“加减加减”交替。
+\end{enumerate}
+\end{method}
+
+\begin{notebox}{最常见的 5 个错误}
+\begin{itemize}
+  \item 只把单个坏事件减掉，忘了把交集加回来；
+  \item 交集个数会算，但忘了乘组合数 $\binom{m}{k}$；
+  \item 把“只有部分对象受限”的题误判成标准错位排列；
+  \item 恰好有 $n-1$ 个在原位这种不可能情况被误算进去；
+  \item 计算完后不检查答案是否超过总数 $n!$。
+\end{itemize}
+\end{notebox}
+
+\section{课堂练习}
+
+\begin{exercise}
+在 $1$ 到 $60$ 中，是 4 的倍数或 6 的倍数的整数有多少个？
+\end{exercise}
+
+\begin{exercise}
+在 $1$ 到 $120$ 中，是 3 的倍数或 5 的倍数或 8 的倍数的整数有多少个？
+\end{exercise}
+
+\begin{exercise}
+5 个人甲、乙、丙、丁、戊排座位。要求甲不坐 1 号位，乙不坐 2 号位，丙不坐 3 号位，其余两人没有限制。共有多少种排法？
+\end{exercise}
+
+\begin{exercise}
+7 个对象排成一行，要求前 4 个对象都不在原位，后 3 个对象没有限制。共有多少种排法？
+\end{exercise}
+
+\begin{exercise}
+用容斥原理求 $D_4$。
+\end{exercise}
+
+\begin{exercise}
+8 个不同数字排成一行，要求至少有 1 个数字在原位。共有多少种排法？
+\end{exercise}
+
+\newpage
+\appendix
+\section{练习解答}
+
+\textbf{1}\begin{solution}
+设
+\[
+A=\{\text{4 的倍数}\},\qquad B=\{\text{6 的倍数}\}.
+\]
+
+则
+\[
+|A|=\lfloor 60/4\rfloor=15,
+\qquad
+|B|=\lfloor 60/6\rfloor=10.
+\]
+
+两者同时满足时，是 12 的倍数，所以
+\[
+|A\cap B|=\lfloor 60/12\rfloor=5.
+\]
+
+因此
+\[
+|A\cup B|=15+10-5=20.
+\]
+
+所以共有
+\[
+20
+\]
+个整数。
+\end{solution}
+
+\textbf{2}\begin{solution}
+设 $A,B,C$ 分别表示“是 3 的倍数”“是 5 的倍数”“是 8 的倍数”。
+
+单个集合：
+\[
+|A|=40,\qquad |B|=24,\qquad |C|=15.
+\]
+
+两两交集：
+\[
+|A\cap B|=\lfloor 120/15\rfloor=8,
+\]
+\[
+|A\cap C|=\lfloor 120/24\rfloor=5,
+\qquad
+|B\cap C|=\lfloor 120/40\rfloor=3.
+\]
+
+三重交集：
+\[
+|A\cap B\cap C|=\lfloor 120/120\rfloor=1.
+\]
+
+由容斥原理：
+\[
+40+24+15-8-5-3+1=64.
+\]
+
+所以共有
+\[
+64
+\]
+个整数。
+\end{solution}
+
+\textbf{3}\begin{solution}
+设
+\[
+A=\text{“甲坐 1 号位”},\quad B=\text{“乙坐 2 号位”},\quad C=\text{“丙坐 3 号位”}.
+\]
+
+总排法有
+\[
+5!=120
+\]
+种。
+
+单个坏事件共有
+\[
+3\times 4!=3\times 24=72
+\]
+种。
+
+两两交集共有
+\[
+\binom32 3!=3\times 6=18
+\]
+种。
+
+三重交集有
+\[
+2!=2
+\]
+种。
+
+所以满足要求的排法数为
+\[
+120-72+18-2=64.
+\]
+\end{solution}
+
+\textbf{4}\begin{solution}
+设前 4 个对象中，第 $i$ 个回原位的事件为 $A_i$。则满足要求的排列数为
+\[
+7!-\binom41 6!+\binom42 5!-\binom43 4!+\binom44 3!.
+\]
+
+逐项计算：
+\[
+7!=5040,
+\qquad
+\binom41 6!=4\times 720=2880,
+\]
+\[
+\binom42 5!=6\times 120=720,
+\qquad
+\binom43 4!=4\times 24=96,
+\]
+\[
+\binom44 3!=6.
+\]
+
+所以所求为
+\[
+5040-2880+720-96+6=2790.
+\]
+\end{solution}
+
+\textbf{5}\begin{solution}
+由容斥公式，
+\[
+D_4=4!-\binom41 3!+\binom42 2!-\binom43 1!+\binom44 0!.
+\]
+
+代入得
+\[
+D_4=24-4\times 6+6\times 2-4\times 1+1.
+\]
+
+即
+\[
+D_4=24-24+12-4+1=9.
+\]
+\end{solution}
+
+\textbf{6}\begin{solution}
+“至少有 1 个数字在原位”最适合用补集法。
+
+总排法有
+\[
+8!=40320
+\]
+种。
+
+没有任何数字在原位的排法数就是
+\[
+D_8.
+\]
+先由递推算得：
+\[
+D_7=1854,
+\qquad
+D_8=7(D_7+D_6)=7(1854+265)=14833.
+\]
+
+因此至少有 1 个数字在原位的排法数为
+\[
+8!-D_8=40320-14833=25487.
+\]
+\end{solution}
+
+\end{document}

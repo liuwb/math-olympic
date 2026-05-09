@@ -1,0 +1,856 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.35cm,bottom=2.55cm,left=2.3cm,right=2.3cm,headheight=18pt,headsep=0.55cm,footskip=26pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black,
+  citecolor=blue!50!black
+}
+
+\setstretch{1.15}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.28em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.35em, topsep=0.35em, leftmargin=2.2em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=1.9em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{accent}{RGB}{153,76,0}
+\definecolor{rulegray}{RGB}{110,118,128}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.25em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.2em}{0.8em}
+\titleformat{\subsection}{\large\bfseries\color{mainblue}}{\thesubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 递推计数提高训练题单}
+\fancyhead[C]{\small 组合专题：递推计数}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{goalbox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{notebox}[1]{
+  breakable,
+  colback=lightgray,
+  colframe=black!50,
+  boxrule=0.55pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtheoremstyle{formalexample}
+  {0.8em}{0.8em}{\normalfont}{}{\bfseries\color{accent}}{．}{0.6em}{}
+\theoremstyle{formalexample}
+\newtheorem{exercise}{题目}[section]
+\newenvironment{solution}{\par\noindent\textbf{解：}}{\hfill$\square$\par}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{titlepage}
+\centering
+\vspace*{0.9cm}
+\begin{tcolorbox}[
+  enhanced,
+  width=0.92\textwidth,
+  colback=white,
+  colframe=mainblue,
+  boxrule=1pt,
+  arc=0mm,
+  left=6mm,
+  right=6mm,
+  top=8mm,
+  bottom=8mm
+]
+\centering
+{\fontsize{24}{30}\selectfont\bfseries 递推计数提高训练题单\par}
+\vspace{0.6cm}
+{\fontsize{17}{22}\selectfont 适合小学高年级至初中低年级竞赛过渡训练\par}
+
+\vspace{1cm}
+\begin{tcolorbox}[colback=lightblue,colframe=mainblue,width=0.84\textwidth,boxrule=1pt]
+\centering
+{\large 训练目标：把“会套递推”提升到“会设计状态、会处理变式”}\\[0.35em]
+{\normalsize 建议分 2--3 次完成，先独立做题，再对照详细解答订正}
+\end{tcolorbox}
+
+\vspace{1cm}
+\renewcommand{\arraystretch}{1.42}
+\begin{tabular}{>{\bfseries}p{3.5cm}p{8cm}}
+题目数量： & 16 题，按难度递进 \\
+专题重点： & 上楼梯模型、受限字符串、铺砖模型、状态设计、与错位排列联系 \\
+答案形式： & 末尾附较详细解答，强调分类方式与初始条件 \\
+编译方式： & XeLaTeX \\
+\end{tabular}
+
+\vspace{0.9cm}
+{\large \today\par}
+\end{tcolorbox}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{使用建议}
+
+\begin{goalbox}{做递推题时优先问自己的 3 个问题}
+\begin{itemize}
+  \item 我设的量 $f_n$ 到底表示什么？
+  \item 更适合按最后一步、最后一段，还是最后一个位置来分类？
+  \item 初始条件应该写 $f_1,f_2$，还是更自然地写 $f_0,f_1$？
+\end{itemize}
+\end{goalbox}
+
+\begin{notebox}{建议计时}
+\begin{itemize}
+  \item 基础题：每题 4--6 分钟；
+  \item 变式题：每题 8--12 分钟；
+  \item 状态设计题：先思考 10 分钟，再看解答。
+\end{itemize}
+\end{notebox}
+
+\section{基础递推}
+
+\begin{exercise}
+每次可以上 1 级或 2 级台阶。求上到第 7 级台阶的走法数。
+\end{exercise}
+
+\begin{exercise}
+每次可以上 1 级、2 级或 3 级台阶。求上到第 6 级台阶的走法数。
+\end{exercise}
+
+\begin{exercise}
+每次可以上 1 级或 3 级台阶。求上到第 8 级台阶的走法数。
+\end{exercise}
+
+\begin{exercise}
+用递推公式求错位排列数 $D_7$。
+\end{exercise}
+
+\section{受限上楼梯与字符串}
+
+\begin{exercise}
+每次可以上 1 级或 2 级台阶，但不能连续两次都走 2 级。求上到第 8 级台阶的走法数。
+\end{exercise}
+
+\begin{exercise}
+长度为 7 的 0,1 串中，不允许出现两个相邻的 1。这样的串有多少个？
+\end{exercise}
+
+\begin{exercise}
+长度为 7 的 A、B 串中，不允许出现连续三个 A。这样的串有多少个？
+\end{exercise}
+
+\begin{exercise}
+长度为 6 的 A、B、C 串中，相邻两个字母不能相同。这样的串有多少个？
+\end{exercise}
+
+\begin{exercise}
+长度为 6 的 0,1 串中，1 的个数为偶数。这样的串有多少个？
+\end{exercise}
+
+\section{铺砖模型}
+
+\begin{exercise}
+用 $1\times 1$ 小方块和 $1\times 2$ 小长方形铺满 $1\times 8$ 长条，有多少种铺法？
+\end{exercise}
+
+\begin{exercise}
+用 $1\times 1$ 小方块和 $1\times 3$ 长方形铺满 $1\times 8$ 长条，有多少种铺法？
+\end{exercise}
+
+\begin{exercise}
+用 $2\times 1$ 骨牌铺满 $2\times 7$ 长方形，有多少种铺法？
+\end{exercise}
+
+\begin{exercise}
+用 $2\times 1$ 骨牌和 $2\times 2$ 方砖铺满 $2\times 6$ 长方形，有多少种铺法？
+\end{exercise}
+
+\section{状态设计与综合提高}
+
+\begin{exercise}
+证明：长度为 $n$ 的 0,1 串中，不允许出现相邻两个 1 的串数，与“每次上 1 级或 2 级台阶，上到第 $n+1$ 级”的走法数相同。
+\end{exercise}
+
+\begin{exercise}
+长度为 7 的 0,1 串中，不允许出现相邻两个 1，并且最后一位必须是 1。这样的串有多少个？
+\end{exercise}
+
+\begin{exercise}
+长度为 9 的 A、B 串中，不允许出现连续三个 A。这样的串有多少个？
+\end{exercise}
+
+\newpage
+\section{常见易错点总结}
+
+\begin{goalbox}{做递推题时，最容易丢分的 6 个地方}
+\begin{enumerate}
+  \item \textbf{只写出递推式，不写清楚“为什么这样分”。}  
+  递推不是背公式，核心在于说明：你到底是按最后一步、最后一段，还是最后一块来分类。
+
+  \item \textbf{分类不完整，漏掉一种情况。}  
+  例如允许走 1 级、2 级、3 级台阶时，若只写了 $f_{n-1}+f_{n-2}$，就是把最后一步走 3 级的情况漏掉了。
+
+  \item \textbf{分类有重叠，导致重复计算。}  
+  有些题看起来在分类，实际上两类情况会交叉。写递推前要先检查：每一种方案是不是只会被算一次。
+
+  \item \textbf{初始条件写错，或者根本没写。}  
+  很多递推式本身是对的，但最后答案错，就是因为 $f_1,f_2,f_3$ 或 $f_0,f_1$ 写错了。递推题里，初始条件和递推式同样重要。
+
+  \item \textbf{该增加状态时没有增加状态。}  
+  如果题目含有“不能连续出现”“最后一个位置受前面影响”等限制，只设一个 $f_n$ 往往不够，这时要考虑增加“以 0 结尾”“以 1 结尾”之类的状态。
+
+  \item \textbf{算出结果后不检查数量级和规律。}  
+  例如铺法数、走法数通常会随 $n$ 增大而变大；如果突然出现变小，往往说明递推或初值出了问题。
+\end{enumerate}
+\end{goalbox}
+
+\begin{notebox}{一个实用检查顺序}
+\begin{itemize}
+  \item 先问：我设的量 $f_n$ 表示什么？
+  \item 再问：分类是不是完整且互不重叠？
+  \item 最后查：初始条件够不够、有没有写对、算出的数列是否合理。
+\end{itemize}
+\end{notebox}
+
+\newpage
+\appendix
+\section{详细解答}
+
+\subsection*{基础递推}
+
+\textbf{1}\begin{solution}
+设上到第 $n$ 级台阶的走法数为 $f_n$。
+
+按最后一步分类：
+\begin{itemize}
+  \item 最后一步走 1 级，则前面有 $f_{n-1}$ 种；
+  \item 最后一步走 2 级，则前面有 $f_{n-2}$ 种。
+\end{itemize}
+
+所以
+\[
+  f_n=f_{n-1}+f_{n-2}.
+\]
+
+初始条件是
+\[
+  f_1=1,\qquad f_2=2.
+\]
+
+依次得到
+\[
+  f_3=3,\quad f_4=5,\quad f_5=8,\quad f_6=13,\quad f_7=21.
+\]
+
+因此上到第 7 级台阶共有
+\[
+  21
+\]
+种走法。
+\end{solution}
+
+\textbf{2}\begin{solution}
+设走法数为 $f_n$。
+
+按最后一步分类：
+\begin{itemize}
+  \item 最后一步走 1 级：有 $f_{n-1}$ 种；
+  \item 最后一步走 2 级：有 $f_{n-2}$ 种；
+  \item 最后一步走 3 级：有 $f_{n-3}$ 种。
+\end{itemize}
+
+所以
+\[
+  f_n=f_{n-1}+f_{n-2}+f_{n-3}.
+\]
+
+初始条件：
+\[
+  f_1=1,\qquad f_2=2,\qquad f_3=4.
+\]
+
+于是
+\[
+  f_4=7,\qquad f_5=13,\qquad f_6=24.
+\]
+
+所以答案为
+\[
+  24.
+\]
+\end{solution}
+
+\textbf{3}\begin{solution}
+设走法数为 $f_n$。
+
+按最后一步分类：
+\begin{itemize}
+  \item 最后一步走 1 级，则前面有 $f_{n-1}$ 种；
+  \item 最后一步走 3 级，则前面有 $f_{n-3}$ 种。
+\end{itemize}
+
+所以
+\[
+  f_n=f_{n-1}+f_{n-3}.
+\]
+
+先写初值：
+\[
+  f_1=1,
+  \qquad
+  f_2=1,
+  \qquad
+  f_3=2.
+\]
+
+继续递推：
+\[
+  f_4=f_3+f_1=2+1=3,
+\]
+\[
+  f_5=f_4+f_2=3+1=4,
+\]
+\[
+  f_6=f_5+f_3=4+2=6,
+\]
+\[
+  f_7=f_6+f_4=6+3=9,
+\]
+\[
+  f_8=f_7+f_5=9+4=13.
+\]
+
+所以答案为
+\[
+  13.
+\]
+\end{solution}
+
+\textbf{4}\begin{solution}
+错位排列满足递推公式
+\[
+  D_n=(n-1)(D_{n-1}+D_{n-2}).
+\]
+
+已知
+\[
+  D_1=0,
+  \qquad
+  D_2=1.
+\]
+
+先递推到 $D_6$：
+\[
+  D_3=2(D_2+D_1)=2,
+\]
+\[
+  D_4=3(D_3+D_2)=9,
+\]
+\[
+  D_5=4(D_4+D_3)=44,
+\]
+\[
+  D_6=5(D_5+D_4)=265.
+\]
+
+于是
+\[
+  D_7=6(D_6+D_5)=6(265+44)=1854.
+\]
+\end{solution}
+
+\subsection*{受限上楼梯与字符串}
+
+\textbf{5}\begin{solution}
+设合法走法数为 $f_n$。
+
+把合法走法按结尾分类：
+\begin{itemize}
+  \item 若最后一步是 1，那么前面部分可以是任意合法走法，有 $f_{n-1}$ 种；
+  \item 若最后一步是 2，因为不能连续两次走 2，所以在它前面若还有步子，最后一步必须是 1。于是末尾实际上是“12”结构，删去这两步后，前面有 $f_{n-3}$ 种。
+\end{itemize}
+
+因此对于 $n\ge 4$，有
+\[
+  f_n=f_{n-1}+f_{n-3}.
+\]
+
+初始条件：
+\[
+  f_1=1,
+  \qquad
+  f_2=2,
+  \qquad
+  f_3=3.
+\]
+
+依次得到
+\[
+  f_4=4,
+  \quad
+  f_5=6,
+  \quad
+  f_6=9,
+  \quad
+  f_7=13,
+  \quad
+  f_8=19.
+\]
+
+所以答案为
+\[
+  19.
+\]
+\end{solution}
+
+\textbf{6}\begin{solution}
+设长度为 $n$ 的合法 0,1 串个数为 $a_n$。
+
+看最后一位：
+\begin{itemize}
+  \item 若最后一位是 0，则前面 $n-1$ 位可任意合法，有 $a_{n-1}$ 种；
+  \item 若最后一位是 1，则倒数第二位必须是 0，所以前面 $n-2$ 位可任意合法，有 $a_{n-2}$ 种。
+\end{itemize}
+
+所以
+\[
+  a_n=a_{n-1}+a_{n-2}.
+\]
+
+初值为
+\[
+  a_1=2,
+  \qquad
+  a_2=3.
+\]
+
+于是
+\[
+  a_3=5,
+  \quad
+  a_4=8,
+  \quad
+  a_5=13,
+  \quad
+  a_6=21,
+  \quad
+  a_7=34.
+\]
+
+所以长度为 7 的合法串有
+\[
+  34
+\]
+个。
+\end{solution}
+
+\textbf{7}\begin{solution}
+设长度为 $n$ 的合法 A、B 串个数为 $b_n$。
+
+一个合法串的结尾只能属于以下三类：
+\begin{itemize}
+  \item 结尾是 B；
+  \item 结尾是 AB；
+  \item 结尾是 AAB。
+\end{itemize}
+
+因为如果结尾连续 A 的个数达到 3，就不合法了。
+
+因此
+\[
+  b_n=b_{n-1}+b_{n-2}+b_{n-3}.
+\]
+
+初值为
+\[
+  b_1=2,
+  \qquad
+  b_2=4,
+  \qquad
+  b_3=7.
+\]
+
+于是
+\[
+  b_4=13,
+  \quad
+  b_5=24,
+  \quad
+  b_6=44,
+  \quad
+  b_7=81.
+\]
+
+所以答案为
+\[
+  81.
+\]
+\end{solution}
+
+\textbf{8}\begin{solution}
+设长度为 $n$ 的合法串个数为 $c_n$。
+
+先选第一个字母，有 3 种。
+
+从第二个位置开始，每个位置都不能与前一个位置相同，因此每一步都有 2 种选择。
+
+于是
+\[
+  c_n=3\cdot 2^{n-1}.
+\]
+
+若硬要写成递推，也可写成
+\[
+  c_n=2c_{n-1},
+  \qquad
+  c_1=3.
+\]
+
+因此
+\[
+  c_6=3\cdot 2^5=96.
+\]
+\end{solution}
+
+\textbf{9}\begin{solution}
+这题适合用两个状态。
+
+设
+\[
+  x_n=\text{长度为 $n$ 的 0,1 串中，1 的个数为偶数的个数},
+\]
+\[
+  y_n=\text{长度为 $n$ 的 0,1 串中，1 的个数为奇数的个数}.
+\]
+
+在长度为 $n-1$ 的串后面添一个 0，不改变奇偶性；添一个 1，会改变奇偶性。
+
+因此
+\[
+  x_n=x_{n-1}+y_{n-1},
+\qquad
+  y_n=x_{n-1}+y_{n-1}.
+\]
+
+这说明对每个 $n\ge 2$，都有
+\[
+  x_n=y_n.
+\]
+
+而长度为 $n$ 的 0,1 串总共有
+\[
+  2^n
+\]
+个，所以偶数个 1 和奇数个 1 各占一半，即
+\[
+  x_n=2^{n-1}.
+\]
+
+当 $n=6$ 时，
+\[
+  x_6=2^5=32.
+\]
+\end{solution}
+
+\subsection*{铺砖模型}
+
+\textbf{10}\begin{solution}
+设铺法数为 $p_n$。
+
+看最后一块：
+\begin{itemize}
+  \item 若最后一块是 $1\times 1$，前面有 $p_{n-1}$ 种；
+  \item 若最后一块是 $1\times 2$，前面有 $p_{n-2}$ 种。
+\end{itemize}
+
+所以
+\[
+  p_n=p_{n-1}+p_{n-2}.
+\]
+
+初值：
+\[
+  p_1=1,
+  \qquad
+  p_2=2.
+\]
+
+于是
+\[
+  p_3=3,
+  \quad
+  p_4=5,
+  \quad
+  p_5=8,
+  \quad
+  p_6=13,
+  \quad
+  p_7=21,
+  \quad
+  p_8=34.
+\]
+
+所以答案为
+\[
+  34.
+\]
+\end{solution}
+
+\textbf{11}\begin{solution}
+设铺法数为 $q_n$。
+
+按最后一块分类：
+\begin{itemize}
+  \item 最后一块是 $1\times 1$，则前面有 $q_{n-1}$ 种；
+  \item 最后一块是 $1\times 3$，则前面有 $q_{n-3}$ 种。
+\end{itemize}
+
+所以
+\[
+  q_n=q_{n-1}+q_{n-3}.
+\]
+
+初值是
+\[
+  q_1=1,
+  \qquad
+  q_2=1,
+  \qquad
+  q_3=2.
+\]
+
+于是
+\[
+  q_4=3,
+  \quad
+  q_5=4,
+  \quad
+  q_6=6,
+  \quad
+  q_7=9,
+  \quad
+  q_8=13.
+\]
+
+所以答案为
+\[
+  13.
+\]
+\end{solution}
+
+\textbf{12}\begin{solution}
+设用 $2\times 1$ 骨牌铺满 $2\times n$ 长方形的铺法数为 $r_n$。
+
+看最左边一列：
+\begin{itemize}
+  \item 若先竖着放一块骨牌，则剩下部分是 $2\times (n-1)$，有 $r_{n-1}$ 种；
+  \item 若最左边两列都用横着放的两块骨牌铺满，则剩下部分是 $2\times (n-2)$，有 $r_{n-2}$ 种。
+\end{itemize}
+
+因此
+\[
+  r_n=r_{n-1}+r_{n-2}.
+\]
+
+初值为
+\[
+  r_1=1,
+  \qquad
+  r_2=2.
+\]
+
+所以
+\[
+  r_3=3,
+  \quad
+  r_4=5,
+  \quad
+  r_5=8,
+  \quad
+  r_6=13,
+  \quad
+  r_7=21.
+\]
+
+因此答案为
+\[
+  21.
+\]
+\end{solution}
+
+\textbf{13}\begin{solution}
+设铺法数为 $s_n$。
+
+看最左端如何铺：
+\begin{itemize}
+  \item 若先放一块竖着的 $2\times 1$ 骨牌，则剩下 $2\times (n-1)$，有 $s_{n-1}$ 种；
+  \item 若先铺满一个 $2\times 2$ 小块，那么有两种方式：放两块横骨牌，或放一块 $2\times 2$ 方砖。因此这一类共有 $2s_{n-2}$ 种。
+\end{itemize}
+
+所以
+\[
+  s_n=s_{n-1}+2s_{n-2}.
+\]
+
+初值为
+\[
+  s_1=1,
+  \qquad
+  s_2=3.
+\]
+
+于是
+\[
+  s_3=5,
+  \quad
+  s_4=11,
+  \quad
+  s_5=21,
+  \quad
+  s_6=43.
+\]
+
+所以答案为
+\[
+  43.
+\]
+\end{solution}
+
+\subsection*{状态设计与综合提高}
+
+\textbf{14}\begin{solution}
+设
+\[
+  a_n=\text{长度为 $n$ 的 0,1 串中，不出现相邻两个 1 的串数},
+\]
+\[
+  f_n=\text{每次上 1 级或 2 级台阶，到达第 $n$ 级的走法数}.
+\]
+
+前面已经知道：
+\[
+  a_n=a_{n-1}+a_{n-2},
+  \qquad
+  a_1=2,
+  \quad
+  a_2=3;
+\]
+\[
+  f_n=f_{n-1}+f_{n-2},
+  \qquad
+  f_1=1,
+  \quad
+  f_2=2.
+\]
+
+把第二组初值向后平移一位，可看到
+\[
+  a_1=f_2,
+  \qquad
+  a_2=f_3.
+\]
+
+由于两列数满足同样的递推关系，只是下标平移 1 位，因此对一切 $n$ 都有
+\[
+  a_n=f_{n+1}.
+\]
+
+也就是说，这两类问题的答案完全相同。
+\end{solution}
+
+\textbf{15}\begin{solution}
+长度为 7 的合法串如果最后一位必须是 1，那么倒数第二位一定是 0。
+
+因此末尾固定成“01”的结构时，前面前 5 位只需是任意合法串即可。
+
+设长度为 $n$ 的不含相邻两个 1 的 0,1 串个数为 $a_n$，则前一题已经知道
+\[
+  a_1=2,
+  \quad
+  a_2=3,
+  \quad
+  a_3=5,
+  \quad
+  a_4=8,
+  \quad
+  a_5=13.
+\]
+
+所以所求数量就是
+\[
+  a_5=13.
+\]
+\end{solution}
+
+\textbf{16}\begin{solution}
+设长度为 $n$ 的合法 A、B 串个数为 $b_n$。前面已经建立过递推关系
+\[
+  b_n=b_{n-1}+b_{n-2}+b_{n-3},
+\]
+初值是
+\[
+  b_1=2,
+  \qquad
+  b_2=4,
+  \qquad
+  b_3=7.
+\]
+
+依次递推：
+\[
+  b_4=13,
+  \quad
+  b_5=24,
+  \quad
+  b_6=44,
+\]
+\[
+  b_7=81,
+  \quad
+  b_8=149,
+  \quad
+  b_9=274.
+\]
+
+所以答案为
+\[
+  274.
+\]
+\end{solution}
+
+\end{document}

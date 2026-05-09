@@ -1,0 +1,350 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.25cm,bottom=2.45cm,left=2.25cm,right=2.25cm,headheight=18pt,headsep=0.55cm,footskip=24pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black
+}
+
+\setstretch{1.13}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.25em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.45em, topsep=0.35em, leftmargin=2.4em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=1.9em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{rulegray}{RGB}{110,118,128}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.2em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.1em}{0.7em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 错位排列周测 A 卷}
+\fancyhead[C]{\small 组合专题：基础与标准变式}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{infobox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newenvironment{solution}{\par\noindent\textbf{参考解答：}}{\hfill$\square$\par}
+\newcommand{\answerspace}{\vspace{2.3cm}}
+\newcommand{\biganswerspace}{\vspace{3.1cm}}
+\newcommand{\Dn}{D_n}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{center}
+{\fontsize{22}{28}\selectfont\bfseries 错位排列周测 A 卷\par}
+\vspace{0.4cm}
+{\large 适合小学高年级至初中低年级数学竞赛训练\par}
+\end{center}
+
+\begin{infobox}{考试说明}
+\begin{itemize}
+  \item 测试时间：70--75 分钟
+  \item 满分：100 分
+  \item A 卷侧重标准错位排列与基础变式，建议先判断题目属于“全错位”“恰好若干个在原位”还是“部分位置受限”。
+\end{itemize}
+\end{infobox}
+
+\section{试题}
+
+\begin{enumerate}
+  \item （10 分）已知
+  \[
+  D_1=0,\qquad D_2=1,
+  \]
+  用递推公式求 $D_3,D_4,D_5,D_6$。
+  \answerspace
+
+  \item （12 分）6 个人分别拿回自己的帽子，要求没有人拿到自己的帽子，共有多少种拿法？
+  \answerspace
+
+  \item （12 分）7 个不同数字排成一行，恰好有 3 个数字在原位，共有多少种排法？
+  \answerspace
+
+  \item （12 分）5 个人随机拿帽子，至少有 1 个人拿到自己帽子的拿法有多少种？
+  \answerspace
+
+  \item （12 分）4 个不同数字排成一行，恰好有 1 个数字在原位，共有多少种排法？
+  \answerspace
+
+  \item （14 分）4 个人甲、乙、丙、丁排座位。要求甲不坐 1 号位，乙不坐 2 号位，丙不坐 3 号位，丁没有限制。共有多少种排法？
+  \biganswerspace
+
+  \item （14 分）6 个不同数字 $1,2,3,4,5,6$ 排成一行，要求 $1,2,3$ 都不在自己的位置上，而 $4,5,6$ 没有限制。共有多少种排法？
+  \biganswerspace
+
+  \item （14 分）证明：$n$ 个对象的排列中，“恰好有 $n-1$ 个对象在原位”的情况不可能发生。并据此判断：7 个人排座位时，恰好有 6 个人坐回自己的座位的排法有多少种？
+  \biganswerspace
+\end{enumerate}
+
+\newpage
+\section{详细解答}
+
+\begin{enumerate}
+  \item \begin{solution}
+  错位排列的递推公式是
+  \[
+  D_n=(n-1)(D_{n-1}+D_{n-2}).
+  \]
+
+  依次代入可得：
+  \[
+  D_3=2(D_2+D_1)=2(1+0)=2,
+  \]
+  \[
+  D_4=3(D_3+D_2)=3(2+1)=9,
+  \]
+  \[
+  D_5=4(D_4+D_3)=4(9+2)=44,
+  \]
+  \[
+  D_6=5(D_5+D_4)=5(44+9)=265.
+  \]
+
+  所以
+  \[
+  D_3=2,\quad D_4=9,\quad D_5=44,\quad D_6=265.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  题意正是一个标准错位排列问题，因此答案就是
+  \[
+  D_6.
+  \]
+
+  由第 1 题已经求得
+  \[
+  D_6=265.
+  \]
+
+  所以共有
+  \[
+  265
+  \]
+  种拿法。
+  \end{solution}
+
+  \item \begin{solution}
+  “恰好有 3 个数字在原位”时，可以分两步处理：
+  \begin{itemize}
+    \item 先选出哪 3 个数字在原位；
+    \item 剩下 4 个数字必须全部错位排列。
+  \end{itemize}
+
+  第一步有
+  \[
+  \binom{7}{3}=35
+  \]
+  种。
+
+  第二步有
+  \[
+  D_4=9
+  \]
+  种。
+
+  所以总数为
+  \[
+  \binom{7}{3}D_4=35\times 9=315.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  “至少有 1 个人拿到自己的帽子”适合用补集法。
+
+  总拿法有
+  \[
+  5!=120
+  \]
+  种。
+
+  没有人拿对的拿法有
+  \[
+  D_5=44
+  \]
+  种。
+
+  因此至少有 1 个人拿对的拿法为
+  \[
+  120-44=76.
+  \]
+
+  所以答案是
+  \[
+  76.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  先选出哪 1 个数字在原位，有
+  \[
+  \binom{4}{1}=4
+  \]
+  种。
+
+  剩下 3 个数字必须全部错位排列，所以有
+  \[
+  D_3=2
+  \]
+  种。
+
+  因此总数为
+  \[
+  \binom{4}{1}D_3=4\times 2=8.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  这是“部分位置受限”问题，最自然的方法是容斥原理。
+
+  设
+  \[
+  A=\text{“甲坐 1 号位”},\quad
+  B=\text{“乙坐 2 号位”},\quad
+  C=\text{“丙坐 3 号位”}.
+  \]
+
+  总排法有
+  \[
+  4!=24
+  \]
+  种。
+
+  单个坏事件的排法数都是
+  \[
+  |A|=|B|=|C|=3!=6,
+  \]
+  因此
+  \[
+  |A|+|B|+|C|=18.
+  \]
+
+  两个坏事件同时发生时：
+  \[
+  |A\cap B|=|A\cap C|=|B\cap C|=2!=2,
+  \]
+  因此三项交集总数为
+  \[
+  2+2+2=6.
+  \]
+
+  三个坏事件同时发生时：
+  \[
+  |A\cap B\cap C|=1!=1.
+  \]
+
+  由容斥原理，满足要求的排法数为
+  \[
+  24-18+6-1=11.
+  \]
+
+  所以共有
+  \[
+  11
+  \]
+  种排法。
+  \end{solution}
+
+  \item \begin{solution}
+  这里只要求 $1,2,3$ 不在自己的位置上，而 $4,5,6$ 没有限制，因此不能直接套 $D_6$，应对前三个数字的“坏事件”用容斥。
+
+  设
+  \[
+  A_1=\text{“1 在第 1 位”},\quad
+  A_2=\text{“2 在第 2 位”},\quad
+  A_3=\text{“3 在第 3 位”}.
+  \]
+
+  总排法有
+  \[
+  6!=720
+  \]
+  种。
+
+  单个坏事件：
+  \[
+  |A_1|=|A_2|=|A_3|=5!=120,
+  \]
+  所以总共减去
+  \[
+  3\times 120=360.
+  \]
+
+  两个坏事件同时发生：
+  \[
+  |A_1\cap A_2|=|A_1\cap A_3|=|A_2\cap A_3|=4!=24,
+  \]
+  所以要加回
+  \[
+  3\times 24=72.
+  \]
+
+  三个坏事件同时发生：
+  \[
+  |A_1\cap A_2\cap A_3|=3!=6.
+  \]
+
+  因此满足要求的排法数为
+  \[
+  720-360+72-6=426.
+  \]
+
+  所以答案是
+  \[
+  426.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  先证明一般结论。
+
+  假设某个排列中恰好有 $n-1$ 个对象在原位，那么前 $n-1$ 个已经各自占据了自己的位置，最后剩下的那 1 个对象既不能去自己的位置，又找不到别的空位可去，于是它也只能回到自己的位置。
+
+  这就说明：只要有 $n-1$ 个对象在原位，第 $n$ 个对象也被迫在原位，于是不可能出现“恰好有 $n-1$ 个对象在原位”的情况。
+
+  因此这种情况根本不存在。
+
+  应用到本题：7 个人排座位时，“恰好有 6 个人坐回自己的座位”正是“恰好有 $7-1$ 个人在原位”的情形，所以排法数为
+  \[
+  0.
+  \]
+  \end{solution}
+\end{enumerate}
+
+\end{document}

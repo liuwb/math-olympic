@@ -1,0 +1,774 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.4cm,bottom=2.6cm,left=2.35cm,right=2.35cm,headheight=18pt,headsep=0.55cm,footskip=26pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black,
+  citecolor=blue!50!black
+}
+
+\setstretch{1.16}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.35em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.32em, topsep=0.32em, leftmargin=2.3em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=2em}
+\setcounter{tocdepth}{2}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{accent}{RGB}{153,76,0}
+\definecolor{rulegray}{RGB}{110,118,128}
+\definecolor{softgreen}{RGB}{236,247,240}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.25em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.3em}{0.9em}
+\titleformat{\subsection}{\large\bfseries\color{mainblue}}{\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{1.05em}{0.55em}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{accent}}{\thesubsubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 组合专题课堂讲义}
+\fancyhead[C]{\small 递推计数入门与提高}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtheoremstyle{formaltheorem}
+  {0.8em}{0.8em}{\normalfont}{}{\bfseries\color{mainblue}}{．}{0.6em}{}
+\newtheoremstyle{formalexample}
+  {0.8em}{0.8em}{\normalfont}{}{\bfseries\color{accent}}{．}{0.6em}{}
+
+\theoremstyle{formaltheorem}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{method}{方法}[section]
+\theoremstyle{formalexample}
+\newtheorem{example}{例题}[section]
+\newtheorem{exercise}{练习}[section]
+
+\newenvironment{solution}{\par\noindent\textbf{解：}}{\hfill$\square$\par}
+
+\newtcolorbox{goalbox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{notebox}[1]{
+  breakable,
+  colback=lightgray,
+  colframe=black!50,
+  boxrule=0.55pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{skillbox}[1]{
+  breakable,
+  colback=softgreen,
+  colframe=green!40!black,
+  boxrule=0.65pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{titlepage}
+\centering
+\vspace*{0.9cm}
+
+\begin{tcolorbox}[
+  enhanced,
+  width=0.92\textwidth,
+  colback=white,
+  colframe=mainblue,
+  boxrule=1pt,
+  arc=0mm,
+  left=6mm,
+  right=6mm,
+  top=8mm,
+  bottom=8mm
+]
+\centering
+
+{\fontsize{24}{30}\selectfont\bfseries 组合专题课堂讲义\par}
+\vspace{0.7cm}
+{\fontsize{17}{22}\selectfont 递推计数入门与提高\par}
+
+\vspace{1.1cm}
+\color{rulegray}\rule{0.72\textwidth}{0.7pt}\par
+\vspace{1cm}
+
+\begin{tcolorbox}[colback=lightblue,colframe=mainblue,width=0.82\textwidth,boxrule=1pt]
+\centering
+{\Large 适合对象：小学高年级至初中低年级数学竞赛学生}\\[0.4em]
+{\large 已具备基础计数能力，准备学习“按最后一步分类”的系统方法}
+\end{tcolorbox}
+
+\vspace{1.2cm}
+
+\renewcommand{\arraystretch}{1.42}
+\begin{tabular}{>{\bfseries}p{3.5cm}p{8cm}}
+讲义作者： & 刘文博 \\
+专题关键词： & 递推计数、分类讨论、状态设计、斐波那契型递推、铺砖模型 \\
+建议课时： & 2--3 课时 \\
+专题目标： & 学会把复杂计数问题拆成较小规模问题，并建立递推关系 \\
+编译方式： & XeLaTeX \\
+\end{tabular}
+
+\vspace{1.2cm}
+\color{rulegray}\rule{0.72\textwidth}{0.7pt}\par
+\vspace{0.8cm}
+
+{\normalsize 本讲从“最后一步怎么走”出发，建立递推计数的基本思想，再把它应用到上楼梯、受限字符串、铺砖和相邻限制等竞赛常见模型中。\par}
+
+\vspace{0.5cm}
+{\large \today\par}
+\end{tcolorbox}
+\end{titlepage}
+
+\pagenumbering{Roman}
+\pagestyle{plain}
+\tableofcontents
+\newpage
+\pagestyle{fancy}
+\pagenumbering{arabic}
+
+\section{专题目标与核心问题}
+
+\begin{goalbox}{这一讲要解决什么问题}
+有些计数题如果直接求总数很困难，但如果把“规模为 $n$ 的问题”拆成“规模为 $n-1$、$n-2$ 的问题”，就会自然出现递推关系。
+
+递推计数的核心不是死记公式，而是学会问：\textbf{最后一步是什么？最后一段是什么？最后一个位置放了什么？}
+\end{goalbox}
+
+\begin{goalbox}{学完以后希望达到的能力}
+\begin{itemize}
+  \item 知道什么时候适合用递推而不是硬算；
+  \item 会通过“按最后一步分类”建立递推关系；
+  \item 会写清楚初始条件；
+  \item 会把递推结果用于小规模求值和竞赛变式分析。
+\end{itemize}
+\end{goalbox}
+
+\begin{notebox}{递推计数和前面专题的关系}
+\begin{itemize}
+  \item 和排列组合相比，递推更强调“把大问题拆成小问题”；
+  \item 和容斥原理相比，递推更强调“状态转移”而不是“重叠修正”；
+  \item 和错位排列相比，错位排列本身也有递推公式，所以这几个专题是连在一起的。
+\end{itemize}
+\end{notebox}
+
+\section{什么叫递推计数}
+
+\subsection{从最简单的模型开始}
+
+\begin{example}
+小明每次可以上 1 级台阶或 2 级台阶。上到第 $n$ 级台阶有多少种不同走法？
+\end{example}
+
+\begin{solution}
+设上到第 $n$ 级台阶的走法数为 $f_n$。
+
+想最后一步：
+\begin{itemize}
+  \item 如果最后一步走了 1 级，那么前面必须已经到达第 $n-1$ 级，有 $f_{n-1}$ 种；
+  \item 如果最后一步走了 2 级，那么前面必须已经到达第 $n-2$ 级，有 $f_{n-2}$ 种。
+\end{itemize}
+
+这两类互不重叠，而且已经分完全部情况，因此
+\[
+  f_n=f_{n-1}+f_{n-2}.
+\]
+
+再看初始条件：
+\[
+  f_1=1,
+  \qquad
+  f_2=2.
+\]
+
+所以
+\[
+  f_3=3,
+  \quad
+  f_4=5,
+  \quad
+  f_5=8,
+  \ldots
+\]
+这就是最经典的斐波那契型递推。
+\end{solution}
+
+\subsection{递推计数的三要素}
+
+\begin{goalbox}{建立递推时一定要写清楚的三件事}
+\begin{enumerate}
+  \item 设什么量：如 $f_n$ 表示什么；
+  \item 怎么分类：按最后一步、最后一段、最后一个位置等分类；
+  \item 初始条件：如 $f_1,f_2$ 或 $f_0,f_1$ 的值。
+\end{enumerate}
+\end{goalbox}
+
+\begin{skillbox}{看到这类题就要想到递推}
+\begin{itemize}
+  \item “长度为 $n$ 的……有多少种”
+  \item “铺满 $1\times n$ 或 $2\times n$ 的方案数”
+  \item “满足某种相邻限制的排列/字符串有多少种”
+  \item “每次可以做若干种动作，到达目标有多少种方法”
+\end{itemize}
+\end{skillbox}
+
+\section{基本模型一：上楼梯模型}
+
+\begin{example}
+每次可以上 1 级、2 级或 3 级台阶。上到第 $n$ 级台阶有多少种不同走法？
+\end{example}
+
+\begin{solution}
+设走法数为 $f_n$。
+
+按最后一步分类：
+\begin{itemize}
+  \item 最后一步走 1 级：前面有 $f_{n-1}$ 种；
+  \item 最后一步走 2 级：前面有 $f_{n-2}$ 种；
+  \item 最后一步走 3 级：前面有 $f_{n-3}$ 种。
+\end{itemize}
+
+因此
+\[
+  f_n=f_{n-1}+f_{n-2}+f_{n-3}.
+\]
+
+初始条件可取
+\[
+  f_1=1,
+  \qquad
+  f_2=2,
+  \qquad
+  f_3=4.
+\]
+
+于是
+\[
+  f_4=7,
+  \qquad
+  f_5=13.
+\]
+\end{solution}
+
+\begin{example}
+每次可以上 1 级或 2 级台阶，但不能连续两次都走 2 级。上到第 $n$ 级台阶有多少种不同走法？
+\end{example}
+
+\begin{solution}
+设合法走法数为 $f_n$。
+
+这题如果只按“最后一步走 1 级还是 2 级”分类，会发现：当最后一步走 2 级时，还要知道前一步是不是 2 级，所以需要多看一层。
+
+把合法走法分成两类：
+\begin{itemize}
+  \item 以 1 结尾；
+  \item 以 2 结尾。
+\end{itemize}
+
+若一个合法走法以 1 结尾，那么删去最后这个 1，前面就是任意一个到达第 $n-1$ 级的合法走法，因此这类有
+\[
+  f_{n-1}
+\]
+种。
+
+若一个合法走法以 2 结尾，由于不能连续两次都走 2 级，所以在这个 2 前面若还有步子，最后一步必须是 1。也就是说，这类走法的末尾实际上是一个“12”结构；删去最后这两步以后，前面就是到达第 $n-3$ 级的任意合法走法，因此这类有
+\[
+  f_{n-3}
+\]
+种。
+
+所以对于 $n\ge 4$，有
+\[
+  f_n=f_{n-1}+f_{n-3}.
+\]
+
+初始值为
+\[
+  f_1=1,\qquad f_2=2,\qquad f_3=3.
+\]
+
+例如
+\[
+  f_4=f_3+f_1=3+1=4.
+\]
+\end{solution}
+
+\section{基本模型二：受限字符串}
+
+\begin{example}
+长度为 $n$ 的 0,1 串中，不允许出现两个相邻的 1。这样的串有多少个？
+\end{example}
+
+\begin{solution}
+设符合条件的串数为 $a_n$。
+
+看最后一位：
+\begin{itemize}
+  \item 如果最后一位是 0，那么前面 $n-1$ 位可以是任意合法串，有 $a_{n-1}$ 种；
+  \item 如果最后一位是 1，那么倒数第二位必须是 0，所以前面 $n-2$ 位可以任意合法，有 $a_{n-2}$ 种。
+\end{itemize}
+
+因此
+\[
+  a_n=a_{n-1}+a_{n-2}.
+\]
+
+初始条件：
+\[
+  a_1=2
+\]
+（0、1 两种），
+\[
+  a_2=3
+\]
+（00、01、10 三种）。
+
+于是
+\[
+  a_3=5,
+  \quad
+  a_4=8,
+  \quad
+  a_5=13.
+\]
+\end{solution}
+
+\begin{example}
+长度为 $n$ 的字母串只由 A、B 组成，要求不出现连续三个 A。设这样的串数为 $b_n$，建立递推关系。
+\end{example}
+
+\begin{solution}
+看结尾可能是什么：
+\begin{itemize}
+  \item 结尾是 B；
+  \item 结尾是 AB；
+  \item 结尾是 AAB。
+\end{itemize}
+
+为什么这样分？因为如果串合法，那么最后一个 B 左边可能有 0 个、1 个或 2 个连续的 A，但不能有 3 个连续 A。
+
+于是：
+\begin{itemize}
+  \item 结尾是 B：前面有 $b_{n-1}$ 种；
+  \item 结尾是 AB：前面有 $b_{n-2}$ 种；
+  \item 结尾是 AAB：前面有 $b_{n-3}$ 种。
+\end{itemize}
+
+因此
+\[
+  b_n=b_{n-1}+b_{n-2}+b_{n-3}.
+\]
+
+初始值可直接枚举：
+\[
+  b_1=2,
+  \qquad
+  b_2=4,
+  \qquad
+  b_3=7.
+\]
+\end{solution}
+
+\section{基本模型三：铺砖模型}
+
+\begin{example}
+用 $1\times 1$ 小方块和 $1\times 2$ 小长方形铺满 $1\times n$ 的长条，有多少种不同铺法？
+\end{example}
+
+\begin{solution}
+设铺法数为 $c_n$。
+
+看最后一块：
+\begin{itemize}
+  \item 如果最后一块是 $1\times 1$ 小方块，那么前面部分有 $c_{n-1}$ 种铺法；
+  \item 如果最后一块是 $1\times 2$ 小长方形，那么前面部分有 $c_{n-2}$ 种铺法。
+\end{itemize}
+
+因此
+\[
+  c_n=c_{n-1}+c_{n-2}.
+\]
+
+初始条件：
+\[
+  c_1=1,
+  \qquad
+  c_2=2.
+\]
+
+所以
+\[
+  c_3=3,
+  \quad
+  c_4=5,
+  \quad
+  c_5=8.
+\]
+\end{solution}
+
+\begin{example}
+用 $1\times 1$ 小方块和 $1\times 3$ 长方形铺满 $1\times n$ 的长条，有多少种不同铺法？
+\end{example}
+
+\begin{solution}
+设铺法数为 $c_n$。
+
+按最后一块分类：
+\begin{itemize}
+  \item 最后一块是 $1\times 1$：前面有 $c_{n-1}$ 种；
+  \item 最后一块是 $1\times 3$：前面有 $c_{n-3}$ 种。
+\end{itemize}
+
+所以
+\[
+  c_n=c_{n-1}+c_{n-3}.
+\]
+
+例如：
+\[
+  c_1=1,
+  \qquad
+  c_2=1,
+  \qquad
+  c_3=2,
+  \qquad
+  c_4=3.
+\]
+\end{solution}
+
+\section{怎样设计状态}
+
+\begin{method}
+如果直接设 $f_n$ 不够用，就要考虑增加“状态”。常见做法有：
+\begin{enumerate}
+  \item 记录最后一个位置是什么；
+  \item 记录最后连续出现了几个相同对象；
+  \item 记录当前是否已经满足/违反某个限制；
+  \item 把问题拆成两个或三个相关序列一起递推。
+\end{enumerate}
+\end{method}
+
+\begin{example}
+长度为 $n$ 的 0,1 串中，不允许出现相邻两个 1。若直接设一个总数 $f_n$ 不方便，可把合法串分成两类：以 0 结尾和以 1 结尾。
+\end{example}
+
+\begin{solution}
+设
+\[
+  x_n=\text{长度为 $n$ 的合法串中，以 0 结尾的个数},
+\]
+\[
+  y_n=\text{长度为 $n$ 的合法串中，以 1 结尾的个数}.
+\]
+
+则
+\[
+  x_n=x_{n-1}+y_{n-1},
+\qquad
+  y_n=x_{n-1}.
+\]
+
+于是总数
+\[
+  f_n=x_n+y_n.
+\]
+
+再代回去就能得到
+\[
+  f_n=f_{n-1}+f_{n-2}.
+\]
+
+这个例子说明：有时引入中间状态，反而更容易把问题理清楚。
+\end{solution}
+
+\section{和错位排列的联系}
+
+\begin{example}
+错位排列满足递推公式
+\[
+  D_n=(n-1)(D_{n-1}+D_{n-2}).
+\]
+这个公式为什么也属于递推计数？
+\end{example}
+
+\begin{solution}
+递推计数的本质，就是把“规模为 $n$ 的对象数”拆成较小规模的问题。
+
+在错位排列中，我们可以盯住对象 1 的去向：
+\begin{itemize}
+  \item 若对象 1 与某个对象互换，剩下变成 $D_{n-2}$；
+  \item 若对象 1 去了别人的位置，但对方没回到位置 1，则转化为 $D_{n-1}$。
+\end{itemize}
+
+再乘上对象 1 可去的 $n-1$ 个位置，就得到
+\[
+  D_n=(n-1)(D_{n-1}+D_{n-2}).
+\]
+
+所以错位排列不仅可以用容斥，也可以看作一个很经典的递推计数模型。
+\end{solution}
+
+\section{常见误区}
+
+\begin{notebox}{递推题最常见的 5 个错误}
+\begin{itemize}
+  \item 只写出递推式，不写初始条件；
+  \item 分类不完整，漏掉一种结尾情况；
+  \item 分类有重叠，导致重复计算；
+  \item 把“最后一步分类”写成了“前一步分类”，但逻辑没有闭合；
+  \item 递推式写对了，代数值时把下标或初值代错。
+\end{itemize}
+\end{notebox}
+
+\section{课堂练习}
+
+\begin{exercise}
+每次可以上 1 级或 2 级台阶，求上到第 6 级台阶的走法数。
+\end{exercise}
+
+\begin{exercise}
+长度为 $n$ 的 0,1 串中，不允许出现两个相邻的 1。求长度为 6 的合法串个数。
+\end{exercise}
+
+\begin{exercise}
+用 $1\times 1$ 和 $1\times 2$ 两种砖铺满 $1\times 6$ 长条，有多少种铺法？
+\end{exercise}
+
+\begin{exercise}
+每次可以上 1 级、2 级或 3 级台阶。求上到第 5 级台阶的走法数。
+\end{exercise}
+
+\begin{exercise}
+长度为 $n$ 的 A、B 串中，不出现连续三个 A。求长度为 4 的合法串个数。
+\end{exercise}
+
+\begin{exercise}
+用 $1\times 1$ 与 $1\times 3$ 两种砖铺满 $1\times 7$ 长条，有多少种铺法？
+\end{exercise}
+
+\newpage
+\appendix
+\section{练习解答}
+
+\textbf{1}\begin{solution}
+设走法数为 $f_n$，则
+\[
+  f_n=f_{n-1}+f_{n-2},
+  \qquad
+  f_1=1,
+  \quad
+  f_2=2.
+\]
+
+于是
+\[
+  f_3=3,
+  \quad
+  f_4=5,
+  \quad
+  f_5=8,
+  \quad
+  f_6=13.
+\]
+
+所以共有
+\[
+  13
+\]
+种走法。
+\end{solution}
+
+\textbf{2}\begin{solution}
+设合法串数为 $a_n$，则
+\[
+  a_n=a_{n-1}+a_{n-2},
+  \qquad
+  a_1=2,
+  \quad
+  a_2=3.
+\]
+
+于是
+\[
+  a_3=5,
+  \quad
+  a_4=8,
+  \quad
+  a_5=13,
+  \quad
+  a_6=21.
+\]
+
+所以长度为 6 的合法串有
+\[
+  21
+\]
+个。
+\end{solution}
+
+\textbf{3}\begin{solution}
+设铺法数为 $c_n$，则
+\[
+  c_n=c_{n-1}+c_{n-2},
+  \qquad
+  c_1=1,
+  \quad
+  c_2=2.
+\]
+
+所以
+\[
+  c_3=3,
+  \quad
+  c_4=5,
+  \quad
+  c_5=8,
+  \quad
+  c_6=13.
+\]
+
+因此共有
+\[
+  13
+\]
+种铺法。
+\end{solution}
+
+\textbf{4}\begin{solution}
+设走法数为 $f_n$，则
+\[
+  f_n=f_{n-1}+f_{n-2}+f_{n-3}.
+\]
+
+初始值：
+\[
+  f_1=1,
+  \qquad
+  f_2=2,
+  \qquad
+  f_3=4.
+\]
+
+于是
+\[
+  f_4=7,
+  \qquad
+  f_5=13.
+\]
+
+所以共有
+\[
+  13
+\]
+种走法。
+\end{solution}
+
+\textbf{5}\begin{solution}
+设合法串数为 $b_n$，则
+\[
+  b_n=b_{n-1}+b_{n-2}+b_{n-3}.
+\]
+
+初始值为
+\[
+  b_1=2,
+  \qquad
+  b_2=4,
+  \qquad
+  b_3=7.
+\]
+
+于是
+\[
+  b_4=7+4+2=13.
+\]
+
+所以长度为 4 的合法串有
+\[
+  13
+\]
+个。
+\end{solution}
+
+\textbf{6}\begin{solution}
+设铺法数为 $c_n$，则
+\[
+  c_n=c_{n-1}+c_{n-3}.
+\]
+
+初始值：
+\[
+  c_1=1,
+  \qquad
+  c_2=1,
+  \qquad
+  c_3=2.
+\]
+
+于是
+\[
+  c_4=3,
+  \quad
+  c_5=4,
+  \quad
+  c_6=6,
+  \quad
+  c_7=9.
+\]
+
+所以共有
+\[
+  9
+\]
+种铺法。
+\end{solution}
+
+\end{document}

@@ -1,0 +1,224 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.4cm,bottom=2.6cm,left=2.35cm,right=2.35cm,headheight=18pt,headsep=0.55cm,footskip=26pt]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black
+}
+
+\setstretch{1.16}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.32em}
+\setlist[enumerate]{itemsep=0.35em, topsep=0.35em, leftmargin=2.3em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=2em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{rulegray}{RGB}{110,118,128}
+\definecolor{softgreen}{RGB}{236,247,240}
+\definecolor{softyellow}{RGB}{254,249,229}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.25em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.2em}{0.8em}
+\titleformat{\subsection}{\large\bfseries\color{mainblue}}{\thesubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 染色方法与棋盘问题专题目录页}
+\fancyhead[C]{\small 组合专题资料索引}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{goalbox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{infobox}[1]{
+  breakable,
+  colback=softgreen,
+  colframe=green!40!black,
+  boxrule=0.65pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{warnbox}[1]{
+  breakable,
+  colback=softyellow,
+  colframe=orange!60!black,
+  boxrule=0.65pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{titlepage}
+\centering
+\vspace*{0.9cm}
+
+\begin{tcolorbox}[
+  enhanced,
+  width=0.92\textwidth,
+  colback=white,
+  colframe=mainblue,
+  boxrule=1pt,
+  arc=0mm,
+  left=6mm,
+  right=6mm,
+  top=8mm,
+  bottom=8mm
+]
+\centering
+
+{\fontsize{24}{30}\selectfont\bfseries 染色方法与棋盘问题专题目录页\par}
+\vspace{0.65cm}
+{\fontsize{17}{22}\selectfont 讲义、题单与周测的使用说明\par}
+
+\vspace{1cm}
+\begin{tcolorbox}[colback=lightblue,colframe=mainblue,width=0.84\textwidth,boxrule=1pt]
+\centering
+{\large 适合对象：已经掌握抽屉原理、不变量与基础组合，准备系统学习“用染色做不可能性证明”的学生}\\[0.35em]
+{\normalsize 本目录页帮助把染色方法与棋盘问题专题资料串成一个完整训练包}
+\end{tcolorbox}
+
+\vspace{1.0cm}
+\renewcommand{\arraystretch}{1.42}
+\begin{tabular}{>{\bfseries}p{3.5cm}p{8cm}}
+专题名称： & 染色方法与棋盘问题 \\
+资料组成： & 目前已完成课堂讲义，后续可继续补提高训练题单、周测 A/B \\
+使用方式： & 先学讲义，做课堂练习与讲义例题，再逐步扩展到题单与周测 \\
+编译方式： & XeLaTeX \\
+\end{tabular}
+
+\vspace{0.9cm}
+{\large \today\par}
+\end{tcolorbox}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{专题包目前包含哪些资料}
+
+\begin{goalbox}{当前阶段的核心资料}
+\begin{enumerate}
+  \item 课堂讲义：系统讲解黑白染色、多色染色、棋盘覆盖、路径奇偶性与不可能性证明；
+  \item 课堂练习与解答：帮助在讲义内部完成第一次巩固。
+\end{enumerate}
+\end{goalbox}
+
+\begin{infobox}{当前已完成文件}
+\begin{itemize}
+  \item 讲义：\texttt{coloring\_chessboard\_handout.tex} / \texttt{coloring\_chessboard\_handout.pdf}
+\end{itemize}
+\end{infobox}
+
+\section{建议学习顺序}
+
+\begin{goalbox}{推荐顺序}
+\begin{enumerate}
+  \item 先完整学习讲义，重点吃透“为什么要染色”“每一种棋子对颜色有什么固定作用”；
+  \item 再独立完成讲义中的课堂练习，并对照解答订正；
+  \item 等后续题单与周测补齐后，再进入系统检测阶段。
+\end{enumerate}
+\end{goalbox}
+
+\begin{warnbox}{不建议的做法}
+\begin{itemize}
+  \item 一看到棋盘题就先试着硬拼，而不先想颜色分布；
+  \item 染了颜色，却没有说明“每一步为什么一定这样变化”；
+  \item 把“黑白格数相等”误当成充分条件；
+  \item 只会黑白染色，不会根据题目改用三色或更多颜色。
+\end{itemize}
+\end{warnbox}
+
+\section{这份讲义主要解决什么问题}
+
+\begin{goalbox}{学完讲义应重点掌握的内容}
+\begin{enumerate}
+  \item 会用黑白染色处理最基本的骨牌覆盖题；
+  \item 会用路径换色规律判断某些走法是否可能；
+  \item 会根据覆盖块形状设计三色染色；
+  \item 会区分“必要条件”和“充分条件”。
+\end{enumerate}
+\end{goalbox}
+
+\section{一个推荐的 3 次训练安排}
+
+\begin{goalbox}{3 次完成讲义阶段训练}
+\begin{enumerate}
+  \item 第 1 次：学习讲义前半部分，重点理解黑白染色与残缺棋盘；
+  \item 第 2 次：学习讲义后半部分，重点理解多色染色与路径问题；
+  \item 第 3 次：回做讲义练习，重点订正“颜色为什么有效”和“必要条件是否被误用”。
+\end{enumerate}
+\end{goalbox}
+
+\begin{infobox}{如果孩子基础较好，可以这样压缩}
+\begin{itemize}
+  \item 第 1 天：讲义 + 前半部分练习；
+  \item 第 2 天：讲义后半部分 + 讲义全部练习订正；
+  \item 第 3 天：口头复述本专题的核心方法，并回顾与抽屉原理、不变量的联系。
+\end{itemize}
+\end{infobox}
+
+\section{专题学习后的自检清单}
+
+\begin{goalbox}{如果下面 7 条都能做到，说明讲义阶段基本过关}
+\begin{enumerate}
+  \item 我会判断一道棋盘题是否值得先染色；
+  \item 我会解释一个 $1\times 2$ 骨牌为什么总覆盖一黑一白；
+  \item 我会用黑白格数量判断某些覆盖题不可能；
+  \item 我会用颜色交替判断某些路径题能不能到达；
+  \item 我会理解三色染色为什么适合 $1\times 3$ 长条；
+  \item 我知道“颜色数相等”常常只是必要条件；
+  \item 我会在解答后检查：这种染色到底利用了什么固定性质。
+\end{enumerate}
+\end{goalbox}
+
+\section{给家长的使用建议}
+
+\begin{warnbox}{更有效的带练方式}
+\begin{itemize}
+  \item 不要一开始就给结论，先让孩子自己说“为什么想染色”；
+  \item 如果卡住，可以只提示“这块骨牌每次会碰到哪些颜色”；
+  \item 订正时重点看孩子有没有把“固定覆盖关系”说清楚；
+  \item 做完后请孩子口头复述：这题是用黑白染色、三色染色，还是颜色交替解决的。
+\end{itemize}
+\end{warnbox}
+
+\begin{infobox}{和前后专题的衔接}
+这个专题和\textbf{抽屉原理与极值思想}、\textbf{数论方法中的组合构造}联系都很紧。前者提供“分类和存在性证明”的视角，后者提供“模分类和不变量”的视角，而染色方法可以看作它们在棋盘题中的自然延伸。
+\end{infobox}
+
+\end{document}

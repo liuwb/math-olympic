@@ -1,0 +1,235 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.25cm,bottom=2.45cm,left=2.25cm,right=2.25cm,headheight=18pt,headsep=0.55cm,footskip=24pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black
+}
+
+\setstretch{1.13}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.25em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.45em, topsep=0.35em, leftmargin=2.4em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=1.9em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{rulegray}{RGB}{110,118,128}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.2em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.1em}{0.7em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 图论计数周测 B 卷}
+\fancyhead[C]{\small 组合专题：结构证明与路径变式}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{infobox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newenvironment{solution}{\par\noindent\textbf{参考解答：}}{\hfill$\square$\par}
+\newcommand{\answerspace}{\vspace{2.3cm}}
+\newcommand{\biganswerspace}{\vspace{3.2cm}}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{center}
+{\fontsize{22}{28}\selectfont\bfseries 图论计数周测 B 卷\par}
+\vspace{0.4cm}
+{\large 适合小学高年级至初中低年级数学竞赛训练\par}
+\end{center}
+
+\begin{infobox}{考试说明}
+\begin{itemize}
+  \item 测试时间：75 分钟
+  \item 满分：100 分
+  \item B 卷更强调建模、结构证明和网格路径变式，建议先判断是用握手定理、完全图/二分图，还是用路径分段计数。
+\end{itemize}
+\end{infobox}
+
+\section{试题}
+
+\begin{enumerate}
+  \item （12 分）一个图有 12 个点，每个点的度数都等于 5。求这个图的边数。
+  \answerspace
+
+  \item （12 分）11 个同学参加循环赛，每两人比赛 1 场，共有多少场比赛？
+  \answerspace
+
+  \item （12 分）从 $(0,0)$ 到 $(5,3)$，每次只能向右或向上走 1 格，共有多少条最短路径？
+  \answerspace
+
+  \item （12 分）从 $(0,0)$ 到 $(4,3)$，每次只能向右或向上走 1 格，但不允许经过点 $(2,2)$。共有多少条最短路径？
+  \biganswerspace
+
+  \item （12 分）证明：任意一个图中，奇度数点的个数一定是偶数。
+  \answerspace
+
+  \item （12 分）一个图有 8 个点，且每个点的度数都不小于 4。证明这个图的边数至少为 16。
+  \answerspace
+
+  \item （14 分）判断下列命题真假，并说明理由：在任意一个图中，度数至少为 2 的点不可能恰好只有 1 个。
+  \biganswerspace
+
+  \item （14 分）在任意 6 个人中，一定可以找到 3 个人，他们之间两两认识，或者 3 个人，他们之间两两不认识。请用图论语言表述并证明这个结论。
+  \biganswerspace
+\end{enumerate}
+
+\newpage
+\section{详细解答}
+
+\begin{enumerate}
+  \item \begin{solution}
+  总度数为
+  \[
+  12\times 5=60.
+  \]
+
+  由握手定理
+  \[
+  2E=60,
+  \]
+  所以
+  \[
+  E=30.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  11 个同学两两比赛 1 场，就是完全图 $K_{11}$ 的边数，因此总场数为
+  \[
+  \binom{11}{2}=55.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  从 $(0,0)$ 到 $(5,3)$，需要走 5 步向右和 3 步向上，共 8 步。
+
+  所以最短路径条数为
+  \[
+  \binom83=56.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  先求总最短路径数：
+  \[
+  \binom73=35.
+  \]
+
+  再求经过 $(2,2)$ 的最短路径数。
+
+  从 $(0,0)$ 到 $(2,2)$，需走 2 步向右、2 步向上，所以有
+  \[
+  \binom42=6
+  \]
+  条。
+
+  从 $(2,2)$ 到 $(4,3)$，需走 2 步向右、1 步向上，所以有
+  \[
+  \binom31=3
+  \]
+  条。
+
+  因此经过 $(2,2)$ 的最短路径共有
+  \[
+  6\times 3=18
+  \]
+  条。
+
+  所以不经过 $(2,2)$ 的最短路径数为
+  \[
+  35-18=17.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  由握手定理，图中所有点的度数之和等于边数的 2 倍，因此总度数和一定是偶数。
+
+  若一个和是偶数，那么其中奇数加数的个数必须是偶数；否则奇数个奇数相加会得到奇数。
+
+  所以任意一个图中，奇度数点的个数一定是偶数。
+  \end{solution}
+
+  \item \begin{solution}
+  因为每个点的度数都不小于 4，所以总度数至少为
+  \[
+  8\times 4=32.
+  \]
+
+  由握手定理
+  \[
+  2E\ge 32,
+  \]
+  所以
+  \[
+  E\ge 16.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  这个命题是\textbf{假的}。
+
+  反例：取 3 个点，画成一个“V”字形，也就是中间点分别与另外两个点相连，而这两个端点之间不连边。
+
+  此时三个点的度数分别为
+  \[
+  2,\ 1,\ 1.
+  \]
+
+  于是度数至少为 2 的点恰好只有 1 个。
+
+  所以命题不成立。
+  \end{solution}
+
+  \item \begin{solution}
+  把 6 个人看成 6 个点；如果两个人认识，就在对应两点之间连红边；如果两个人不认识，就连蓝边。
+
+  这样任意两点之间恰有一条红边或蓝边。
+
+  任取其中一个点 $A$，其余 5 个点与 $A$ 的连边只有两种颜色：红或蓝。由抽屉原理，这 5 条边中至少有 3 条颜色相同。
+
+  不妨设 $A$ 与 $B,C,D$ 三点之间都是红边。
+
+  \begin{itemize}
+    \item 如果 $B,C,D$ 中有两点之间也是红边，例如 $B$ 与 $C$ 之间是红边，那么 $A,B,C$ 就是 3 个两两认识的人；
+    \item 如果 $B,C,D$ 中任意两点之间都不是红边，那么它们之间就都必须是蓝边，于是 $B,C,D$ 是 3 个两两不认识的人。
+  \end{itemize}
+
+  两种情况总有一种发生，因此结论成立。
+  \end{solution}
+\end{enumerate}
+
+\end{document}

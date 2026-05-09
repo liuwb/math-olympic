@@ -1,0 +1,555 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.4cm,bottom=2.6cm,left=2.35cm,right=2.35cm,headheight=18pt,headsep=0.55cm,footskip=26pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black,
+  citecolor=blue!50!black
+}
+
+\setstretch{1.16}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.35em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.32em, topsep=0.32em, leftmargin=2.3em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=2em}
+\setcounter{tocdepth}{2}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{accent}{RGB}{153,76,0}
+\definecolor{rulegray}{RGB}{110,118,128}
+\definecolor{softgreen}{RGB}{236,247,240}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.25em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.3em}{0.9em}
+\titleformat{\subsection}{\large\bfseries\color{mainblue}}{\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{1.05em}{0.55em}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{accent}}{\thesubsubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 组合专题课堂讲义}
+\fancyhead[C]{\small 图论入门中的组合计数}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtheoremstyle{formaltheorem}
+  {0.8em}{0.8em}{\normalfont}{}{\bfseries\color{mainblue}}{．}{0.6em}{}
+\newtheoremstyle{formalexample}
+  {0.8em}{0.8em}{\normalfont}{}{\bfseries\color{accent}}{．}{0.6em}{}
+
+\theoremstyle{formaltheorem}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{method}{方法}[section]
+\theoremstyle{formalexample}
+\newtheorem{example}{例题}[section]
+\newtheorem{exercise}{练习}[section]
+
+\newenvironment{solution}{\par\noindent\textbf{解：}}{\hfill$\square$\par}
+
+\newtcolorbox{goalbox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{notebox}[1]{
+  breakable,
+  colback=lightgray,
+  colframe=black!50,
+  boxrule=0.55pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{skillbox}[1]{
+  breakable,
+  colback=softgreen,
+  colframe=green!40!black,
+  boxrule=0.65pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{titlepage}
+\centering
+\vspace*{0.9cm}
+
+\begin{tcolorbox}[
+  enhanced,
+  width=0.92\textwidth,
+  colback=white,
+  colframe=mainblue,
+  boxrule=1pt,
+  arc=0mm,
+  left=6mm,
+  right=6mm,
+  top=8mm,
+  bottom=8mm
+]
+\centering
+
+{\fontsize{24}{30}\selectfont\bfseries 组合专题课堂讲义\par}
+\vspace{0.7cm}
+{\fontsize{17}{22}\selectfont 图论入门中的组合计数\par}
+
+\vspace{1.1cm}
+\color{rulegray}\rule{0.72\textwidth}{0.7pt}\par
+\vspace{1cm}
+
+\begin{tcolorbox}[colback=lightblue,colframe=mainblue,width=0.82\textwidth,boxrule=1pt]
+\centering
+{\Large 适合对象：小学高年级至初中低年级数学竞赛学生}\\[0.4em]
+{\large 已具备基础计数能力，准备学习“用图来表达关系并进行计数”}
+\end{tcolorbox}
+
+\vspace{1.2cm}
+
+\renewcommand{\arraystretch}{1.42}
+\begin{tabular}{>{\bfseries}p{3.5cm}p{8cm}}
+讲义作者： & 刘文博 \\
+专题关键词： & 图、点、边、度数、握手定理、完全图、二分图、网格路径 \\
+建议课时： & 2--3 课时 \\
+专题目标： & 学会把“关系”翻译成图，并利用图的结构进行计数与证明 \\
+编译方式： & XeLaTeX \\
+\end{tabular}
+
+\vspace{1.2cm}
+\color{rulegray}\rule{0.72\textwidth}{0.7pt}\par
+\vspace{0.8cm}
+
+{\normalsize 本讲从“点和边”最基本的图论语言出发，讲握手定理、完全图与二分图的边数、网格图中的路径计数，以及图论里最常见的计数证明方式。\par}
+
+\vspace{0.5cm}
+{\large \today\par}
+\end{tcolorbox}
+\end{titlepage}
+
+\pagenumbering{Roman}
+\pagestyle{plain}
+\tableofcontents
+\newpage
+\pagestyle{fancy}
+\pagenumbering{arabic}
+
+\section{专题目标与核心问题}
+
+\begin{goalbox}{这一讲要解决什么问题}
+很多竞赛题里，人物之间的关系、城市之间的连接、点之间的通路，都可以看成“图”。
+
+一旦把问题翻译成图，就能用“点数、边数、度数、路径数”来进行计数，有时会比直接在文字题面中思考清楚得多。
+\end{goalbox}
+
+\begin{goalbox}{学完以后希望达到的能力}
+\begin{itemize}
+  \item 知道什么是点、边、度数；
+  \item 会使用握手定理 $\sum \deg = 2E$；
+  \item 会计算完全图、二分图中的边数；
+  \item 会把网格路径问题看成图上的路径计数；
+  \item 能用图论语言解释一些组合计数结论。
+\end{itemize}
+\end{goalbox}
+
+\begin{notebox}{这讲和前面专题的关系}
+\begin{itemize}
+  \item 和排列组合相比，这里更强调“把关系画成图”；
+  \item 和递推计数相比，这里也会出现路径递推；
+  \item 和抽屉原理、染色问题相比，图论会把许多结构题统一在一张图上观察。
+\end{itemize}
+\end{notebox}
+
+\section{什么是图}
+
+\subsection{点、边与度数}
+
+图可以简单理解为：
+\begin{itemize}
+  \item 用\textbf{点}表示对象；
+  \item 用\textbf{边}表示两个对象之间有某种关系。
+\end{itemize}
+
+例如：
+\begin{itemize}
+  \item 人与人认识，可以连一条边；
+  \item 城市之间有公路，可以连一条边；
+  \item 棋盘上的格点之间能一步走到，也可以连边。
+\end{itemize}
+
+一个点连着多少条边，这个数叫这个点的\textbf{度数}，记作 $\deg(v)$。
+
+\begin{example}
+在一个聚会中，5 个人两两握手。把每个人看成一个点，每次握手看成一条边。问一共有多少条边？
+\end{example}
+
+\begin{solution}
+因为 5 个人两两都握手，所以任意两个人之间都有一条边。这就是一个 5 个点的完全图。
+
+边数就是从 5 个人中任选 2 个人的方法数：
+\[
+\binom52=10.
+\]
+
+所以一共有
+\[
+10
+\]
+条边。
+\end{solution}
+
+\subsection{握手定理}
+
+\begin{theorem}
+在任意一个图中，所有点的度数之和等于边数的 2 倍，即
+\[
+\sum \deg(v)=2E,
+\]
+其中 $E$ 表示边数。
+\end{theorem}
+
+\begin{solution}
+因为每一条边都会连接两个端点，所以当我们把所有点的度数加起来时，每条边都会被数两次。
+
+因此总度数等于边数的 2 倍。
+\end{solution}
+
+\begin{skillbox}{握手定理特别适合处理这些题}
+\begin{itemize}
+  \item 已知每个点的度数，求边数；
+  \item 已知边数，推度数和；
+  \item 证明奇度点个数为偶数；
+  \item 在“认识关系”“比赛安排”里快速建模。
+\end{itemize}
+\end{skillbox}
+
+\section{用度数做计数}
+
+\begin{example}
+一个图有 8 个点，每个点的度数都等于 3。求这个图有多少条边。
+\end{example}
+
+\begin{solution}
+总度数为
+\[
+8\times 3=24.
+\]
+
+由握手定理
+\[
+2E=24,
+\]
+所以
+\[
+E=12.
+\]
+
+因此这个图有
+\[
+12
+\]
+条边。
+\end{solution}
+
+\begin{example}
+证明：任意一个图中，奇度数点的个数一定是偶数。
+\end{example}
+
+\begin{solution}
+由握手定理，所有点度数之和等于
+\[
+2E,
+\]
+这是一个偶数。
+
+如果一个和是偶数，那么其中奇数加数的个数必须是偶数；否则奇数个奇数相加会得到奇数。
+
+因此图中奇度数点的个数一定是偶数。
+\end{solution}
+
+\section{完全图与二分图中的边数}
+
+\subsection{完全图}
+
+\begin{example}
+完全图 $K_n$ 有多少条边？
+\end{example}
+
+\begin{solution}
+完全图 $K_n$ 表示 $n$ 个点两两之间都有边。
+
+所以边数就是从 $n$ 个点中任选 2 个点连成一条边的方法数：
+\[
+\binom{n}{2}=\frac{n(n-1)}{2}.
+\]
+\end{solution}
+
+\begin{example}
+9 个同学参加循环赛，每两人恰好比赛 1 场。一共要比多少场？
+\end{example}
+
+\begin{solution}
+把每个同学看作一个点，每一场比赛看作一条边。这就是完全图 $K_9$ 的边数。
+
+所以比赛场数为
+\[
+\binom92=36.
+\]
+\end{solution}
+
+\subsection{二分图}
+
+\begin{example}
+有 4 个男生、5 个女生，如果规定只允许“男生和女生之间”连边，男生之间、女生之间都不连边，那么最多能连多少条边？
+\end{example}
+
+\begin{solution}
+这是一个二分图。男生部分有 4 个点，女生部分有 5 个点。
+
+若要边数最多，就让每个男生都和每个女生连边，于是边数为
+\[
+4\times 5=20.
+\]
+\end{solution}
+
+\begin{theorem}
+若一个二分图的两部分点数分别为 $a,b$，则它的边数最多为
+\[
+ab.
+\]
+\end{theorem}
+
+\begin{solution}
+因为边只能跨两部分连接，所以每个左边点最多与右边 $b$ 个点相连。总的最多边数就是
+\[
+ab.
+\]
+\end{solution}
+
+\section{网格图中的路径计数}
+
+\begin{example}
+在方格纸上，从左下角走到右上角，每次只能向右或向上走 1 格。若要从 $(0,0)$ 走到 $(3,2)$，共有多少条最短路径？
+\end{example}
+
+\begin{solution}
+从 $(0,0)$ 到 $(3,2)$，一共要走 3 步向右、2 步向上，总共 5 步。
+
+所以问题变成：在 5 个位置中选出哪 2 个位置放“向上”，或者选哪 3 个位置放“向右”。
+
+因此最短路径条数为
+\[
+\binom52=10.
+\]
+\end{solution}
+
+\begin{example}
+若要从 $(0,0)$ 走到 $(4,4)$，每次只能向右或向上走 1 格，共有多少条最短路径？
+\end{example}
+
+\begin{solution}
+要走 4 步向右和 4 步向上，总共 8 步。
+
+所以最短路径条数为
+\[
+\binom84=70.
+\]
+\end{solution}
+
+\begin{skillbox}{网格路径为什么也算图论计数}
+网格上的每个格点可以看成一个点，相邻格点之间连边。于是“从起点到终点有多少条路”，本质上就是在图上数路径。
+\end{skillbox}
+
+\section{图论中的组合证明}
+
+\begin{example}
+某班有 7 位同学，每位同学都恰好认识 2 位同学。问“认识关系”一共对应多少对？
+\end{example}
+
+\begin{solution}
+把每位同学看作一个点，“认识”看作一条无向边。
+
+因为每位同学都认识 2 位同学，所以总度数是
+\[
+7\times 2=14.
+\]
+
+由握手定理
+\[
+2E=14,
+\]
+因此
+\[
+E=7.
+\]
+
+所以一共有
+\[
+7
+\]
+对认识关系。
+\end{solution}
+
+\begin{example}
+证明：在任意 6 个人中，一定可以找到 3 个人，他们之间两两认识，或 3 个人，他们之间两两不认识。
+\end{example}
+
+\begin{solution}
+这是一个非常经典的图论问题。把 6 个人看作 6 个点。
+
+任选其中 1 个人 $A$，其余 5 个人与 $A$ 的关系只有两类：
+\begin{itemize}
+  \item 认识 $A$；
+  \item 不认识 $A$。
+\end{itemize}
+
+由抽屉原理，这 5 个人中至少有 3 个人与 $A$ 的关系相同。
+
+不妨设这 3 个人都认识 $A$，记为 $B,C,D$。
+
+\begin{itemize}
+  \item 如果 $B,C,D$ 中有两个人彼此认识，例如 $B$ 和 $C$ 认识，那么 $A,B,C$ 就两两认识；
+  \item 如果 $B,C,D$ 中任意两个人都不认识，那么 $B,C,D$ 就构成 3 个互不认识的人。
+\end{itemize}
+
+两种情况总有一种发生，因此结论成立。
+\end{solution}
+
+\section{常见误区}
+
+\begin{notebox}{图论计数里最常见的 5 个错误}
+\begin{itemize}
+  \item 把无向边数成了有向边，或者反过来；
+  \item 用握手定理时忘记“每条边会被数两次”；
+  \item 在完全图里把边数写成 $n(n-1)$，漏掉了除以 2；
+  \item 在二分图里忘了边只能跨两部分连接；
+  \item 网格路径题只会画图，不会转化成“若干步中选哪几步向上/向右”。
+\end{itemize}
+\end{notebox}
+
+\section{课堂练习}
+
+\begin{exercise}
+完全图 $K_8$ 有多少条边？
+\end{exercise}
+
+\begin{exercise}
+一个图有 10 个点，每个点的度数都等于 4。求这个图的边数。
+\end{exercise}
+
+\begin{exercise}
+证明：图中不可能恰好有 3 个奇度数点。
+\end{exercise}
+
+\begin{exercise}
+一个二分图两部分点数分别为 6 和 7，问边数最多是多少？
+\end{exercise}
+
+\begin{exercise}
+从 $(0,0)$ 到 $(4,3)$，每次只能向右或向上走 1 格，共有多少条最短路径？
+\end{exercise}
+
+\begin{exercise}
+8 个同学参加循环赛，每两人比赛 1 场，共有多少场比赛？
+\end{exercise}
+
+\newpage
+\appendix
+\section{练习解答}
+
+\textbf{1}\begin{solution}
+完全图 $K_8$ 的边数为
+\[
+\binom82=28.
+\]
+\end{solution}
+
+\textbf{2}\begin{solution}
+总度数为
+\[
+10\times 4=40.
+\]
+
+由握手定理
+\[
+2E=40,
+\]
+所以
+\[
+E=20.
+\]
+\end{solution}
+
+\textbf{3}\begin{solution}
+由握手定理，所有点的度数之和一定是偶数。
+
+而奇数个奇数相加得到奇数，所以如果恰好有 3 个奇度数点，那么总度数和会是奇数，这与握手定理矛盾。
+
+因此图中不可能恰好有 3 个奇度数点。
+\end{solution}
+
+\textbf{4}\begin{solution}
+二分图两部分点数分别为 6 和 7 时，边数最多为
+\[
+6\times 7=42.
+\]
+\end{solution}
+
+\textbf{5}\begin{solution}
+从 $(0,0)$ 到 $(4,3)$，需要走 4 步向右、3 步向上，共 7 步。
+
+所以最短路径数为
+\[
+\binom73=35.
+\]
+\end{solution}
+
+\textbf{6}\begin{solution}
+8 个同学两两比赛 1 场，就是完全图 $K_8$ 的边数，因此比赛场数为
+\[
+\binom82=28.
+\]
+\end{solution}
+
+\end{document}

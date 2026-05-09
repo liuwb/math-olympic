@@ -1,0 +1,417 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.25cm,bottom=2.45cm,left=2.25cm,right=2.25cm,headheight=18pt,headsep=0.55cm,footskip=24pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black
+}
+
+\setstretch{1.13}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.25em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.45em, topsep=0.35em, leftmargin=2.4em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=1.9em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{rulegray}{RGB}{110,118,128}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.2em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.1em}{0.7em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 容斥原理周测 B 卷}
+\fancyhead[C]{\small 组合专题：综合变式与错位结合}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{infobox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newenvironment{solution}{\par\noindent\textbf{参考解答：}}{\hfill$\square$\par}
+\newcommand{\answerspace}{\vspace{2.3cm}}
+\newcommand{\biganswerspace}{\vspace{3.2cm}}
+\newcommand{\Dn}{D_n}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{center}
+{\fontsize{22}{28}\selectfont\bfseries 容斥原理周测 B 卷\par}
+\vspace{0.4cm}
+{\large 适合小学高年级至初中低年级数学竞赛训练\par}
+\end{center}
+
+\begin{infobox}{考试说明}
+\begin{itemize}
+  \item 测试时间：75 分钟
+  \item 满分：100 分
+  \item B 卷更强调模型迁移，请特别注意：什么时候按“至少一个条件”正面算，什么时候按“坏事件并集”来处理。
+\end{itemize}
+\end{infobox}
+
+\section{试题}
+
+\begin{enumerate}
+  \item （12 分）在 $1$ 到 $100$ 中，是 2 的倍数或 3 的倍数，但不是 5 的倍数的整数有多少个？
+  \answerspace
+
+  \item （12 分）7 个不同对象排成一行，要求前 4 个对象都不在原位，而后 3 个对象没有限制。共有多少种排法？
+  \biganswerspace
+
+  \item （12 分）8 个不同对象排成一行，要求前 6 个对象都不在原位，后 2 个对象没有限制。共有多少种排法？
+  \biganswerspace
+
+  \item （12 分）7 封不同的信放入 7 个对应信封中，至少有 2 封装对，共有多少种装法？
+  \answerspace
+
+  \item （12 分）用容斥原理计算 $D_6$。
+  \answerspace
+
+  \item （12 分）8 个不同数字排成一行，至少有 3 个数字在原位，共有多少种排法？
+  \biganswerspace
+
+  \item （14 分）9 个不同对象排成一行。要求前 4 个对象中至少有 1 个在原位。共有多少种排法？
+  \biganswerspace
+
+  \item （14 分）证明：若共有 $n$ 个对象，其中前 $m$ 个对象都不能回到原位，而其余对象没有限制，则满足条件的排列数为
+  \[
+  \sum_{k=0}^{m}(-1)^k\binom{m}{k}(n-k)!.
+  \]
+  \biganswerspace
+\end{enumerate}
+
+\newpage
+\section{详细解答}
+
+\begin{enumerate}
+  \item \begin{solution}
+  先求 1 到 100 中“是 2 的倍数或 3 的倍数”的整数个数。
+
+  设
+  \[
+  A=\{\text{2 的倍数}\},\qquad B=\{\text{3 的倍数}\}.
+  \]
+
+  则
+  \[
+  |A\cup B|=50+33-16=67.
+  \]
+
+  再求这些数里同时还是 5 的倍数的个数，也就是“10 的倍数或 15 的倍数”的个数。
+
+  设
+  \[
+  C=\{\text{10 的倍数}\},\qquad D=\{\text{15 的倍数}\}.
+  \]
+
+  则
+  \[
+  |C|=10,
+  \qquad
+  |D|=6,
+  \qquad
+  |C\cap D|=\left\lfloor\frac{100}{30}\right\rfloor=3.
+  \]
+
+  所以这部分共有
+  \[
+  10+6-3=13
+  \]
+  个。
+
+  因此所求为
+  \[
+  67-13=54.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  设前 4 个对象中，第 $i$ 个回到原位的事件为 $A_i$。
+
+  总排法有
+  \[
+  7!=5040
+  \]
+  种。
+
+  单个坏事件共有
+  \[
+  \binom41 6!=4\times 720=2880
+  \]
+  种。
+
+  两个坏事件同时发生共有
+  \[
+  \binom42 5!=6\times 120=720
+  \]
+  种。
+
+  三个坏事件同时发生共有
+  \[
+  \binom43 4!=4\times 24=96
+  \]
+  种。
+
+  四个坏事件同时发生共有
+  \[
+  \binom44 3!=6
+  \]
+  种。
+
+  所以所求为
+  \[
+  5040-2880+720-96+6=2790.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  设前 6 个对象回到原位的坏事件为 $A_1,A_2,\ldots,A_6$。
+
+  总排法有
+  \[
+  8!=40320
+  \]
+  种。
+
+  单个坏事件共有
+  \[
+  \binom61 7!=6\times 5040=30240
+  \]
+  种。
+
+  两个坏事件同时发生共有
+  \[
+  \binom62 6!=15\times 720=10800
+  \]
+  种。
+
+  三个坏事件同时发生共有
+  \[
+  \binom63 5!=20\times 120=2400
+  \]
+  种。
+
+  四个坏事件同时发生共有
+  \[
+  \binom64 4!=15\times 24=360
+  \]
+  种。
+
+  五个坏事件同时发生共有
+  \[
+  \binom65 3!=6\times 6=36
+  \]
+  种。
+
+  六个坏事件同时发生共有
+  \[
+  \binom66 2!=2
+  \]
+  种。
+
+  所以所求为
+  \[
+  40320-30240+10800-2400+360-36+2=18806.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  “至少有 2 封装对”按“恰好有几封装对”分类。
+
+  \textbf{恰好有 2 封装对：}
+  \[
+  \binom72 D_5=21\times 44=924.
+  \]
+
+  \textbf{恰好有 3 封装对：}
+  \[
+  \binom73 D_4=35\times 9=315.
+  \]
+
+  \textbf{恰好有 4 封装对：}
+  \[
+  \binom74 D_3=35\times 2=70.
+  \]
+
+  \textbf{恰好有 5 封装对：}
+  \[
+  \binom75 D_2=21.
+  \]
+
+  \textbf{恰好有 6 封装对：}
+  不可能。
+
+  \textbf{恰好有 7 封装对：}
+  有 1 种。
+
+  所以总数为
+  \[
+  924+315+70+21+1=1331.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  设 $A_i$ 表示“第 $i$ 个对象在原位”。则
+  \[
+  D_6=6!-\binom61 5!+\binom62 4!-\binom63 3!+\binom64 2!-\binom65 1!+\binom66 0!.
+  \]
+
+  代入得
+  \[
+  D_6=720-720+360-120+30-6+1=265.
+  \]
+
+  因此
+  \[
+  D_6=265.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  “至少有 3 个在原位”按“恰好有几个在原位”分类。
+
+  \textbf{恰好有 3 个在原位：}
+  \[
+  \binom83 D_5=56\times 44=2464.
+  \]
+
+  \textbf{恰好有 4 个在原位：}
+  \[
+  \binom84 D_4=70\times 9=630.
+  \]
+
+  \textbf{恰好有 5 个在原位：}
+  \[
+  \binom85 D_3=56\times 2=112.
+  \]
+
+  \textbf{恰好有 6 个在原位：}
+  \[
+  \binom86 D_2=28.
+  \]
+
+  \textbf{恰好有 7 个在原位：}
+  不可能。
+
+  \textbf{恰好有 8 个在原位：}
+  有 1 种。
+
+  所以总数为
+  \[
+  2464+630+112+28+1=3235.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  “前 4 个对象中至少有 1 个在原位”适合用补集法。
+
+  总排法有
+  \[
+  9!=362880
+  \]
+  种。
+
+  先求前 4 个对象一个都不在原位的排法数。设这 4 个对象回原位的事件为 $A_1,A_2,A_3,A_4$，则这一部分为
+  \[
+  9!-\binom41 8!+\binom42 7!-\binom43 6!+\binom44 5!.
+  \]
+
+  逐项计算：
+  \[
+  4\times 8!=161280,
+  \qquad
+  6\times 7!=30240,
+  \]
+  \[
+  4\times 6!=2880,
+  \qquad
+  5!=120.
+  \]
+
+  所以前 4 个对象一个都不在原位的排法数为
+  \[
+  362880-161280+30240-2880+120=229080.
+  \]
+
+  因此所求为
+  \[
+  362880-229080=133800.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  设 $A_i$ 表示“前 $m$ 个受限制对象中的第 $i$ 个回到原位”。
+
+  我们要计算的是“这些坏事件一个都不发生”的排列数，也就是
+  \[
+  \overline{A_1\cup A_2\cup \cdots\cup A_m}
+  \]
+  的大小。
+
+  总排法有
+  \[
+  n!
+  \]
+  种。
+
+  如果指定恰有 $k$ 个受限制对象回到原位，那么这 $k$ 个位置就固定住了，剩余还有
+  \[
+  n-k
+  \]
+  个对象可以任意排列，因此对应排法数为
+  \[
+  (n-k)!.
+  \]
+
+  这样的 $k$ 个受限制对象有
+  \[
+  \binom{m}{k}
+  \]
+  种选法。
+
+  于是由容斥原理，所求为
+  \[
+  n!-\binom{m}{1}(n-1)!+\binom{m}{2}(n-2)!-\cdots+(-1)^m\binom{m}{m}(n-m)!.
+  \]
+
+  这正是
+  \[
+  \sum_{k=0}^{m}(-1)^k\binom{m}{k}(n-k)!.
+  \]
+
+  证毕。
+  \end{solution}
+\end{enumerate}
+
+\end{document}

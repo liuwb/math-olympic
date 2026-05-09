@@ -1,0 +1,614 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.4cm,bottom=2.6cm,left=2.35cm,right=2.35cm,headheight=18pt,headsep=0.55cm,footskip=26pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black,
+  citecolor=blue!50!black
+}
+
+\setstretch{1.16}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.35em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.32em, topsep=0.32em, leftmargin=2.3em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=2em}
+\setcounter{tocdepth}{2}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{accent}{RGB}{153,76,0}
+\definecolor{rulegray}{RGB}{110,118,128}
+\definecolor{softgreen}{RGB}{236,247,240}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.25em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.3em}{0.9em}
+\titleformat{\subsection}{\large\bfseries\color{mainblue}}{\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{1.05em}{0.55em}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{accent}}{\thesubsubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 组合专题课堂讲义}
+\fancyhead[C]{\small 抽屉原理与极值思想}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtheoremstyle{formaltheorem}
+  {0.8em}{0.8em}{\normalfont}{}{\bfseries\color{mainblue}}{．}{0.6em}{}
+\newtheoremstyle{formalexample}
+  {0.8em}{0.8em}{\normalfont}{}{\bfseries\color{accent}}{．}{0.6em}{}
+
+\theoremstyle{formaltheorem}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{method}{方法}[section]
+\theoremstyle{formalexample}
+\newtheorem{example}{例题}[section]
+\newtheorem{exercise}{练习}[section]
+
+\newenvironment{solution}{\par\noindent\textbf{解：}}{\hfill$\square$\par}
+
+\newtcolorbox{goalbox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{notebox}[1]{
+  breakable,
+  colback=lightgray,
+  colframe=black!50,
+  boxrule=0.55pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{skillbox}[1]{
+  breakable,
+  colback=softgreen,
+  colframe=green!40!black,
+  boxrule=0.65pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{titlepage}
+\centering
+\vspace*{0.9cm}
+
+\begin{tcolorbox}[
+  enhanced,
+  width=0.92\textwidth,
+  colback=white,
+  colframe=mainblue,
+  boxrule=1pt,
+  arc=0mm,
+  left=6mm,
+  right=6mm,
+  top=8mm,
+  bottom=8mm
+]
+\centering
+
+{\fontsize{24}{30}\selectfont\bfseries 组合专题课堂讲义\par}
+\vspace{0.7cm}
+{\fontsize{17}{22}\selectfont 抽屉原理与极值思想\par}
+
+\vspace{1.1cm}
+\color{rulegray}\rule{0.72\textwidth}{0.7pt}\par
+\vspace{1cm}
+
+\begin{tcolorbox}[colback=lightblue,colframe=mainblue,width=0.82\textwidth,boxrule=1pt]
+\centering
+{\Large 适合对象：小学高年级至初中低年级数学竞赛学生}\\[0.4em]
+{\large 已掌握基础计数，准备学习“存在性证明、最少保证、最值构造”的学生}
+\end{tcolorbox}
+
+\vspace{1.2cm}
+
+\renewcommand{\arraystretch}{1.42}
+\begin{tabular}{>{\bfseries}p{3.5cm}p{8cm}}
+讲义作者： & 刘文博 \\
+专题关键词： & 抽屉原理、最少保证、平均数思想、极值思想、存在性证明、分类讨论 \\
+建议课时： & 2--3 课时 \\
+专题目标： & 学会用“放盒子”的视角证明一定存在某种对象，并会做最值与构造题 \\
+编译方式： & XeLaTeX \\
+\end{tabular}
+
+\vspace{1.2cm}
+\color{rulegray}\rule{0.72\textwidth}{0.7pt}\par
+\vspace{0.8cm}
+
+{\normalsize 本讲从最基础的抽屉原理出发，逐步过渡到“最少保证”“平均数迫使某一类超标”“先取最大或最小对象”的极值思想，帮助学生建立组合证明中的存在性直觉。\par}
+
+\vspace{0.5cm}
+{\large \today\par}
+\end{tcolorbox}
+\end{titlepage}
+
+\pagenumbering{Roman}
+\pagestyle{plain}
+\tableofcontents
+\newpage
+\pagestyle{fancy}
+\pagenumbering{arabic}
+
+\section{专题目标与核心问题}
+
+\begin{goalbox}{这一讲要解决什么问题}
+很多组合题不会直接问“有多少种”，而是问：
+\begin{itemize}
+  \item 一定能找到什么？
+  \item 至少要多少个才能保证出现什么？
+  \item 为什么某种情况不可能一直避免？
+\end{itemize}
+
+这类题的核心工具，往往就是抽屉原理和极值思想。
+\end{goalbox}
+
+\begin{goalbox}{学完以后希望达到的能力}
+\begin{itemize}
+  \item 会把对象按某种规则分进“抽屉”；
+  \item 会求“最少取几个才能保证成功”；
+  \item 会用平均数和上界下界做存在性证明；
+  \item 会在复杂结构里先抓“最大、最小、最左、最右”对象来分析。
+\end{itemize}
+\end{goalbox}
+
+\begin{notebox}{这讲和前面专题的关系}
+\begin{itemize}
+  \item 和数论方法中的组合构造很接近：常常按余数类来当“抽屉”；
+  \item 和图论计数很接近：点的度数也经常可以配合抽屉原理使用；
+  \item 和染色问题也有联系：颜色本身就是一种分类方式。
+\end{itemize}
+\end{notebox}
+
+\section{最基础的抽屉原理}
+
+\subsection{一句话理解}
+如果把比抽屉更多的物体放进抽屉里，那么至少有一个抽屉里放了不止一个物体。
+
+\begin{theorem}[抽屉原理]
+把 $n+1$ 个物体放入 $n$ 个抽屉中，那么至少有一个抽屉中有至少 $2$ 个物体。
+\end{theorem}
+
+\begin{example}
+任取 13 个人，证明其中至少有 2 个人属相相同。
+\end{example}
+
+\begin{solution}
+属相只有 12 种，把 12 种属相看成 12 个抽屉，把 13 个人放进去。
+
+由于人数比抽屉数多 1，所以至少有一个抽屉里有至少 2 个人，也就是至少有 2 个人属相相同。
+\end{solution}
+
+\begin{skillbox}{做题时先问自己：谁是“物体”，谁是“抽屉”}
+抽屉原理最关键的一步，不是计算，而是正确地决定：
+\begin{itemize}
+  \item 哪些东西是要放进去的“物体”；
+  \item 哪些类别、区间、余数类、颜色类，是“抽屉”。
+\end{itemize}
+\end{skillbox}
+
+\section{最少保证型问题}
+
+\subsection{从“存在”到“保证”}
+很多竞赛题不是问“会不会出现”，而是问“至少取多少个，才能保证出现”。
+
+\begin{example}
+从 1 到 20 中任取多少个整数，才能保证其中至少有 2 个数的差是 4 的倍数？
+\end{example}
+
+\begin{solution}
+把 1 到 20 按照除以 4 的余数分成 4 类：
+\[
+0\text{ 类},1\text{ 类},2\text{ 类},3\text{ 类}.
+\]
+
+如果两个数的差是 4 的倍数，那么它们必在同一个余数类中。
+
+为了尽量避免这种情况，每一类最多只能取 1 个，所以最多只能取 4 个而不出问题。
+
+因此，再多取 1 个，也就是取
+\[
+4+1=5
+\]
+个时，就一定有 2 个数落在同一余数类中，它们的差就是 4 的倍数。
+
+所以最少取 \textbf{5 个}。
+\end{solution}
+
+\begin{method}[最少保证的一般套路]
+\begin{enumerate}
+  \item 先设法把对象分成若干类；
+  \item 想一想“如果还不想出事”，每一类最多能放几个；
+  \item 先算“不出事最多能取多少”；
+  \item 最后答案通常是“这个最大安全数再加 1”。
+\end{enumerate}
+\end{method}
+
+\section{加强版抽屉原理与平均数思想}
+
+\begin{theorem}[加强版抽屉原理]
+把 $N$ 个物体放入 $k$ 个抽屉中，那么至少有一个抽屉中有不少于
+\[
+\left\lceil \frac{N}{k} \right\rceil
+\]
+个物体。
+\end{theorem}
+
+\begin{example}
+把 25 本书放进 6 个书包中，证明至少有一个书包里有至少 5 本书。
+\end{example}
+
+\begin{solution}
+若每个书包里都至多有 4 本书，那么 6 个书包里最多只有
+\[
+6\times 4=24
+\]
+本书。
+
+但现在有 25 本书，已经超过 24，所以不可能每个书包都不超过 4 本。
+
+因此至少有一个书包里有至少 5 本书。
+\end{solution}
+
+\begin{skillbox}{加强版其实就是“平均数逼出来的”}
+如果平均每个抽屉里已经达到 $4$ 点多，那么总不可能每个抽屉都只有 4 个或更少。
+
+很多题虽然没有直接写“抽屉原理”，但如果你看到“总数/类别数”的结构，就要想到平均数思想。
+\end{skillbox}
+
+\section{区间型、余数型与几何型抽屉}
+
+\begin{example}
+任取 11 个整数，证明其中一定有两个整数，它们除以 10 的余数相同。
+\end{example}
+
+\begin{solution}
+除以 10 的余数只有
+\[
+0,1,2,3,4,5,6,7,8,9
+\]
+共 10 种。
+
+把这 10 种余数看成 10 个抽屉，11 个整数看成 11 个物体。
+
+由抽屉原理，至少有两个整数落在同一个余数类中，所以它们除以 10 的余数相同。
+\end{solution}
+
+\begin{example}
+把 9 个点任意放在边长为 2 的正方形内，证明一定有两个点之间的距离不超过 $\sqrt{2}$。
+\end{example}
+
+\begin{solution}
+把边长为 2 的大正方形分成 4 个边长为 1 的小正方形。
+
+这样就得到了 4 个抽屉，而 9 个点是 9 个物体。由抽屉原理，至少有一个小正方形里有至少
+\[
+\left\lceil \frac94 \right\rceil =3
+\]
+个点。
+
+实际上只用“至少有 2 个点”就够了。
+
+同一个边长为 1 的小正方形中，任意两点之间的最大距离不超过它的对角线长
+\[
+\sqrt{1^2+1^2}=\sqrt{2}.
+\]
+
+所以一定有两个点之间的距离不超过 $\sqrt{2}$。
+\end{solution}
+
+\section{极值思想：先抓最大的或最小的}
+
+\subsection{什么是极值思想}
+当题目里的关系很多、结构复杂时，有时不适合直接分类。这时可以先看“最大”“最小”“最左”“最右”对象，利用它的特殊位置来分析。
+
+\begin{example}
+从 1 到 9 中任取 5 个互不相同的整数，证明其中一定有两个数的差不超过 2。
+\end{example}
+
+\begin{solution}
+把这 5 个数从小到大排成
+\[
+a_1<a_2<a_3<a_4<a_5.
+\]
+
+如果任意两个数的差都大于 2，那么特别地，相邻两个数也都至少相差 3，即
+\[
+a_2-a_1\ge 3,\quad a_3-a_2\ge 3,\quad a_4-a_3\ge 3,\quad a_5-a_4\ge 3.
+\]
+
+把这四个不等式相加，得到
+\[
+a_5-a_1\ge 12.
+\]
+
+但这里所有数都在 1 到 9 之间，所以
+\[
+a_5-a_1\le 8.
+\]
+
+出现矛盾。
+
+因此原来的假设不成立，必定有两个数的差不超过 2。
+\end{solution}
+
+\begin{example}
+从 1 到 20 中选一些互不相同的整数，若任意两个所选整数的差都至少为 3，最多能选多少个？
+\end{example}
+
+\begin{solution}
+设选出的数一共有 $k$ 个，从小到大排成
+\[
+a_1<a_2<\cdots<a_k.
+\]
+
+由题意，任意两个所选整数的差都至少为 3，所以特别有
+\[
+a_2-a_1\ge 3,\quad a_3-a_2\ge 3,\quad \ldots,\quad a_k-a_{k-1}\ge 3.
+\]
+
+把这些不等式相加，得到
+\[
+a_k-a_1\ge 3(k-1).
+\]
+
+由于所有数都在 1 到 20 之间，所以
+\[
+a_1\ge 1,\qquad a_k\le 20.
+\]
+
+于是
+\[
+20-1\ge a_k-a_1\ge 3(k-1),
+\]
+即
+\[
+19\ge 3(k-1).
+\]
+
+所以
+\[
+k-1\le 6,\qquad k\le 7.
+\]
+
+这说明最多只能选 7 个数。
+
+这个上界可以达到，例如选
+\[
+1,4,7,10,13,16,19.
+\]
+
+它们两两之间的差都至少为 3。
+
+因此，最多能选的个数是
+\[
+\boxed{7}.
+\]
+\end{solution}
+
+\section{经典套路：先取最小反例或最大安全状态}
+
+\begin{method}[极值法常见入口]
+\begin{itemize}
+  \item 先取最小的反例；
+  \item 先取最大的满足条件对象；
+  \item 先取最左、最右、最高、最低的点；
+  \item 先取度数最大或最小的点；
+  \item 先取长度最短或最长的链。
+\end{itemize}
+\end{method}
+
+\begin{example}
+从 1 到 10 中任取 6 个数，证明其中一定有两个连续整数。
+\end{example}
+
+\begin{solution}
+把 1 到 10 分成 5 组：
+\[
+\{1,2\},\ \{3,4\},\ \{5,6\},\ \{7,8\},\ \{9,10\}.
+\]
+
+这 5 组可以看成 5 个抽屉。
+
+任取 6 个数，由抽屉原理，至少有一组里取到了 2 个数。由于每组里只有两个连续整数，所以这两个数必为连续整数。
+\end{solution}
+
+\section{常见误区}
+
+\begin{notebox}{误区 1：只会说“用抽屉原理”，不会找抽屉}
+很多同学知道题目要用抽屉原理，却不知道该把什么当抽屉。实际上，抽屉往往不是现成写在题目里的，而是要自己构造出来的。
+\end{notebox}
+
+\begin{notebox}{误区 2：把“至少有一个”看成“所有都这样”}
+抽屉原理给出的通常是存在性结论：至少有一个抽屉超标，而不是每个抽屉都超标。
+\end{notebox}
+
+\begin{notebox}{误区 3：极值思想只停留在“取最大数”这句话}
+真正有用的是：取到极端对象以后，怎样利用它和其他对象的关系，推导出新的限制或矛盾。
+\end{notebox}
+
+\section{课堂练习}
+
+\begin{exercise}
+从 1 到 12 中任取 5 个数，证明其中一定有两个数除以 4 的余数相同。
+\end{exercise}
+
+\begin{exercise}
+从 1 到 20 中任取多少个数，才能保证其中有两个数的和是奇数？
+\end{exercise}
+
+\begin{exercise}
+把 17 个苹果放进 4 个盒子里，证明至少有一个盒子里有不少于 5 个苹果。
+\end{exercise}
+
+\begin{exercise}
+从 1 到 10 中任取 6 个数，证明其中一定有两个连续整数。
+\end{exercise}
+
+\begin{exercise}
+在边长为 2 的正方形内任取 5 个点，证明其中一定有两个点之间的距离不超过 $\sqrt{2}$。
+\end{exercise}
+
+\begin{exercise}
+从 1 到 15 中任取 8 个数，证明其中一定有两个数的差是 5 的倍数。
+\end{exercise}
+
+\newpage
+\appendix
+\section{练习解答}
+
+\begin{exercise}
+从 1 到 12 中任取 5 个数，证明其中一定有两个数除以 4 的余数相同。
+\end{exercise}
+
+\begin{solution}
+除以 4 的余数只有
+\[
+0,1,2,3
+\]
+共 4 类。
+
+把这 4 种余数看成 4 个抽屉，把任取的 5 个数看成 5 个物体。
+
+由抽屉原理，至少有两个数落在同一个余数类中，因此它们除以 4 的余数相同。
+\end{solution}
+
+\begin{exercise}
+从 1 到 20 中任取多少个数，才能保证其中有两个数的和是奇数？
+\end{exercise}
+
+\begin{solution}
+两个数的和是奇数，当且仅当它们一奇一偶。
+
+1 到 20 中，奇数有 10 个，偶数也有 10 个。
+
+如果想尽量避免出现“和为奇数”的两数，就只能全取奇数，或者全取偶数。这样最多可以取 10 个数而不出问题。
+
+因此再多取 1 个，也就是取
+\[
+10+1=11
+\]
+个数时，就一定既取到了奇数，又取到了偶数，从而一定能找到一奇一偶两个数，它们的和是奇数。
+
+所以最少取 \textbf{11 个}。
+\end{solution}
+
+\begin{exercise}
+把 17 个苹果放进 4 个盒子里，证明至少有一个盒子里有不少于 5 个苹果。
+\end{exercise}
+
+\begin{solution}
+若每个盒子里都至多有 4 个苹果，那么 4 个盒子里最多只有
+\[
+4\times 4=16
+\]
+个苹果。
+
+但现在有 17 个苹果，已经超过 16，所以这种情况不可能。
+
+因此至少有一个盒子里有不少于 5 个苹果。
+\end{solution}
+
+\begin{exercise}
+从 1 到 10 中任取 6 个数，证明其中一定有两个连续整数。
+\end{exercise}
+
+\begin{solution}
+把 1 到 10 分成 5 组：
+\[
+\{1,2\},\ \{3,4\},\ \{5,6\},\ \{7,8\},\ \{9,10\}.
+\]
+
+每组看成一个抽屉。
+
+任取 6 个数，由抽屉原理，至少有一组里取到了 2 个数。而这一组中的两个数正好是连续整数。
+
+所以一定有两个连续整数。
+\end{solution}
+
+\begin{exercise}
+在边长为 2 的正方形内任取 5 个点，证明其中一定有两个点之间的距离不超过 $\sqrt{2}$。
+\end{exercise}
+
+\begin{solution}
+把边长为 2 的正方形分成 4 个边长为 1 的小正方形。
+
+这 4 个小正方形就是 4 个抽屉，5 个点就是 5 个物体。
+
+由抽屉原理，至少有一个小正方形里有至少 2 个点。
+
+而同一个边长为 1 的正方形中，任意两点之间的距离都不超过对角线长
+\[
+\sqrt{1^2+1^2}=\sqrt{2}.
+\]
+
+所以一定有两个点之间的距离不超过 $\sqrt{2}$。
+\end{solution}
+
+\begin{exercise}
+从 1 到 15 中任取 8 个数，证明其中一定有两个数的差是 5 的倍数。
+\end{exercise}
+
+\begin{solution}
+把 1 到 15 按除以 5 的余数分成 5 类。
+
+任取 8 个数，而余数类只有 5 个。由抽屉原理，至少有两个数落在同一个余数类中。
+
+设这两个数为 $a,b$，则
+\[
+a\equiv b\pmod 5.
+\]
+
+所以
+\[
+a-b\equiv 0\pmod 5,
+\]
+即它们的差是 5 的倍数。
+\end{solution}
+
+\end{document}

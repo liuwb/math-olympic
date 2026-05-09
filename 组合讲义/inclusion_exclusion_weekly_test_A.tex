@@ -1,0 +1,353 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.25cm,bottom=2.45cm,left=2.25cm,right=2.25cm,headheight=18pt,headsep=0.55cm,footskip=24pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black
+}
+
+\setstretch{1.13}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.25em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.45em, topsep=0.35em, leftmargin=2.4em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=1.9em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{rulegray}{RGB}{110,118,128}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.2em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.1em}{0.7em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 容斥原理周测 A 卷}
+\fancyhead[C]{\small 组合专题：基础计数与坏事件模型}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{infobox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newenvironment{solution}{\par\noindent\textbf{参考解答：}}{\hfill$\square$\par}
+\newcommand{\answerspace}{\vspace{2.3cm}}
+\newcommand{\biganswerspace}{\vspace{3.1cm}}
+\newcommand{\Dn}{D_n}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{center}
+{\fontsize{22}{28}\selectfont\bfseries 容斥原理周测 A 卷\par}
+\vspace{0.4cm}
+{\large 适合小学高年级至初中低年级数学竞赛训练\par}
+\end{center}
+
+\begin{infobox}{考试说明}
+\begin{itemize}
+  \item 测试时间：70--75 分钟
+  \item 满分：100 分
+  \item A 卷侧重两集合、三集合、补集法和基础坏事件模型，建议先写清楚“设了哪些集合/事件”。
+\end{itemize}
+\end{infobox}
+
+\section{试题}
+
+\begin{enumerate}
+  \item （10 分）在 $1$ 到 $100$ 中，是 2 的倍数或 3 的倍数的整数有多少个？
+  \answerspace
+
+  \item （12 分）在 $1$ 到 $120$ 中，是 3 的倍数或 5 的倍数或 8 的倍数的整数有多少个？
+  \answerspace
+
+  \item （12 分）在 $1$ 到 $200$ 中，不是 2 的倍数也不是 3 的倍数的整数有多少个？
+  \answerspace
+
+  \item （12 分）5 个人甲、乙、丙、丁、戊排成一行。要求甲不站在第 1 个位置，乙不站在第 2 个位置。共有多少种排法？
+  \answerspace
+
+  \item （12 分）6 个人甲、乙、丙、丁、戊、己排座位。要求甲不坐 1 号位，乙不坐 2 号位，丙不坐 3 号位，丁不坐 4 号位，另外两人没有限制。共有多少种排法？
+  \biganswerspace
+
+  \item （14 分）6 个不同数字 $1,2,3,4,5,6$ 排成一行，要求 $1,2,3$ 都不在自己的位置上，而 $4,5,6$ 没有限制。共有多少种排法？
+  \biganswerspace
+
+  \item （14 分）用容斥原理计算 $D_5$。
+  \answerspace
+
+  \item （14 分）8 个不同数字排成一行，至少有 1 个数字在原位，共有多少种排法？
+  \biganswerspace
+\end{enumerate}
+
+\newpage
+\section{详细解答}
+
+\begin{enumerate}
+  \item \begin{solution}
+  设
+  \[
+  A=\{\text{2 的倍数}\},\qquad B=\{\text{3 的倍数}\}.
+  \]
+
+  则
+  \[
+  |A|=50,
+  \qquad
+  |B|=33,
+  \qquad
+  |A\cap B|=\left\lfloor\frac{100}{6}\right\rfloor=16.
+  \]
+
+  所以
+  \[
+  |A\cup B|=50+33-16=67.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  设 $A,B,C$ 分别表示“3 的倍数”“5 的倍数”“8 的倍数”。
+
+  单个集合：
+  \[
+  |A|=40,
+  \qquad
+  |B|=24,
+  \qquad
+  |C|=15.
+  \]
+
+  两两交集：
+  \[
+  |A\cap B|=\left\lfloor\frac{120}{15}\right\rfloor=8,
+  \]
+  \[
+  |A\cap C|=\left\lfloor\frac{120}{24}\right\rfloor=5,
+  \qquad
+  |B\cap C|=\left\lfloor\frac{120}{40}\right\rfloor=3.
+  \]
+
+  三者交集：
+  \[
+  |A\cap B\cap C|=\left\lfloor\frac{120}{120}\right\rfloor=1.
+  \]
+
+  所以
+  \[
+  40+24+15-8-5-3+1=64.
+  \]
+
+  因此共有
+  \[
+  64
+  \]
+  个整数。
+  \end{solution}
+
+  \item \begin{solution}
+  先设
+  \[
+  A=\{\text{2 的倍数}\},\qquad B=\{\text{3 的倍数}\}.
+  \]
+
+  那么
+  \[
+  |A|=100,
+  \qquad
+  |B|=66,
+  \qquad
+  |A\cap B|=33.
+  \]
+
+  所以 1 到 200 中，是 2 的倍数或 3 的倍数的整数有
+  \[
+  100+66-33=133
+  \]
+  个。
+
+  总共有 200 个整数，因此既不是 2 的倍数也不是 3 的倍数的有
+  \[
+  200-133=67.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  设
+  \[
+  A=\text{“甲站第 1 个位置”},\qquad B=\text{“乙站第 2 个位置”}.
+  \]
+
+  总排法有
+  \[
+  5!=120
+  \]
+  种。
+
+  单个坏事件：
+  \[
+  |A|=|B|=4!=24.
+  \]
+
+  两个坏事件同时发生：
+  \[
+  |A\cap B|=3!=6.
+  \]
+
+  因此满足要求的排法为
+  \[
+  120-24-24+6=78.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  设
+  \[
+  A_1=\text{“甲坐 1 号位”},
+  A_2=\text{“乙坐 2 号位”},
+  A_3=\text{“丙坐 3 号位”},
+  A_4=\text{“丁坐 4 号位”}.
+  \]
+
+  总排法有
+  \[
+  6!=720
+  \]
+  种。
+
+  单个坏事件共有
+  \[
+  \binom41 5!=4\times 120=480
+  \]
+  种。
+
+  两个坏事件同时发生共有
+  \[
+  \binom42 4!=6\times 24=144
+  \]
+  种。
+
+  三个坏事件同时发生共有
+  \[
+  \binom43 3!=4\times 6=24
+  \]
+  种。
+
+  四个坏事件同时发生共有
+  \[
+  \binom44 2!=2.
+  \]
+
+  因此所求为
+  \[
+  720-480+144-24+2=362.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  设
+  \[
+  A_1=\text{“1 在第 1 位”},\quad
+  A_2=\text{“2 在第 2 位”},\quad
+  A_3=\text{“3 在第 3 位”}.
+  \]
+
+  总排法有
+  \[
+  6!=720
+  \]
+  种。
+
+  单个坏事件共有
+  \[
+  3\times 5!=360
+  \]
+  种。
+
+  两个坏事件同时发生共有
+  \[
+  \binom32 4!=3\times 24=72
+  \]
+  种。
+
+  三个坏事件同时发生共有
+  \[
+  3!=6
+  \]
+  种。
+
+  所以满足要求的排法数为
+  \[
+  720-360+72-6=426.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  设 $A_i$ 表示“第 $i$ 个对象在原位”，其中 $i=1,2,3,4,5$。
+
+  那么
+  \[
+  D_5=5!-\binom51 4!+\binom52 3!-\binom53 2!+\binom54 1!-\binom55 0!.
+  \]
+
+  代入得
+  \[
+  D_5=120-120+60-20+5-1=44.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  “至少有 1 个数字在原位”最适合用补集法。
+
+  总排法有
+  \[
+  8!=40320
+  \]
+  种。
+
+  一个都不在原位的排法数是
+  \[
+  D_8.
+  \]
+  由递推公式：
+  \[
+  D_7=1854,
+  \qquad
+  D_8=7(D_7+D_6)=7(1854+265)=14833.
+  \]
+
+  因此所求为
+  \[
+  40320-14833=25487.
+  \]
+  \end{solution}
+\end{enumerate}
+
+\end{document}

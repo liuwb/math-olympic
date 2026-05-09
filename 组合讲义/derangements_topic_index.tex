@@ -1,0 +1,260 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.4cm,bottom=2.6cm,left=2.35cm,right=2.35cm,headheight=18pt,headsep=0.55cm,footskip=26pt]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black
+}
+
+\setstretch{1.16}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.32em}
+\setlist[enumerate]{itemsep=0.35em, topsep=0.35em, leftmargin=2.3em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=2em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{rulegray}{RGB}{110,118,128}
+\definecolor{softgreen}{RGB}{236,247,240}
+\definecolor{softyellow}{RGB}{254,249,229}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.25em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.2em}{0.8em}
+\titleformat{\subsection}{\large\bfseries\color{mainblue}}{\thesubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 错位排列专题目录页}
+\fancyhead[C]{\small 组合专题资料索引}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{goalbox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{infobox}[1]{
+  breakable,
+  colback=softgreen,
+  colframe=green!40!black,
+  boxrule=0.65pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{warnbox}[1]{
+  breakable,
+  colback=softyellow,
+  colframe=orange!60!black,
+  boxrule=0.65pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{titlepage}
+\centering
+\vspace*{0.9cm}
+
+\begin{tcolorbox}[
+  enhanced,
+  width=0.92\textwidth,
+  colback=white,
+  colframe=mainblue,
+  boxrule=1pt,
+  arc=0mm,
+  left=6mm,
+  right=6mm,
+  top=8mm,
+  bottom=8mm
+]
+\centering
+
+{\fontsize{24}{30}\selectfont\bfseries 错位排列专题目录页\par}
+\vspace{0.65cm}
+{\fontsize{17}{22}\selectfont 讲义、题单与周测的使用说明\par}
+
+\vspace{1cm}
+\begin{tcolorbox}[colback=lightblue,colframe=mainblue,width=0.84\textwidth,boxrule=1pt]
+\centering
+{\large 适合对象：已经掌握排列组合基础、准备系统提升“位置受限计数”的学生}\\[0.35em]
+{\normalsize 本目录页帮助把单份资料串成一个完整的小专题训练包}
+\end{tcolorbox}
+
+\vspace{1.0cm}
+\renewcommand{\arraystretch}{1.42}
+\begin{tabular}{>{\bfseries}p{3.5cm}p{8cm}}
+专题名称： & 错位排列 \\
+资料组成： & 课堂讲义、提高训练题单、周测 A 卷、周测 B 卷 \\
+使用方式： & 先学讲义，再做题单，最后用 A/B 周测检查掌握情况 \\
+编译方式： & XeLaTeX \\
+\end{tabular}
+
+\vspace{0.9cm}
+{\large \today\par}
+\end{tcolorbox}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{专题包包含哪些资料}
+
+\begin{goalbox}{四份核心资料}
+\begin{enumerate}
+  \item 课堂讲义：帮助建立概念、公式和常见模型；
+  \item 提高训练题单：用于课后巩固与变式提升；
+  \item 周测 A 卷：检查基础掌握是否稳定；
+  \item 周测 B 卷：检查综合迁移与较难变式是否真正会做。
+\end{enumerate}
+\end{goalbox}
+
+\begin{infobox}{对应文件名}
+\begin{itemize}
+  \item 讲义：\texttt{derangements\_handout.tex} / \texttt{derangements\_handout.pdf}
+  \item 提高训练题单：\texttt{derangements\_advanced\_problem\_set.tex} / \texttt{derangements\_advanced\_problem\_set.pdf}
+  \item 周测 A 卷：\texttt{derangements\_weekly\_test\_A.tex} / \texttt{derangements\_weekly\_test\_A.pdf}
+  \item 周测 B 卷：\texttt{derangements\_weekly\_test\_B.tex} / \texttt{derangements\_weekly\_test\_B.pdf}
+\end{itemize}
+\end{infobox}
+
+\section{建议学习顺序}
+
+\begin{goalbox}{推荐顺序}
+\begin{enumerate}
+  \item 先完整学习讲义，重点吃透“什么是错位排列”“递推公式怎么来”“恰好若干个在原位怎么转化”；
+  \item 再完成提高训练题单，先独立做，再对照详细解答订正；
+  \item 接着做周测 A 卷，检查基础题型是否已经稳定；
+  \item 最后做周测 B 卷，检查对容斥、递推和综合变式的掌握程度。
+\end{enumerate}
+\end{goalbox}
+
+\begin{warnbox}{不建议的做法}
+\begin{itemize}
+  \item 只背公式，不理解为什么是 $D_n=(n-1)(D_{n-1}+D_{n-2})$；
+  \item 一上来就做 B 卷，这样容易把“不会做”误以为“题太难”；
+  \item 做完题只看答案数字，不对照解答过程总结错误原因。
+\end{itemize}
+\end{warnbox}
+
+\section{每份资料主要解决什么问题}
+
+\subsection{课堂讲义}
+讲义适合第一次系统学习这个专题，主要解决以下问题：
+\begin{itemize}
+  \item 错位排列的定义到底是什么；
+  \item 小规模情形怎么枚举；
+  \item 递推公式从哪里来；
+  \item 容斥公式和错位排列之间是什么关系；
+  \item “至少一个在原位”“恰好几个在原位”怎么转化。
+\end{itemize}
+
+\subsection{提高训练题单}
+题单适合第二阶段训练，主要用来把方法做熟。它更强调：
+\begin{itemize}
+  \item 识别题型；
+  \item 选择公式还是容斥；
+  \item 处理“部分对象受限”的变式；
+  \item 避开高频陷阱，比如“恰好有 $n-1$ 个在原位”这种不可能情形。
+\end{itemize}
+
+\subsection{周测 A 卷}
+A 卷偏基础，适合检查：
+\begin{itemize}
+  \item 标准错位排列是否会求；
+  \item 恰好若干个在原位是否会转化为 $\binom{n}{k}D_{n-k}$；
+  \item 至少若干个在原位是否会用补集法；
+  \item 简单部分位置受限题是否会用容斥。
+\end{itemize}
+
+\subsection{周测 B 卷}
+B 卷偏综合，适合检查：
+\begin{itemize}
+  \item 递推与容斥能否灵活切换；
+  \item 复杂“前若干个对象受限”的题是否会写通项；
+  \item 分类讨论时是否会遗漏不可能情况；
+  \item 结果算出后能否用数量级检查答案是否合理。
+\end{itemize}
+
+\section{一个推荐的 4 次训练安排}
+
+\begin{goalbox}{4 次完成一个小专题}
+\begin{enumerate}
+  \item 第 1 次：学习讲义前半部分，完成讲义中的例题与小练习；
+  \item 第 2 次：学习讲义后半部分，完成提高训练题单的前半部分；
+  \item 第 3 次：完成提高训练题单后半部分，并集中订正错题；
+  \item 第 4 次：做周测 A 卷或 B 卷，作为阶段性检查。
+\end{enumerate}
+\end{goalbox}
+
+\begin{infobox}{如果孩子基础较好，可以这样压缩}
+\begin{itemize}
+  \item 第 1 天：讲义 + 题单基础题；
+  \item 第 2 天：题单变式题 + 错题订正；
+  \item 第 3 天：周测 A 卷；
+  \item 第 4 天：周测 B 卷。
+\end{itemize}
+\end{infobox}
+
+\section{专题学习后的自检清单}
+
+\begin{goalbox}{如果下面 8 条都能做到，说明这个专题基本过关}
+\begin{enumerate}
+  \item 我能准确说出什么是标准错位排列；
+  \item 我知道 $D_1,D_2,D_3,D_4,D_5,D_6$ 的值；
+  \item 我能解释递推公式为什么成立；
+  \item 我会用容斥原理计算 $D_n$ 的小规模值；
+  \item 我会处理“恰好有 $k$ 个在原位”；
+  \item 我会处理“至少有 $k$ 个在原位”；
+  \item 我会处理“只有前若干个对象受限”的变式；
+  \item 我知道“恰好有 $n-1$ 个在原位”是不可能的。
+\end{enumerate}
+\end{goalbox}
+
+\section{给家长的使用建议}
+
+\begin{warnbox}{更有效的带练方式}
+\begin{itemize}
+  \item 不要一开始就给答案，先让孩子口头说“这题属于哪一类”；
+  \item 如果卡住，可以只提示“想想补集法”或“想想是不是部分位置受限”；
+  \item 订正时重点看思路是否清楚，而不只是最后数字是否正确；
+  \item 错题建议隔两三天再重做一次，检验是否真正掌握。
+\end{itemize}
+\end{warnbox}
+
+\begin{infobox}{和后续专题的衔接}
+错位排列学完以后，最自然的下一步就是继续学习\textbf{容斥原理}。因为很多“部分对象不能在原位”的变式题，本质上已经在用容斥原理了。把这两个专题连起来学，效果会更好。
+\end{infobox}
+
+\end{document}

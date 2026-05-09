@@ -1,0 +1,260 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.4cm,bottom=2.6cm,left=2.35cm,right=2.35cm,headheight=18pt,headsep=0.55cm,footskip=26pt]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black
+}
+
+\setstretch{1.16}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.32em}
+\setlist[enumerate]{itemsep=0.35em, topsep=0.35em, leftmargin=2.3em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=2em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{rulegray}{RGB}{110,118,128}
+\definecolor{softgreen}{RGB}{236,247,240}
+\definecolor{softyellow}{RGB}{254,249,229}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.25em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.2em}{0.8em}
+\titleformat{\subsection}{\large\bfseries\color{mainblue}}{\thesubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 容斥原理专题目录页}
+\fancyhead[C]{\small 组合专题资料索引}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{goalbox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{infobox}[1]{
+  breakable,
+  colback=softgreen,
+  colframe=green!40!black,
+  boxrule=0.65pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{warnbox}[1]{
+  breakable,
+  colback=softyellow,
+  colframe=orange!60!black,
+  boxrule=0.65pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{titlepage}
+\centering
+\vspace*{0.9cm}
+
+\begin{tcolorbox}[
+  enhanced,
+  width=0.92\textwidth,
+  colback=white,
+  colframe=mainblue,
+  boxrule=1pt,
+  arc=0mm,
+  left=6mm,
+  right=6mm,
+  top=8mm,
+  bottom=8mm
+]
+\centering
+
+{\fontsize{24}{30}\selectfont\bfseries 容斥原理专题目录页\par}
+\vspace{0.65cm}
+{\fontsize{17}{22}\selectfont 讲义、题单与周测的使用说明\par}
+
+\vspace{1cm}
+\begin{tcolorbox}[colback=lightblue,colframe=mainblue,width=0.84\textwidth,boxrule=1pt]
+\centering
+{\large 适合对象：已经掌握基础计数，准备系统提升“重叠条件处理能力”的学生}\\[0.35em]
+{\normalsize 本目录页帮助把容斥原理专题资料串成一个完整训练包}
+\end{tcolorbox}
+
+\vspace{1.0cm}
+\renewcommand{\arraystretch}{1.42}
+\begin{tabular}{>{\bfseries}p{3.5cm}p{8cm}}
+专题名称： & 容斥原理 \\
+资料组成： & 课堂讲义、提高训练题单、周测 A 卷、周测 B 卷 \\
+使用方式： & 先学讲义，再做题单，最后用 A/B 周测检查掌握情况 \\
+编译方式： & XeLaTeX \\
+\end{tabular}
+
+\vspace{0.9cm}
+{\large \today\par}
+\end{tcolorbox}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{专题包包含哪些资料}
+
+\begin{goalbox}{四份核心资料}
+\begin{enumerate}
+  \item 课堂讲义：帮助理解为什么会“重复计数”，并掌握两集合、三集合和坏事件模型；
+  \item 提高训练题单：用于课后巩固和变式提升，重点训练“会列事件、会算交集、会写通项”；
+  \item 周测 A 卷：检查基础容斥、补集法和简单受限模型是否过关；
+  \item 周测 B 卷：检查综合变式、与错位排列结合以及一般化表达是否真正掌握。
+\end{enumerate}
+\end{goalbox}
+
+\begin{infobox}{对应文件名}
+\begin{itemize}
+  \item 讲义：\texttt{inclusion\_exclusion\_handout.tex} / \texttt{inclusion\_exclusion\_handout.pdf}
+  \item 提高训练题单：\texttt{inclusion\_exclusion\_advanced\_problem\_set.tex} / \texttt{inclusion\_exclusion\_advanced\_problem\_set.pdf}
+  \item 周测 A 卷：\texttt{inclusion\_exclusion\_weekly\_test\_A.tex} / \texttt{inclusion\_exclusion\_weekly\_test\_A.pdf}
+  \item 周测 B 卷：\texttt{inclusion\_exclusion\_weekly\_test\_B.tex} / \texttt{inclusion\_exclusion\_weekly\_test\_B.pdf}
+\end{itemize}
+\end{infobox}
+
+\section{建议学习顺序}
+
+\begin{goalbox}{推荐顺序}
+\begin{enumerate}
+  \item 先完整学习讲义，重点吃透“为什么会多算”“什么时候该用补集法”“坏事件如何建立”；
+  \item 再完成提高训练题单，训练把口头条件准确翻译成集合或事件；
+  \item 接着做周测 A 卷，检查基础模型是否稳定；
+  \item 最后做周测 B 卷，检查与错位排列、一般通项、综合计数的迁移能力。
+\end{enumerate}
+\end{goalbox}
+
+\begin{warnbox}{不建议的做法}
+\begin{itemize}
+  \item 只记住公式，不理解为什么符号是“加减加减”交替；
+  \item 看到“至少一个满足”就盲目硬算，不先判断补集是不是更简单；
+  \item 只看最终数字，不检查交集层数、组合数和数量级是否合理。
+\end{itemize}
+\end{warnbox}
+
+\section{每份资料主要解决什么问题}
+
+\subsection{课堂讲义}
+讲义适合第一次系统学习这个专题，主要解决以下问题：
+\begin{itemize}
+  \item 为什么直接相加会多算；
+  \item 两集合和三集合容斥公式是怎么来的；
+  \item 补集法和容斥原理之间是什么关系；
+  \item “部分对象受限”的题为什么可以转化成坏事件并集；
+  \item 容斥原理怎样和错位排列结合。
+\end{itemize}
+
+\subsection{提高训练题单}
+题单适合第二阶段训练，主要用来把方法做熟。它更强调：
+\begin{itemize}
+  \item 识别哪些题目存在重叠；
+  \item 会列单个事件、两两交集、三重交集；
+  \item 会处理“前若干个对象受限”的变式；
+  \item 会把补集法和容斥原理接起来使用。
+\end{itemize}
+
+\subsection{周测 A 卷}
+A 卷偏基础，适合检查：
+\begin{itemize}
+  \item 两集合、三集合容斥是否熟练；
+  \item 补集法是否会用；
+  \item 简单坏事件模型是否会列；
+  \item 小规模与错位排列结合的题是否能做对。
+\end{itemize}
+
+\subsection{周测 B 卷}
+B 卷偏综合，适合检查：
+\begin{itemize}
+  \item 复杂“前若干个对象受限”的题是否会写成通项；
+  \item 与错位排列结合时会不会误判模型；
+  \item 分类讨论时是否会遗漏不可能情形；
+  \item 结果算出后能否快速做合理性检查。
+\end{itemize}
+
+\section{一个推荐的 4 次训练安排}
+
+\begin{goalbox}{4 次完成一个小专题}
+\begin{enumerate}
+  \item 第 1 次：学习讲义前半部分，重点理解重复计数与两集合、三集合公式；
+  \item 第 2 次：学习讲义后半部分，完成题单基础题和中档题；
+  \item 第 3 次：完成题单综合题，并把错题按“漏交集、漏组合数、漏补集”分类订正；
+  \item 第 4 次：完成周测 A 卷或 B 卷，作为阶段性检查。
+\end{enumerate}
+\end{goalbox}
+
+\begin{infobox}{如果孩子基础较好，可以这样压缩}
+\begin{itemize}
+  \item 第 1 天：讲义 + 题单基础题；
+  \item 第 2 天：题单变式题 + 错题订正；
+  \item 第 3 天：周测 A 卷；
+  \item 第 4 天：周测 B 卷。
+\end{itemize}
+\end{infobox}
+
+\section{专题学习后的自检清单}
+
+\begin{goalbox}{如果下面 8 条都能做到，说明这个专题基本过关}
+\begin{enumerate}
+  \item 我能解释为什么直接相加会多算；
+  \item 我会写两个集合、三个集合的容斥公式；
+  \item 我知道什么时候补集法比正面计算更方便；
+  \item 我会给坏事件命名，并依次计算各层交集；
+  \item 我不会漏掉组合数 $\binom{m}{k}$；
+  \item 我能处理“前若干个对象都不在原位”的模型；
+  \item 我知道容斥原理和错位排列之间的联系；
+  \item 我会在算完后用总数和数量级检查答案是否合理。
+\end{enumerate}
+\end{goalbox}
+
+\section{给家长的使用建议}
+
+\begin{warnbox}{更有效的带练方式}
+\begin{itemize}
+  \item 不要一开始就给公式，先让孩子说“为什么这里会重复计算”；
+  \item 如果卡住，可以只提示“有没有重叠”或“补集会不会更简单”；
+  \item 订正时重点看孩子是否真正列对了事件，而不只是最后数字对不对；
+  \item 错题建议按错误类型整理：漏交集、漏组合数、漏补集、符号写反。
+\end{itemize}
+\end{warnbox}
+
+\begin{infobox}{和后续专题的衔接}
+容斥原理学完以后，最自然的下一步是继续学习\textbf{递推计数专题}。因为不少组合问题既可以从“坏事件重叠”来处理，也可以从“按最后一步分类”建立递推，把两个专题接起来学，视角会更完整。
+\end{infobox}
+
+\end{document}

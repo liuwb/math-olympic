@@ -1,0 +1,303 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.25cm,bottom=2.45cm,left=2.25cm,right=2.25cm,headheight=18pt,headsep=0.55cm,footskip=24pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black
+}
+
+\setstretch{1.13}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.25em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.45em, topsep=0.35em, leftmargin=2.4em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=1.9em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{rulegray}{RGB}{110,118,128}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.2em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.1em}{0.7em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 数论方法中的组合构造周测 B 卷}
+\fancyhead[C]{\small 组合专题：综合构造与不变量进阶}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{infobox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newenvironment{solution}{\par\noindent\textbf{参考解答：}}{\hfill$\square$\par}
+\newcommand{\answerspace}{\vspace{2.3cm}}
+\newcommand{\biganswerspace}{\vspace{3.2cm}}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{center}
+{\fontsize{22}{28}\selectfont\bfseries 数论方法中的组合构造周测 B 卷\par}
+\vspace{0.4cm}
+{\large 适合小学高年级至初中低年级数学竞赛训练\par}
+\end{center}
+
+\begin{infobox}{考试说明}
+\begin{itemize}
+  \item 测试时间：75 分钟
+  \item 满分：100 分
+  \item B 卷更强调分类完整性和证明严密性，特别要注意：结论对“所有情况”是否都解释到了。
+\end{itemize}
+\end{infobox}
+
+\section{试题}
+
+\begin{enumerate}
+  \item （12 分）从 $1$ 到 $9$ 中删去一个数，再把剩下的 $8$ 个数分成 $4$ 对，使每对两个数的和都是奇数。问删去哪几个数时可能？并给出理由。
+  \answerspace
+
+  \item （12 分）在数轴上，一个棋子从 $0$ 出发，每步只能向左或向右走 $1$ 格。它能否恰好走 $7$ 步到达 $4$？它能否恰好走 $8$ 步到达 $4$？
+  \answerspace
+
+  \item （12 分）有 $9$ 盏灯，开始时全灭。每次操作必须同时改变恰好两盏灯的状态（亮变灭，灭变亮）。问能否经过若干次操作后，恰好只有 $1$ 盏灯亮着？
+  \answerspace
+
+  \item （12 分）在一个 $5\times 5$ 的方格棋盘上，一只棋子从左下角出发，每次只能向上、下、左、右移动 $1$ 格。它能否恰好走 $8$ 步到达右上角？它能否恰好走 $9$ 步到达右上角？
+  \biganswerspace
+
+  \item （12 分）从 $1$ 到 $12$ 中选出 $4$ 个数，使它们的和能被 $4$ 整除，有多少种选法？
+  \biganswerspace
+
+  \item （12 分）把 $1$ 到 $12$ 分成 $4$ 组，每组 $3$ 个数。能否使每组的和都是 $3$ 的倍数？若能，请给出一种构造，并说明每组的余数结构只能有哪些可能。
+  \biganswerspace
+
+  \item （14 分）从 $1$ 到 $15$ 中最多能选多少个数，使得任意 $3$ 个被选出的数的和都不是 $3$ 的倍数？
+  \biganswerspace
+
+  \item （14 分）从 $1$ 到 $12$ 中任取 $6$ 个数，证明其中一定能选出 $3$ 个数，使这 $3$ 个数的和是 $3$ 的倍数。
+  \biganswerspace
+\end{enumerate}
+
+\newpage
+\section{详细解答}
+
+\begin{enumerate}
+  \item \begin{solution}
+  要使每对的和都是奇数，就要求每一对都由“一个奇数和一个偶数”组成。
+
+  在 $1$ 到 $9$ 中，奇数有 5 个，偶数有 4 个。
+
+  如果删去一个偶数，那么剩下奇数 5 个、偶数 3 个，奇偶数个数不相等，就不可能分成 4 对且每对一奇一偶。
+
+  如果删去一个奇数，那么剩下奇数 4 个、偶数 4 个，个数相等，就可以一奇一偶地配对。
+
+  所以只有删去奇数时才可能，也就是删去
+  \[
+  1,3,5,7,9
+  \]
+  中的任意一个时都可能。
+  \end{solution}
+
+  \item \begin{solution}
+  设向右走了 $r$ 步，向左走了 $l$ 步，则
+  \[
+  r+l=\text{总步数},\qquad r-l=4.
+  \]
+
+  对于 7 步，有
+  \[
+  r+l=7,\qquad r-l=4.
+  \]
+  相加得
+  \[
+  2r=11,
+  \]
+  这不可能，所以 7 步到达 4 不可能。
+
+  对于 8 步，有
+  \[
+  r+l=8,\qquad r-l=4.
+  \]
+  相加得
+  \[
+  2r=12,
+  \qquad r=6,
+  \qquad l=2.
+  \]
+  这是可行的，所以 8 步到达 4 可以。
+  \end{solution}
+
+  \item \begin{solution}
+  设当前亮灯数为 $L$。
+
+  每次同时改变两盏灯状态时，亮灯数只可能：
+  \begin{itemize}
+    \item 增加 2；
+    \item 减少 2；
+    \item 不变。
+  \end{itemize}
+
+  因此亮灯数的奇偶性保持不变。
+
+  初始时 $L=0$，是偶数。所以以后任何时候亮灯数都只能是偶数，不可能变成奇数。
+
+  “恰好只有 1 盏灯亮着”对应 $L=1$，是奇数，因此不可能。
+  \end{solution}
+
+  \item \begin{solution}
+  把左下角记作 $(0,0)$，右上角记作 $(4,4)$。
+
+  从 $(0,0)$ 到 $(4,4)$ 的最短距离是
+  \[
+  4+4=8.
+  \]
+  所以恰好走 8 步是可以的，例如向右 4 步、向上 4 步。
+
+  再看 9 步。
+
+  每走一步，坐标和 $x+y$ 的奇偶性都会改变一次。起点 $(0,0)$ 的坐标和是 0，为偶数；终点 $(4,4)$ 的坐标和是 8，也为偶数。
+
+  从偶数奇偶性回到偶数奇偶性，必须走偶数步，所以走 9 步不可能到达。
+
+  结论：8 步可以，9 步不可以。
+  \end{solution}
+
+  \item \begin{solution}
+  把 $1$ 到 $12$ 按模 $4$ 分类：
+  \[
+  0\text{ 类： }4,8,12;\quad 1\text{ 类： }1,5,9;\quad 2\text{ 类： }2,6,10;\quad 3\text{ 类： }3,7,11.
+  \]
+
+  选 4 个数且和是 4 的倍数，余数类型只可能是：
+  \[
+  (0,0,1,3),\ (0,0,2,2),\ (0,1,1,2),\ (0,2,3,3),\ (1,1,3,3),\ (1,2,2,3).
+  \]
+
+  分别计数：
+  \[
+  \binom32\binom31\binom31=27,
+  \quad
+  \binom32\binom32=9,
+  \quad
+  \binom31\binom32\binom31=27,
+  \]
+  \[
+  \binom31\binom31\binom32=27,
+  \quad
+  \binom32\binom32=9,
+  \quad
+  \binom31\binom32\binom31=27.
+  \]
+
+  总数为
+  \[
+  27+9+27+27+9+27=126.
+  \]
+
+  所以共有
+  \[
+  126
+  \]
+  种选法。
+  \end{solution}
+
+  \item \begin{solution}
+  可以。
+
+  一种分法是
+  \[
+  (3,6,9),\ (1,4,7),\ (2,5,8),\ (10,11,12).
+  \]
+  它们的和分别为
+  \[
+  18,12,15,33,
+  \]
+  都是 3 的倍数。
+
+  下面说明余数结构。
+
+  三个数的和要是 3 的倍数，则这三个数除以 3 的余数和必须为 0（模 3）。因此一组 3 个数的余数结构只可能是
+  \[
+  (0,0,0),\ (1,1,1),\ (2,2,2),\ (0,1,2).
+  \]
+
+  所以任何可行分组中的每一组，都只能是这四种类型之一。
+  \end{solution}
+
+  \item \begin{solution}
+  把被选数按模 3 分成 0 类、1 类、2 类。
+
+  如果某一类里有 3 个或以上的数，那么从这类中任选 3 个，它们的余数和就是
+  \[
+  0+0+0,\quad 1+1+1,\quad \text{或}\quad 2+2+2,
+  \]
+  都是 3 的倍数，这是不允许的。
+
+  所以每一类最多只能选 2 个。
+
+  另外，如果三类中都至少有 1 个数，那么从三类中各取 1 个，余数和为
+  \[
+  0+1+2=3,
+  \]
+  也是 3 的倍数，这也不允许。
+
+  因此三类中至少有一类必须为空。于是所有被选数只能落在两类中，而且每类最多 2 个，所以最多只能选
+  \[
+  2+2=4
+  \]
+  个。
+
+  这个上界可以达到，例如选
+  \[
+  \{1,4,2,5\}.
+  \]
+  任取 3 个时，余数和只可能是 $1$ 或 $2$（模 3），都不会是 0（模 3）。
+
+  所以最多能选 4 个数。
+  \end{solution}
+
+  \item \begin{solution}
+  把这 6 个数按模 3 的余数分成 0 类、1 类、2 类。
+
+  若某一类至少有 3 个数，则从这一类中任选 3 个，它们的和就是 3 的倍数。
+
+  若每一类都至多 2 个数，由于总共有 6 个数，因此三类个数只能恰好是 $2,2,2$。这时从三类中各取 1 个，余数和就是
+  \[
+  0+1+2=3,
+  \]
+  仍是 3 的倍数。
+
+  所以无论怎样取，必定能从中找到 3 个数，它们的和是 3 的倍数。
+  \end{solution}
+\end{enumerate}
+
+\end{document}

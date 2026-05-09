@@ -1,0 +1,261 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.4cm,bottom=2.6cm,left=2.35cm,right=2.35cm,headheight=18pt,headsep=0.55cm,footskip=26pt]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black
+}
+
+\setstretch{1.16}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.32em}
+\setlist[enumerate]{itemsep=0.35em, topsep=0.35em, leftmargin=2.3em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=2em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{rulegray}{RGB}{110,118,128}
+\definecolor{softgreen}{RGB}{236,247,240}
+\definecolor{softyellow}{RGB}{254,249,229}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.25em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.2em}{0.8em}
+\titleformat{\subsection}{\large\bfseries\color{mainblue}}{\thesubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 图论计数专题目录页}
+\fancyhead[C]{\small 组合专题资料索引}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{goalbox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{infobox}[1]{
+  breakable,
+  colback=softgreen,
+  colframe=green!40!black,
+  boxrule=0.65pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{warnbox}[1]{
+  breakable,
+  colback=softyellow,
+  colframe=orange!60!black,
+  boxrule=0.65pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{titlepage}
+\centering
+\vspace*{0.9cm}
+
+\begin{tcolorbox}[
+  enhanced,
+  width=0.92\textwidth,
+  colback=white,
+  colframe=mainblue,
+  boxrule=1pt,
+  arc=0mm,
+  left=6mm,
+  right=6mm,
+  top=8mm,
+  bottom=8mm
+]
+\centering
+
+{\fontsize{24}{30}\selectfont\bfseries 图论计数专题目录页\par}
+\vspace{0.65cm}
+{\fontsize{17}{22}\selectfont 讲义、题单与周测的使用说明\par}
+
+\vspace{1cm}
+\begin{tcolorbox}[colback=lightblue,colframe=mainblue,width=0.84\textwidth,boxrule=1pt]
+\centering
+{\large 适合对象：已经掌握基础计数，准备系统提升“把关系翻译成图”的学生}\\[0.35em]
+{\normalsize 本目录页帮助把图论计数专题资料串成一个完整训练包}
+\end{tcolorbox}
+
+\vspace{1.0cm}
+\renewcommand{\arraystretch}{1.42}
+\begin{tabular}{>{\bfseries}p{3.5cm}p{8cm}}
+专题名称： & 图论入门中的组合计数 \\
+资料组成： & 课堂讲义、提高训练题单、周测 A 卷、周测 B 卷 \\
+使用方式： & 先学讲义，再做题单，最后用 A/B 周测检查掌握情况 \\
+编译方式： & XeLaTeX \\
+\end{tabular}
+
+\vspace{0.9cm}
+{\large \today\par}
+\end{tcolorbox}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{专题包包含哪些资料}
+
+\begin{goalbox}{四份核心资料}
+\begin{enumerate}
+  \item 课堂讲义：帮助理解点、边、度数、握手定理、完全图、二分图与网格路径；
+  \item 提高训练题单：用于课后巩固和变式提升，重点训练“会建图、会数边、会数路径、会做结构证明”；
+  \item 周测 A 卷：检查基础图论建模与基本计数是否稳定；
+  \item 周测 B 卷：检查结构证明、网格路径变式和经典图论结论的理解是否真正到位。
+\end{enumerate}
+\end{goalbox}
+
+\begin{infobox}{对应文件名}
+\begin{itemize}
+  \item 讲义：\texttt{graph\_counting\_handout.tex} / \texttt{graph\_counting\_handout.pdf}
+  \item 提高训练题单：\texttt{graph\_counting\_advanced\_problem\_set.tex} / \texttt{graph\_counting\_advanced\_problem\_set.pdf}
+  \item 周测 A 卷：\texttt{graph\_counting\_weekly\_test\_A.tex} / \texttt{graph\_counting\_weekly\_test\_A.pdf}
+  \item 周测 B 卷：\texttt{graph\_counting\_weekly\_test\_B.tex} / \texttt{graph\_counting\_weekly\_test\_B.pdf}
+\end{itemize}
+\end{infobox}
+
+\section{建议学习顺序}
+
+\begin{goalbox}{推荐顺序}
+\begin{enumerate}
+  \item 先完整学习讲义，重点吃透“什么是点、边、度数”“为什么握手定理成立”“网格路径为什么能转化成计数”；
+  \item 再完成提高训练题单，训练把题目翻译成完全图、二分图或网格图；
+  \item 接着做周测 A 卷，检查基础模型是否稳定；
+  \item 最后做周测 B 卷，检查结构证明和综合变式是否掌握。
+\end{enumerate}
+\end{goalbox}
+
+\begin{warnbox}{不建议的做法}
+\begin{itemize}
+  \item 只会套公式，不先判断题目对应哪一种图；
+  \item 用握手定理时忘了“每条边被数两次”；
+  \item 网格路径题只会画图，不会转成组合数；
+  \item 做证明题时不画图、不分类，直接凭感觉写结论。
+\end{itemize}
+\end{warnbox}
+
+\section{每份资料主要解决什么问题}
+
+\subsection{课堂讲义}
+讲义适合第一次系统学习这个专题，主要解决以下问题：
+\begin{itemize}
+  \item 如何把“人、城市、格点、比赛关系”翻译成图；
+  \item 握手定理为什么成立；
+  \item 完全图和二分图的边数怎么数；
+  \item 网格路径为什么本质上是图上的路径计数；
+  \item 一些经典结构题如何用图论语言重新表达和证明。
+\end{itemize}
+
+\subsection{提高训练题单}
+题单适合第二阶段训练，主要用来把方法做熟。它更强调：
+\begin{itemize}
+  \item 能否正确建图；
+  \item 能否在边数、度数和路径数之间切换；
+  \item 能否处理“经过某点”“避开某点”的路径变式；
+  \item 能否对命题先判断真假，再给出证明或反例。
+\end{itemize}
+
+\subsection{周测 A 卷}
+A 卷偏基础，适合检查：
+\begin{itemize}
+  \item 握手定理是否熟练；
+  \item 完全图、二分图边数是否会数；
+  \item 基础网格路径是否会转化为组合数；
+  \item 简单聚会、比赛问题是否会建图。
+\end{itemize}
+
+\subsection{周测 B 卷}
+B 卷偏综合，适合检查：
+\begin{itemize}
+  \item 是否会做图论中的结构证明；
+  \item 是否会处理网格路径中的“经过/避开”点；
+  \item 是否会识别并反驳错误命题；
+  \item 是否能把抽屉原理、染色与图论语言结合起来。
+\end{itemize}
+
+\section{一个推荐的 4 次训练安排}
+
+\begin{goalbox}{4 次完成一个小专题}
+\begin{enumerate}
+  \item 第 1 次：学习讲义前半部分，重点理解点、边、度数与握手定理；
+  \item 第 2 次：学习讲义后半部分，完成题单基础题和中档题；
+  \item 第 3 次：完成题单综合题，并把错题按“建图错了/公式错了/路径分类错了/命题判断错了”分类订正；
+  \item 第 4 次：完成周测 A 卷或 B 卷，作为阶段性检查。
+\end{enumerate}
+\end{goalbox}
+
+\begin{infobox}{如果孩子基础较好，可以这样压缩}
+\begin{itemize}
+  \item 第 1 天：讲义 + 题单基础题；
+  \item 第 2 天：题单变式题 + 错题订正；
+  \item 第 3 天：周测 A 卷；
+  \item 第 4 天：周测 B 卷。
+\end{itemize}
+\end{infobox}
+
+\section{专题学习后的自检清单}
+
+\begin{goalbox}{如果下面 8 条都能做到，说明这个专题基本过关}
+\begin{enumerate}
+  \item 我能准确说出点、边、度数分别表示什么；
+  \item 我会使用握手定理；
+  \item 我会计算完全图的边数；
+  \item 我会计算二分图的最大边数；
+  \item 我会把网格路径题转化成组合数；
+  \item 我会处理“经过某点”或“避开某点”的路径变式；
+  \item 我能用图论语言重新表述一些经典结论；
+  \item 我会在证明题里先判断命题真假，再决定是证明还是举反例。
+\end{enumerate}
+\end{goalbox}
+
+\section{给家长的使用建议}
+
+\begin{warnbox}{更有效的带练方式}
+\begin{itemize}
+  \item 不要一开始就讲公式，先让孩子说“点代表谁、边代表什么”；
+  \item 如果卡住，可以只提示“能不能把它画成图”或“能不能数度数和”；
+  \item 网格路径题订正时，重点看孩子是否真正理解“走法对应排列”；
+  \item 结构证明题建议先让孩子尝试画图，再比较不同方法。
+\end{itemize}
+\end{warnbox}
+
+\begin{infobox}{和后续专题的衔接}
+图论计数学完以后，可以自然过渡到图染色、欧拉路径、哈密顿路径、图论中的抽屉原理与极值问题等更进一步的竞赛专题。
+\end{infobox}
+
+\end{document}

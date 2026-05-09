@@ -1,0 +1,372 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.25cm,bottom=2.45cm,left=2.25cm,right=2.25cm,headheight=18pt,headsep=0.55cm,footskip=24pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black
+}
+
+\setstretch{1.13}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.25em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.45em, topsep=0.35em, leftmargin=2.4em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=1.9em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{rulegray}{RGB}{110,118,128}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.2em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.1em}{0.7em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 错位排列周测 B 卷}
+\fancyhead[C]{\small 组合专题：递推、容斥与综合变式}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{infobox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newenvironment{solution}{\par\noindent\textbf{参考解答：}}{\hfill$\square$\par}
+\newcommand{\answerspace}{\vspace{2.3cm}}
+\newcommand{\biganswerspace}{\vspace{3.2cm}}
+\newcommand{\Dn}{D_n}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{center}
+{\fontsize{22}{28}\selectfont\bfseries 错位排列周测 B 卷\par}
+\vspace{0.4cm}
+{\large 适合小学高年级至初中低年级数学竞赛训练\par}
+\end{center}
+
+\begin{infobox}{考试说明}
+\begin{itemize}
+  \item 测试时间：75 分钟
+  \item 满分：100 分
+  \item B 卷更强调方法迁移，请特别注意区分：递推构造、补集法、容斥原理和 $\binom{n}{k}D_{n-k}$ 转化。
+\end{itemize}
+\end{infobox}
+
+\section{试题}
+
+\begin{enumerate}
+  \item （12 分）证明错位排列满足递推公式
+  \[
+  D_n=(n-1)(D_{n-1}+D_{n-2}).
+  \]
+  \biganswerspace
+
+  \item （12 分）用容斥原理计算 $D_6$。
+  \answerspace
+
+  \item （12 分）8 个不同数字排成一行，恰好有 1 个数字在原位，共有多少种排法？
+  \answerspace
+
+  \item （12 分）7 封不同的信放入 7 个对应信封中，至少有 2 封装对，共有多少种装法？
+  \answerspace
+
+  \item （12 分）6 个不同数字排成一行，至多有 1 个数字在原位，共有多少种排法？
+  \answerspace
+
+  \item （12 分）7 个对象排成一行，要求前 5 个对象都不在原位，后 2 个对象没有限制。共有多少种排法？
+  \biganswerspace
+
+  \item （14 分）8 个人排座位，恰好有 2 个人没有坐回自己的座位，共有多少种排法？
+  \answerspace
+
+  \item （14 分）8 个不同数字排成一行，至少有 3 个数字在原位，共有多少种排法？
+  \biganswerspace
+\end{enumerate}
+
+\newpage
+\section{详细解答}
+
+\begin{enumerate}
+  \item \begin{solution}
+  我们只看对象 1 最后去了哪里。
+
+  因为对象 1 不能回到第 1 个位置，所以它只能去其余 $n-1$ 个位置中的某一个，先有
+  \[
+  n-1
+  \]
+  种选择。
+
+  设对象 1 去了第 $k$ 个位置（$k\neq 1$），再看原来在第 $k$ 个位置上的对象 $k$：
+
+  \textbf{第一种情况：对象 $k$ 去了第 1 个位置。}  
+  这时对象 1 和对象 $k$ 形成一对交换，剩下的 $n-2$ 个对象仍需全部错位排列，因此有
+  \[
+  D_{n-2}
+  \]
+  种。
+
+  \textbf{第二种情况：对象 $k$ 没去第 1 个位置。}  
+  这时把“第 1 个位置”和“对象 $k$ 原来的位置”一起看作已经处理过，可以把剩下问题转化为 $n-1$ 个对象的错位排列，因此有
+  \[
+  D_{n-1}
+  \]
+  种。
+
+  对于对象 1 的每一种去向，上面两类情况总共有
+  \[
+  D_{n-2}+D_{n-1}
+  \]
+  种。
+
+  再乘上对象 1 的 $n-1$ 种去向，得到
+  \[
+  D_n=(n-1)(D_{n-1}+D_{n-2}).
+  \]
+
+  证毕。
+  \end{solution}
+
+  \item \begin{solution}
+  设 $A_i$ 表示“第 $i$ 个对象在原位”，其中 $i=1,2,3,4,5,6$。
+
+  我们要求的是“没有任何一个对象在原位”的排列数，即
+  \[
+  D_6=6!-\sum |A_i|+\sum |A_i\cap A_j|-\sum |A_i\cap A_j\cap A_k|+\cdots.
+  \]
+
+  逐项来看：
+  \begin{itemize}
+    \item 总排法：$6!=720$；
+    \item 固定 1 个对象在原位时，有 $5!$ 种，共 $\binom61 5!=6\times 120=720$；
+    \item 固定 2 个对象在原位时，有 $4!$ 种，共 $\binom62 4!=15\times 24=360$；
+    \item 固定 3 个对象在原位时，有 $3!$ 种，共 $\binom63 3!=20\times 6=120$；
+    \item 固定 4 个对象在原位时，有 $2!$ 种，共 $\binom64 2!=15\times 2=30$；
+    \item 固定 5 个对象在原位时，有 $1!$ 种，共 $\binom65 1!=6$；
+    \item 固定 6 个对象在原位时，有 $0!=1$ 种，共 $\binom66 0!=1$。
+  \end{itemize}
+
+  所以
+  \[
+  D_6=720-720+360-120+30-6+1.
+  \]
+
+  计算得
+  \[
+  D_6=265.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  “恰好有 1 个数字在原位”时，先选出这个在原位的数字，再让剩下 7 个数字全部错位排列。
+
+  因此总数为
+  \[
+  \binom81 D_7.
+  \]
+
+  由递推或已知可得
+  \[
+  D_7=1854.
+  \]
+
+  所以答案是
+  \[
+  \binom81 D_7=8\times 1854=14832.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  “至少有 2 封装对”可以按“恰好有几封装对”分类。
+
+  \textbf{恰好有 2 封装对：}
+  \[
+  \binom72 D_5=21\times 44=924.
+  \]
+
+  \textbf{恰好有 3 封装对：}
+  \[
+  \binom73 D_4=35\times 9=315.
+  \]
+
+  \textbf{恰好有 4 封装对：}
+  \[
+  \binom74 D_3=35\times 2=70.
+  \]
+
+  \textbf{恰好有 5 封装对：}
+  先选出哪 5 封装对，有
+  \[
+  \binom75 D_2=21\times 1=21.
+  \]
+
+  \textbf{恰好有 6 封装对：}
+  不可能。因为只要已有 6 封装对，最后 1 封也会被迫装对。
+
+  \textbf{恰好有 7 封装对：}
+  有
+  \[
+  1
+  \]
+  种。
+
+  所以至少有 2 封装对的总数为
+  \[
+  924+315+70+21+1=1331.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  “至多有 1 个数字在原位”包括两类：
+  \begin{itemize}
+    \item 没有一个在原位；
+    \item 恰好有 1 个在原位。
+  \end{itemize}
+
+  第一类有
+  \[
+  D_6=265
+  \]
+  种。
+
+  第二类：先选哪 1 个在原位，有
+  \[
+  \binom61=6
+  \]
+  种；剩下 5 个全部错位排列，有
+  \[
+  D_5=44
+  \]
+  种。
+
+  所以第二类有
+  \[
+  6\times 44=264
+  \]
+  种。
+
+  总数为
+  \[
+  265+264=529.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  这是“只有部分对象不能回原位”的题，应对前 5 个对象的坏事件使用容斥。
+
+  设 $A_i$ 表示“前 5 个对象中的第 $i$ 个回到原位”，其中 $i=1,2,3,4,5$。那么满足要求的排列数为
+  \[
+  7!-\binom51 6!+\binom52 5!-\binom53 4!+\binom54 3!-\binom55 2!.
+  \]
+
+  逐项计算：
+  \[
+  7!=5040,
+  \]
+  \[
+  \binom51 6!=5\times 720=3600,
+  \]
+  \[
+  \binom52 5!=10\times 120=1200,
+  \]
+  \[
+  \binom53 4!=10\times 24=240,
+  \]
+  \[
+  \binom54 3!=5\times 6=30,
+  \]
+  \[
+  \binom55 2!=2.
+  \]
+
+  所以所求为
+  \[
+  5040-3600+1200-240+30-2=2428.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  如果恰好有 2 个人没有坐回自己的座位，那么另外 6 个人都在原位。
+
+  这 2 个没有回原位的人既不能坐自己的座位，又只能坐剩下的两个空位，所以他们唯一的坐法就是互换座位。
+
+  因此只需先选出是哪 2 个人没有坐回原位，有
+  \[
+  \binom82=28
+  \]
+  种；选定以后，他们的错位方式只有 1 种。
+
+  所以总数为
+  \[
+  28.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  “至少有 3 个数字在原位”可以按“恰好有几个数字在原位”分类。
+
+  \textbf{恰好有 3 个在原位：}
+  \[
+  \binom83 D_5=56\times 44=2464.
+  \]
+
+  \textbf{恰好有 4 个在原位：}
+  \[
+  \binom84 D_4=70\times 9=630.
+  \]
+
+  \textbf{恰好有 5 个在原位：}
+  \[
+  \binom85 D_3=56\times 2=112.
+  \]
+
+  \textbf{恰好有 6 个在原位：}
+  \[
+  \binom86 D_2=28\times 1=28.
+  \]
+
+  \textbf{恰好有 7 个在原位：}
+  不可能。
+
+  \textbf{恰好有 8 个在原位：}
+  有
+  \[
+  1
+  \]
+  种。
+
+  因此总数为
+  \[
+  2464+630+112+28+1=3235.
+  \]
+  \end{solution}
+\end{enumerate}
+
+\end{document}

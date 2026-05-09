@@ -1,0 +1,336 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.25cm,bottom=2.45cm,left=2.25cm,right=2.25cm,headheight=18pt,headsep=0.55cm,footskip=24pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black
+}
+
+\setstretch{1.13}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.25em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.45em, topsep=0.35em, leftmargin=2.4em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=1.9em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{rulegray}{RGB}{110,118,128}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.2em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.1em}{0.7em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 递推计数周测 A 卷}
+\fancyhead[C]{\small 组合专题：基础模型与直接递推}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{infobox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newenvironment{solution}{\par\noindent\textbf{参考解答：}}{\hfill$\square$\par}
+\newcommand{\answerspace}{\vspace{2.3cm}}
+\newcommand{\biganswerspace}{\vspace{3.1cm}}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{center}
+{\fontsize{22}{28}\selectfont\bfseries 递推计数周测 A 卷\par}
+\vspace{0.4cm}
+{\large 适合小学高年级至初中低年级数学竞赛训练\par}
+\end{center}
+
+\begin{infobox}{考试说明}
+\begin{itemize}
+  \item 测试时间：70--75 分钟
+  \item 满分：100 分
+  \item A 卷侧重基础递推、受限字符串和简单铺砖模型，建议先写清楚递推关系和初始条件。
+\end{itemize}
+\end{infobox}
+
+\section{试题}
+
+\begin{enumerate}
+  \item （10 分）每次可以上 1 级或 2 级台阶。求上到第 7 级台阶的走法数。
+  \answerspace
+
+  \item （12 分）每次可以上 1 级、2 级或 3 级台阶。求上到第 6 级台阶的走法数。
+  \answerspace
+
+  \item （12 分）长度为 7 的 0,1 串中，不允许出现两个相邻的 1。这样的串有多少个？
+  \answerspace
+
+  \item （12 分）长度为 7 的 A、B 串中，不允许出现连续三个 A。这样的串有多少个？
+  \answerspace
+
+  \item （12 分）用 $1\times 1$ 小方块和 $1\times 2$ 小长方形铺满 $1\times 8$ 长条，有多少种铺法？
+  \answerspace
+
+  \item （14 分）用 $1\times 1$ 小方块和 $1\times 3$ 长方形铺满 $1\times 8$ 长条，有多少种铺法？
+  \biganswerspace
+
+  \item （14 分）用 $2\times 1$ 骨牌铺满 $2\times 7$ 长方形，有多少种铺法？
+  \biganswerspace
+
+  \item （14 分）用递推公式求错位排列数 $D_7$。
+  \answerspace
+\end{enumerate}
+
+\newpage
+\section{详细解答}
+
+\begin{enumerate}
+  \item \begin{solution}
+  设上到第 $n$ 级台阶的走法数为 $f_n$。
+
+  按最后一步分类：
+  \[
+  f_n=f_{n-1}+f_{n-2}.
+  \]
+
+  初始条件：
+  \[
+  f_1=1,\qquad f_2=2.
+  \]
+
+  所以
+  \[
+  f_3=3,\quad f_4=5,\quad f_5=8,\quad f_6=13,\quad f_7=21.
+  \]
+
+  因此答案为
+  \[
+  21.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  设走法数为 $f_n$。
+
+  按最后一步分类：
+  \[
+  f_n=f_{n-1}+f_{n-2}+f_{n-3}.
+  \]
+
+  初始值：
+  \[
+  f_1=1,\qquad f_2=2,\qquad f_3=4.
+  \]
+
+  所以
+  \[
+  f_4=7,\qquad f_5=13,\qquad f_6=24.
+  \]
+
+  因此答案为
+  \[
+  24.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  设长度为 $n$ 的合法 0,1 串个数为 $a_n$。
+
+  看最后一位：
+  \begin{itemize}
+    \item 最后一位是 0，则前面有 $a_{n-1}$ 种；
+    \item 最后一位是 1，则倒数第二位必须是 0，所以前面有 $a_{n-2}$ 种。
+  \end{itemize}
+
+  所以
+  \[
+  a_n=a_{n-1}+a_{n-2}.
+  \]
+
+  初值为
+  \[
+  a_1=2,\qquad a_2=3.
+  \]
+
+  因此
+  \[
+  a_3=5,\quad a_4=8,\quad a_5=13,\quad a_6=21,\quad a_7=34.
+  \]
+
+  所以答案为
+  \[
+  34.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  设长度为 $n$ 的合法 A、B 串个数为 $b_n$。
+
+  一个合法串的结尾只能是以下三类之一：
+  \begin{itemize}
+    \item B；
+    \item AB；
+    \item AAB。
+  \end{itemize}
+
+  所以
+  \[
+  b_n=b_{n-1}+b_{n-2}+b_{n-3}.
+  \]
+
+  初值：
+  \[
+  b_1=2,\qquad b_2=4,\qquad b_3=7.
+  \]
+
+  因此
+  \[
+  b_4=13,\quad b_5=24,\quad b_6=44,\quad b_7=81.
+  \]
+
+  所以答案为
+  \[
+  81.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  设铺法数为 $p_n$。
+
+  按最后一块分类：
+  \[
+  p_n=p_{n-1}+p_{n-2}.
+  \]
+
+  初值为
+  \[
+  p_1=1,\qquad p_2=2.
+  \]
+
+  所以
+  \[
+  p_3=3,\quad p_4=5,\quad p_5=8,\quad p_6=13,\quad p_7=21,\quad p_8=34.
+  \]
+
+  因此答案为
+  \[
+  34.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  设铺法数为 $q_n$。
+
+  按最后一块分类：
+  \begin{itemize}
+    \item 最后一块是 $1\times 1$，前面有 $q_{n-1}$ 种；
+    \item 最后一块是 $1\times 3$，前面有 $q_{n-3}$ 种。
+  \end{itemize}
+
+  所以
+  \[
+  q_n=q_{n-1}+q_{n-3}.
+  \]
+
+  初值为
+  \[
+  q_1=1,\qquad q_2=1,\qquad q_3=2.
+  \]
+
+  继续递推：
+  \[
+  q_4=3,\quad q_5=4,\quad q_6=6,\quad q_7=9,\quad q_8=13.
+  \]
+
+  因此答案为
+  \[
+  13.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  设用 $2\times 1$ 骨牌铺满 $2\times n$ 长方形的铺法数为 $r_n$。
+
+  看最左边：
+  \begin{itemize}
+    \item 若放一块竖着的骨牌，则剩下 $2\times(n-1)$，有 $r_{n-1}$ 种；
+    \item 若放两块横着的骨牌，则剩下 $2\times(n-2)$，有 $r_{n-2}$ 种。
+  \end{itemize}
+
+  所以
+  \[
+  r_n=r_{n-1}+r_{n-2}.
+  \]
+
+  初值为
+  \[
+  r_1=1,\qquad r_2=2.
+  \]
+
+  因此
+  \[
+  r_3=3,\quad r_4=5,\quad r_5=8,\quad r_6=13,\quad r_7=21.
+  \]
+
+  所以答案为
+  \[
+  21.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  错位排列满足递推公式
+  \[
+  D_n=(n-1)(D_{n-1}+D_{n-2}).
+  \]
+
+  已知
+  \[
+  D_1=0,\qquad D_2=1.
+  \]
+
+  先递推：
+  \[
+  D_3=2,
+  \quad
+  D_4=9,
+  \quad
+  D_5=44,
+  \quad
+  D_6=265.
+  \]
+
+  于是
+  \[
+  D_7=6(D_6+D_5)=6(265+44)=1854.
+  \]
+  \end{solution}
+\end{enumerate}
+
+\end{document}
