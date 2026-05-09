@@ -1,0 +1,234 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.25cm,bottom=2.45cm,left=2.25cm,right=2.25cm,headheight=18pt,headsep=0.55cm,footskip=24pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black
+}
+
+\setstretch{1.13}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.25em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.45em, topsep=0.35em, leftmargin=2.4em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=1.9em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{rulegray}{RGB}{110,118,128}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.2em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.1em}{0.7em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 染色方法与棋盘问题周测 A 卷}
+\fancyhead[C]{\small 组合专题：黑白染色与路径奇偶}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{infobox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newenvironment{solution}{\par\noindent\textbf{参考解答：}}{\hfill$\square$\par}
+\newcommand{\answerspace}{\vspace{2.3cm}}
+\newcommand{\biganswerspace}{\vspace{3.1cm}}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{center}
+{\fontsize{22}{28}\selectfont\bfseries 染色方法与棋盘问题周测 A 卷\par}
+\vspace{0.4cm}
+{\large 适合小学高年级至初中低年级数学竞赛训练\par}
+\end{center}
+
+\begin{infobox}{考试说明}
+\begin{itemize}
+  \item 测试时间：70--75 分钟
+  \item 满分：100 分
+  \item A 卷侧重基础黑白染色、骨牌覆盖和路径奇偶，请先判断“每一步颜色怎样变”。
+\end{itemize}
+\end{infobox}
+
+\section{试题}
+
+\begin{enumerate}
+  \item （10 分）证明：在黑白相间染色的棋盘上，任何一个 $1\times 2$ 骨牌都一定覆盖 $1$ 个黑格和 $1$ 个白格。
+  \answerspace
+
+  \item （12 分）把 $8\times 8$ 棋盘上的两个同色角格去掉，证明剩下的图形不能被 $1\times 2$ 骨牌完全覆盖。
+  \answerspace
+
+  \item （12 分）把 $8\times 8$ 棋盘的左上角和右上角去掉，判断剩下的图形能否被 $1\times 2$ 骨牌完全覆盖，并说明理由。
+  \answerspace
+
+  \item （12 分）证明：任何一条沿格边前进的路径，所经过格子的颜色一定黑白交替。
+  \answerspace
+
+  \item （14 分）在 $6\times 6$ 棋盘上，若每一步都只能走到上下左右相邻的格子，能否从左上角出发，到右下角结束，并且每个格子恰好经过一次？
+  \biganswerspace
+
+  \item （14 分）在 $5\times 5$ 棋盘上，若每一步都只能走到上下左右相邻的格子，能否从左上角出发，到它右边相邻的那个格子结束，并且每个格子恰好经过一次？
+  \biganswerspace
+
+  \item （12 分）请设计一种 $3$ 色染色方法，使得任意一个横放或竖放的 $1\times 3$ 长条都恰好覆盖三种不同颜色。
+  \answerspace
+
+  \item （14 分）把 $8\times 8$ 棋盘左上角的一个格子去掉，问剩下的 $63$ 个格子能否被 $21$ 个 $1\times 3$ 长条完全覆盖？
+  \biganswerspace
+\end{enumerate}
+
+\newpage
+\section{详细解答}
+
+\begin{enumerate}
+  \item \begin{solution}
+  在黑白相间染色的棋盘上，上下左右相邻的两个格子颜色一定不同。
+
+  一个 $1\times 2$ 骨牌恰好覆盖两个相邻格，所以它盖住的两个格子一定是一黑一白。
+
+  这说明骨牌覆盖题里，黑白格数量是否相等，是首先要检查的必要条件。
+  \end{solution}
+
+  \item \begin{solution}
+  $8\times 8$ 棋盘共有 $32$ 个黑格和 $32$ 个白格。
+
+  同色角格被去掉以后，设去掉的是两个黑格，那么剩下的格子中有
+  \[
+  30\text{ 个黑格，}32\text{ 个白格}。
+  \]
+
+  但每一块 $1\times 2$ 骨牌都必须覆盖一黑一白，因此如果能完全覆盖，被覆盖的黑格数和白格数就应该相等。
+
+  现在黑白数量不相等，所以不可能完全覆盖。
+  \end{solution}
+
+  \item \begin{solution}
+  可以完全覆盖。
+
+  因为左上角和右上角颜色不同，所以去掉它们以后，剩余图形中的黑格数和白格数仍然相等，没有出现黑白数量矛盾。
+
+  下面给出具体覆盖方法：
+  \begin{itemize}
+    \item 第一行去掉两个端点后，中间正好剩下连续的 $6$ 个格子，可以用 $3$ 个横放骨牌盖满；
+    \item 第 $2$ 到第 $8$ 行，每一行都是完整的 $8$ 个格子，每一行都能用 $4$ 个横放骨牌盖满。
+  \end{itemize}
+
+  所以总共用
+  \[
+  3+7\times 4=31
+  \]
+  个骨牌，就能完成覆盖。
+  \end{solution}
+
+  \item \begin{solution}
+  每走一步，都会从当前格走到一个上下左右相邻的格子。
+
+  而在黑白相间染色中，相邻格颜色不同，所以每走一步，颜色就改变一次。
+
+  于是整条路径的颜色顺序只能是：
+  \begin{itemize}
+    \item 黑、白、黑、白、\ldots，或者
+    \item 白、黑、白、黑、\ldots
+  \end{itemize}
+
+  也就是说，路径上经过的格子颜色一定黑白交替。
+  \end{solution}
+
+  \item \begin{solution}
+  不能。
+
+  因为这条路径要经过全部 $36$ 个格子，所以它会经过偶数个格子。
+
+  由上一题，路径颜色黑白交替。经过偶数个格子时，起点和终点颜色一定不同。
+
+  但是 $6\times 6$ 棋盘的左上角和右下角颜色相同，因为从左上角走到右下角要走
+  \[
+  5+5=10
+  \]
+  步，是偶数步，颜色不变。
+
+  于是得到矛盾：
+  \begin{itemize}
+    \item 路径结构要求起点终点异色；
+    \item 实际指定的两个角格同色。
+  \end{itemize}
+
+  所以这样的路径不存在。
+  \end{solution}
+
+  \item \begin{solution}
+  也不能。
+
+  $5\times 5$ 棋盘共有 $25$ 个格子，是奇数个。
+
+  如果一条路径把这 $25$ 个格子全都恰好经过一次，那么它经过的是奇数个格子。黑白交替经过奇数个格子时，起点和终点颜色一定相同。
+
+  但左上角和它右边相邻的那个格子是相邻格，颜色不同。
+
+  因此题目要求的起点终点与路径交替规律矛盾，所以不可能存在这样的路径。
+  \end{solution}
+
+  \item \begin{solution}
+  设一个格子的坐标是 $(i,j)$，把它染成
+  \[
+  (i+j)\bmod 3
+  \]
+  所对应的颜色。
+
+  这样得到三种颜色。现在看一个横放的 $1\times 3$ 长条，它覆盖的三个格子列号连续，所以 $(i+j)$ 的值连续加 $1$，对应的三个余数恰好是三种不同的值。
+
+  竖放时同理，因为行号连续，$(i+j)$ 也连续加 $1$，仍然得到三种不同颜色。
+
+  因而任意一个横放或竖放的 $1\times 3$ 长条都恰好覆盖三种不同颜色各一个。
+  \end{solution}
+
+  \item \begin{solution}
+  不能。
+
+  用上一题的三色染色方法。完整 $8\times 8$ 棋盘中三种颜色的格数分别是
+  \[
+  21,\ 22,\ 21.
+  \]
+
+  左上角属于那个“共有 $21$ 个”的颜色类。去掉它以后，三种颜色个数变成
+  \[
+  20,\ 22,\ 21.
+  \]
+
+  但是每一个 $1\times 3$ 长条都会覆盖三种颜色各一个，所以如果能用 $21$ 个长条完全覆盖，那么三种颜色的总数应该完全相等，都是 $21$。
+
+  现在实际颜色数并不相等，因此不可能完成覆盖。
+  \end{solution}
+\end{enumerate}
+
+\end{document}

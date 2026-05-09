@@ -34,7 +34,7 @@
 
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{\small 染色方法与棋盘问题专题目录页}
+\fancyhead[L]{\small 欧拉路径与哈密顿路径专题目录页}
 \fancyhead[C]{\small 组合专题资料索引}
 \fancyhead[R]{\small 刘文博}
 \fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
@@ -55,21 +55,21 @@
 \begin{tcolorbox}[enhanced,width=0.92\textwidth,colback=white,colframe=mainblue,boxrule=1pt,arc=0mm,left=6mm,right=6mm,top=8mm,bottom=8mm]
 \centering
 
-{\fontsize{24}{30}\selectfont\bfseries 染色方法与棋盘问题专题目录页\par}
+{\fontsize{24}{30}\selectfont\bfseries 欧拉路径与哈密顿路径专题目录页\par}
 \vspace{0.65cm}
 {\fontsize{17}{22}\selectfont 讲义、题单与周测的使用说明\par}
 
 \vspace{1cm}
 \begin{tcolorbox}[colback=lightblue,colframe=mainblue,width=0.84\textwidth,boxrule=1pt]
 \centering
-{\large 适合对象：已经学过抽屉原理、数论分类和不变量，准备系统提升“覆盖与不可能性证明”的学生}\\[0.35em]
-{\normalsize 本目录页帮助把染色方法专题资料串成一个完整训练包}
+{\large 适合对象：已经学过基础图论与染色方法，准备系统提升“图上走法”判断能力的学生}\\[0.35em]
+{\normalsize 本目录页帮助把欧拉与哈密顿专题资料串成一个完整训练包}
 \end{tcolorbox}
 
 \vspace{1.0cm}
 \renewcommand{\arraystretch}{1.42}
 \begin{tabular}{>{\bfseries}p{3.5cm}p{8cm}}
-专题名称： & 染色方法与棋盘问题 \\
+专题名称： & 欧拉路径与哈密顿路径 \\
 资料组成： & 课堂讲义、提高训练题单、周测 A 卷、周测 B 卷 \\
 使用方式： & 先学讲义，再做题单，最后用 A/B 周测检查掌握情况 \\
 编译方式： & XeLaTeX \\
@@ -87,19 +87,19 @@
 
 \begin{goalbox}{四份核心资料}
 \begin{enumerate}
-  \item 课堂讲义：帮助理解黑白染色、多色染色、路径奇偶性与不变量；
-  \item 提高训练题单：用于课后巩固和变式提升，重点训练“会选颜色、会数颜色、会判断必要条件”；
-  \item 周测 A 卷：检查基础黑白染色、骨牌覆盖和路径奇偶是否稳定；
-  \item 周测 B 卷：检查多色染色、不变量和“必要不充分”的理解是否真正到位。
+  \item 课堂讲义：帮助分清欧拉与哈密顿两类问题，建立最核心的判定框架；
+  \item 提高训练题单：用于课后巩固和变式提升，重点训练“会区分模型、会排除、会构造”；
+  \item 周测 A 卷：检查欧拉判定与基础哈密顿必要条件是否稳定；
+  \item 周测 B 卷：检查结构分析、反例构造和综合判断是否真正到位。
 \end{enumerate}
 \end{goalbox}
 
 \begin{infobox}{对应文件名}
 \begin{itemize}
-  \item 讲义：\texttt{coloring\_chessboard\_handout.tex} / \texttt{coloring\_chessboard\_handout.pdf}
-  \item 提高训练题单：\texttt{coloring\_chessboard\_advanced\_problem\_set.tex} / \texttt{coloring\_chessboard\_advanced\_problem\_set.pdf}
-  \item 周测 A 卷：\texttt{coloring\_chessboard\_weekly\_test\_A.tex} / \texttt{coloring\_chessboard\_weekly\_test\_A.pdf}
-  \item 周测 B 卷：\texttt{coloring\_chessboard\_weekly\_test\_B.tex} / \texttt{coloring\_chessboard\_weekly\_test\_B.pdf}
+  \item 讲义：\texttt{euler\_hamilton\_handout.tex} / \texttt{euler\_hamilton\_handout.pdf}
+  \item 提高训练题单：\texttt{euler\_hamilton\_advanced\_problem\_set.tex} / \texttt{euler\_hamilton\_advanced\_problem\_set.pdf}
+  \item 周测 A 卷：\texttt{euler\_hamilton\_weekly\_test\_A.tex} / \texttt{euler\_hamilton\_weekly\_test\_A.pdf}
+  \item 周测 B 卷：\texttt{euler\_hamilton\_weekly\_test\_B.tex} / \texttt{euler\_hamilton\_weekly\_test\_B.pdf}
 \end{itemize}
 \end{infobox}
 
@@ -107,18 +107,18 @@
 
 \begin{goalbox}{推荐顺序}
 \begin{enumerate}
-  \item 先完整学习讲义，重点吃透“为什么这样染色”“每一步颜色怎样变化”；
-  \item 再完成提高训练题单，训练骨牌覆盖、路径交替、三色染色和不变量；
-  \item 接着做周测 A 卷，检查基础模型是否稳定；
-  \item 最后做周测 B 卷，检查必要条件、反例和综合判断是否掌握。
+  \item 先完整学习讲义，重点吃透“欧拉看边、哈密顿看点”这个最核心区别；
+  \item 再完成提高训练题单，把奇度点判定、二分图染色和结构排除做熟；
+  \item 接着做周测 A 卷，检查基础判断是否稳定；
+  \item 最后做周测 B 卷，检查能否做综合说明和反例构造。
 \end{enumerate}
 \end{goalbox}
 
 \begin{warnbox}{不建议的做法}
 \begin{itemize}
-  \item 见到棋盘题就立刻算摆法，不先想是否适合染色；
-  \item 黑白格数相等就直接断言“一定能覆盖”；
-  \item 只会黑白染色，不敢尝试三色或更多颜色。
+  \item 看到“走法题”就只盯着度数，不先分清题目到底看边还是看点；
+  \item 把哈密顿问题也机械套成“奇度点判定”；
+  \item 满足必要条件后就直接断言“一定存在”。
 \end{itemize}
 \end{warnbox}
 
@@ -127,43 +127,44 @@
 \subsection{课堂讲义}
 讲义适合第一次系统学习这个专题，主要解决以下问题：
 \begin{itemize}
-  \item 骨牌覆盖题为什么适合黑白染色；
-  \item 路径题为什么会和奇偶性交替联系起来；
-  \item $1\times 3$ 长条为什么常常要用三色染色；
-  \item 怎样理解“必要条件”和“充分条件”的差别。
+  \item 欧拉道路、欧拉回路、哈密顿路径、哈密顿回路分别是什么意思；
+  \item 为什么欧拉问题由度数奇偶决定；
+  \item 为什么哈密顿问题没有同样简单的统一判定法；
+  \item 怎样用二分图染色和结构切分排除哈密顿回路。
 \end{itemize}
 
 \subsection{提高训练题单}
 题单适合第二阶段训练，主要用来把方法做熟。它更强调：
 \begin{itemize}
-  \item 能否自己设计合适的染色方式；
-  \item 能否把“操作题”转化成不变量问题；
-  \item 能否区分“这题是证明不可能”还是“这题要给构造”。
+  \item 能否快速判断题目属于欧拉还是哈密顿；
+  \item 能否正确使用奇度点结论；
+  \item 能否用度数为 $1$ 的点、二分图黑白点数、公共顶点等结构进行排除；
+  \item 能否举出合适反例说明“必要条件不充分”。
 \end{itemize}
 
 \subsection{周测 A 卷}
 A 卷偏基础，适合检查：
 \begin{itemize}
-  \item 黑白染色是否熟练；
-  \item 骨牌覆盖与路径交替是否真正理解；
-  \item 基本三色染色是否会用。
+  \item 欧拉道路与欧拉回路的判定是否稳定；
+  \item 基础哈密顿路径与回路是否会判断；
+  \item 是否能用最经典的黑白染色处理网格图。
 \end{itemize}
 
 \subsection{周测 B 卷}
 B 卷偏综合，适合检查：
 \begin{itemize}
-  \item 必要条件与充分条件是否能区分；
-  \item 是否会用不变量处理操作题；
-  \item 是否会举反例支持自己的说明。
+  \item 是否会举反例区分两类问题；
+  \item 是否会进行结构说明，而不只是写结论；
+  \item 是否真正理解必要条件与充分条件的差别。
 \end{itemize}
 
 \section{一个推荐的 4 次训练安排}
 
 \begin{goalbox}{4 次完成一个小专题}
 \begin{enumerate}
-  \item 第 1 次：学习讲义前半部分，稳住最基础的黑白染色；
-  \item 第 2 次：学习讲义后半部分，重点理解多色染色与不变量；
-  \item 第 3 次：完成提高训练题单，并把错题按“染色不会 / 条件判断错 / 构造不会 / 证明不完整”分类订正；
+  \item 第 1 次：学习讲义前半部分，稳住欧拉判定；
+  \item 第 2 次：学习讲义后半部分，重点理解哈密顿问题的常见排除方法；
+  \item 第 3 次：完成提高训练题单，并把错题按“模型分错 / 判定错 / 构造不会 / 证明不完整”分类订正；
   \item 第 4 次：完成周测 A 卷或 B 卷，作为阶段性检查。
 \end{enumerate}
 \end{goalbox}
@@ -181,14 +182,14 @@ B 卷偏综合，适合检查：
 
 \begin{goalbox}{如果下面 8 条都能做到，说明这个专题基本过关}
 \begin{enumerate}
-  \item 我会用黑白染色处理基础骨牌覆盖；
-  \item 我知道黑白格数相等通常只是必要条件；
-  \item 我会判断路径交替带来的起点终点颜色关系；
-  \item 我敢尝试三色染色处理 $1\times 3$ 长条；
-  \item 我会把某些翻转操作题看成不变量问题；
-  \item 我会区分“证明不可能”和“给出构造”；
-  \item 我会举出颜色数量平衡但仍不能覆盖的例子；
-  \item 我知道染色本质上是一种分类与不变量工具。
+  \item 我能准确说出欧拉问题和哈密顿问题的区别；
+  \item 我会判断连通图是否有欧拉回路；
+  \item 我会判断连通图是否有欧拉道路；
+  \item 我知道哈密顿问题不能机械地套奇度点结论；
+  \item 我会用黑白染色排除某些网格图的哈密顿回路；
+  \item 我会利用度数为 $1$ 的点排除哈密顿路径；
+  \item 我会举出“有欧拉无哈密顿”或“有哈密顿无欧拉”的例子；
+  \item 我知道必要条件满足后，往往还需要具体构造或进一步结构分析。
 \end{enumerate}
 \end{goalbox}
 
@@ -196,15 +197,15 @@ B 卷偏综合，适合检查：
 
 \begin{warnbox}{更有效的带练方式}
 \begin{itemize}
-  \item 做题前先让孩子口头说“这题想染成几种颜色”；
-  \item 如果卡住，可以只提示“每一步会改变哪些颜色”；
-  \item 订正时重点不只是答案对错，更要看染色是否选对；
-  \item 做完后最好追问一句：这个条件是必要的，还是已经足够？
+  \item 每做一道题，先让孩子先说“这题看边还是看点”；
+  \item 如果卡住，可以只提示“数数奇度点”或“试试黑白染色”；
+  \item 订正时重点不只是对错，更要看孩子是否把两类模型混淆；
+  \item 反例题建议让孩子先自己画图，再比较不同例子。
 \end{itemize}
 \end{warnbox}
 
 \begin{infobox}{和后续专题的衔接}
-染色方法学完以后，最自然的下一步就是继续学习欧拉路径与哈密顿路径。因为那一讲会把图论、路径和黑白染色真正连起来。
+这个专题学完以后，可以继续自然过渡到二分图、匹配与覆盖、更系统的网格图路径问题，以及图论中的构造与极值专题。
 \end{infobox}
 
 \end{document}

@@ -116,7 +116,7 @@
 \renewcommand{\arraystretch}{1.42}
 \begin{tabular}{>{\bfseries}p{3.5cm}p{8cm}}
 总主题： & 组合专题阶段课程 \\
-已完成专题： & 错位排列、容斥原理、递推计数、图论计数、数论方法中的组合构造、抽屉原理与极值思想 \\
+已完成专题： & 错位排列、容斥原理、递推计数、图论计数、数论方法中的组合构造、抽屉原理与极值思想、染色方法与棋盘问题 \\
 资料类型： & 课堂讲义、提高训练题单、周测 A/B、专题目录页（部分专题） \\
 编译方式： & XeLaTeX \\
 \end{tabular}
@@ -166,15 +166,17 @@
   \item 数论方法中的组合构造：奇偶性、模运算、不变量；
   \item 抽屉原理与极值思想：存在性证明、最值构造；
   \item 染色方法与棋盘问题：黑白染色、多色分类、不变量；
-  \item 进一步提高：欧拉路径、哈密顿路径、状态压缩递推、生成函数初步等。
+  \item 欧拉路径与哈密顿路径：区分“边一次”和“点一次”的图上走法；
+  \item 进一步提高：状态压缩递推、生成函数初步等。
 \end{enumerate}
 \end{goalbox}
 
 \begin{warnbox}{关于学习节奏}
 \begin{itemize}
   \item 前 1--6 个专题适合作为“小学高年级到初中低年级”的主干组合课程；
-  \item 第 7、8 个专题适合作为提升阶段，和前面的图论、数论方法自然衔接；
-  \item 第 9 个专题更适合在前面方法已经比较熟练以后，再逐步加入。
+  \item 第 7 个专题适合作为提升阶段，把覆盖、路径与不变量真正连起来；
+  \item 第 8 个专题适合在图论与染色都有基础后加入；
+  \item 第 9 个专题起可继续向更高阶段方法过渡。
 \end{itemize}
 \end{warnbox}
 
@@ -284,11 +286,22 @@
   \item 周测 B 卷：\texttt{pigeonhole\_extremal\_weekly\_test\_B.tex} / \texttt{pigeonhole\_extremal\_weekly\_test\_B.pdf}
 \end{itemize}
 
-\subsection{下一步衔接专题}
+\subsection{染色方法与棋盘问题专题}
 \begin{itemize}
   \item 专题目录页：\texttt{coloring\_chessboard\_topic\_index.tex} / \texttt{coloring\_chessboard\_topic\_index.pdf}
   \item 讲义：\texttt{coloring\_chessboard\_handout.tex} / \texttt{coloring\_chessboard\_handout.pdf}
-  \item 说明：这个专题目前已完成目录页和讲义，后续可继续补题单与周测。
+  \item 提高训练题单：\texttt{coloring\_chessboard\_advanced\_problem\_set.tex} / \texttt{coloring\_chessboard\_advanced\_problem\_set.pdf}
+  \item 周测 A 卷：\texttt{coloring\_chessboard\_weekly\_test\_A.tex} / \texttt{coloring\_chessboard\_weekly\_test\_A.pdf}
+  \item 周测 B 卷：\texttt{coloring\_chessboard\_weekly\_test\_B.tex} / \texttt{coloring\_chessboard\_weekly\_test\_B.pdf}
+\end{itemize}
+
+\subsection{欧拉路径与哈密顿路径专题}
+\begin{itemize}
+  \item 专题目录页：\texttt{euler\_hamilton\_topic\_index.tex} / \texttt{euler\_hamilton\_topic\_index.pdf}
+  \item 讲义：\texttt{euler\_hamilton\_handout.tex} / \texttt{euler\_hamilton\_handout.pdf}
+  \item 提高训练题单：\texttt{euler\_hamilton\_advanced\_problem\_set.tex} / \texttt{euler\_hamilton\_advanced\_problem\_set.pdf}
+  \item 周测 A 卷：\texttt{euler\_hamilton\_weekly\_test\_A.tex} / \texttt{euler\_hamilton\_weekly\_test\_A.pdf}
+  \item 周测 B 卷：\texttt{euler\_hamilton\_weekly\_test\_B.tex} / \texttt{euler\_hamilton\_weekly\_test\_B.pdf}
 \end{itemize}
 
 \section{按周安排的一个示例}
@@ -301,7 +314,8 @@
   \item 第 9--10 周：图论计数讲义 + 题单 + 周测 A/B；
   \item 第 11--13 周：数论方法中的组合构造讲义 + 题单 + 周测 A/B；
   \item 第 14--15 周：抽屉原理与极值思想讲义 + 题单 + 周测 A/B；
-  \item 第 16 周起：继续衔接染色方法与棋盘问题。
+  \item 第 16--17 周：染色方法与棋盘问题目录页 + 讲义 + 题单 + 周测 A/B；
+  \item 第 18--19 周：欧拉路径与哈密顿路径目录页 + 讲义 + 题单 + 周测 A/B。
 \end{itemize}
 如果节奏更快，也可以每个专题压缩成 2 次讲练 + 1 次测验。
 \end{infobox}
@@ -329,7 +343,7 @@
 \end{warnbox}
 
 \begin{infobox}{后续自然衔接的专题}
-在这六个专题之后，比较自然的后续方向包括：染色方法、欧拉路径与哈密顿路径、状态压缩递推、生成函数初步等。
+在目前已经整理出的七个专题之后，比较自然的后续方向包括：欧拉路径与哈密顿路径、状态压缩递推、生成函数初步，以及更系统的图论构造专题。
 \end{infobox}
 
 \end{document}

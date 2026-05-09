@@ -1,0 +1,439 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.35cm,bottom=2.55cm,left=2.3cm,right=2.3cm,headheight=18pt,headsep=0.55cm,footskip=26pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black,
+  citecolor=blue!50!black
+}
+
+\setstretch{1.15}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.28em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.35em, topsep=0.35em, leftmargin=2.2em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=1.9em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{accent}{RGB}{153,76,0}
+\definecolor{rulegray}{RGB}{110,118,128}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.25em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.2em}{0.8em}
+\titleformat{\subsection}{\large\bfseries\color{mainblue}}{\thesubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 染色方法与棋盘问题提高训练题单}
+\fancyhead[C]{\small 组合专题：覆盖、路径与不变量}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{goalbox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{notebox}[1]{
+  breakable,
+  colback=lightgray,
+  colframe=black!50,
+  boxrule=0.55pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtheoremstyle{formalexample}
+  {0.8em}{0.8em}{\normalfont}{}{\bfseries\color{accent}}{．}{0.6em}{}
+\theoremstyle{formalexample}
+\newtheorem{exercise}{题目}[section]
+\newenvironment{solution}{\par\noindent\textbf{解：}}{\hfill$\square$\par}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{titlepage}
+\centering
+\vspace*{0.9cm}
+\begin{tcolorbox}[
+  enhanced,
+  width=0.92\textwidth,
+  colback=white,
+  colframe=mainblue,
+  boxrule=1pt,
+  arc=0mm,
+  left=6mm,
+  right=6mm,
+  top=8mm,
+  bottom=8mm
+]
+\centering
+{\fontsize{24}{30}\selectfont\bfseries 染色方法与棋盘问题提高训练题单\par}
+\vspace{0.6cm}
+{\fontsize{17}{22}\selectfont 适合小学高年级至初中低年级竞赛过渡训练\par}
+
+\vspace{1cm}
+\begin{tcolorbox}[colback=lightblue,colframe=mainblue,width=0.84\textwidth,boxrule=1pt]
+\centering
+{\large 训练目标：把“会黑白染色”提升到“会设计颜色、会判断必要条件、会抓不变量”}\\[0.35em]
+{\normalsize 建议分 2--3 次完成，先独立做题，再对照详细解答订正}
+\end{tcolorbox}
+
+\vspace{1cm}
+\renewcommand{\arraystretch}{1.42}
+\begin{tabular}{>{\bfseries}p{3.5cm}p{8cm}}
+题目数量： & 12 题，按层次递进 \\
+专题重点： & 黑白染色、骨牌覆盖、路径奇偶性、三色染色、必要条件与不变量 \\
+答案形式： & 末尾附较详细解答，强调“为什么这样染色”“这个结论为什么只是不必要或充分” \\
+编译方式： & XeLaTeX \\
+\end{tabular}
+
+\vspace{0.9cm}
+{\large \today\par}
+\end{tcolorbox}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{使用建议}
+
+\begin{goalbox}{做染色题时优先问自己的 5 个问题}
+\begin{itemize}
+  \item 题目中的基本动作是什么：盖一块、走一步、翻两格，还是做一次操作？
+  \item 能不能找到一种染色，使得每个基本动作对颜色的影响完全固定？
+  \item 我现在要证明的是“不可能”，还是只是找一个必要条件？
+  \item 如果颜色数量刚好平衡了，这是否已经足够？还是还需要进一步构造？
+  \item 这题里真正不变的，是每种颜色的个数，还是黑格数的奇偶性？
+\end{itemize}
+\end{goalbox}
+
+\begin{notebox}{建议做题顺序}
+\begin{itemize}
+  \item 先做第 1--4 题，稳住最基础的黑白染色；
+  \item 再做第 5--8 题，训练路径交替与奇偶性；
+  \item 最后做第 9--12 题，体会多色染色与不变量的威力。
+\end{itemize}
+\end{notebox}
+
+\section{黑白染色与骨牌覆盖}
+
+\begin{exercise}
+把 $8\times 8$ 棋盘上的两个同色格子去掉，证明剩下的图形不可能被 $1\times 2$ 骨牌完全覆盖。
+\end{exercise}
+
+\begin{exercise}
+把 $6\times 6$ 棋盘的左上角和右下角去掉，判断剩下的图形能否被 $1\times 2$ 骨牌完全覆盖，并说明理由。
+\end{exercise}
+
+\begin{exercise}
+把 $8\times 8$ 棋盘的左上角和右上角去掉，判断剩下的图形能否被 $1\times 2$ 骨牌完全覆盖；如果能，请给出一种说明。
+\end{exercise}
+
+\begin{exercise}
+请给出一个“黑格数和白格数相等，但仍然不能被 $1\times 2$ 骨牌完全覆盖”的图形例子，并说明原因。
+\end{exercise}
+
+\section{路径奇偶性与颜色交替}
+
+\begin{exercise}
+在黑白相间染色的棋盘上，证明任何一条沿格边前进的路径，所经过格子的颜色一定黑白交替。
+\end{exercise}
+
+\begin{exercise}
+在 $6\times 6$ 棋盘上，若每一步都只能走到上下左右相邻的格子，能否从左上角出发，到右下角结束，并且每个格子恰好经过一次？
+\end{exercise}
+
+\begin{exercise}
+在 $5\times 5$ 棋盘上，若每一步都只能走到上下左右相邻的格子，能否从左上角出发，到它右边相邻的那个格子结束，并且每个格子恰好经过一次？
+\end{exercise}
+
+\begin{exercise}
+国际象棋中的马每走一步，横向走 $2$ 格、纵向走 $1$ 格，或横向走 $1$ 格、纵向走 $2$ 格。证明：马不可能在走奇数步后回到与出发点同色的格子。
+\end{exercise}
+
+\section{三色染色与不变量}
+
+\begin{exercise}
+请设计一种 $3$ 色染色方法，使得棋盘上任意一个横放或竖放的 $1\times 3$ 长条都恰好覆盖三种不同颜色，并说明这种染色为什么有用。
+\end{exercise}
+
+\begin{exercise}
+把 $8\times 8$ 棋盘左上角的一个格子去掉，问剩下的 $63$ 个格子能否被 $21$ 个 $1\times 3$ 长条完全覆盖？
+\end{exercise}
+
+\begin{exercise}
+证明：$6\times 6$ 棋盘可以被 $12$ 个 $1\times 3$ 长条完全覆盖。
+\end{exercise}
+
+\begin{exercise}
+一个 $8\times 8$ 棋盘最开始只有 $1$ 个黑格，其余 $63$ 个格子都是白格。每次操作允许任选两个相邻格子，把这两个格子的颜色同时翻转（黑变白，白变黑）。问经过若干次操作后，能否把整个棋盘都变成白色？
+\end{exercise}
+
+\newpage
+\section{详细解答}
+
+\begin{enumerate}
+  \item \begin{solution}
+  先把棋盘做标准的黑白相间染色。
+
+  任何一个 $1\times 2$ 骨牌都会覆盖两个相邻格，而相邻格颜色不同，所以每一块骨牌一定覆盖 $1$ 个黑格和 $1$ 个白格。
+
+  现在去掉的是两个同色格子。设去掉的是两个黑格，那么原来 $8\times 8$ 棋盘中有 $32$ 个黑格、$32$ 个白格；去掉之后变成
+  \[
+  30\text{ 个黑格，}32\text{ 个白格}。
+  \]
+
+  如果能被骨牌完全覆盖，那么被覆盖的黑格数和白格数必须相等，因为每一块骨牌都贡献“一黑一白”。
+
+  现在黑白格数不相等，所以不可能完全覆盖。
+  \end{solution}
+
+  \item \begin{solution}
+  $6\times 6$ 棋盘也做黑白相间染色。
+
+  左上角与右下角在同一条对角线上，而且从左上角走到右下角需要向右走 $5$ 次、向下走 $5$ 次，总共走了 $10$ 步，是偶数步，所以这两个角颜色相同。
+
+  原棋盘共有 $18$ 个黑格和 $18$ 个白格。去掉两个同色角格以后，必然变成
+  \[
+  16\text{ 个某种颜色的格子，}18\text{ 个另一种颜色的格子}。
+  \]
+
+  但每一个骨牌都覆盖一黑一白，因此若能完全覆盖，黑白格数应该相等，这与上面的计数矛盾。
+
+  所以剩下的图形不能被 $1\times 2$ 骨牌完全覆盖。
+  \end{solution}
+
+  \item \begin{solution}
+  这一次左上角和右上角颜色不同，因为它们在同一行，相隔 $7$ 格，移动了奇数步，颜色会改变。
+
+  所以去掉这两个角格以后，剩下的黑格数和白格数仍然相等。黑白数量上没有矛盾，因此这一次\textbf{有可能}覆盖。
+
+  下面给出一种直接说明：
+  \begin{itemize}
+    \item 第一行去掉两个端点后，中间还剩下连续的 $6$ 个格子，可以用 $3$ 个横放骨牌盖满；
+    \item 其余第 $2$ 到第 $8$ 行，每一行都有 $8$ 个连续格子，每一行都可以用 $4$ 个横放骨牌盖满。
+  \end{itemize}
+
+  因此总共可以用
+  \[
+  3+7\times 4=31
+  \]
+  个骨牌把全部剩余格子盖满。
+
+  这个例子说明：黑白格数相等时，有时能覆盖；但这只是“没有立刻矛盾”，并不自动说明一切图形都一定能覆盖。
+  \end{solution}
+
+  \item \begin{solution}
+  一个最简单的例子，是 $3\times 3$ 棋盘的四个角格组成的图形。
+
+  先看颜色：四个角中有 $2$ 个黑格、$2$ 个白格，所以黑白格数相等。
+
+  但是这四个角彼此都不相邻。换句话说，在这个图形内部，根本找不到一对相邻格子。
+
+  而一个 $1\times 2$ 骨牌必须放在一对相邻格子上。既然连一块骨牌都放不进去，就更不可能完全覆盖。
+
+  所以“黑白格数相等”只是骨牌覆盖的\textbf{必要条件}，不是\textbf{充分条件}。
+  \end{solution}
+
+  \item \begin{solution}
+  黑白相间染色有一个最重要的性质：每个格子与它上下左右相邻的格子颜色都不同。
+
+  现在沿格边走路径，每走一步，都会从当前格进入一个相邻格，因此颜色必然改变一次。
+
+  所以：
+  \begin{itemize}
+    \item 如果第一个格子是黑格，第二个一定是白格，第三个又一定是黑格；
+    \item 如果第一个格子是白格，第二个一定是黑格，第三个又一定是白格。
+  \end{itemize}
+
+  因而整条路径上的颜色只能黑白交替出现。
+
+  这是很多路径奇偶题的核心，因为一旦知道一共经过多少个格子，就能反推出起点与终点的颜色关系。
+  \end{solution}
+
+  \item \begin{solution}
+  不能。
+
+  因为这条路径要把 $6\times 6=36$ 个格子全部经过一次，所以它一共经过 $36$ 个格子。
+
+  由上一题，路径上的颜色必须黑白交替。黑白交替经过偶数个格子时，起点和终点颜色一定不同：
+  \[
+  \text{第 1 格与第 36 格颜色不同。}
+  \]
+
+  但是 $6\times 6$ 棋盘的左上角和右下角颜色相同。理由是从左上角到右下角要向右走 $5$ 步、向下走 $5$ 步，共 $10$ 步，是偶数步，所以颜色不变。
+
+  这就矛盾了。
+
+  因此，不可能从左上角出发，到右下角结束，并且每个格子恰好经过一次。
+  \end{solution}
+
+  \item \begin{solution}
+  也不能。
+
+  $5\times 5$ 棋盘共有 $25$ 个格子。如果一条路径把每个格子都恰好经过一次，那么它会经过奇数个格子。
+
+  黑白交替经过奇数个格子时，起点和终点颜色一定相同，因为
+  \[
+  \text{第 1 格、第 3 格、第 5 格、}\ldots\text{ 都与第 1 格同色。}
+  \]
+
+  现在题目要求从左上角出发，到它右边相邻的那个格子结束。这两个格子本来就是相邻格，所以颜色不同。
+
+  于是得到矛盾：
+  \begin{itemize}
+    \item 路径长度奇数要求起点终点同色；
+    \item 实际这两个指定格子颜色不同。
+  \end{itemize}
+
+  所以这样的路径不存在。
+  \end{solution}
+
+  \item \begin{solution}
+  仍然用棋盘黑白染色来观察。
+
+  马的一步有两种形式：
+  \begin{itemize}
+    \item 横着走 $2$ 格，竖着走 $1$ 格；
+    \item 横着走 $1$ 格，竖着走 $2$ 格。
+  \end{itemize}
+
+  不管哪一种，总共都“改变了 $3$ 格的位置”。从坐标奇偶性的角度看，横纵坐标之和会改变奇数次，因此颜色一定改变。
+
+  也就是说，马每走一步，就会从黑格跳到白格，或从白格跳到黑格。
+
+  那么：
+  \begin{itemize}
+    \item 走 1 步后，颜色与起点相反；
+    \item 走 2 步后，颜色与起点相同；
+    \item 走 3 步后，颜色又与起点相反；
+    \item \ldots
+  \end{itemize}
+
+  所以走奇数步后，一定落在与起点异色的格子上，不可能回到同色格子。
+  \end{solution}
+
+  \item \begin{solution}
+  一种标准做法是按格子的“行号加列号除以 $3$ 的余数”染色。
+
+  设某个格子的坐标为 $(i,j)$，把它染成第
+  \[
+  (i+j)\bmod 3
+  \]
+  类颜色。这样就得到三种颜色，记作甲、乙、丙。
+
+  现在看任意一个横放的 $1\times 3$ 长条。它覆盖的三个格子的列号连续，行号相同，所以对应的 $(i+j)$ 会连续增加 $1$，三个余数正好是
+  \[
+  r,\ r+1,\ r+2\pmod 3,
+  \]
+  因而恰好覆盖三种不同颜色。
+
+  竖放时同理，因为行号连续，$(i+j)$ 仍然连续增加 $1$，也恰好覆盖三种不同颜色。
+
+  这种染色有用的原因在于：只要一个图形能被若干个 $1\times 3$ 长条完全覆盖，那么每一个长条都贡献“甲、乙、丙各一个”，因此整个图形中三种颜色的格数必须相等。
+
+  这就把覆盖问题转化成了颜色数量问题。
+  \end{solution}
+
+  \item \begin{solution}
+  不能。
+
+  用上一题介绍的三色染色：把坐标 $(i,j)$ 的格子染成 $(i+j)\bmod 3$ 所对应的颜色。
+
+  先数一数完整 $8\times 8$ 棋盘三种颜色的格数。它们分别是
+  \[
+  21,\ 22,\ 21.
+  \]
+
+  左上角对应的颜色正好属于那种“共有 $21$ 个”的颜色。去掉左上角以后，三种颜色个数就变成
+  \[
+  20,\ 22,\ 21.
+  \]
+
+  但任何一个 $1\times 3$ 长条都一定覆盖三种颜色各一个，所以如果能用 $21$ 个长条完全覆盖，那么三种颜色都应该各出现 $21$ 次。
+
+  现在实际的颜色个数是 $20,22,21$，并不相等，因此不可能完成覆盖。
+
+  这题也说明：仅仅因为 $63$ 是 $3$ 的倍数，并不足以保证能被 $1\times 3$ 长条覆盖，还要看颜色分布。
+  \end{solution}
+
+  \item \begin{solution}
+  可以，而且构造很简单。
+
+  把 $6\times 6$ 棋盘按行分成六行，每一行都有 $6$ 个连续格子。对于每一行，我们都可以用两个横放的 $1\times 3$ 长条把这一行完全盖满。
+
+  也就是说：
+  \begin{itemize}
+    \item 第 1 行用 2 个；
+    \item 第 2 行用 2 个；
+    \item \ldots
+    \item 第 6 行用 2 个。
+  \end{itemize}
+
+  总共需要
+  \[
+  6\times 2=12
+  \]
+  个 $1\times 3$ 长条，恰好把整个棋盘完全覆盖。
+
+  这个题目和上一题放在一起看，能帮助理解：颜色计数常常用来证明“不可能”；而当颜色计数没有矛盾时，还需要自己想办法构造覆盖。
+  \end{solution}
+
+  \item \begin{solution}
+  不能。
+
+  关键不变量是：\textbf{黑格总数的奇偶性}。
+
+  开始时只有 $1$ 个黑格，所以黑格总数是奇数。
+
+  每次操作会把两个相邻格子同时翻转。设这两个格子原来的颜色情况分三种：
+  \begin{itemize}
+    \item 都是白色：翻转后变成两个黑格，黑格数增加 $2$；
+    \item 都是黑色：翻转后变成两个白格，黑格数减少 $2$；
+    \item 一黑一白：翻转后仍是一黑一白，黑格数不变。
+  \end{itemize}
+
+  无论哪一种情况，黑格总数变化都是
+  \[
+  +2,\ -2,\ \text{或 }0,
+  \]
+  因此黑格总数的奇偶性始终不变。
+
+  既然开始时黑格数是奇数，那么经过任何多次操作后，黑格数仍然只能是奇数。
+
+  而“整个棋盘都变成白色”时，黑格总数是 $0$，是偶数。这与奇偶性不变矛盾。
+
+  所以不可能把整个棋盘都变成白色。
+  \end{solution}
+\end{enumerate}
+
+\end{document}

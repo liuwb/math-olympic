@@ -1,0 +1,175 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.25cm,bottom=2.45cm,left=2.25cm,right=2.25cm,headheight=18pt,headsep=0.55cm,footskip=24pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!50!black}
+
+\setstretch{1.13}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.25em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.45em, topsep=0.35em, leftmargin=2.4em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=1.9em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{rulegray}{RGB}{110,118,128}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.2em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.1em}{0.7em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 欧拉路径与哈密顿路径周测 A 卷}
+\fancyhead[C]{\small 组合专题：欧拉判定与基础哈密顿判断}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{infobox}[1]{breakable,colback=lightblue,colframe=mainblue,boxrule=0.7pt,arc=1mm,title=\textbf{#1},fonttitle=\bfseries}
+\newenvironment{solution}{\par\noindent\textbf{参考解答：}}{\hfill$\square$\par}
+\newcommand{\answerspace}{\vspace{2.3cm}}
+\newcommand{\biganswerspace}{\vspace{3.1cm}}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{center}
+{\fontsize{22}{28}\selectfont\bfseries 欧拉路径与哈密顿路径周测 A 卷\par}
+\vspace{0.4cm}
+{\large 适合小学高年级至初中低年级数学竞赛训练\par}
+\end{center}
+
+\begin{infobox}{考试说明}
+\begin{itemize}
+  \item 测试时间：70--75 分钟
+  \item 满分：100 分
+  \item A 卷侧重基础判断：先分清题目看边还是看点，再决定用奇度点、染色还是结构分析。
+\end{itemize}
+\end{infobox}
+
+\section{试题}
+
+\begin{enumerate}
+  \item （10 分）说明“一笔画完且不重复”本质上是在问什么图论问题。
+  \answerspace
+
+  \item （12 分）一个连通图有 $4$ 个奇度点。判断它是否可能有欧拉道路，并说明理由。
+  \answerspace
+
+  \item （12 分）正方形 $ABCD$ 的两条对角线也都画出。这个图有没有欧拉道路？有没有欧拉回路？
+  \answerspace
+
+  \item （12 分）星形图 $K_{1,4}$ 有没有哈密顿路径？有没有哈密顿回路？
+  \answerspace
+
+  \item （14 分）$3\times 3$ 网格图为什么不可能有哈密顿回路？
+  \biganswerspace
+
+  \item （14 分）正五边形的边构成一个图。判断它有没有欧拉回路、有没有哈密顿回路。
+  \biganswerspace
+
+  \item （12 分）一个图有 3 个度数为 $1$ 的顶点。证明它不可能有哈密顿路径。
+  \answerspace
+
+  \item （14 分）完全图 $K_4$ 有没有欧拉道路？有没有哈密顿回路？
+  \biganswerspace
+\end{enumerate}
+
+\newpage
+\section{详细解答}
+
+\begin{enumerate}
+  \item \begin{solution}
+  “一笔画完且不重复”要求的是：图中的每条边都恰好走一次。
+
+  这正是在问图是否存在欧拉道路；如果还要求最后回到出发点，那么问的是是否存在欧拉回路。
+  \end{solution}
+
+  \item \begin{solution}
+  不可能。
+
+  连通图若有欧拉道路，奇度点个数只能是 $0$ 或 $2$：
+  \begin{itemize}
+    \item $0$ 个奇度点对应欧拉回路；
+    \item $2$ 个奇度点对应欧拉道路但没有欧拉回路。
+  \end{itemize}
+
+  现在有 $4$ 个奇度点，因此不可能有欧拉道路。
+  \end{solution}
+
+  \item \begin{solution}
+  这个图就是完全图 $K_4$，每个顶点度数都是 $3$。
+
+  因而图中共有 $4$ 个奇度点。
+
+  欧拉回路要求所有顶点度数都是偶数，所以没有欧拉回路。
+
+  欧拉道路要求恰好有 $2$ 个奇度点，所以也没有欧拉道路。
+  \end{solution}
+
+  \item \begin{solution}
+  都没有。
+
+  星形图中有一个中心点和四个叶子点。叶子点之间彼此没有边。
+
+  哈密顿回路要求每个点都能在回路中“进一次、出一次”，因此回路上的每个点度数至少为 $2$。但叶子点度数为 $1$，所以不可能有哈密顿回路。
+
+  哈密顿路径最多只有两个端点，而叶子点若被包含在路径中，只能作为端点。现在叶子点有 $4$ 个，超过了两个端点的容量，因此也不可能有哈密顿路径。
+  \end{solution}
+
+  \item \begin{solution}
+  把 $3\times 3$ 网格图做黑白染色。它共有 $9$ 个点，所以黑点和白点个数分别是 $5$ 和 $4$。
+
+  网格图是二分图，任何回路上的点颜色都必须交替出现。因此若存在哈密顿回路，那么回路中黑点数和白点数必须相等。
+
+  但现在黑白点数不相等，所以不可能有哈密顿回路。
+  \end{solution}
+
+  \item \begin{solution}
+  正五边形中每个顶点都只与左右两个顶点相连，所以每个顶点度数都是 $2$，而且整个图连通。
+
+  因此它有欧拉回路。
+
+  同时，这五个顶点本身就围成一个圈，沿边绕一圈恰好每个顶点经过一次再回到起点，因此它也有哈密顿回路。
+  \end{solution}
+
+  \item \begin{solution}
+  设这 3 个度数为 $1$ 的顶点为 $A,B,C$。
+
+  在哈密顿路径中，只有两个端点可以只用到一条边；路径中间的点都必须用到两条边，一条进入，一条离开。
+
+  因而度数为 $1$ 的点如果出现在哈密顿路径中，只能出现在端点位置。
+
+  但一条路径最多只有两个端点，不可能同时容纳 $A,B,C$ 三个度数为 $1$ 的顶点。
+
+  所以该图不可能有哈密顿路径。
+  \end{solution}
+
+  \item \begin{solution}
+  在 $K_4$ 中，每个顶点度数都是 $3$，因此图中有 $4$ 个奇度点，所以没有欧拉道路。
+
+  但完全图中任意两个顶点都有边，显然可以依次经过四个顶点再回到起点，因此有哈密顿回路。
+
+  所以 $K_4$ 没有欧拉道路，但有哈密顿回路。
+  \end{solution}
+\end{enumerate}
+
+\end{document}

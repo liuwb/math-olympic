@@ -1,0 +1,537 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.4cm,bottom=2.6cm,left=2.35cm,right=2.35cm,headheight=18pt,headsep=0.55cm,footskip=26pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black,
+  citecolor=blue!50!black
+}
+
+\setstretch{1.16}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.35em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.32em, topsep=0.32em, leftmargin=2.3em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=2em}
+\setcounter{tocdepth}{2}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{accent}{RGB}{153,76,0}
+\definecolor{rulegray}{RGB}{110,118,128}
+\definecolor{softgreen}{RGB}{236,247,240}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.25em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.3em}{0.9em}
+\titleformat{\subsection}{\large\bfseries\color{mainblue}}{\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{1.05em}{0.55em}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{accent}}{\thesubsubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 组合专题课堂讲义}
+\fancyhead[C]{\small 欧拉路径与哈密顿路径}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtheoremstyle{formaltheorem}
+  {0.8em}{0.8em}{\normalfont}{}{\bfseries\color{mainblue}}{．}{0.6em}{}
+\newtheoremstyle{formalexample}
+  {0.8em}{0.8em}{\normalfont}{}{\bfseries\color{accent}}{．}{0.6em}{}
+
+\theoremstyle{formaltheorem}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{method}{方法}[section]
+\theoremstyle{formalexample}
+\newtheorem{example}{例题}[section]
+\newtheorem{exercise}{练习}[section]
+
+\newenvironment{solution}{\par\noindent\textbf{解：}}{\hfill$\square$\par}
+
+\newtcolorbox{goalbox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{notebox}[1]{
+  breakable,
+  colback=lightgray,
+  colframe=black!50,
+  boxrule=0.55pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{skillbox}[1]{
+  breakable,
+  colback=softgreen,
+  colframe=green!40!black,
+  boxrule=0.65pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{titlepage}
+\centering
+\vspace*{0.9cm}
+
+\begin{tcolorbox}[
+  enhanced,
+  width=0.92\textwidth,
+  colback=white,
+  colframe=mainblue,
+  boxrule=1pt,
+  arc=0mm,
+  left=6mm,
+  right=6mm,
+  top=8mm,
+  bottom=8mm
+]
+\centering
+
+{\fontsize{24}{30}\selectfont\bfseries 组合专题课堂讲义\par}
+\vspace{0.7cm}
+{\fontsize{17}{22}\selectfont 欧拉路径与哈密顿路径\par}
+
+\vspace{1.1cm}
+\color{rulegray}\rule{0.72\textwidth}{0.7pt}\par
+\vspace{1cm}
+
+\begin{tcolorbox}[colback=lightblue,colframe=mainblue,width=0.82\textwidth,boxrule=1pt]
+\centering
+{\Large 适合对象：小学高年级至初中低年级数学竞赛学生}\\[0.4em]
+{\large 已学过基础图论计数与染色方法，准备学习“图上走法”的两个核心模型}
+\end{tcolorbox}
+
+\vspace{1.2cm}
+
+\renewcommand{\arraystretch}{1.42}
+\begin{tabular}{>{\bfseries}p{3.5cm}p{8cm}}
+讲义作者： & 刘文博 \\
+专题关键词： & 图、边、点、度数、欧拉道路、欧拉回路、哈密顿路径、哈密顿回路 \\
+建议课时： & 2--3 课时 \\
+专题目标： & 分清“每条边一次”和“每个点一次”，会用度数判断欧拉问题，并初步掌握哈密顿问题的常见必要条件 \\
+编译方式： & XeLaTeX \\
+\end{tabular}
+
+\vspace{1.2cm}
+\color{rulegray}\rule{0.72\textwidth}{0.7pt}\par
+\vspace{0.8cm}
+
+{\normalsize 本讲把“能不能一笔画完”和“能不能每个点恰好经过一次”放在同一张图里比较，帮助学生建立欧拉问题与哈密顿问题的清晰边界。\par}
+
+\vspace{0.5cm}
+{\large \today\par}
+\end{tcolorbox}
+\end{titlepage}
+
+\pagenumbering{Roman}
+\pagestyle{plain}
+\tableofcontents
+\newpage
+\pagestyle{fancy}
+\pagenumbering{arabic}
+
+\section{专题目标与核心问题}
+
+\begin{goalbox}{这一讲要解决什么问题}
+图论里有两类极容易混淆的问题：
+\begin{itemize}
+  \item 能不能把\textbf{每条边}恰好走一次？
+  \item 能不能把\textbf{每个点}恰好经过一次？
+\end{itemize}
+前者是\textbf{欧拉问题}，后者是\textbf{哈密顿问题}。名字都很有名，但判断方法完全不同。
+\end{goalbox}
+
+\begin{goalbox}{学完以后希望达到的能力}
+\begin{itemize}
+  \item 会区分“边一次”和“点一次”这两种模型；
+  \item 会利用度数奇偶判断欧拉道路与欧拉回路；
+  \item 知道哈密顿路径没有像欧拉问题那样简单的万能判定法；
+  \item 会使用若干常见必要条件排除哈密顿回路；
+  \item 会把染色方法与图上的路径问题结合起来使用。
+\end{itemize}
+\end{goalbox}
+
+\begin{notebox}{和前面专题的关系}
+\begin{itemize}
+  \item 和图论计数专题直接相连：这里依然要用点、边、度数这些基本语言；
+  \item 和染色方法专题也有衔接：网格图的哈密顿回路常常能用黑白染色排除；
+  \item 和抽屉原理相比，这一讲更强调“结构限制”，不是单纯数数量。
+\end{itemize}
+\end{notebox}
+
+\section{先把两个概念分清}
+
+\subsection{欧拉道路与欧拉回路}
+
+如果一条走法把图中的\textbf{每一条边}都恰好走一次，那么这条走法叫做\textbf{欧拉道路}。
+
+如果这条走法不但把每条边都恰好走一次，而且最后还能回到出发点，那么它叫做\textbf{欧拉回路}。
+
+\begin{example}
+“能不能一笔画完”本质上是在问什么？
+\end{example}
+
+\begin{solution}
+如果要求画图时每条线段都只画一次，不重复、不漏掉，那么本质上就是在问：这个图有没有欧拉道路。
+
+如果还要求最后回到起点，那么问的就是有没有欧拉回路。
+\end{solution}
+
+\subsection{哈密顿路径与哈密顿回路}
+
+如果一条走法把图中的\textbf{每一个点}都恰好经过一次，那么这条走法叫做\textbf{哈密顿路径}。
+
+如果这条走法把每个点都恰好经过一次，而且最后回到起点，那么它叫做\textbf{哈密顿回路}。
+
+\begin{notebox}{最容易混淆的地方}
+\begin{itemize}
+  \item 欧拉问题看的是\textbf{边}有没有被恰好走一次；
+  \item 哈密顿问题看的是\textbf{点}有没有被恰好经过一次。
+\end{itemize}
+这两个条件完全不同，不能混着用。
+\end{notebox}
+
+\section{欧拉问题：关键看度数奇偶}
+
+\subsection{为什么度数会起决定作用}
+
+假设一条道路走进某个中间点以后，如果还想继续走下去，就必须再从这个点走出去。
+
+也就是说，对于路径中间出现的点，边通常是“成对使用”的：一条用来进入，一条用来离开。
+
+这就解释了为什么欧拉问题总和\textbf{度数奇偶}有关。
+
+\begin{theorem}
+一个连通图有欧拉回路，当且仅当每个点的度数都是偶数。
+\end{theorem}
+
+\begin{solution}
+先说必要性。
+
+如果存在欧拉回路，那么每次走到某个点，都还要从这个点离开；起点最后也要回到自己，因此每个点所使用的边都成对出现，所以每个点度数都必须是偶数。
+
+再说充分性。对于小学高年级到初中低年级阶段，可以把它理解成：如果图是连通的，而且每个点都没有“多出来的一条边”，那么沿着边不断往前走，总能把边一圈一圈地串起来，最终形成经过全部边的回路。
+
+严格证明可以在更高阶段再补，这里先把结论熟练掌握并会应用。
+\end{solution}
+
+\begin{theorem}
+一个连通图有欧拉道路但没有欧拉回路，当且仅当恰好有 $2$ 个奇度点。
+\end{theorem}
+
+\begin{solution}
+如果有一条欧拉道路但起点终点不同，那么：
+\begin{itemize}
+  \item 起点会“少一次进入”，所以它会多出一条边，度数为奇数；
+  \item 终点会“少一次离开”，所以它也会多出一条边，度数为奇数；
+  \item 其他中间点进入和离开仍然成对，因此度数为偶数。
+\end{itemize}
+
+  所以奇度点恰好有 $2$ 个。
+
+反过来，如果连通图恰好有 $2$ 个奇度点，那么就可以从一个奇度点出发，到另一个奇度点结束，把全部边恰好走一次，因此存在欧拉道路但不存在欧拉回路。
+\end{solution}
+
+\begin{skillbox}{判断欧拉问题的三步法}
+\begin{enumerate}
+  \item 先看图是不是连通；
+  \item 再数每个点的度数；
+  \item 最后判断奇度点个数：
+  \begin{itemize}
+    \item $0$ 个奇度点：有欧拉回路；
+    \item $2$ 个奇度点：有欧拉道路但没有欧拉回路；
+    \item 其他情况：没有欧拉道路。
+  \end{itemize}
+\end{enumerate}
+\end{skillbox}
+
+\begin{example}
+设有一个“房子形”图：正方形 $ABCD$ 的上面再接一个屋顶点 $E$，并连边 $BE,CE$。问这个图有没有欧拉道路？有没有欧拉回路？
+\end{example}
+
+\begin{solution}
+先数度数：
+\begin{itemize}
+  \item $A,D$ 各连 $2$ 条边，度数都是 $2$；
+  \item $E$ 连着 $B,C$，度数是 $2$；
+  \item $B,C$ 各连 $3$ 条边，度数都是 $3$。
+\end{itemize}
+
+所以这个图恰好有 $2$ 个奇度点：$B$ 和 $C$。
+
+由欧拉判定定理，这个图有欧拉道路，但没有欧拉回路。
+\end{solution}
+
+\section{哈密顿问题：关键看点的安排}
+
+\subsection{为什么哈密顿问题更难}
+
+哈密顿路径要求的是“每个点恰好经过一次”。
+
+这时度数奇偶往往并不能直接决定成败。一个图就算每个点度数都很漂亮，也不一定能找到哈密顿回路；反过来，有些图虽然有奇度点，仍然可能有哈密顿路径。
+
+所以哈密顿问题通常没有欧拉问题那样简洁的统一判定法。
+
+\subsection{几个常用的必要条件}
+
+\begin{goalbox}{哈密顿回路常见必要条件}
+如果一个图有哈密顿回路，那么至少要满足：
+\begin{itemize}
+  \item 图必须连通；
+  \item 每个点的度数至少为 $2$，因为在回路里每个点都要“进一次、出一次”；
+  \item 如果图是二分图，那么两侧点数必须相等，因为回路经过的点会在两侧之间交替出现。
+\end{itemize}
+\end{goalbox}
+
+\begin{notebox}{注意：这些只是必要条件}
+满足上面条件，不代表一定存在哈密顿回路；但如果某个必要条件不满足，就可以立刻判定“不存在”。
+\end{notebox}
+
+\begin{example}
+星形图：一个中心点与 $5$ 个叶子点相连，叶子点之间没有边。这个图有没有哈密顿路径？
+\end{example}
+
+\begin{solution}
+没有。
+
+因为任意两片叶子之间都必须经过中心点才能连通。但在哈密顿路径里，每个点只能经过一次，中心点最多只能把路径“连接”前后两段。
+
+而这里有 $5$ 个叶子点，想把它们全部串在一条路径里，就需要多次回到中心点，这与“每个点只经过一次”矛盾。
+
+更直观地说：星形图里除中心点外，所有叶子点的度数都是 $1$。一条哈密顿路径最多只能有两个端点，而这里度数为 $1$ 的叶子点有 $5$ 个，显然装不下。
+\end{solution}
+
+\begin{example}
+$3\times 3$ 网格图有没有哈密顿回路？
+\end{example}
+
+\begin{solution}
+把 $3\times 3$ 网格图按棋盘方式黑白染色。由于共有 $9$ 个点，所以黑白两色点数分别是 $5$ 个和 $4$ 个。
+
+如果存在哈密顿回路，那么回路经过相邻点时颜色一定交替，因此在回路里黑点和白点的个数应该一样多。
+
+但现在两种颜色点数不相等，所以不可能存在哈密顿回路。
+\end{solution}
+
+\section{欧拉与哈密顿的对比}
+
+\begin{goalbox}{一张表记住区别}
+\begin{center}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|c|c|c|}
+\hline
+问题类型 & 关注对象 & 常见判断工具 \\
+\hline
+欧拉道路 / 回路 & 每条边恰好一次 & 度数奇偶 + 连通性 \\
+\hline
+哈密顿路径 / 回路 & 每个点恰好一次 & 必要条件、染色、结构分析 \\
+\hline
+\end{tabular}
+\end{center}
+\end{goalbox}
+
+\begin{skillbox}{做题时先问自己一句话}
+\begin{itemize}
+  \item 如果题目强调“一笔画完、不重边”，优先想到欧拉；
+  \item 如果题目强调“每个点、每个城市、每个格点只经过一次”，优先想到哈密顿。
+\end{itemize}
+\end{skillbox}
+
+\section{常见误区}
+
+\begin{notebox}{误区 1：把欧拉与哈密顿混在一起}
+“每条边一次”和“每个点一次”是两类不同的问题。一个图可能有欧拉回路但没有哈密顿回路，也可能相反。
+\end{notebox}
+
+\begin{notebox}{误区 2：看到奇度点就说没有哈密顿路径}
+奇度点个数是欧拉问题的语言，不是哈密顿问题的万能语言。哈密顿问题更看重图的整体结构。
+\end{notebox}
+
+\begin{notebox}{误区 3：必要条件满足，就误以为一定存在}
+例如某图每个点度数都至少为 $2$，只能说明“没有被这一条必要条件排除”，并不等于“已经证明存在哈密顿回路”。
+\end{notebox}
+
+\section{课堂练习}
+
+\begin{exercise}
+一个连通图有 $4$ 个奇度点。问它是否可能有欧拉道路？
+\end{exercise}
+
+\begin{exercise}
+完全图 $K_4$ 有 $4$ 个点，每两个点之间都有一条边。判断它有没有欧拉道路、欧拉回路。
+\end{exercise}
+
+\begin{exercise}
+正五边形的边构成一个图。判断它有没有欧拉回路、有没有哈密顿回路。
+\end{exercise}
+
+\begin{exercise}
+星形图 $K_{1,4}$：一个中心点连着 $4$ 个叶子点。判断它有没有哈密顿路径。
+\end{exercise}
+
+\begin{exercise}
+$2\times 3$ 网格图有没有哈密顿回路？请说明理由。
+\end{exercise}
+
+\begin{exercise}
+$3\times 3$ 网格图为什么不可能有哈密顿回路？
+\end{exercise}
+
+\section{练习解答}
+
+\begin{exercise}
+一个连通图有 $4$ 个奇度点。问它是否可能有欧拉道路？
+\end{exercise}
+
+\begin{solution}
+不可能。
+
+因为连通图若有欧拉道路，那么奇度点只能有 $0$ 个或 $2$ 个：
+\begin{itemize}
+  \item $0$ 个奇度点时，有欧拉回路；
+  \item $2$ 个奇度点时，有欧拉道路但没有欧拉回路。
+\end{itemize}
+
+现在题目给出有 $4$ 个奇度点，不属于这两种情况，所以不可能有欧拉道路。
+\end{solution}
+
+\begin{exercise}
+完全图 $K_4$ 有 $4$ 个点，每两个点之间都有一条边。判断它有没有欧拉道路、欧拉回路。
+\end{exercise}
+
+\begin{solution}
+在 $K_4$ 中，每个点都和其余 $3$ 个点相连，所以每个点度数都是 $3$。
+
+因此图中有 $4$ 个奇度点。
+
+欧拉问题里：
+\begin{itemize}
+  \item 奇度点为 $0$ 个时才有欧拉回路；
+  \item 奇度点为 $2$ 个时才有欧拉道路；
+  \item 奇度点为 $4$ 个时，两者都没有。
+\end{itemize}
+
+所以 $K_4$ 既没有欧拉道路，也没有欧拉回路。
+\end{solution}
+
+\begin{exercise}
+正五边形的边构成一个图。判断它有没有欧拉回路、有没有哈密顿回路。
+\end{exercise}
+
+\begin{solution}
+正五边形有 $5$ 个点，每个点都只连着左右两个邻点，所以每个点度数都是 $2$，全为偶数。
+
+因此它有欧拉回路。
+
+另一方面，这五个点本身围成一个圈，沿着五边形走一圈，正好每个点经过一次并回到起点，所以它也有哈密顿回路。
+
+这个例子说明：一个图可以同时有欧拉回路和哈密顿回路。
+\end{solution}
+
+\begin{exercise}
+星形图 $K_{1,4}$：一个中心点连着 $4$ 个叶子点。判断它有没有哈密顿路径。
+\end{exercise}
+
+\begin{solution}
+没有。
+
+因为 $4$ 个叶子点彼此之间没有边，任何从一个叶子点到另一个叶子点的路径都必须经过中心点。
+
+但在哈密顿路径中，每个点只能经过一次，中心点最多只能使用一次。
+
+一条路径最多只能有两个端点，因此最多只能“容纳”两个度数为 $1$ 的叶子点作为端点。现在有 $4$ 个叶子点，显然不可能全部包含在一条哈密顿路径里。
+\end{solution}
+
+\begin{exercise}
+$2\times 3$ 网格图有没有哈密顿回路？请说明理由。
+\end{exercise}
+
+\begin{solution}
+有。
+
+把 $2\times 3$ 的六个点看成两行三列。沿着外圈走一圈，就可以依次经过六个点，并回到起点。
+
+这条走法恰好每个点经过一次，因此 $2\times 3$ 网格图有哈密顿回路。
+
+如果愿意，也可以用黑白染色辅助判断：这个图是二分图，两侧点数都是 $3$，没有被必要条件排除；而且外圈构造直接给出了回路。
+\end{solution}
+
+\begin{exercise}
+$3\times 3$ 网格图为什么不可能有哈密顿回路？
+\end{exercise}
+
+\begin{solution}
+把 $3\times 3$ 网格图做黑白染色。由于一共有 $9$ 个点，所以黑点与白点数量分别为 $5$ 个和 $4$ 个。
+
+如果存在哈密顿回路，那么沿回路相邻点的颜色必须交替，因此回路中黑点和白点个数应当相等。
+
+但现在黑白点数不相等，因此不可能存在哈密顿回路。
+\end{solution}
+
+\section{本讲小结}
+
+\begin{goalbox}{本讲最核心的 4 句话}
+\begin{enumerate}
+  \item 欧拉问题看边，哈密顿问题看点；
+  \item 连通图有欧拉回路，当且仅当所有点度数都是偶数；
+  \item 连通图有欧拉道路但没有欧拉回路，当且仅当恰好有 $2$ 个奇度点；
+  \item 哈密顿问题没有同样简单的万能判定法，常靠必要条件、染色和结构分析。
+\end{enumerate}
+\end{goalbox}
+
+\begin{skillbox}{继续往后怎么学}
+这个专题之后，比较自然的下一步包括：
+\begin{itemize}
+  \item 图论中的匹配与覆盖；
+  \item 更系统的网格图路径问题；
+  \item 二分图中的构造与极值；
+  \item 与递推、染色结合的综合题。
+\end{itemize}
+\end{skillbox}
+
+\end{document}

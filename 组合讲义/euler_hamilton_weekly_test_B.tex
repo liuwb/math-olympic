@@ -1,0 +1,175 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.25cm,bottom=2.45cm,left=2.25cm,right=2.25cm,headheight=18pt,headsep=0.55cm,footskip=24pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!50!black}
+
+\setstretch{1.13}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.25em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.45em, topsep=0.35em, leftmargin=2.4em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=1.9em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{rulegray}{RGB}{110,118,128}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.2em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.1em}{0.7em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 欧拉路径与哈密顿路径周测 B 卷}
+\fancyhead[C]{\small 组合专题：结构排除与综合判断}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{infobox}[1]{breakable,colback=lightblue,colframe=mainblue,boxrule=0.7pt,arc=1mm,title=\textbf{#1},fonttitle=\bfseries}
+\newenvironment{solution}{\par\noindent\textbf{参考解答：}}{\hfill$\square$\par}
+\newcommand{\answerspace}{\vspace{2.3cm}}
+\newcommand{\biganswerspace}{\vspace{3.1cm}}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{center}
+{\fontsize{22}{28}\selectfont\bfseries 欧拉路径与哈密顿路径周测 B 卷\par}
+\vspace{0.4cm}
+{\large 适合小学高年级至初中低年级数学竞赛训练\par}
+\end{center}
+
+\begin{infobox}{考试说明}
+\begin{itemize}
+  \item 测试时间：75--80 分钟
+  \item 满分：100 分
+  \item B 卷侧重综合判断：会区分欧拉与哈密顿，并能使用染色、分割点和反例进行说明。
+\end{itemize}
+\end{infobox}
+
+\section{试题}
+
+\begin{enumerate}
+  \item （12 分）一个连通图有欧拉道路但没有欧拉回路。证明它恰好有两个奇度点。
+  \answerspace
+
+  \item （12 分）由两个三角形共用一个顶点构成的图，有没有欧拉回路？有没有哈密顿回路？
+  \answerspace
+
+  \item （12 分）$2\times 3$ 小方格网格图有没有欧拉道路？
+  \answerspace
+
+  \item （12 分）$2\times 4$ 网格图有没有哈密顿回路？请说明理由。
+  \answerspace
+
+  \item （14 分）请举出一个“有欧拉回路但没有哈密顿回路”的图，并详细说明理由。
+  \biganswerspace
+
+  \item （14 分）请举出一个“有哈密顿回路但没有欧拉道路”的图，并详细说明理由。
+  \biganswerspace
+
+  \item （12 分）为什么“每个点度数至少为 $2$”只是哈密顿回路的必要条件，而不是充分条件？
+  \answerspace
+
+  \item （12 分）在判断一道图上走法题时，怎样快速分辨它应该归入欧拉问题还是哈密顿问题？请结合各举一个典型描述说明。
+  \answerspace
+\end{enumerate}
+
+\newpage
+\section{详细解答}
+
+\begin{enumerate}
+  \item \begin{solution}
+  设这条欧拉道路从点 $S$ 出发，到点 $T$ 结束，且 $S\neq T$。
+
+  对于路径中间经过的任何一个点，每次走进这个点以后都还要再走出去，所以这些边总是成对使用的，因此这些中间点的度数都应当是偶数。
+
+  只有起点 $S$ 会“少一次进入”，终点 $T$ 会“少一次离开”，所以它们都会多出一条未成对的边，度数是奇数。
+
+  因而，欧拉道路但非欧拉回路的连通图，恰好有两个奇度点。
+  \end{solution}
+
+  \item \begin{solution}
+  有欧拉回路，但没有哈密顿回路。
+
+  先看欧拉：设公共顶点为 $O$，则 $O$ 的度数是 $4$，其余四个顶点的度数都是 $2$。所有顶点度数都是偶数，而且图连通，所以有欧拉回路。
+
+  再看哈密顿：如果想从一个三角形走到另一个三角形，必须经过公共顶点 $O$。若想绕完两个三角形再回到起点，就必须再次经过 $O$。但哈密顿回路要求每个顶点只经过一次，因此不可能存在哈密顿回路。
+  \end{solution}
+
+  \item \begin{solution}
+  没有欧拉道路。
+
+  这个图中四个角点度数为 $2$，四个边上非角点度数为 $3$，中间点度数为 $4$。因此一共有 $4$ 个奇度点。
+
+  欧拉道路要求奇度点个数是 $0$ 或 $2$，现在却有 $4$ 个，所以不存在欧拉道路。
+  \end{solution}
+
+  \item \begin{solution}
+  有哈密顿回路。
+
+  $2\times 4$ 网格图可以看成两行五列的格点图。沿最外层边界走一圈，就可以恰好经过全部顶点一次，并回到起点。
+
+  这就直接给出了一条哈密顿回路。
+  \end{solution}
+
+  \item \begin{solution}
+  可以举“两只三角形共用一个顶点”的图。
+
+  这个图有欧拉回路，因为所有顶点度数都是偶数。
+
+  但它没有哈密顿回路，因为两个三角形之间只有一个公共顶点。若要把两个三角形都纳入同一回路，就必须两次经过这个公共顶点，这与哈密顿回路“每个顶点恰好一次”的要求矛盾。
+
+  因此它是“有欧拉回路但没有哈密顿回路”的典型例子。
+  \end{solution}
+
+  \item \begin{solution}
+  可以举完全图 $K_4$。
+
+  在 $K_4$ 中，每个顶点度数都是 $3$，所以共有 $4$ 个奇度点，因此没有欧拉道路。
+
+  但 $K_4$ 中任意两个顶点都相连，当然可以依次经过四个顶点再回到起点，所以有哈密顿回路。
+
+  因此它是“有哈密顿回路但没有欧拉道路”的典型例子。
+  \end{solution}
+
+  \item \begin{solution}
+  因为“每个点度数至少为 $2$”只说明局部上每个点好像都有“进”和“出”的可能，但这并不能保证整个图的结构真的允许所有点被一条回路串起来。
+
+  一个反例就是“两只三角形共用一个顶点”的图。这个图里每个点度数都至少是 $2$，必要条件满足；但它依然没有哈密顿回路，因为公共顶点必须被重复经过。
+
+  所以这个条件只是必要条件，不是充分条件。
+  \end{solution}
+
+  \item \begin{solution}
+  最快的区分方法，是看题目在强调“边”还是“点”。
+
+  如果题目说的是“每条线只走一次”“一笔画完不重复边”，那就是欧拉问题，因为它关心的是每条边是否恰好使用一次。
+
+  例如：“把这张图一笔画完，且每条线段只画一次”，这就是欧拉问题。
+
+  如果题目说的是“每个城市只到一次”“每个顶点恰好经过一次”，那就是哈密顿问题，因为它关心的是每个点是否恰好经过一次。
+
+  例如：“从某个城市出发，经过每个城市恰好一次再回到起点”，这就是哈密顿问题。
+  \end{solution}
+\end{enumerate}
+
+\end{document}

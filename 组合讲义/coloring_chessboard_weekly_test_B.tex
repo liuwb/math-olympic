@@ -1,0 +1,247 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.25cm,bottom=2.45cm,left=2.25cm,right=2.25cm,headheight=18pt,headsep=0.55cm,footskip=24pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black
+}
+
+\setstretch{1.13}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.25em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.45em, topsep=0.35em, leftmargin=2.4em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=1.9em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{rulegray}{RGB}{110,118,128}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.2em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.1em}{0.7em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 染色方法与棋盘问题周测 B 卷}
+\fancyhead[C]{\small 组合专题：多色染色与不变量}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{infobox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newenvironment{solution}{\par\noindent\textbf{参考解答：}}{\hfill$\square$\par}
+\newcommand{\answerspace}{\vspace{2.3cm}}
+\newcommand{\biganswerspace}{\vspace{3.1cm}}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{center}
+{\fontsize{22}{28}\selectfont\bfseries 染色方法与棋盘问题周测 B 卷\par}
+\vspace{0.4cm}
+{\large 适合小学高年级至初中低年级数学竞赛训练\par}
+\end{center}
+
+\begin{infobox}{考试说明}
+\begin{itemize}
+  \item 测试时间：75--80 分钟
+  \item 满分：100 分
+  \item B 卷侧重“必要条件不是充分条件”“多色染色”和“奇偶性不变量”，比 A 卷更强调思路判断。
+\end{itemize}
+\end{infobox}
+
+\section{试题}
+
+\begin{enumerate}
+  \item （12 分）请给出一个“黑格数与白格数相等，但仍然不能被 $1\times 2$ 骨牌完全覆盖”的图形例子，并说明原因。
+  \answerspace
+
+  \item （12 分）把 $6\times 6$ 棋盘的左上角和右下角去掉，判断剩下的图形能否被 $1\times 2$ 骨牌完全覆盖，并说明理由。
+  \answerspace
+
+  \item （12 分）在 $7\times 7$ 棋盘上，若每一步都只能走到上下左右相邻的格子，并且每个格子恰好经过一次，证明这条路径的起点和终点一定同色。
+  \answerspace
+
+  \item （12 分）国际象棋中的马能否在走了 $17$ 步后回到与出发点同色的格子？请说明理由。
+  \answerspace
+
+  \item （14 分）判断并说明：$6\times 6$ 棋盘能否被 $12$ 个 $1\times 3$ 长条完全覆盖？
+  \biganswerspace
+
+  \item （14 分）请举出一个“格子总数是 $3$ 的倍数，但仍然不能被 $1\times 3$ 长条完全覆盖”的例子，并说明理由。
+  \biganswerspace
+
+  \item （12 分）一个 $8\times 8$ 棋盘最开始只有 $1$ 个黑格，其余 $63$ 个格子都是白格。每次操作允许任选两个相邻格子，把这两个格子的颜色同时翻转。问经过若干次操作后，能否把整个棋盘都变成白色？
+  \answerspace
+
+  \item （12 分）请说明为什么“颜色数量刚好平衡”往往只是必要条件而不是充分条件，并各举一个骨牌题或长条覆盖题中的例子支持你的说明。
+  \answerspace
+\end{enumerate}
+
+\newpage
+\section{详细解答}
+
+\begin{enumerate}
+  \item \begin{solution}
+  可以取 $3\times 3$ 棋盘的四个角格组成的图形。
+
+  这个图形中有 $2$ 个黑格、$2$ 个白格，黑白数量相等。
+
+  但是四个角格彼此都不相邻，所以在这个图形内部根本放不下一块 $1\times 2$ 骨牌。既然一块都放不下，就不可能完全覆盖。
+
+  这说明：黑白格数相等只是必要条件，不是充分条件。
+  \end{solution}
+
+  \item \begin{solution}
+  不能覆盖。
+
+  左上角和右下角同色，因此把这两个角去掉以后，黑白格数不再相等。
+
+  原来 $6\times 6$ 棋盘中有 $18$ 个黑格、$18$ 个白格。去掉两个同色角格后，变成
+  \[
+  16\text{ 个某种颜色，}18\text{ 个另一种颜色。}
+  \]
+
+  但每块 $1\times 2$ 骨牌都必须覆盖一黑一白，所以若能完全覆盖，就应该黑白数量相等。
+
+  矛盾，因此不能覆盖。
+  \end{solution}
+
+  \item \begin{solution}
+  $7\times 7$ 棋盘共有
+  \[
+  7\times 7=49
+  \]
+  个格子，是奇数个。
+
+  一条满足条件的路径要把这 $49$ 个格子都经过一次，因此它经过的格子总数也是奇数个。
+
+  又因为沿格边前进时颜色黑白交替，所以：
+  \begin{itemize}
+    \item 经过偶数个格子时，起点终点异色；
+    \item 经过奇数个格子时，起点终点同色。
+  \end{itemize}
+
+  现在经过的是 $49$ 个格子，属于奇数情形，因此起点和终点一定同色。
+  \end{solution}
+
+  \item \begin{solution}
+  不能。
+
+  马每走一步都会改变颜色：从黑格跳到白格，或从白格跳到黑格。
+
+  因而：
+  \begin{itemize}
+    \item 走奇数步后，一定落在与起点异色的格子上；
+    \item 走偶数步后，才会落在与起点同色的格子上。
+  \end{itemize}
+
+  因为 $17$ 是奇数，所以马走了 $17$ 步后，不可能回到与出发点同色的格子。
+  \end{solution}
+
+  \item \begin{solution}
+  能覆盖。
+
+  因为 $6\times 6$ 棋盘每一行都有 $6$ 个格子，而 $6$ 正好可以分成两个长度为 $3$ 的小段。所以每一行都能用两个横放的 $1\times 3$ 长条盖满。
+
+  六行一共需要
+  \[
+  6\times 2=12
+  \]
+  个 $1\times 3$ 长条。
+
+  因此 $6\times 6$ 棋盘可以被 $12$ 个 $1\times 3$ 长条完全覆盖。
+  \end{solution}
+
+  \item \begin{solution}
+  一个经典例子是：$8\times 8$ 棋盘去掉左上角以后，剩下 $63$ 个格子。
+
+  首先，$63$ 的确是 $3$ 的倍数，这说明“格子总数”这个条件没有问题。
+
+  但如果把格子按 $(i+j)\bmod 3$ 染成三种颜色，那么完整 $8\times 8$ 棋盘中三种颜色个数分别为
+  \[
+  21,\ 22,\ 21.
+  \]
+
+  去掉左上角后变成
+  \[
+  20,\ 22,\ 21.
+  \]
+
+  任意一个横放或竖放的 $1\times 3$ 长条都覆盖三种颜色各一个，所以若能完全覆盖，则三种颜色总数必须相等。
+
+  现在三种颜色个数不相等，因此不能覆盖。
+
+  这就给出了一个“格子总数是 $3$ 的倍数，但仍不能覆盖”的例子。
+  \end{solution}
+
+  \item \begin{solution}
+  不能。
+
+  关注黑格总数的奇偶性。开始时只有 $1$ 个黑格，所以黑格数是奇数。
+
+  每次翻转两个相邻格时：
+  \begin{itemize}
+    \item 如果原来两格都是白色，黑格数增加 $2$；
+    \item 如果原来两格都是黑色，黑格数减少 $2$；
+    \item 如果原来一黑一白，黑格数不变。
+  \end{itemize}
+
+  无论哪种情况，黑格数的变化都是 $0$ 或 $\pm 2$，所以黑格数的奇偶性保持不变。
+
+  既然一开始黑格数是奇数，那么以后任何时刻黑格数都还是奇数。
+
+  但整个棋盘都变成白色时，黑格数是 $0$，为偶数。矛盾。
+
+  因此不可能把整个棋盘都变成白色。
+  \end{solution}
+
+  \item \begin{solution}
+  因为“颜色数量平衡”只说明每一步在颜色数量上\textbf{没有立刻矛盾}，并没有保证图形的相邻关系、连通情况和局部结构一定允许覆盖。
+
+  例如骨牌题中：
+  \begin{itemize}
+    \item $3\times 3$ 棋盘四个角格组成的图形，有 $2$ 黑 $2$ 白，颜色数量平衡；
+    \item 但四个角彼此都不相邻，一块骨牌也放不进去，所以仍然无法覆盖。
+  \end{itemize}
+
+  再例如 $1\times 3$ 长条题中：
+  \begin{itemize}
+    \item 在某些图形里，三种颜色个数也许相等；
+    \item 但若图形被切得很零散，或局部长度根本放不下一条 $1\times 3$，仍然可能无法覆盖。
+  \end{itemize}
+
+  因此，颜色数量平衡通常只是必要条件。想得到“可以覆盖”的结论，往往还要进一步给出具体构造或更强的结构分析。
+  \end{solution}
+\end{enumerate}
+
+\end{document}

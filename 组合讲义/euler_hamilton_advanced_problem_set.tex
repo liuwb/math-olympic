@@ -1,0 +1,356 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.35cm,bottom=2.55cm,left=2.3cm,right=2.3cm,headheight=18pt,headsep=0.55cm,footskip=26pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black,
+  citecolor=blue!50!black
+}
+
+\setstretch{1.15}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.28em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.35em, topsep=0.35em, leftmargin=2.2em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=1.9em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{accent}{RGB}{153,76,0}
+\definecolor{rulegray}{RGB}{110,118,128}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.25em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.2em}{0.8em}
+\titleformat{\subsection}{\large\bfseries\color{mainblue}}{\thesubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 欧拉路径与哈密顿路径提高训练题单}
+\fancyhead[C]{\small 组合专题：图上走法与结构判断}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{goalbox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{notebox}[1]{
+  breakable,
+  colback=lightgray,
+  colframe=black!50,
+  boxrule=0.55pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtheoremstyle{formalexample}
+  {0.8em}{0.8em}{\normalfont}{}{\bfseries\color{accent}}{．}{0.6em}{}
+\theoremstyle{formalexample}
+\newtheorem{exercise}{题目}[section]
+\newenvironment{solution}{\par\noindent\textbf{解：}}{\hfill$\square$\par}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{titlepage}
+\centering
+\vspace*{0.9cm}
+\begin{tcolorbox}[
+  enhanced,
+  width=0.92\textwidth,
+  colback=white,
+  colframe=mainblue,
+  boxrule=1pt,
+  arc=0mm,
+  left=6mm,
+  right=6mm,
+  top=8mm,
+  bottom=8mm
+]
+\centering
+{\fontsize{24}{30}\selectfont\bfseries 欧拉路径与哈密顿路径提高训练题单\par}
+\vspace{0.6cm}
+{\fontsize{17}{22}\selectfont 适合小学高年级至初中低年级竞赛过渡训练\par}
+
+\vspace{1cm}
+\begin{tcolorbox}[colback=lightblue,colframe=mainblue,width=0.84\textwidth,boxrule=1pt]
+\centering
+{\large 训练目标：把“会区分边一次和点一次”提升到“会判断、会构造、会排除”}\\[0.35em]
+{\normalsize 建议分 2--3 次完成，先独立做题，再对照详细解答订正}
+\end{tcolorbox}
+
+\vspace{1cm}
+\renewcommand{\arraystretch}{1.42}
+\begin{tabular}{>{\bfseries}p{3.5cm}p{8cm}}
+题目数量： & 12 题，按难度递进 \\
+专题重点： & 欧拉道路、欧拉回路、奇度点、哈密顿路径、哈密顿回路、二分图染色、结构排除 \\
+答案形式： & 末尾附较详细解答，强调“这是边的问题还是点的问题”“为什么必要条件还不够” \\
+编译方式： & XeLaTeX \\
+\end{tabular}
+
+\vspace{0.9cm}
+{\large \today\par}
+\end{tcolorbox}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{使用建议}
+
+\begin{goalbox}{做这类题时先问自己的 4 个问题}
+\begin{itemize}
+  \item 题目要求的是每条边一次，还是每个点一次？
+  \item 如果是欧拉题，图是否连通，奇度点有几个？
+  \item 如果是哈密顿题，能不能先用度数为 $1$ 的点、二分图染色、分割结构去排除？
+  \item 如果必要条件都没问题，能否自己画出一条具体走法？
+\end{itemize}
+\end{goalbox}
+
+\begin{notebox}{建议顺序}
+\begin{itemize}
+  \item 第 1--4 题先稳住欧拉判定；
+  \item 第 5--8 题训练哈密顿路径与回路的必要条件；
+  \item 第 9--12 题体会“必要条件不等于充分条件”和图论结构分析。
+\end{itemize}
+\end{notebox}
+
+\section{欧拉道路与欧拉回路}
+
+\begin{exercise}
+一个连通图有 $6$ 个奇度点。判断它是否可能存在欧拉道路，并说明理由。
+\end{exercise}
+
+\begin{exercise}
+正方形 $ABCD$ 的对角线 $AC$ 和 $BD$ 都画出。这个图有没有欧拉回路？有没有欧拉道路？
+\end{exercise}
+
+\begin{exercise}
+一个图由两个三角形共用一个顶点组成。判断这个图有没有欧拉回路，并说明理由。
+\end{exercise}
+
+\begin{exercise}
+把 $2\times 3$ 的小方格网格看成图：格点是顶点，相邻格点连边。判断这个图有没有欧拉道路。
+\end{exercise}
+
+\section{哈密顿路径与哈密顿回路}
+
+\begin{exercise}
+星形图 $K_{1,5}$ 有没有哈密顿路径？有没有哈密顿回路？
+\end{exercise}
+
+\begin{exercise}
+$3\times 3$ 网格图有没有哈密顿回路？请用染色说明。
+\end{exercise}
+
+\begin{exercise}
+$2\times 4$ 网格图有没有哈密顿回路？如果有，请说明为什么；如果没有，请说明原因。
+\end{exercise}
+
+\begin{exercise}
+一个图有 7 个顶点，其中有 3 个顶点的度数都是 $1$。证明这个图不可能有哈密顿路径。
+\end{exercise}
+
+\section{综合判断与构造}
+
+\begin{exercise}
+正五边形的五条边和全部五条对角线组成完全图 $K_5$。判断它有没有欧拉回路、有没有哈密顿回路。
+\end{exercise}
+
+\begin{exercise}
+请举出一个“有欧拉回路但没有哈密顿回路”的图，并说明理由。
+\end{exercise}
+
+\begin{exercise}
+请举出一个“有哈密顿回路但没有欧拉道路”的图，并说明理由。
+\end{exercise}
+
+\begin{exercise}
+为什么说“每个点度数至少为 $2$”只是哈密顿回路的必要条件，不是充分条件？请结合一个具体图形说明。
+\end{exercise}
+
+\newpage
+\section{详细解答}
+
+\begin{enumerate}
+  \item \begin{solution}
+  不可能。
+
+  因为欧拉问题的判定非常明确：
+  \begin{itemize}
+    \item 若有欧拉回路，则奇度点个数必须是 $0$；
+    \item 若有欧拉道路但没有欧拉回路，则奇度点个数必须是 $2$。
+  \end{itemize}
+
+  题目给出的连通图有 $6$ 个奇度点，既不是 $0$，也不是 $2$，所以它既不可能有欧拉回路，也不可能有欧拉道路。
+  \end{solution}
+
+  \item \begin{solution}
+  先数度数。
+
+  在这个图里，每个顶点都和另外三个顶点相连，所以四个顶点的度数都是 $3$。
+
+  因此图中有 $4$ 个奇度点。
+
+  欧拉回路要求所有点度数都为偶数，所以这里没有欧拉回路。
+
+  欧拉道路要求恰好有 $2$ 个奇度点，而现在有 $4$ 个奇度点，所以这里也没有欧拉道路。
+  \end{solution}
+
+  \item \begin{solution}
+  有欧拉回路。
+
+  设两个三角形共用的顶点为 $O$。那么：
+  \begin{itemize}
+    \item 每个三角形里除了 $O$ 之外的两个顶点，度数都是 $2$；
+    \item 公共顶点 $O$ 在两个三角形中各连出两条边，所以度数是 $4$。
+  \end{itemize}
+
+  这样一来，所有顶点度数都是偶数，而且整个图是连通的。
+
+  由欧拉回路判定定理，这个图有欧拉回路。
+
+  例如，可以先绕第一个三角形一圈回到 $O$，再绕第二个三角形一圈回到 $O$。
+  \end{solution}
+
+  \item \begin{solution}
+  没有欧拉道路。
+
+  $2\times 3$ 小方格网格有 $3\times 4=12$ 个格点。观察边界上的点和中间点可知：
+  \begin{itemize}
+    \item 四个角点的度数是 $2$；
+    \item 边上但不是角的点，度数是 $3$；
+    \item 内部点的度数是 $4$。
+  \end{itemize}
+
+  在这个图里，上边中间两个点和下边中间两个点是度数 $3$ 的点，共有 $4$ 个奇度点。
+
+  由于奇度点个数是 $4$，不等于 $0$ 或 $2$，所以不存在欧拉道路。
+  \end{solution}
+
+  \item \begin{solution}
+  都没有。
+
+  星形图 $K_{1,5}$ 中有一个中心点和 $5$ 个叶子点。叶子点之间没有边。
+
+  先看哈密顿回路：回路要求每个点都要在回路上“进一次、出一次”，因此回路中的每个点度数至少应该为 $2$。但这里每个叶子点度数都是 $1$，所以根本不可能有哈密顿回路。
+
+  再看哈密顿路径：一条路径最多只有两个端点，所以最多只能容纳两个度数为 $1$ 的叶子点作为路径端点。现在却有 $5$ 个叶子点，显然不可能全部放进同一条哈密顿路径中。
+
+  因此它既没有哈密顿路径，也没有哈密顿回路。
+  \end{solution}
+
+  \item \begin{solution}
+  没有哈密顿回路。
+
+  把 $3\times 3$ 网格图做黑白染色。因为共有 $9$ 个点，所以两色点数分别是 $5$ 个和 $4$ 个。
+
+  网格图是二分图，任何回路上的相邻点颜色都必须交替。因此若存在哈密顿回路，那么回路经过的黑点数和白点数必须相等。
+
+  但现在黑白点数不相等，所以不可能存在哈密顿回路。
+  \end{solution}
+
+  \item \begin{solution}
+  有哈密顿回路。
+
+  把 $2\times 4$ 网格图看成两行五列的格点图。最外层这些点围成一个大长方形边界。
+
+  沿着这个边界走一圈，就可以恰好经过所有边界上的点一次并回到起点；而在 $2\times 4$ 网格图中，所有点都恰好都在这个边界上，所以这条边界回路正是一条哈密顿回路。
+
+  因此它有哈密顿回路。
+  \end{solution}
+
+  \item \begin{solution}
+  设这 3 个度数为 $1$ 的顶点分别是 $A,B,C$。
+
+  如果图有哈密顿路径，那么这条路径要经过每个顶点一次。路径中只有两个端点，端点可以只连出一条被使用的边；而路径中间的点必须至少连着两条被使用的边，一条进入，一条离开。
+
+  度数为 $1$ 的顶点不可能放在路径中间，因此 $A,B,C$ 这三个点都只能当路径端点。
+
+  但是一条路径最多只有两个端点，不可能同时容纳三个度数为 $1$ 的顶点。
+
+  矛盾，所以该图不可能有哈密顿路径。
+  \end{solution}
+
+  \item \begin{solution}
+  完全图 $K_5$ 中每个顶点都与其余 $4$ 个顶点相连，所以每个顶点度数都是 $4$。
+
+  先看欧拉：图连通，且所有顶点度数都是偶数，因此有欧拉回路。
+
+  再看哈密顿：完全图里任意两个不同顶点之间都有边，当然可以依次经过五个顶点再回到起点，所以有哈密顿回路。
+
+  因此 $K_5$ 既有欧拉回路，也有哈密顿回路。
+  \end{solution}
+
+  \item \begin{solution}
+  一个典型例子，就是“两只三角形只共用一个顶点”的图。
+
+  上面第 3 题已经说明，这个图所有顶点度数都是偶数，因此它有欧拉回路。
+
+  但它没有哈密顿回路。原因是：如果想从一个三角形走到另一个三角形，必须经过公共顶点；而如果想绕完两个三角形再回到出发点，公共顶点就必须被经过不止一次。
+
+  可哈密顿回路要求每个顶点只能经过一次，所以这是不可能的。
+
+  于是这个图就是“有欧拉回路但没有哈密顿回路”的例子。
+  \end{solution}
+
+  \item \begin{solution}
+  一个简单例子是完全图 $K_4$。
+
+  在 $K_4$ 中，每个顶点都与其余 $3$ 个顶点相连，所以每个顶点度数都是 $3$。
+
+  因为有 $4$ 个奇度点，所以它没有欧拉道路。
+
+  但是它有哈密顿回路。例如按四个顶点依次绕一圈，就能每个顶点经过一次再回到起点。
+
+  所以 $K_4$ 是“有哈密顿回路但没有欧拉道路”的一个例子。
+  \end{solution}
+
+  \item \begin{solution}
+  因为“每个点度数至少为 $2$”只说明每个点局部上看起来有希望进出一次，但并没有保证整个图能用一条回路把所有点串起来。
+
+  一个具体例子仍然可以用“两只三角形共用一个顶点”的图。
+
+  在这个图中：
+  \begin{itemize}
+    \item 公共顶点度数是 $4$；
+    \item 其余四个顶点度数都是 $2$。
+  \end{itemize}
+
+  所以每个点度数都至少为 $2$，必要条件完全满足。
+
+  但它还是没有哈密顿回路，因为如果想把两个三角形都绕到，就必须两次经过公共顶点，这违反了哈密顿回路“每个点只经过一次”的要求。
+
+  因此，“每个点度数至少为 $2$”只是必要条件，不是充分条件。
+  \end{solution}
+\end{enumerate}
+
+\end{document}
