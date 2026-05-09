@@ -7,11 +7,13 @@
 \usepackage{enumitem}
 \usepackage{titlesec}
 \usepackage{xcolor}
+\usepackage{tikz}
 \usepackage{hyperref}
 \usepackage{bookmark}
 \usepackage[most]{tcolorbox}
 \usepackage{setspace}
 \usepackage{array}
+\usetikzlibrary{positioning}
 
 \hypersetup{
   colorlinks=true,
@@ -144,6 +146,22 @@
 
 \section{握手定理与度数应用}
 
+\begin{center}
+\begin{tikzpicture}[
+  scale=0.95,
+  every node/.style={circle,draw=mainblue,fill=lightblue,inner sep=1.5pt,font=\small},
+  edge/.style={draw=black!65,line width=0.9pt}
+]
+  \node (A) at (0,0) {$A$};
+  \node (B) at (1.8,1.2) {$B$};
+  \node (C) at (3.6,0.2) {$C$};
+  \node (D) at (2.8,-1.6) {$D$};
+  \node (E) at (0.9,-1.5) {$E$};
+  \foreach \u/\v in {A/B,A/E,A/C,B/C,C/D,D/E,E/B} {\draw[edge] (\u)--(\v);}
+  \node[draw=none,fill=none,circle=false,font=\small\color{rulegray},align=left] at (6.2,-0.1) {数边时别忘了也可以\\先数“所有点的度数和”};
+\end{tikzpicture}
+\end{center}
+
 \begin{exercise}
 一个图有 12 个点，每个点的度数都等于 5。求这个图的边数。
 \end{exercise}
@@ -162,6 +180,33 @@
 
 \section{完全图与二分图}
 
+\begin{center}
+\begin{tikzpicture}[
+  scale=0.95,
+  dot/.style={circle,draw=mainblue,fill=lightblue,inner sep=1.4pt,font=\small},
+  edge/.style={draw=black!60,line width=0.8pt}
+]
+  \begin{scope}
+    \node[draw=none,fill=none,circle=false,font=\small\bfseries\color{mainblue}] at (1.6,2.1) {$K_5$：任意两点都连边};
+    \foreach \name/\x/\y in {A/0/0,B/1.5/1.5,C/3/0,D/2.3/-1.7,E/0.7/-1.7}
+      \node[dot] (\name) at (\x,\y) {$\name$};
+    \foreach \u/\v in {A/B,A/C,A/D,A/E,B/C,B/D,B/E,C/D,C/E,D/E}
+      \draw[edge] (\u)--(\v);
+  \end{scope}
+  \begin{scope}[xshift=8cm]
+    \node[draw=none,fill=none,circle=false,font=\small\bfseries\color{mainblue}] at (2,2.1) {二分图：边只跨两侧连接};
+    \foreach \name/\y in {U_1/1.2,U_2/0,U_3/-1.2}
+      \node[dot] (\name) at (0,\y) {};
+    \foreach \name/\y in {V_1/1.5,V_2/0.5,V_3/-0.5,V_4/-1.5}
+      \node[dot] (\name) at (4,\y) {};
+    \foreach \u/\v in {U_1/V_1,U_1/V_3,U_2/V_2,U_2/V_4,U_3/V_1,U_3/V_4}
+      \draw[edge] (\u)--(\v);
+    \node[draw=none,fill=none,circle=false,font=\small] at (0,-2.2) {左侧};
+    \node[draw=none,fill=none,circle=false,font=\small] at (4,-2.2) {右侧};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+
 \begin{exercise}
 完全图 $K_{10}$ 有多少条边？
 \end{exercise}
@@ -179,6 +224,23 @@
 \end{exercise}
 
 \section{网格路径计数}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.72]
+  \draw[step=1cm,gray!55,thin] (0,0) grid (5,4);
+  \fill[mainblue] (0,0) circle (2.1pt);
+  \fill[mainblue] (5,4) circle (2.1pt);
+  \fill[accent] (2,1) circle (2.4pt);
+  \draw[accent,line width=1pt] (2,1) circle (0.18);
+  \fill[red!70!black] (2,2) circle (2.4pt);
+  \draw[red!70!black,line width=1pt] (2,2) circle (0.18);
+  \node[below left] at (0,0) {\small $(0,0)$};
+  \node[above right] at (5,4) {\small $(5,4)$};
+  \node[below] at (2,1) {\small 必经点 $(2,1)$};
+  \node[above] at (2,2) {\small 避开点 $(2,2)$};
+  \node[draw=none,fill=none] at (2.5,-1.0) {\small 网格路径题常用“分段计数”或“总数减去经过禁点的路径数”};
+\end{tikzpicture}
+\end{center}
 
 \begin{exercise}
 从 $(0,0)$ 到 $(5,3)$，每次只能向右或向上走 1 格，共有多少条最短路径？
@@ -447,6 +509,21 @@ E=18.
 所以原命题其实不正确。
 
 这题恰好提醒我们：在图论证明题中，也要先检验命题真假，不能机械套定理。
+
+\begin{center}
+\begin{tikzpicture}[
+  scale=1,
+  every node/.style={circle,draw=mainblue,fill=lightblue,inner sep=1.6pt,font=\small},
+  edge/.style={draw=black!65,line width=1pt}
+]
+  \node (B) at (0,0) {$B$};
+  \node (A) at (1.6,1.2) {$A$};
+  \node (C) at (3.2,0) {$C$};
+  \draw[edge] (A)--(B);
+  \draw[edge] (A)--(C);
+  \node[draw=none,fill=none,circle=false,font=\small\color{rulegray}] at (1.6,-0.9) {$\deg(A)=2,\ \deg(B)=\deg(C)=1$};
+\end{tikzpicture}
+\end{center}
 \end{solution}
 
 \textbf{14}\begin{solution}
@@ -464,6 +541,42 @@ E=18.
 \end{itemize}
 
 因此结论成立。
+
+\begin{center}
+\begin{tikzpicture}[
+  scale=0.95,
+  every node/.style={circle,draw=mainblue,fill=lightblue,inner sep=1.5pt,font=\small},
+  rededge/.style={draw=red!75!black,line width=1pt},
+  blueedge/.style={draw=blue!65!black,line width=1pt}
+]
+  \begin{scope}
+    \node[draw=none,fill=none,circle=false,font=\small\bfseries\color{mainblue}] at (1.6,2.2) {若 $BC$ 是红边};
+    \node (A1) at (1.5,0.9) {$A$};
+    \node (B1) at (0,0) {$B$};
+    \node (C1) at (3,0) {$C$};
+    \node (D1) at (1.5,-1.3) {$D$};
+    \draw[rededge] (A1)--(B1);
+    \draw[rededge] (A1)--(C1);
+    \draw[rededge] (A1)--(D1);
+    \draw[rededge] (B1)--(C1);
+    \node[draw=none,fill=none,circle=false,font=\small\color{rulegray}] at (1.5,-2.0) {$A,B,C$ 构成红三角形};
+  \end{scope}
+  \begin{scope}[xshift=7.4cm]
+    \node[draw=none,fill=none,circle=false,font=\small\bfseries\color{mainblue}] at (1.6,2.2) {若 $BC,CD,BD$ 都不是红边};
+    \node (A2) at (1.5,0.9) {$A$};
+    \node (B2) at (0,0) {$B$};
+    \node (C2) at (3,0) {$C$};
+    \node (D2) at (1.5,-1.3) {$D$};
+    \draw[rededge] (A2)--(B2);
+    \draw[rededge] (A2)--(C2);
+    \draw[rededge] (A2)--(D2);
+    \draw[blueedge] (B2)--(C2);
+    \draw[blueedge] (C2)--(D2);
+    \draw[blueedge] (B2)--(D2);
+    \node[draw=none,fill=none,circle=false,font=\small\color{rulegray}] at (1.5,-2.0) {$B,C,D$ 构成蓝三角形};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
 \end{solution}
 
 \textbf{15}\begin{solution}

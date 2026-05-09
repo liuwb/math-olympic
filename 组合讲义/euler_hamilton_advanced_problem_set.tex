@@ -7,11 +7,13 @@
 \usepackage{enumitem}
 \usepackage{titlesec}
 \usepackage{xcolor}
+\usepackage{tikz}
 \usepackage{hyperref}
 \usepackage{bookmark}
 \usepackage[most]{tcolorbox}
 \usepackage{setspace}
 \usepackage{array}
+\usetikzlibrary{arrows.meta,positioning}
 
 \hypersetup{
   colorlinks=true,
@@ -145,6 +147,53 @@
 
 \section{欧拉道路与欧拉回路}
 
+\begin{center}
+\begin{tikzpicture}[
+  scale=0.85,
+  every node/.style={circle,draw=mainblue,fill=lightblue,inner sep=1.5pt,font=\small},
+  edge/.style={draw=black!65,line width=0.9pt},
+  odd/.style={circle,draw=accent,fill=orange!18,inner sep=1.5pt,font=\small\bfseries}
+]
+  \node[draw=none,fill=none,circle=false,font=\bfseries\color{mainblue}] at (1.4,3.4) {$K_4$};
+  \node (A) at (0,1.2) {};
+  \node (B) at (1.4,2.6) {};
+  \node (C) at (2.8,1.2) {};
+  \node (D) at (1.4,-0.2) {};
+  \foreach \u/\v in {A/B,B/C,C/D,D/A,A/C,B/D} {\draw[edge] (\u)--(\v);}
+  \node[draw=none,fill=none,circle=false,font=\scriptsize] at (1.4,-1.0) {4 个点度数都为 3};
+
+  \begin{scope}[xshift=5.8cm]
+    \node[draw=none,fill=none,circle=false,font=\bfseries\color{mainblue}] at (1.4,3.4) {共点双三角形};
+    \node[odd] (O) at (1.4,1.1) {};
+    \node (P) at (0.2,2.3) {};
+    \node (Q) at (0.2,-0.1) {};
+    \node (R) at (2.6,2.3) {};
+    \node (S) at (2.6,-0.1) {};
+    \draw[edge] (O)--(P)--(Q)--(O);
+    \draw[edge] (O)--(R)--(S)--(O);
+    \node[draw=none,fill=none,circle=false,font=\scriptsize] at (1.4,-1.0) {公共点度数 4，其余点度数 2};
+  \end{scope}
+
+  \begin{scope}[xshift=11.6cm]
+    \node[draw=none,fill=none,circle=false,font=\bfseries\color{mainblue}] at (1.5,3.4) {$2\times 3$ 网格图};
+    \foreach \x in {0,1,2,3} {
+      \foreach \y in {0,1,2} {
+        \pgfmathtruncatemacro{\isodd}{ifthenelse((\x==1 || \x==2) && (\y==0 || \y==2),1,0)}
+        \ifnum\isodd=1
+          \node[odd] (\x\y) at (0.9*\x,0.9*\y) {};
+        \else
+          \node (\x\y) at (0.9*\x,0.9*\y) {};
+        \fi
+      }
+    }
+    \foreach \u/\v in {00/10,10/20,20/30,01/11,11/21,21/31,02/12,12/22,22/32,00/01,01/02,10/11,11/12,20/21,21/22,30/31,31/32} {
+      \draw[edge] (\u)--(\v);
+    }
+    \node[draw=none,fill=none,circle=false,font=\scriptsize] at (1.35,-1.0) {4 个奇度点};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+
 \begin{exercise}
 一个连通图有 $6$ 个奇度点。判断它是否可能存在欧拉道路，并说明理由。
 \end{exercise}
@@ -162,6 +211,55 @@
 \end{exercise}
 
 \section{哈密顿路径与哈密顿回路}
+
+\begin{center}
+\begin{tikzpicture}[
+  scale=0.85,
+  every node/.style={circle,draw=mainblue,fill=lightblue,inner sep=1.5pt,font=\small},
+  edge/.style={draw=black!65,line width=0.9pt},
+  cycle/.style={draw=green!45!black,line width=1.2pt,-{Stealth[length=2mm]}}
+]
+  \node[draw=none,fill=none,circle=false,font=\bfseries\color{mainblue}] at (0,3.5) {星形图 $K_{1,5}$};
+  \node[fill=orange!18,draw=accent] (O) at (0,1.2) {};
+  \foreach \name/\x/\y in {A/-1.8/2.6,B/-2.1/0.8,C/-1.4/-0.8,D/1.6/2.5,E/2.0/0.3} {
+    \node (\name) at (\x,\y) {};
+    \draw[edge] (O)--(\name);
+  }
+  \node[draw=none,fill=none,circle=false,font=\scriptsize] at (0,-1.7) {叶子太多，端点装不下};
+
+  \begin{scope}[xshift=6.0cm]
+    \node[draw=none,fill=none,circle=false,font=\bfseries\color{mainblue}] at (1.5,3.5) {$3\times 3$ 网格图};
+    \foreach \x in {0,1,2} {
+      \foreach \y in {0,1,2} {
+        \pgfmathtruncatemacro{\c}{mod(\x+\y,2)}
+        \ifnum\c=0
+          \node[fill=black!70,draw=black!70] (\x\y) at (1.2*\x,1.0*\y) {};
+        \else
+          \node[fill=white,draw=black!70] (\x\y) at (1.2*\x,1.0*\y) {};
+        \fi
+      }
+    }
+    \foreach \x/\y in {00/10,10/20,01/11,11/21,02/12,12/22,00/01,01/02,10/11,11/12,20/21,21/22} {
+      \draw[edge] (\x)--(\y);
+    }
+    \node[draw=none,fill=none,circle=false,font=\scriptsize] at (1.2,-1.0) {黑 5、白 4，无法回路交替};
+  \end{scope}
+
+  \begin{scope}[xshift=11.7cm]
+    \node[draw=none,fill=none,circle=false,font=\bfseries\color{mainblue}] at (1.8,3.5) {$2\times 4$ 网格图};
+    \foreach \x in {0,1,2,3,4} {
+      \foreach \y in {0,1} {
+        \node (\x\y) at (0.9*\x,1.0*\y) {};
+      }
+    }
+    \foreach \u/\v in {00/10,10/20,20/30,30/40,01/11,11/21,21/31,31/41,00/01,10/11,20/21,30/31,40/41} {
+      \draw[edge] (\u)--(\v);
+    }
+    \draw[cycle] (00)--(10)--(20)--(30)--(40)--(41)--(31)--(21)--(11)--(01)--(00);
+    \node[draw=none,fill=none,circle=false,font=\scriptsize] at (1.8,-1.0) {外圈正好经过全部 10 个点};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
 
 \begin{exercise}
 星形图 $K_{1,5}$ 有没有哈密顿路径？有没有哈密顿回路？

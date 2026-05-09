@@ -7,11 +7,13 @@
 \usepackage{enumitem}
 \usepackage{titlesec}
 \usepackage{xcolor}
+\usepackage{tikz}
 \usepackage{hyperref}
 \usepackage{bookmark}
 \usepackage[most]{tcolorbox}
 \usepackage{setspace}
 \usepackage{array}
+\usetikzlibrary{arrows.meta}
 
 \hypersetup{
   colorlinks=true,
@@ -146,6 +148,30 @@
 
 \section{黑白染色与骨牌覆盖}
 
+\begin{center}
+\begin{tikzpicture}[scale=0.52]
+  \node[draw=none,fill=none,font=\bfseries\color{mainblue}] at (4,9.7) {先看黑白格是否配平，再看结构是否真能摆下};
+  \foreach \x in {0,...,7} {
+    \foreach \y in {0,...,7} {
+      \pgfmathtruncatemacro{\c}{mod(\x+\y,2)}
+      \ifnum\c=0 \fill[black!18] (\x,\y) rectangle ++(1,1); \else \fill[white] (\x,\y) rectangle ++(1,1); \fi
+      \draw[black!55] (\x,\y) rectangle ++(1,1);
+    }
+  }
+  \draw[accent,line width=1.1pt] (0,7) rectangle ++(1,1);
+  \draw[accent,line width=1.1pt] (7,0) rectangle ++(1,1);
+  \draw[accent,line width=1.0pt] (0,7)--(1,8) (1,7)--(0,8) (7,0)--(8,1) (8,0)--(7,1);
+  \begin{scope}[xshift=10.5cm,scale=1.3]
+    \foreach \x/\y in {0/0,2/0,0/2,2/2} {
+      \pgfmathtruncatemacro{\c}{mod(\x+\y,2)}
+      \ifnum\c=0 \fill[black!18] (\x,\y) rectangle ++(1,1); \else \fill[white] (\x,\y) rectangle ++(1,1); \fi
+      \draw[black!60] (\x,\y) rectangle ++(1,1);
+    }
+    \node[draw=none,fill=none,font=\scriptsize,align=center] at (1.5,-0.8) {四个角黑白数相等，\\但没有相邻格可放骨牌};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+
 \begin{exercise}
 把 $8\times 8$ 棋盘上的两个同色格子去掉，证明剩下的图形不可能被 $1\times 2$ 骨牌完全覆盖。
 \end{exercise}
@@ -164,6 +190,23 @@
 
 \section{路径奇偶性与颜色交替}
 
+\begin{center}
+\begin{tikzpicture}[scale=0.7]
+  \node[draw=none,fill=none,font=\bfseries\color{mainblue}] at (3.4,5.1) {沿格边走一步，颜色就翻一次；马走一步也翻一次};
+  \foreach \x in {0,...,5} {
+    \foreach \y in {0,...,3} {
+      \pgfmathtruncatemacro{\c}{mod(\x+\y,2)}
+      \ifnum\c=0 \fill[black!18] (\x,\y) rectangle ++(1,1); \else \fill[white] (\x,\y) rectangle ++(1,1); \fi
+      \draw[black!55] (\x,\y) rectangle ++(1,1);
+    }
+  }
+  \draw[accent,line width=1.2pt,-{Stealth[length=2.8mm]}] (0.5,0.5) -- (1.5,0.5);
+  \draw[green!45!black,line width=1.2pt,-{Stealth[length=2.8mm]}] (2.5,1.5) to[out=20,in=210] (4.5,2.5);
+  \node[draw=none,fill=none,font=\scriptsize] at (1.0,-0.7) {相邻走格};
+  \node[draw=none,fill=none,font=\scriptsize] at (4.2,-0.7) {马走“日”字};
+\end{tikzpicture}
+\end{center}
+
 \begin{exercise}
 在黑白相间染色的棋盘上，证明任何一条沿格边前进的路径，所经过格子的颜色一定黑白交替。
 \end{exercise}
@@ -181,6 +224,27 @@
 \end{exercise}
 
 \section{三色染色与不变量}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.62]
+  \definecolor{cA}{RGB}{235,241,255}
+  \definecolor{cB}{RGB}{225,245,229}
+  \definecolor{cC}{RGB}{255,238,214}
+  \node[draw=none,fill=none,font=\bfseries\color{mainblue}] at (4.2,8.1) {对 $1\times 3$ 长条，常用三色染色抓住“每块各取一种色”};
+  \foreach \x in {0,...,5} {
+    \foreach \y in {0,...,5} {
+      \pgfmathtruncatemacro{\c}{mod(\x+\y,3)}
+      \ifnum\c=0 \fill[cA] (\x,\y) rectangle ++(1,1); \fi
+      \ifnum\c=1 \fill[cB] (\x,\y) rectangle ++(1,1); \fi
+      \ifnum\c=2 \fill[cC] (\x,\y) rectangle ++(1,1); \fi
+      \draw[black!55] (\x,\y) rectangle ++(1,1);
+    }
+  }
+  \fill[accent!18] (1,3) rectangle ++(3,1);
+  \draw[accent,line width=1.2pt] (1,3) rectangle ++(3,1);
+  \node[draw=none,fill=none,font=\scriptsize] at (3,-0.6) {横放、竖放都一样：每块各带一种颜色};
+\end{tikzpicture}
+\end{center}
 
 \begin{exercise}
 请设计一种 $3$ 色染色方法，使得棋盘上任意一个横放或竖放的 $1\times 3$ 长条都恰好覆盖三种不同颜色，并说明这种染色为什么有用。

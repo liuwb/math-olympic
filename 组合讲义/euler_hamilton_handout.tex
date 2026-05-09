@@ -7,11 +7,13 @@
 \usepackage{enumitem}
 \usepackage{titlesec}
 \usepackage{xcolor}
+\usepackage{tikz}
 \usepackage{hyperref}
 \usepackage{bookmark}
 \usepackage[most]{tcolorbox}
 \usepackage{setspace}
 \usepackage{array}
+\usetikzlibrary{arrows.meta,positioning}
 
 \hypersetup{
   colorlinks=true,
@@ -236,6 +238,44 @@
 这两个条件完全不同，不能混着用。
 \end{notebox}
 
+\begin{center}
+\begin{tikzpicture}[
+  scale=0.95,
+  every node/.style={circle,draw=mainblue,fill=lightblue,inner sep=1.7pt,font=\small},
+  euler/.style={line width=1.5pt,draw=accent},
+  hamilton/.style={line width=1.5pt,draw=green!45!black}
+]
+  \node[draw=none,fill=none,circle=false,font=\bfseries\color{mainblue}] at (1.7,3.2) {欧拉：看边};
+  \node (A) at (0,1.2) {$A$};
+  \node (B) at (1.5,2.2) {$B$};
+  \node (C) at (3,1.2) {$C$};
+  \node (D) at (0,-0.2) {$D$};
+  \node (E) at (3,-0.2) {$E$};
+  \draw[euler,-{Stealth[length=2mm]}] (A) -- (B);
+  \draw[euler,-{Stealth[length=2mm]}] (B) -- (C);
+  \draw[euler,-{Stealth[length=2mm]}] (C) -- (E);
+  \draw[euler,-{Stealth[length=2mm]}] (E) -- (D);
+  \draw[euler,-{Stealth[length=2mm]}] (D) -- (A);
+  \draw[euler,-{Stealth[length=2mm]}] (B) -- (D);
+  \draw[euler,-{Stealth[length=2mm]}] (B) -- (E);
+  \node[draw=none,fill=none,circle=false,font=\small] at (1.5,-1.0) {每条边都恰好走一次};
+
+  \begin{scope}[xshift=7.1cm]
+    \node[draw=none,fill=none,circle=false,font=\bfseries\color{mainblue}] at (1.7,3.2) {哈密顿：看点};
+    \node (P) at (0,1.1) {$P$};
+    \node (Q) at (1.4,2.2) {$Q$};
+    \node (R) at (3,1.7) {$R$};
+    \node (S) at (2.7,0.1) {$S$};
+    \node (T) at (0.8,-0.4) {$T$};
+    \draw[black!45] (P)--(Q)--(R)--(S)--(T)--(P);
+    \draw[black!45] (Q)--(S);
+    \draw[black!45] (Q)--(T);
+    \draw[hamilton,-{Stealth[length=2mm]}] (P)--(Q)--(R)--(S)--(T)--(P);
+    \node[draw=none,fill=none,circle=false,font=\small] at (1.5,-1.0) {每个点都恰好经过一次};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+
 \section{欧拉问题：关键看度数奇偶}
 
 \subsection{为什么度数会起决定作用}
@@ -290,6 +330,29 @@
 \end{enumerate}
 \end{skillbox}
 
+\begin{center}
+\begin{tikzpicture}[
+  scale=1,
+  every node/.style={circle,draw=mainblue,fill=lightblue,inner sep=1.8pt,font=\small},
+  edge/.style={line width=1pt,draw=black!65},
+  odd/.style={circle,draw=accent,fill=orange!18,inner sep=1.8pt,font=\small\bfseries}
+]
+  \node[draw=none,fill=none,circle=false,font=\bfseries\color{mainblue}] at (2,3.0) {“房子形”图的度数观察};
+  \node (A) at (0,0) {$A$};
+  \node[odd] (B) at (0,1.8) {$B$};
+  \node[odd] (C) at (2.8,1.8) {$C$};
+  \node (D) at (2.8,0) {$D$};
+  \node (E) at (1.4,3.0) {$E$};
+  \draw[edge] (A)--(B)--(C)--(D)--(A);
+  \draw[edge] (B)--(E)--(C);
+  \node[draw=none,fill=none,circle=false,font=\small,align=left] at (5.6,1.5) {
+    $A,D,E$ 的度数都是 $2$；\\
+    $B,C$ 的度数都是 $3$。\\
+    只有两个奇度点，所以有欧拉道路。
+  };
+\end{tikzpicture}
+\end{center}
+
 \begin{example}
 设有一个“房子形”图：正方形 $ABCD$ 的上面再接一个屋顶点 $E$，并连边 $BE,CE$。问这个图有没有欧拉道路？有没有欧拉回路？
 \end{example}
@@ -336,6 +399,32 @@
 星形图：一个中心点与 $5$ 个叶子点相连，叶子点之间没有边。这个图有没有哈密顿路径？
 \end{example}
 
+\begin{center}
+\begin{tikzpicture}[
+  scale=1,
+  every node/.style={circle,draw=mainblue,fill=lightblue,inner sep=1.7pt,font=\small},
+  edge/.style={line width=1pt,draw=black!70}
+]
+  \node[draw=none,fill=none,circle=false,font=\bfseries\color{mainblue}] at (0,3.2) {星形图的中心点不能反复经过};
+  \node[fill=orange!20,draw=accent] (O) at (0,1.1) {$O$};
+  \node (A) at (-2.1,2.5) {$A$};
+  \node (B) at (-2.6,0.8) {$B$};
+  \node (C) at (-1.6,-0.9) {$C$};
+  \node (D) at (2.0,2.4) {$D$};
+  \node (E) at (2.4,0.2) {$E$};
+  \draw[edge] (O)--(A);
+  \draw[edge] (O)--(B);
+  \draw[edge] (O)--(C);
+  \draw[edge] (O)--(D);
+  \draw[edge] (O)--(E);
+  \node[draw=none,fill=none,circle=false,font=\small,align=left] at (0,-2.0) {
+    叶子点之间都不能直接相连，\\
+    想把它们串起来就会反复回到中心点 $O$，\\
+    这与“每个点只经过一次”矛盾。
+  };
+\end{tikzpicture}
+\end{center}
+
 \begin{solution}
 没有。
 
@@ -349,6 +438,31 @@
 \begin{example}
 $3\times 3$ 网格图有没有哈密顿回路？
 \end{example}
+
+\begin{center}
+\begin{tikzpicture}[
+  scale=0.95,
+  vertex/.style={circle,draw=black!70,inner sep=1.6pt},
+  darkv/.style={circle,draw=black!70,fill=black!80,inner sep=1.6pt},
+  lightv/.style={circle,draw=black!70,fill=white,inner sep=1.6pt}
+]
+  \node[draw=none,fill=none,circle=false,font=\bfseries\color{mainblue}] at (2,3.2) {$3\times 3$ 网格图的黑白点数不相等};
+  \foreach \x in {0,1,2} {
+    \foreach \y in {0,1,2} {
+      \pgfmathtruncatemacro{\c}{mod(\x+\y,2)}
+      \ifnum\c=0
+        \node[darkv] (\x\y) at (2*\x,2-1.0*\y) {};
+      \else
+        \node[lightv] (\x\y) at (2*\x,2-1.0*\y) {};
+      \fi
+    }
+  }
+  \foreach \x/\y in {00/10,10/20,01/11,11/21,02/12,12/22,00/01,01/02,10/11,11/12,20/21,21/22} {
+    \draw[black!50] (\x)--(\y);
+  }
+  \node[draw=none,fill=none,circle=false,font=\small] at (2,-1.0) {黑点 $5$ 个，白点 $4$ 个，不能沿回路交替配平};
+\end{tikzpicture}
+\end{center}
 
 \begin{solution}
 把 $3\times 3$ 网格图按棋盘方式黑白染色。由于共有 $9$ 个点，所以黑白两色点数分别是 $5$ 个和 $4$ 个。

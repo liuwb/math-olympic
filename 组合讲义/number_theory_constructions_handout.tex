@@ -7,11 +7,13 @@
 \usepackage{enumitem}
 \usepackage{titlesec}
 \usepackage{xcolor}
+\usepackage{tikz}
 \usepackage{hyperref}
 \usepackage{bookmark}
 \usepackage[most]{tcolorbox}
 \usepackage{setspace}
 \usepackage{array}
+\usetikzlibrary{positioning}
 
 \hypersetup{
   colorlinks=true,
@@ -205,6 +207,21 @@
 \subsection{为什么奇偶性很有力}
 奇偶性只有两类：奇数、偶数。但正因为分类简单，很多“不可能”结论会非常快地跳出来。
 
+\begin{center}
+\begin{tikzpicture}[
+  numbox/.style={draw=mainblue,rounded corners=2pt,minimum width=1.05cm,minimum height=0.68cm,fill=lightblue,font=\small},
+  titlebox/.style={draw=accent,rounded corners=2pt,minimum width=3.1cm,minimum height=0.72cm,fill=accent!10,font=\small\bfseries}
+]
+  \node[titlebox] (odd) at (0,0) {奇数};
+  \node[titlebox] (even) at (4.4,0) {偶数};
+  \foreach \n/\y in {1/-1,3/-1.85,5/-2.7,7/-3.55,9/-4.4}
+    \node[numbox] at (0,\y) {\n};
+  \foreach \n/\y in {2/-1,4/-1.85,6/-2.7,8/-3.55}
+    \node[numbox] at (4.4,\y) {\n};
+  \node[draw=none,font=\small\color{rulegray},align=left] at (2.2,-5.2) {做配对题时，先看两类对象的数量是否匹配。};
+\end{tikzpicture}
+\end{center}
+
 \begin{example}
 把 1 到 9 这 9 个整数分成若干对，每对两个数之和都为奇数，这样分组可能吗？
 \end{example}
@@ -266,6 +283,21 @@ a-b\equiv 0\pmod 6.
 \end{solution}
 
 \section{按模分类做构造与证明}
+
+\begin{center}
+\begin{tikzpicture}[
+  titlebox/.style={draw=mainblue,rounded corners=2pt,minimum width=2.6cm,minimum height=0.72cm,fill=lightblue,font=\small\bfseries},
+  listbox/.style={draw=black!50,rounded corners=2pt,minimum width=2.6cm,minimum height=2.35cm,fill=white,font=\small}
+]
+  \node[titlebox] (r0) at (0,0) {余 0};
+  \node[titlebox] (r1) at (3.6,0) {余 1};
+  \node[titlebox] (r2) at (7.2,0) {余 2};
+  \node[listbox,align=center,below=0.15cm of r0] {3\\6\\9};
+  \node[listbox,align=center,below=0.15cm of r1] {1\\4\\7};
+  \node[listbox,align=center,below=0.15cm of r2] {2\\5\\8};
+  \node[draw=none,font=\small\color{rulegray}] at (3.6,-3.15) {按模分类时，先把数“装进余数盒子”再讨论组合类型。};
+\end{tikzpicture}
+\end{center}
 
 \begin{example}
 证明：任意 4 个连续整数中，至少有两个整数除以 3 的余数相同。
@@ -390,6 +422,27 @@ a-b\equiv 0\pmod 6.
 \end{solution}
 
 \section{经典模型：棋盘、格点与模分类}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.72]
+  \foreach \x in {0,...,3} {
+    \foreach \y in {0,...,3} {
+      \pgfmathtruncatemacro{\c}{mod(\x+\y,2)}
+      \ifnum\c=0
+        \fill[lightblue] (\x,\y) rectangle ++(1,1);
+      \else
+        \fill[white] (\x,\y) rectangle ++(1,1);
+      \fi
+    }
+  }
+  \draw[step=1cm,black!55,thin] (0,0) grid (4,4);
+  \fill[mainblue] (0,0) circle (2.4pt);
+  \fill[accent] (3,3) circle (2.4pt);
+  \node[below left] at (0,0) {\small $(0,0)$};
+  \node[above right] at (3,3) {\small $(3,3)$};
+  \node[draw=none,font=\small\color{rulegray}] at (2,-0.75) {每走一步，就从一种颜色跳到另一种颜色。};
+\end{tikzpicture}
+\end{center}
 
 \begin{example}
 在整数格点平面上，一只青蛙每次向上、下、左、右跳 1 格。它能否从 $(0,0)$ 跳到 $(3,3)$ 并且恰好跳 5 步？

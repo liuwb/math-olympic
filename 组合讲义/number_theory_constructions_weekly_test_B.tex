@@ -7,11 +7,13 @@
 \usepackage{enumitem}
 \usepackage{titlesec}
 \usepackage{xcolor}
+\usepackage{tikz}
 \usepackage{hyperref}
 \usepackage{bookmark}
 \usepackage[most]{tcolorbox}
 \usepackage{setspace}
 \usepackage{array}
+\usetikzlibrary{positioning}
 
 \hypersetup{
   colorlinks=true,
@@ -86,12 +88,48 @@
   \answerspace
 
   \item （12 分）在数轴上，一个棋子从 $0$ 出发，每步只能向左或向右走 $1$ 格。它能否恰好走 $7$ 步到达 $4$？它能否恰好走 $8$ 步到达 $4$？
+  \begin{center}
+  \begin{tikzpicture}[>=stealth,scale=0.86,font=\small]
+    \draw[->,thick] (-0.5,0) -- (5.5,0);
+    \foreach \x in {0,...,5} \draw (\x,0.1)--(\x,-0.1) node[below=2pt] {\x};
+    \fill[mainblue] (0,0) circle (2.2pt);
+    \fill[red!70!black] (4,0) circle (2.2pt);
+    \node[above] at (0,0) {0};
+    \node[above] at (4,0) {4};
+  \end{tikzpicture}
+  \end{center}
   \answerspace
 
   \item （12 分）有 $9$ 盏灯，开始时全灭。每次操作必须同时改变恰好两盏灯的状态（亮变灭，灭变亮）。问能否经过若干次操作后，恰好只有 $1$ 盏灯亮着？
+  \begin{center}
+  \begin{tikzpicture}[scale=0.75]
+    \foreach \x/\y in {0/0,1.5/0,3/0,4.5/0,6/0,0/-1.5,1.5/-1.5,3/-1.5,4.5/-1.5}
+      \draw[mainblue,fill=white,line width=0.9pt] (\x,\y) circle (0.28);
+    \node[draw=none,font=\small\color{rulegray}] at (3,-2.45) {每次只会改动两盏灯，亮灯数奇偶性保持不变。};
+  \end{tikzpicture}
+  \end{center}
   \answerspace
 
   \item （12 分）在一个 $5\times 5$ 的方格棋盘上，一只棋子从左下角出发，每次只能向上、下、左、右移动 $1$ 格。它能否恰好走 $8$ 步到达右上角？它能否恰好走 $9$ 步到达右上角？
+  \begin{center}
+  \begin{tikzpicture}[scale=0.56]
+    \foreach \x in {0,...,4} {
+      \foreach \y in {0,...,4} {
+        \pgfmathtruncatemacro{\c}{mod(\x+\y,2)}
+        \ifnum\c=0
+          \fill[lightblue] (\x,\y) rectangle ++(1,1);
+        \else
+          \fill[white] (\x,\y) rectangle ++(1,1);
+        \fi
+      }
+    }
+    \draw[step=1cm,black!55,thin] (0,0) grid (5,5);
+    \fill[mainblue] (0,0) circle (2.4pt);
+    \fill[red!70!black] (4,4) circle (2.4pt);
+    \node[below left] at (0,0) {\small 起点};
+    \node[above right] at (4,4) {\small 终点};
+  \end{tikzpicture}
+  \end{center}
   \biganswerspace
 
   \item （12 分）从 $1$ 到 $12$ 中选出 $4$ 个数，使它们的和能被 $4$ 整除，有多少种选法？

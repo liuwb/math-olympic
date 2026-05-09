@@ -7,11 +7,13 @@
 \usepackage{enumitem}
 \usepackage{titlesec}
 \usepackage{xcolor}
+\usepackage{tikz}
 \usepackage{hyperref}
 \usepackage{bookmark}
 \usepackage[most]{tcolorbox}
 \usepackage{setspace}
 \usepackage{array}
+\usetikzlibrary{positioning}
 
 \hypersetup{
   colorlinks=true,
@@ -145,6 +147,21 @@
 
 \section{奇偶性与和差判断}
 
+\begin{center}
+\begin{tikzpicture}[
+  >=stealth,
+  every node/.style={font=\small}
+]
+  \draw[->,thick] (-0.5,0) -- (5.4,0);
+  \foreach \x in {0,...,5} \draw (\x,0.12)--(\x,-0.12) node[below=2pt] {\x};
+  \fill[mainblue] (0,0) circle (2.2pt);
+  \fill[accent] (4,0) circle (2.2pt);
+  \node[above] at (0,0) {起点};
+  \node[above] at (4,0) {目标};
+  \node[draw=none,align=left,text=rulegray] at (2.5,-1.0) {数轴步数题常把“能否到达”\\转成步数奇偶与方程 $r-l$。};
+\end{tikzpicture}
+\end{center}
+
 \begin{exercise}
 从 $1$ 到 $10$ 中任取 $6$ 个数，证明其中必有两个数的差是偶数。
 \end{exercise}
@@ -162,6 +179,21 @@
 \end{exercise}
 
 \section{余数分类与按模计数}
+
+\begin{center}
+\begin{tikzpicture}[
+  titlebox/.style={draw=mainblue,rounded corners=2pt,minimum width=2.6cm,minimum height=0.72cm,fill=lightblue,font=\small\bfseries},
+  listbox/.style={draw=black!50,rounded corners=2pt,minimum width=2.6cm,minimum height=2.55cm,fill=white,font=\small}
+]
+  \node[titlebox] (r0) at (0,0) {余 0};
+  \node[titlebox] (r1) at (3.6,0) {余 1};
+  \node[titlebox] (r2) at (7.2,0) {余 2};
+  \node[listbox,align=center,below=0.15cm of r0] {3\\6\\9\\12};
+  \node[listbox,align=center,below=0.15cm of r1] {1\\4\\7\\10};
+  \node[listbox,align=center,below=0.15cm of r2] {2\\5\\8\\11};
+  \node[draw=none,font=\small\color{rulegray}] at (3.6,-3.35) {先分余数类，再枚举允许出现的组合类型。};
+\end{tikzpicture}
+\end{center}
 
 \begin{exercise}
 从 $1$ 到 $9$ 中选出 $4$ 个数，使它们的和能被 $3$ 整除，有多少种选法？
@@ -196,6 +228,27 @@
 \begin{exercise}
 在一个 $5\times 5$ 的方格棋盘上，一只棋子从左下角出发，每次只能向上、下、左、右移动 $1$ 格。它能否恰好走 $8$ 步到达右上角？它能否恰好走 $9$ 步到达右上角？
 \end{exercise}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.58]
+  \foreach \x in {0,...,4} {
+    \foreach \y in {0,...,4} {
+      \pgfmathtruncatemacro{\c}{mod(\x+\y,2)}
+      \ifnum\c=0
+        \fill[lightblue] (\x,\y) rectangle ++(1,1);
+      \else
+        \fill[white] (\x,\y) rectangle ++(1,1);
+      \fi
+    }
+  }
+  \draw[step=1cm,black!55,thin] (0,0) grid (5,5);
+  \fill[mainblue] (0,0) circle (2.4pt);
+  \fill[accent] (4,4) circle (2.4pt);
+  \node[below left] at (0,0) {\small 起点};
+  \node[above right] at (4,4) {\small 终点};
+  \node[draw=none,font=\small\color{rulegray}] at (2.5,-0.85) {每走一步，格子颜色切换一次。};
+\end{tikzpicture}
+\end{center}
 
 \section{综合提高与构造}
 

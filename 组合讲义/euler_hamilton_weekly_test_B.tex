@@ -7,11 +7,13 @@
 \usepackage{enumitem}
 \usepackage{titlesec}
 \usepackage{xcolor}
+\usepackage{tikz}
 \usepackage{hyperref}
 \usepackage{bookmark}
 \usepackage[most]{tcolorbox}
 \usepackage{setspace}
 \usepackage{array}
+\usetikzlibrary{arrows.meta}
 
 \hypersetup{colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!50!black}
 
@@ -24,6 +26,7 @@
 
 \definecolor{mainblue}{RGB}{36,83,140}
 \definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{accent}{RGB}{153,76,0}
 \definecolor{rulegray}{RGB}{110,118,128}
 
 \titleformat{\section}
@@ -92,6 +95,49 @@
   \item （12 分）在判断一道图上走法题时，怎样快速分辨它应该归入欧拉问题还是哈密顿问题？请结合各举一个典型描述说明。
   \answerspace
 \end{enumerate}
+
+\begin{center}
+\begin{tikzpicture}[
+  scale=0.8,
+  every node/.style={circle,draw=mainblue,fill=lightblue,inner sep=1.4pt},
+  edge/.style={draw=black!65,line width=0.9pt},
+  cycle/.style={draw=green!45!black,line width=1.1pt,-{Stealth[length=2mm]}}
+]
+  \node[draw=none,fill=none,circle=false,font=\bfseries\color{mainblue}] at (5.0,3.5) {附图参考};
+
+  \node[draw=none,fill=none,circle=false,font=\scriptsize] at (1.3,2.9) {题 2 / 题 5 / 题 7};
+  \node[fill=orange!18,draw=accent] (O) at (1.3,1.1) {};
+  \node (A) at (0.1,2.2) {};
+  \node (B) at (0.1,0.0) {};
+  \node (C) at (2.5,2.2) {};
+  \node (D) at (2.5,0.0) {};
+  \draw[edge] (O)--(A)--(B)--(O);
+  \draw[edge] (O)--(C)--(D)--(O);
+
+  \begin{scope}[xshift=5.2cm]
+    \node[draw=none,fill=none,circle=false,font=\scriptsize] at (1.4,2.9) {题 3：$2\times 3$ 网格图};
+    \foreach \x in {0,1,2,3} {
+      \foreach \y in {0,1,2} {
+        \node (\x\y) at (0.8*\x,0.8*\y) {};
+      }
+    }
+    \foreach \u/\v in {00/10,10/20,20/30,01/11,11/21,21/31,02/12,12/22,22/32,00/01,01/02,10/11,11/12,20/21,21/22,30/31,31/32} {
+      \draw[edge] (\u)--(\v);
+    }
+  \end{scope}
+
+  \begin{scope}[xshift=10.5cm]
+    \node[draw=none,fill=none,circle=false,font=\scriptsize] at (1.8,2.9) {题 4：$2\times 4$ 网格图};
+    \foreach \x in {0,1,2,3,4} {
+      \foreach \y in {0,1} {\node (\x\y) at (0.8*\x,0.9*\y) {};}
+    }
+    \foreach \u/\v in {00/10,10/20,20/30,30/40,01/11,11/21,21/31,31/41,00/01,10/11,20/21,30/31,40/41} {
+      \draw[edge] (\u)--(\v);
+    }
+    \draw[cycle] (00)--(10)--(20)--(30)--(40)--(41)--(31)--(21)--(11)--(01)--(00);
+  \end{scope}
+\end{tikzpicture}
+\end{center}
 
 \newpage
 \section{详细解答}

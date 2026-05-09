@@ -7,11 +7,13 @@
 \usepackage{enumitem}
 \usepackage{titlesec}
 \usepackage{xcolor}
+\usepackage{tikz}
 \usepackage{hyperref}
 \usepackage{bookmark}
 \usepackage[most]{tcolorbox}
 \usepackage{setspace}
 \usepackage{array}
+\usetikzlibrary{arrows.meta}
 
 \hypersetup{
   colorlinks=true,
@@ -28,6 +30,7 @@
 
 \definecolor{mainblue}{RGB}{36,83,140}
 \definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{accent}{RGB}{153,76,0}
 \definecolor{lightgray}{RGB}{246,246,246}
 \definecolor{rulegray}{RGB}{110,118,128}
 
@@ -106,6 +109,35 @@
   \item （12 分）请说明为什么“颜色数量刚好平衡”往往只是必要条件而不是充分条件，并各举一个骨牌题或长条覆盖题中的例子支持你的说明。
   \answerspace
 \end{enumerate}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.58]
+  \node[draw=none,fill=none,font=\bfseries\color{mainblue}] at (6.2,8.8) {附图参考};
+  \foreach \x in {0,...,5} {
+    \foreach \y in {0,...,5} {
+      \pgfmathtruncatemacro{\c}{mod(\x+\y,2)}
+      \ifnum\c=0 \fill[black!18] (\x,\y) rectangle ++(1,1); \else \fill[white] (\x,\y) rectangle ++(1,1); \fi
+      \draw[black!55] (\x,\y) rectangle ++(1,1);
+    }
+  }
+  \draw[accent,line width=1.1pt] (0,5) rectangle ++(1,1);
+  \draw[accent,line width=1.1pt] (5,0) rectangle ++(1,1);
+  \draw[accent,line width=1.0pt] (0,5)--(1,6) (1,5)--(0,6) (5,0)--(6,1) (6,0)--(5,1);
+
+  \begin{scope}[xshift=8.3cm,scale=0.95]
+    \foreach \x in {0,...,4} {
+      \foreach \y in {0,...,4} {
+        \pgfmathtruncatemacro{\c}{mod(\x+\y,2)}
+        \ifnum\c=0 \fill[black!18] (\x,\y) rectangle ++(1,1); \else \fill[white] (\x,\y) rectangle ++(1,1); \fi
+        \draw[black!55] (\x,\y) rectangle ++(1,1);
+      }
+    }
+    \fill[black!70] (1.5,1.5) circle (0.16);
+    \draw[green!45!black,line width=1.2pt,-{Stealth[length=2.6mm]}] (1.65,1.65) to[out=25,in=210] (3.35,2.35);
+    \fill[white] (3.5,2.5) circle (0.16);
+  \end{scope}
+\end{tikzpicture}
+\end{center}
 
 \newpage
 \section{详细解答}

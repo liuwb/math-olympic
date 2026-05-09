@@ -7,11 +7,13 @@
 \usepackage{enumitem}
 \usepackage{titlesec}
 \usepackage{xcolor}
+\usepackage{tikz}
 \usepackage{hyperref}
 \usepackage{bookmark}
 \usepackage[most]{tcolorbox}
 \usepackage{setspace}
 \usepackage{array}
+\usetikzlibrary{positioning}
 
 \hypersetup{
   colorlinks=true,
@@ -95,12 +97,35 @@
   \answerspace
 
   \item （12 分）把 $1$ 到 $12$ 分成 $6$ 对，使每对两个数的和都是 $3$ 的倍数。请给出一种分法，并说明为什么一对数的余数类型只可能是有限几种。
+  \begin{center}
+  \begin{tikzpicture}[
+    titlebox/.style={draw=mainblue,rounded corners=2pt,minimum width=2.2cm,minimum height=0.68cm,fill=lightblue,font=\small\bfseries},
+    listbox/.style={draw=black!50,rounded corners=2pt,minimum width=2.2cm,minimum height=2.25cm,fill=white,font=\small}
+  ]
+    \node[titlebox] (r0) at (0,0) {余 0};
+    \node[titlebox] (r1) at (3.1,0) {余 1};
+    \node[titlebox] (r2) at (6.2,0) {余 2};
+    \node[listbox,align=center,below=0.12cm of r0] {3\\6\\9\\12};
+    \node[listbox,align=center,below=0.12cm of r1] {1\\4\\7\\10};
+    \node[listbox,align=center,below=0.12cm of r2] {2\\5\\8\\11};
+  \end{tikzpicture}
+  \end{center}
   \biganswerspace
 
   \item （14 分）从 $1$ 到 $15$ 中最多能选多少个数，使得任意两个被选出的数的和都不是 $3$ 的倍数？
   \biganswerspace
 
   \item （14 分）两堆石子分别有 $7$ 颗和 $7$ 颗。每次操作必须从一堆里取出 $1$ 颗石子，再从另一堆里取出 $2$ 颗石子。问能否经过若干次操作后，恰好把两堆石子全部取完？
+  \begin{center}
+  \begin{tikzpicture}[font=\small]
+    \draw[fill=lightblue,draw=mainblue] (0,0) rectangle (1.2,2.1);
+    \draw[fill=lightblue,draw=mainblue] (2.2,0) rectangle (3.4,2.1);
+    \node at (0.6,2.45) {7};
+    \node at (2.8,2.45) {7};
+    \node at (1.7,1.05) {\Large $\longrightarrow$};
+    \node[align=center] at (5.4,1.05) {每次总共\\取走 3 颗};
+  \end{tikzpicture}
+  \end{center}
   \answerspace
 
   \item （14 分）从 $1$ 到 $12$ 中任取 $6$ 个数，证明其中一定能选出 $3$ 个数，使这 $3$ 个数的和是 $3$ 的倍数。

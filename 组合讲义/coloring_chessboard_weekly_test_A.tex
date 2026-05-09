@@ -7,11 +7,13 @@
 \usepackage{enumitem}
 \usepackage{titlesec}
 \usepackage{xcolor}
+\usepackage{tikz}
 \usepackage{hyperref}
 \usepackage{bookmark}
 \usepackage[most]{tcolorbox}
 \usepackage{setspace}
 \usepackage{array}
+\usetikzlibrary{arrows.meta}
 
 \hypersetup{
   colorlinks=true,
@@ -28,6 +30,7 @@
 
 \definecolor{mainblue}{RGB}{36,83,140}
 \definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{accent}{RGB}{153,76,0}
 \definecolor{lightgray}{RGB}{246,246,246}
 \definecolor{rulegray}{RGB}{110,118,128}
 
@@ -106,6 +109,39 @@
   \item （14 分）把 $8\times 8$ 棋盘左上角的一个格子去掉，问剩下的 $63$ 个格子能否被 $21$ 个 $1\times 3$ 长条完全覆盖？
   \biganswerspace
 \end{enumerate}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+  \node[draw=none,fill=none,font=\bfseries\color{mainblue}] at (8.2,9.4) {附图参考};
+  \foreach \x in {0,...,7} {
+    \foreach \y in {0,...,7} {
+      \pgfmathtruncatemacro{\c}{mod(\x+\y,2)}
+      \ifnum\c=0 \fill[black!18] (\x,\y) rectangle ++(1,1); \else \fill[white] (\x,\y) rectangle ++(1,1); \fi
+      \draw[black!55] (\x,\y) rectangle ++(1,1);
+    }
+  }
+  \draw[accent,line width=1.1pt] (0,7) rectangle ++(1,1);
+  \draw[accent,line width=1.1pt] (7,7) rectangle ++(1,1);
+  \draw[accent,line width=1.0pt] (0,7)--(1,8) (1,7)--(0,8) (7,7)--(8,8) (8,7)--(7,8);
+
+  \begin{scope}[xshift=10.5cm,scale=1.1]
+    \definecolor{cA}{RGB}{235,241,255}
+    \definecolor{cB}{RGB}{225,245,229}
+    \definecolor{cC}{RGB}{255,238,214}
+    \foreach \x in {0,...,5} {
+      \foreach \y in {0,...,2} {
+        \pgfmathtruncatemacro{\c}{mod(\x+\y,3)}
+        \ifnum\c=0 \fill[cA] (\x,\y) rectangle ++(1,1); \fi
+        \ifnum\c=1 \fill[cB] (\x,\y) rectangle ++(1,1); \fi
+        \ifnum\c=2 \fill[cC] (\x,\y) rectangle ++(1,1); \fi
+        \draw[black!55] (\x,\y) rectangle ++(1,1);
+      }
+    }
+    \fill[accent!18] (1,1) rectangle ++(3,1);
+    \draw[accent,line width=1.1pt] (1,1) rectangle ++(3,1);
+  \end{scope}
+\end{tikzpicture}
+\end{center}
 
 \newpage
 \section{详细解答}

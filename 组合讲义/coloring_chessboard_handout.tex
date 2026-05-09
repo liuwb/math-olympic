@@ -7,11 +7,13 @@
 \usepackage{enumitem}
 \usepackage{titlesec}
 \usepackage{xcolor}
+\usepackage{tikz}
 \usepackage{hyperref}
 \usepackage{bookmark}
 \usepackage[most]{tcolorbox}
 \usepackage{setspace}
 \usepackage{array}
+\usetikzlibrary{arrows.meta}
 
 \hypersetup{
   colorlinks=true,
@@ -228,6 +230,26 @@
 \end{itemize}
 \end{skillbox}
 
+\begin{center}
+\begin{tikzpicture}[scale=0.7]
+  \node[draw=none,fill=none,font=\bfseries\color{mainblue}] at (3.5,5.4) {黑白染色下，相邻格总是异色};
+  \foreach \x in {0,...,5} {
+    \foreach \y in {0,...,3} {
+      \pgfmathtruncatemacro{\c}{mod(\x+\y,2)}
+      \ifnum\c=0
+        \fill[black!18] (\x,\y) rectangle ++(1,1);
+      \else
+        \fill[white] (\x,\y) rectangle ++(1,1);
+      \fi
+      \draw[black!65] (\x,\y) rectangle ++(1,1);
+    }
+  }
+  \fill[accent!22] (1,1) rectangle ++(2,1);
+  \draw[line width=1.2pt,accent] (1,1) rectangle ++(2,1);
+  \node[draw=none,fill=none,font=\small] at (3,-0.7) {$1\times 2$ 骨牌无论横放竖放，都恰好盖住一黑一白};
+\end{tikzpicture}
+\end{center}
+
 \section{经典不可能题：残缺棋盘与骨牌}
 
 \begin{example}
@@ -256,6 +278,32 @@
 
 但黑白格数相等，并不自动保证一定能覆盖成功。也就是说，黑白格数相等通常不是充分条件。
 \end{notebox}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.45]
+  \node[draw=none,fill=none,font=\bfseries\color{mainblue}] at (4,10.2) {删去两个同色角格后，黑白数量失衡};
+  \foreach \x in {0,...,7} {
+    \foreach \y in {0,...,7} {
+      \pgfmathtruncatemacro{\c}{mod(\x+\y,2)}
+      \ifnum\c=0
+        \fill[black!18] (\x,\y) rectangle ++(1,1);
+      \else
+        \fill[white] (\x,\y) rectangle ++(1,1);
+      \fi
+      \draw[black!55] (\x,\y) rectangle ++(1,1);
+    }
+  }
+  \fill[white] (0,7) rectangle ++(1,1);
+  \fill[white] (7,0) rectangle ++(1,1);
+  \draw[accent,line width=1.2pt] (0,7) rectangle ++(1,1);
+  \draw[accent,line width=1.2pt] (7,0) rectangle ++(1,1);
+  \draw[accent,line width=1.1pt] (0,7) -- (1,8);
+  \draw[accent,line width=1.1pt] (1,7) -- (0,8);
+  \draw[accent,line width=1.1pt] (7,0) -- (8,1);
+  \draw[accent,line width=1.1pt] (8,0) -- (7,1);
+  \node[draw=none,fill=none,font=\small] at (4,-0.8) {去掉的是同色角格，所以不再能保持“一黑一白”配对};
+\end{tikzpicture}
+\end{center}
 
 \section{路径问题中的染色与奇偶性}
 
@@ -296,6 +344,27 @@
 这种限制往往比具体枚举路径简单得多。
 \end{skillbox}
 
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+  \node[draw=none,fill=none,font=\bfseries\color{mainblue}] at (3.5,5.4) {马走“日”字时，总在黑白之间切换};
+  \foreach \x in {0,...,5} {
+    \foreach \y in {0,...,3} {
+      \pgfmathtruncatemacro{\c}{mod(\x+\y,2)}
+      \ifnum\c=0
+        \fill[black!18] (\x,\y) rectangle ++(1,1);
+      \else
+        \fill[white] (\x,\y) rectangle ++(1,1);
+      \fi
+      \draw[black!60] (\x,\y) rectangle ++(1,1);
+    }
+  }
+  \fill[black!75] (1.5,1.5) circle (0.18);
+  \fill[white] (3.5,2.5) circle (0.18);
+  \draw[accent,line width=1.4pt,-{Stealth[length=3mm]}] (1.65,1.65) to[out=35,in=220] (3.35,2.35);
+  \node[draw=none,fill=none,font=\small,align=center] at (3,-0.8) {起点与终点颜色相反，\\所以步数奇偶会决定能否到达};
+\end{tikzpicture}
+\end{center}
+
 \section{多色染色：当黑白不够用时}
 
 \subsection{为什么要用三色或更多颜色}
@@ -326,6 +395,33 @@
 \begin{example}
 一个 $6\times 6$ 棋盘按上面的三色方法染色后，去掉了三个同色格子。剩下的格子能否被若干个 $1\times 3$ 长条完全覆盖？
 \end{example}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.62]
+  \definecolor{cA}{RGB}{235,241,255}
+  \definecolor{cB}{RGB}{225,245,229}
+  \definecolor{cC}{RGB}{255,238,214}
+  \node[draw=none,fill=none,font=\bfseries\color{mainblue}] at (4.1,8.4) {三色染色下，$1\times 3$ 长条总会跨过三种颜色};
+  \foreach \x in {0,...,5} {
+    \foreach \y in {0,...,5} {
+      \pgfmathtruncatemacro{\c}{mod(\x+\y,3)}
+      \ifnum\c=0
+        \fill[cA] (\x,\y) rectangle ++(1,1);
+      \fi
+      \ifnum\c=1
+        \fill[cB] (\x,\y) rectangle ++(1,1);
+      \fi
+      \ifnum\c=2
+        \fill[cC] (\x,\y) rectangle ++(1,1);
+      \fi
+      \draw[black!60] (\x,\y) rectangle ++(1,1);
+    }
+  }
+  \fill[accent!18] (1,3) rectangle ++(3,1);
+  \draw[accent,line width=1.2pt] (1,3) rectangle ++(3,1);
+  \node[draw=none,fill=none,font=\small] at (3,-0.7) {横放或竖放的 $1\times 3$ 长条都会依次碰到三种不同颜色};
+\end{tikzpicture}
+\end{center}
 
 \begin{solution}
 由上一题可知，每个 $1\times 3$ 长条都恰好覆盖三种颜色各一个格子。

@@ -7,11 +7,13 @@
 \usepackage{enumitem}
 \usepackage{titlesec}
 \usepackage{xcolor}
+\usepackage{tikz}
 \usepackage{hyperref}
 \usepackage{bookmark}
 \usepackage[most]{tcolorbox}
 \usepackage{setspace}
 \usepackage{array}
+\usetikzlibrary{arrows.meta}
 
 \hypersetup{colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!50!black}
 
@@ -24,6 +26,7 @@
 
 \definecolor{mainblue}{RGB}{36,83,140}
 \definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{accent}{RGB}{153,76,0}
 \definecolor{rulegray}{RGB}{110,118,128}
 
 \titleformat{\section}
@@ -92,6 +95,48 @@
   \item （14 分）完全图 $K_4$ 有没有欧拉道路？有没有哈密顿回路？
   \biganswerspace
 \end{enumerate}
+
+\begin{center}
+\begin{tikzpicture}[
+  scale=0.78,
+  every node/.style={circle,draw=mainblue,fill=lightblue,inner sep=1.4pt},
+  edge/.style={draw=black!65,line width=0.9pt}
+]
+  \node[draw=none,fill=none,circle=false,font=\bfseries\color{mainblue}] at (4.8,3.5) {附图参考};
+  \node[draw=none,fill=none,circle=false,font=\scriptsize] at (1.5,2.8) {题 3 / 题 8：$K_4$};
+  \node (A) at (0,1.2) {};
+  \node (B) at (1.5,2.4) {};
+  \node (C) at (3.0,1.2) {};
+  \node (D) at (1.5,0) {};
+  \foreach \u/\v in {A/B,B/C,C/D,D/A,A/C,B/D} {\draw[edge] (\u)--(\v);}
+
+  \begin{scope}[xshift=5.5cm]
+    \node[draw=none,fill=none,circle=false,font=\scriptsize] at (0,2.8) {题 4：$K_{1,4}$};
+    \node[fill=orange!18,draw=accent] (O) at (0,1.0) {};
+    \foreach \name/\x/\y in {P/-1.7/2.1,Q/-1.9/0.8,R/-1.2/-0.5,S/1.7/2.0,T/1.8/0.2} {
+      \node (\name) at (\x,\y) {};
+      \draw[edge] (O)--(\name);
+    }
+  \end{scope}
+
+  \begin{scope}[xshift=10.0cm]
+    \node[draw=none,fill=none,circle=false,font=\scriptsize] at (1.2,2.8) {题 5：$3\times 3$ 网格图};
+    \foreach \x in {0,1,2} {
+      \foreach \y in {0,1,2} {
+        \pgfmathtruncatemacro{\c}{mod(\x+\y,2)}
+        \ifnum\c=0
+          \node[fill=black!70,draw=black!70] (\x\y) at (1.0*\x,0.9*\y) {};
+        \else
+          \node[fill=white,draw=black!70] (\x\y) at (1.0*\x,0.9*\y) {};
+        \fi
+      }
+    }
+    \foreach \u/\v in {00/10,10/20,01/11,11/21,02/12,12/22,00/01,01/02,10/11,11/12,20/21,21/22} {
+      \draw[edge] (\u)--(\v);
+    }
+  \end{scope}
+\end{tikzpicture}
+\end{center}
 
 \newpage
 \section{详细解答}
