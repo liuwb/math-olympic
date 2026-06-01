@@ -1,0 +1,260 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.4cm,bottom=2.6cm,left=2.35cm,right=2.35cm,headheight=18pt,headsep=0.55cm,footskip=26pt]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black
+}
+
+\setstretch{1.16}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.32em}
+\setlist[enumerate]{itemsep=0.35em, topsep=0.35em, leftmargin=2.3em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=2em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{rulegray}{RGB}{110,118,128}
+\definecolor{softgreen}{RGB}{236,247,240}
+\definecolor{softyellow}{RGB}{254,249,229}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.25em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.2em}{0.8em}
+\titleformat{\subsection}{\large\bfseries\color{mainblue}}{\thesubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 函数图像对称专题目录页}
+\fancyhead[C]{\small 代数专题资料索引}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{goalbox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{infobox}[1]{
+  breakable,
+  colback=softgreen,
+  colframe=green!40!black,
+  boxrule=0.65pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{warnbox}[1]{
+  breakable,
+  colback=softyellow,
+  colframe=orange!60!black,
+  boxrule=0.65pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{titlepage}
+\centering
+\vspace*{0.9cm}
+
+\begin{tcolorbox}[
+  enhanced,
+  width=0.92\textwidth,
+  colback=white,
+  colframe=mainblue,
+  boxrule=1pt,
+  arc=0mm,
+  left=6mm,
+  right=6mm,
+  top=8mm,
+  bottom=8mm
+]
+\centering
+
+{\fontsize{24}{30}\selectfont\bfseries 函数图像对称专题目录页\par}
+\vspace{0.65cm}
+{\fontsize{17}{22}\selectfont 讲义、题单与周测的使用说明\par}
+
+\vspace{1cm}
+\begin{tcolorbox}[colback=lightblue,colframe=mainblue,width=0.84\textwidth,boxrule=1pt]
+\centering
+{\large 适合对象：已经学过函数平移，准备继续掌握“关于哪条轴或哪个点对称，方程怎么改”的学生}\\[0.35em]
+{\normalsize 本目录页帮助把函数对称专题资料串成一个完整训练包}
+\end{tcolorbox}
+
+\vspace{1.0cm}
+\renewcommand{\arraystretch}{1.42}
+\begin{tabular}{>{\bfseries}p{3.5cm}p{8cm}}
+专题名称： & 函数图像对称与方程 \\
+资料组成： & 课堂讲义、提高训练题单、周测 A 卷、周测 B 卷 \\
+使用方式： & 先学讲义，再做题单，最后用 A/B 周测检查掌握情况 \\
+编译方式： & XeLaTeX \\
+\end{tabular}
+
+\vspace{0.9cm}
+{\large \today\par}
+\end{tcolorbox}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{专题包包含哪些资料}
+
+\begin{goalbox}{四份核心资料}
+\begin{enumerate}
+  \item 课堂讲义：帮助理解关于 x 轴、关于 y 轴、关于原点对称分别怎样改方程；
+  \item 提高训练题单：用于课后巩固和变式提升，重点训练奇偶性判断、反向判断和对称与平移衔接；
+  \item 周测 A 卷：检查基础对称公式和标准题型是否稳定；
+  \item 周测 B 卷：检查综合判断、点的对称变化、复合变换和说明过程是否真正到位。
+\end{enumerate}
+\end{goalbox}
+
+\begin{infobox}{对应文件名}
+\begin{itemize}
+  \item 讲义：\texttt{function\_symmetry\_handout.tex} / \texttt{function\_symmetry\_handout.pdf}
+  \item 提高训练题单：\texttt{function\_symmetry\_advanced\_problem\_set.tex} / \texttt{function\_symmetry\_advanced\_problem\_set.pdf}
+  \item 周测 A 卷：\texttt{function\_symmetry\_weekly\_test\_A.tex} / \texttt{function\_symmetry\_weekly\_test\_A.pdf}
+  \item 周测 B 卷：\texttt{function\_symmetry\_weekly\_test\_B.tex} / \texttt{function\_symmetry\_weekly\_test\_B.pdf}
+\end{itemize}
+\end{infobox}
+
+\section{建议学习顺序}
+
+\begin{goalbox}{推荐顺序}
+\begin{enumerate}
+  \item 先完整学习讲义，重点吃透“关于 x 轴改外面，关于 y 轴改里面，关于原点里外都要看”的含义；
+  \item 再完成提高训练题单，训练从题目文字、特殊点变化和奇偶性三个角度判断对称；
+  \item 接着做周测 A 卷，检查基础公式、标准变式和反向题是否稳定；
+  \item 最后做周测 B 卷，检查复合对称、点坐标变化和说明过程是否掌握。
+\end{enumerate}
+\end{goalbox}
+
+\begin{warnbox}{不建议的做法}
+\begin{itemize}
+  \item 只背结论，不理解为什么关于 y 轴对称要写成 $f(-x)$；
+  \item 关于 y 轴对称时只改一部分，没有把整个式子里的 $x$ 一起替换；
+  \item 关于原点对称时漏掉一个负号；
+  \item 不用特殊点、顶点或奇偶性做检验，只凭感觉判断对错。
+\end{itemize}
+\end{warnbox}
+
+\section{每份资料主要解决什么问题}
+
+\subsection{课堂讲义}
+讲义适合第一次系统学习这个专题，主要解决以下问题：
+\begin{itemize}
+  \item 关于 x 轴、关于 y 轴、关于原点对称在方程上有什么本质区别；
+  \item 为什么有时改函数外面，有时改函数里面；
+  \item 怎样从点坐标变化去解释对称公式；
+  \item 怎样用 $f(-x)=f(x)$ 和 $f(-x)=-f(x)$ 判断图像对称性。
+\end{itemize}
+
+\subsection{提高训练题单}
+题单适合第二阶段训练，主要用来把方法做熟。它更强调：
+\begin{itemize}
+  \item 能否熟练处理一次函数、二次函数、绝对值函数和反比例函数的对称；
+  \item 能否从新方程反向判断原图像经历了什么对称；
+  \item 能否根据顶点变化、关键点变化直接写出新方程；
+  \item 能否避免“改里外混淆”“漏负号”“只改一部分”这三类常见错误。
+\end{itemize}
+
+\subsection{周测 A 卷}
+A 卷偏基础，适合检查：
+\begin{itemize}
+  \item 三种基本对称公式是否熟练；
+  \item 标准“求对称后方程”题是否会做；
+  \item 偶函数、奇函数基本判断是否稳定；
+  \item 顶点对称和简单综合题是否掌握。
+\end{itemize}
+
+\subsection{周测 B 卷}
+B 卷偏综合，适合检查：
+\begin{itemize}
+  \item 是否会用点的变化解释对称公式；
+  \item 是否会处理点坐标跟随图像一起变化的问题；
+  \item 是否会做对称与平移的简单复合变换；
+  \item 是否能清楚说明“为什么这样对称”，而不只是写出答案。
+\end{itemize}
+
+\section{一个推荐的 4 次训练安排}
+
+\begin{goalbox}{4 次完成一个小专题}
+\begin{enumerate}
+  \item 第 1 次：学习讲义前半部分，重点理解三种基本对称和里外改法；
+  \item 第 2 次：学习讲义后半部分，完成题单基础题和中档题；
+  \item 第 3 次：完成题单综合题，并把错题按“对称对象判断错了/改里外混了/漏负号/不会检验”分类订正；
+  \item 第 4 次：完成周测 A 卷或 B 卷，作为阶段性检查。
+\end{enumerate}
+\end{goalbox}
+
+\begin{infobox}{如果孩子基础较好，可以这样压缩}
+\begin{itemize}
+  \item 第 1 天：讲义 + 题单基础题；
+  \item 第 2 天：题单变式题 + 错题订正；
+  \item 第 3 天：周测 A 卷；
+  \item 第 4 天：周测 B 卷。
+\end{itemize}
+\end{infobox}
+
+\section{专题学习后的自检清单}
+
+\begin{goalbox}{如果下面 8 条都能做到，说明这个专题基本过关}
+\begin{enumerate}
+  \item 我会直接写出关于 x 轴、关于 y 轴、关于原点对称后的方程；
+  \item 我能解释为什么关于 y 轴对称要把 $x$ 换成 $-x$；
+  \item 我会用 $f(-x)=f(x)$ 或 $f(-x)=-f(x)$ 判断图像对称性；
+  \item 我会从新方程反向判断对称方式；
+  \item 我会用顶点或特殊点来检查结果；
+  \item 我会把整个式子里的 $x$ 一起替换，而不是只改一部分；
+  \item 我会把关于原点对称写成 $y=-f(-x)$；
+  \item 我能口头说明每一步为什么这样改，而不是只会背公式。
+\end{enumerate}
+\end{goalbox}
+
+\section{给家长的使用建议}
+
+\begin{warnbox}{更有效的带练方式}
+\begin{itemize}
+  \item 不要一开始就让孩子背结论，先让他观察图像上的点到底怎样变化；
+  \item 如果卡住，可以只提示“横坐标变了吗？纵坐标变了吗？”；
+  \item 做错题订正时，重点追问“你这一步为什么改里面/改外面”；
+  \item 每做完一道题，最好都要求孩子用顶点、特殊点或奇偶性再检查一遍。
+\end{itemize}
+\end{warnbox}
+
+\begin{infobox}{和后续专题的衔接}
+函数图像对称学稳以后，最自然的下一步是继续学习\textbf{函数图像的综合变换}，也就是把\textbf{平移}和\textbf{对称}放在一起处理。这样孩子会更容易把图像变化和代数式变化真正连起来。
+\end{infobox}
+
+\end{document}

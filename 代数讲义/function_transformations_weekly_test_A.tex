@@ -1,0 +1,257 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.25cm,bottom=2.45cm,left=2.25cm,right=2.25cm,headheight=18pt,headsep=0.55cm,footskip=24pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black
+}
+
+\setstretch{1.13}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.25em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.45em, topsep=0.35em, leftmargin=2.4em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=1.9em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{rulegray}{RGB}{110,118,128}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.2em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.1em}{0.7em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 函数图像综合变换周测 A 卷}
+\fancyhead[C]{\small 代数专题：基础与标准变式}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{infobox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newenvironment{solution}{\par\noindent\textbf{参考解答：}}{\hfill$\square$\par}
+\newcommand{\answerspace}{\vspace{2.3cm}}
+\newcommand{\biganswerspace}{\vspace{3.1cm}}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{center}
+{\fontsize{22}{28}\selectfont\bfseries 函数图像综合变换周测 A 卷\par}
+\vspace{0.4cm}
+{\large 适合初中阶段函数专题基础检测\par}
+\end{center}
+
+\begin{infobox}{考试说明}
+\begin{itemize}
+  \item 测试时间：60--70 分钟
+  \item 满分：100 分
+  \item A 卷侧重标准综合变换、反向判断和关键点跟踪，先保证分层改式子稳定。
+\end{itemize}
+\end{infobox}
+
+\section{试题}
+
+\begin{enumerate}
+  \item （10 分）把函数
+  \[
+  y=x^2
+  \]
+  先向左平移 $2$ 个单位，再关于 \(x\) 轴对称，求新方程。
+  \answerspace
+
+  \item （12 分）把函数
+  \[
+  y=2x+1
+  \]
+  先关于原点对称，再向上平移 $4$ 个单位，求化简后的新方程。
+  \answerspace
+
+  \item （12 分）把函数
+  \[
+  y=|x|
+  \]
+  先关于 \(y\) 轴对称，再向右平移 $3$ 个单位，求新方程。
+  \answerspace
+
+  \item （12 分）已知函数
+  \[
+  y=-f(x-2)+5,
+  \]
+  说出它是由
+  \[
+  y=f(x)
+  \]
+  经过哪些变换得到的。
+  \answerspace
+
+  \item （12 分）比较下列两个结果是否一定相同，并说明理由：
+  \begin{enumerate}
+    \item 先向右平移 $2$ 个单位，再关于 \(x\) 轴对称；
+    \item 先关于 \(x\) 轴对称，再向右平移 $2$ 个单位。
+  \end{enumerate}
+  \answerspace
+
+  \item （14 分）已知点 \((1,3)\) 在函数
+  \[
+  y=f(x)
+  \]
+  的图像上。若新图像由原图像先向左平移 $4$ 个单位，再关于 \(x\) 轴对称得到，求对应点的新坐标。
+  \biganswerspace
+
+  \item （14 分）已知抛物线
+  \[
+  y=x^2
+  \]
+  经过综合变换后，顶点变成 \((3,2)\)，开口方向向下。求一个对应的新方程。
+  \biganswerspace
+
+  \item （14 分）把函数
+  \[
+  y=|x-1|+2
+  \]
+  先关于 \(y\) 轴对称，再向下平移 $3$ 个单位，求新方程，并写出新图像的顶点坐标。
+  \biganswerspace
+\end{enumerate}
+
+\newpage
+\section{详细解答}
+
+\begin{enumerate}
+  \item \begin{solution}
+  先向左平移 $2$ 个单位，得到
+  \[
+  y=(x+2)^2.
+  \]
+  再关于 \(x\) 轴对称，得到
+  \[
+  \boxed{y=-(x+2)^2}.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  先关于原点对称：
+  \[
+  y=-(2(-x)+1)=2x-1.
+  \]
+  再向上平移 $4$ 个单位：
+  \[
+  y=2x-1+4=2x+3.
+  \]
+  所以新方程为
+  \[
+  \boxed{y=2x+3}.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  函数 \(y=|x|\) 本身关于 \(y\) 轴对称，所以第一步以后仍为
+  \[
+  y=|x|.
+  \]
+  再向右平移 $3$ 个单位，得到
+  \[
+  \boxed{y=|x-3|}.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  在方程
+  \[
+  y=-f(x-2)+5
+  \]
+  中：
+  \begin{itemize}
+    \item \(x-2\) 表示向右平移 $2$ 个单位；
+    \item 最前面的负号表示关于 \(x\) 轴对称；
+    \item 最后的 \(+5\) 表示向上平移 $5$ 个单位。
+  \end{itemize}
+  因此它是由原图像先向右平移 $2$ 个单位，再关于 \(x\) 轴对称，最后向上平移 $5$ 个单位得到的。
+  \end{solution}
+
+  \item \begin{solution}
+  一定相同。
+
+  过程 1：
+  \[
+  y=f(x) \rightarrow y=f(x-2) \rightarrow y=-f(x-2).
+  \]
+  过程 2：
+  \[
+  y=f(x) \rightarrow y=-f(x) \rightarrow y=-f(x-2).
+  \]
+
+  两个结果相同，因为一个改横坐标，一个改函数值，彼此不冲突。
+  \end{solution}
+
+  \item \begin{solution}
+  点 \((1,3)\) 先向左平移 $4$ 个单位，变成 \((-3,3)\)。
+
+  再关于 \(x\) 轴对称，变成 \((-3,-3)\)。
+
+  所以对应点的新坐标是
+  \[
+  \boxed{(-3,-3)}.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  顶点从 \((0,0)\) 变成 \((3,2)\)，说明图像向右平移 $3$ 个单位，再向上平移 $2$ 个单位；开口向下说明还要关于 \(x\) 轴对称。
+
+  所以一个对应的新方程为
+  \[
+  \boxed{y=-(x-3)^2+2}.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  先关于 \(y\) 轴对称：
+  \[
+  y=|x+1|+2.
+  \]
+  再向下平移 $3$ 个单位：
+  \[
+  y=|x+1|-1.
+  \]
+  所以新方程为
+  \[
+  \boxed{y=|x+1|-1}.
+  \]
+
+  原顶点 \((1,2)\) 关于 \(y\) 轴对称后变成 \((-1,2)\)，再向下平移 $3$ 个单位，得到
+  \[
+  \boxed{(-1,-1)}.
+  \]
+  \end{solution}
+\end{enumerate}
+
+\end{document}

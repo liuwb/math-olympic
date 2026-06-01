@@ -1,0 +1,507 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.35cm,bottom=2.55cm,left=2.3cm,right=2.3cm,headheight=18pt,headsep=0.55cm,footskip=26pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+\usetikzlibrary{arrows.meta,positioning}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black,
+  citecolor=blue!50!black
+}
+
+\setstretch{1.15}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.28em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.35em, topsep=0.35em, leftmargin=2.2em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=1.9em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{accent}{RGB}{153,76,0}
+\definecolor{rulegray}{RGB}{110,118,128}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.25em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.2em}{0.8em}
+\titleformat{\subsection}{\large\bfseries\color{mainblue}}{\thesubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 函数图像综合变换提高训练题单}
+\fancyhead[C]{\small 代数专题：平移与对称的综合应用}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{goalbox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{notebox}[1]{
+  breakable,
+  colback=lightgray,
+  colframe=black!50,
+  boxrule=0.55pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtheoremstyle{formalexample}
+  {0.8em}{0.8em}{\normalfont}{}{\bfseries\color{accent}}{．}{0.6em}{}
+\theoremstyle{formalexample}
+\newtheorem{exercise}{题目}[section]
+\newenvironment{solution}{\par\noindent\textbf{解：}}{\hfill$\square$\par}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{titlepage}
+\centering
+\vspace*{0.9cm}
+\begin{tcolorbox}[
+  enhanced,
+  width=0.92\textwidth,
+  colback=white,
+  colframe=mainblue,
+  boxrule=1pt,
+  arc=0mm,
+  left=6mm,
+  right=6mm,
+  top=8mm,
+  bottom=8mm
+]
+\centering
+{\fontsize{24}{30}\selectfont\bfseries 函数图像综合变换提高训练题单\par}
+\vspace{0.6cm}
+{\fontsize{17}{22}\selectfont 适合初中阶段函数图像专题提升训练\par}
+
+\vspace{1cm}
+\begin{tcolorbox}[colback=lightblue,colframe=mainblue,width=0.84\textwidth,boxrule=1pt]
+\centering
+{\large 训练目标：把“会分别做平移和对称”提升到“会分层、会判断顺序、会反向说明”}\\[0.35em]
+{\normalsize 建议分 2--3 次完成，先独立做题，再对照详细解答订正}
+\end{tcolorbox}
+
+\vspace{1cm}
+\renewcommand{\arraystretch}{1.42}
+\begin{tabular}{>{\bfseries}p{3.5cm}p{8cm}}
+题目数量： & 16 题，按层次递进 \\
+专题重点： & 综合变换、顺序比较、反向判断、关键点检验、平移与对称衔接 \\
+答案形式： & 末尾附详细解答，强调“为什么这样分层改式子” \\
+编译方式： & XeLaTeX \\
+\end{tabular}
+
+\vspace{0.9cm}
+{\large \today\par}
+\end{tcolorbox}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{使用建议}
+
+\begin{goalbox}{做综合变换题时，优先问自己的 5 个问题}
+\begin{itemize}
+  \item 题目中到底有哪几个基本动作？
+  \item 哪些动作改函数外面，哪些动作改函数里面？
+  \item 题目有没有特别强调“先……再……”这样的顺序？
+  \item 我能不能把结果看成 \(y=\pm f(\pm(x-a))+b\) 的形式？
+  \item 我能不能用顶点、截距点或特殊点验证一下？
+\end{itemize}
+\end{goalbox}
+
+\begin{notebox}{建议计时}
+\begin{itemize}
+  \item 标准综合题：每题 4--6 分钟；
+  \item 顺序比较题：每题 6--8 分钟；
+  \item 反向判断题：先分层，再口头描述每一步图像变化。
+\end{itemize}
+\end{notebox}
+
+\section{基础综合}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.75,>=Stealth]
+  \draw[->,gray!70] (-4.4,0) -- (4.6,0) node[right] {$x$};
+  \draw[->,gray!70] (0,-3.2) -- (0,5.2) node[above] {$y$};
+  \draw[smooth,domain=-2.1:2.1,samples=120,thick,mainblue] plot (\x,{(\x)^2});
+  \draw[smooth,domain=0.1:4.1,samples=120,thick,red!70!black] plot (\x,{-((\x-2)^2)+1});
+  \fill[mainblue] (0,0) circle (2pt);
+  \fill[red!70!black] (2,1) circle (2pt);
+  \node[mainblue] at (-2.3,3.0) {$y=x^2$};
+  \node[red!70!black] at (2.8,-2.2) {$y=-(x-2)^2+1$};
+  \node[font=\small\color{rulegray}] at (0.8,4.4) {先右移 2，再关于 $x$ 轴对称，最后上移 1};
+\end{tikzpicture}
+\end{center}
+
+\begin{exercise}
+把函数
+\[
+y=x^2
+\]
+先向右平移 $2$ 个单位，再关于 \(x\) 轴对称，最后向上平移 $1$ 个单位，写出新方程。
+\end{exercise}
+
+\begin{exercise}
+把函数
+\[
+y=2x-3
+\]
+先关于原点对称，再向左平移 $4$ 个单位，写出化简后的新方程。
+\end{exercise}
+
+\begin{exercise}
+把函数
+\[
+y=|x|
+\]
+先向左平移 $3$ 个单位，再向下平移 $2$ 个单位，最后关于 \(x\) 轴对称，写出新方程。
+\end{exercise}
+
+\begin{exercise}
+把函数
+\[
+y=\frac{1}{x}
+\]
+先关于 \(y\) 轴对称，再向右平移 $2$ 个单位，写出新方程。
+\end{exercise}
+
+\section{顺序比较}
+
+\begin{exercise}
+比较下面两个过程是否一定相同，并说明理由：
+\begin{enumerate}
+  \item 先向右平移 $3$ 个单位，再关于 \(x\) 轴对称；
+  \item 先关于 \(x\) 轴对称，再向右平移 $3$ 个单位。
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+比较下面两个过程是否一定相同，并说明理由：
+\begin{enumerate}
+  \item 先向右平移 $3$ 个单位，再关于 \(y\) 轴对称；
+  \item 先关于 \(y\) 轴对称，再向右平移 $3$ 个单位。
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+比较下面两个过程是否一定相同，并说明理由：
+\begin{enumerate}
+  \item 先向上平移 $2$ 个单位，再关于 \(x\) 轴对称；
+  \item 先关于 \(x\) 轴对称，再向上平移 $2$ 个单位。
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+已知函数
+\[
+y=f(x)
+\]
+先关于原点对称，再向右平移 $1$ 个单位，所得结果写成式子；再把“先向右平移 $1$ 个单位，再关于原点对称”的结果也写成式子，并比较两者。
+\end{exercise}
+
+\section{反向判断与点的变化}
+
+\begin{exercise}
+已知函数
+\[
+y=-f(x+4)+3,
+\]
+请反向说出它是由 \(y=f(x)\) 经过哪些变换得到的。
+\end{exercise}
+
+\begin{exercise}
+已知函数
+\[
+y=f(2-x)-5,
+\]
+请把它理解成“关于 \(y\) 轴对称 + 平移”的组合，并用文字描述图像变化。
+\end{exercise}
+
+\begin{exercise}
+已知点 \((2,-1)\) 在函数 \(y=f(x)\) 的图像上。若新图像由原图像先向左平移 $3$ 个单位，再关于 \(x\) 轴对称得到，求对应点的新坐标。
+\end{exercise}
+
+\begin{exercise}
+已知点 \((-1,4)\) 在函数 \(y=f(x)\) 的图像上。若新图像由原图像先关于 \(y\) 轴对称，再向下平移 $5$ 个单位得到，求对应点的新坐标。
+\end{exercise}
+
+\section{综合应用}
+
+\begin{exercise}
+把函数
+\[
+y=x^2-4x+1
+\]
+先关于 \(y\) 轴对称，再向右平移 $2$ 个单位，最后向上平移 $3$ 个单位，写出化简后的新方程。
+\end{exercise}
+
+\begin{exercise}
+已知函数
+\[
+y=|x-2|+1
+\]
+先关于 \(y\) 轴对称，再关于 \(x\) 轴对称，写出最终方程，并写出顶点的新坐标。
+\end{exercise}
+
+\begin{exercise}
+已知函数
+\[
+y=f(x)
+\]
+经过综合变换后得到
+\[
+y=-f(-(x-2))+1.
+\]
+请分层说明每一层分别对应什么图像变化。
+\end{exercise}
+
+\begin{exercise}
+已知抛物线 \(y=x^2\) 经过若干综合变换后，顶点变成 \((-3,2)\)，开口方向向下。请写出一个可能的新方程，并说明变换过程。
+\end{exercise}
+
+\section{详细解答}
+
+\begin{solution}
+第 1 题：
+\[
+y=x^2 \rightarrow y=(x-2)^2 \rightarrow y=-(x-2)^2 \rightarrow y=-(x-2)^2+1.
+\]
+所以新方程为
+\[
+\boxed{y=-(x-2)^2+1}.
+\]
+\end{solution}
+
+\begin{solution}
+第 2 题：先关于原点对称：
+\[
+y=-(2(-x)-3)=2x+3.
+\]
+再向左平移 $4$ 个单位：
+\[
+y=2(x+4)+3=2x+11.
+\]
+所以新方程为
+\[
+\boxed{y=2x+11}.
+\]
+\end{solution}
+
+\begin{solution}
+第 3 题：
+\[
+y=|x| \rightarrow y=|x+3| \rightarrow y=|x+3|-2 \rightarrow y=-\bigl(|x+3|-2\bigr)=-|x+3|+2.
+\]
+所以新方程为
+\[
+\boxed{y=-|x+3|+2}.
+\]
+\end{solution}
+
+\begin{solution}
+第 4 题：函数 \(y=\frac{1}{x}\) 关于 \(y\) 轴对称后为
+\[
+y=\frac{1}{-x}=-\frac{1}{x}.
+\]
+再向右平移 $2$ 个单位，得
+\[
+\boxed{y=-\frac{1}{x-2}}.
+\]
+\end{solution}
+
+\begin{solution}
+第 5 题：一定相同。
+
+过程 1：
+\[
+y=f(x) \rightarrow y=f(x-3) \rightarrow y=-f(x-3).
+\]
+过程 2：
+\[
+y=f(x) \rightarrow y=-f(x) \rightarrow y=-f(x-3).
+\]
+
+因为关于 \(x\) 轴对称只改函数值，向右平移只改横坐标，这两步互不冲突，所以结果相同。
+\end{solution}
+
+\begin{solution}
+第 6 题：一般不相同。
+
+过程 1：
+\[
+y=f(x) \rightarrow y=f(x-3) \rightarrow y=f(-x-3).
+\]
+过程 2：
+\[
+y=f(x) \rightarrow y=f(-x) \rightarrow y=f(3-x).
+\]
+
+这两个式子一般不同，所以结果通常不同。原因是：向右平移和关于 \(y\) 轴对称都作用在横坐标上，顺序不同会影响结果。
+\end{solution}
+
+\begin{solution}
+第 7 题：一般不相同。
+
+过程 1：
+\[
+y=f(x) \rightarrow y=f(x)+2 \rightarrow y=-(f(x)+2)=-f(x)-2.
+\]
+过程 2：
+\[
+y=f(x) \rightarrow y=-f(x) \rightarrow y=-f(x)+2.
+\]
+
+两者相差 4 个单位的竖直平移，所以一般不同。
+\end{solution}
+
+\begin{solution}
+第 8 题：
+
+过程 1：先关于原点对称，再向右平移 1 个单位：
+\[
+y=f(x) \rightarrow y=-f(-x) \rightarrow y=-f(-(x-1))=-f(1-x).
+\]
+
+过程 2：先向右平移 1 个单位，再关于原点对称：
+\[
+y=f(x) \rightarrow y=f(x-1) \rightarrow y=-f(-x-1).
+\]
+
+这两个结果一般不同，因为这里既涉及横坐标变化，又涉及整体变号，顺序不能随意交换。
+\end{solution}
+
+\begin{solution}
+第 9 题：
+\begin{itemize}
+  \item \(x+4\) 表示向左平移 4 个单位；
+  \item 最前面的负号表示关于 \(x\) 轴对称；
+  \item 最后的 \(+3\) 表示向上平移 3 个单位。
+\end{itemize}
+所以它是由原图像先向左平移 4 个单位，再关于 \(x\) 轴对称，最后向上平移 3 个单位得到的。
+\end{solution}
+
+\begin{solution}
+第 10 题：注意
+\[
+2-x=-(x-2).
+\]
+因此
+\[
+y=f(2-x)-5=f\bigl(-(x-2)\bigr)-5.
+\]
+
+这表示：先关于 \(y\) 轴对称，再向右平移 2 个单位，最后向下平移 5 个单位。
+\end{solution}
+
+\begin{solution}
+第 11 题：点 \((2,-1)\) 先向左平移 3 个单位，变成 \((-1,-1)\)。
+
+再关于 \(x\) 轴对称，变成 \((-1,1)\)。
+
+所以新坐标是
+\[
+\boxed{(-1,1)}.
+\]
+\end{solution}
+
+\begin{solution}
+第 12 题：点 \((-1,4)\) 先关于 \(y\) 轴对称，变成 \((1,4)\)。
+
+再向下平移 5 个单位，变成 \((1,-1)\)。
+
+所以新坐标是
+\[
+\boxed{(1,-1)}.
+\]
+\end{solution}
+
+\begin{solution}
+第 13 题：先关于 \(y\) 轴对称：
+\[
+y=(-x)^2-4(-x)+1=x^2+4x+1.
+\]
+再向右平移 2 个单位：
+\[
+y=(x-2)^2+4(x-2)+1.
+\]
+最后向上平移 3 个单位：
+\[
+y=(x-2)^2+4(x-2)+4=x^2.
+\]
+所以化简后的新方程为
+\[
+\boxed{y=x^2}.
+\]
+\end{solution}
+
+\begin{solution}
+第 14 题：先关于 \(y\) 轴对称：
+\[
+y=|x+2|+1.
+\]
+再关于 \(x\) 轴对称：
+\[
+y=-|x+2|-1.
+\]
+所以最终方程为
+\[
+\boxed{y=-|x+2|-1}.
+\]
+
+原顶点是 \((2,1)\)，关于 \(y\) 轴对称后变成 \((-2,1)\)，再关于 \(x\) 轴对称后变成
+\[
+\boxed{(-2,-1)}.
+\]
+\end{solution}
+
+\begin{solution}
+第 15 题：
+\begin{itemize}
+  \item 最里面的 \(x-2\) 表示向右平移 2 个单位；
+  \item 再外面一个负号表示关于 \(y\) 轴对称，因为 \(-(x-2)\) 是把输入整体变成相反数；
+  \item 函数前面的负号表示关于 \(x\) 轴对称；
+  \item 最后的 \(+1\) 表示向上平移 1 个单位。
+\end{itemize}
+所以可以理解为：先向右平移 2 个单位，再关于 \(y\) 轴对称，再关于 \(x\) 轴对称，最后向上平移 1 个单位。
+\end{solution}
+
+\begin{solution}
+第 16 题：顶点从 \((0,0)\) 变成 \((-3,2)\)，说明发生了向左平移 3 个单位、向上平移 2 个单位；开口方向向下，说明还发生了关于 \(x\) 轴对称。
+
+所以一个可能的新方程是
+\[
+\boxed{y=-(x+3)^2+2}.
+\]
+例如可以描述为：先把 \(y=x^2\) 向左平移 3 个单位，再关于 \(x\) 轴对称，最后向上平移 2 个单位。
+\end{solution}
+
+\end{document}

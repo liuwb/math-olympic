@@ -1,0 +1,520 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.35cm,bottom=2.55cm,left=2.3cm,right=2.3cm,headheight=18pt,headsep=0.55cm,footskip=26pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+\usetikzlibrary{arrows.meta,positioning}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black,
+  citecolor=blue!50!black
+}
+
+\setstretch{1.15}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.28em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.35em, topsep=0.35em, leftmargin=2.2em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=1.9em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{accent}{RGB}{153,76,0}
+\definecolor{rulegray}{RGB}{110,118,128}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.25em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.2em}{0.8em}
+\titleformat{\subsection}{\large\bfseries\color{mainblue}}{\thesubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 函数图像对称提高训练题单}
+\fancyhead[C]{\small 代数专题：图像对称与方程变形}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{goalbox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{notebox}[1]{
+  breakable,
+  colback=lightgray,
+  colframe=black!50,
+  boxrule=0.55pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtheoremstyle{formalexample}
+  {0.8em}{0.8em}{\normalfont}{}{\bfseries\color{accent}}{．}{0.6em}{}
+\theoremstyle{formalexample}
+\newtheorem{exercise}{题目}[section]
+\newenvironment{solution}{\par\noindent\textbf{解：}}{\hfill$\square$\par}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{titlepage}
+\centering
+\vspace*{0.9cm}
+\begin{tcolorbox}[
+  enhanced,
+  width=0.92\textwidth,
+  colback=white,
+  colframe=mainblue,
+  boxrule=1pt,
+  arc=0mm,
+  left=6mm,
+  right=6mm,
+  top=8mm,
+  bottom=8mm
+]
+\centering
+{\fontsize{24}{30}\selectfont\bfseries 函数图像对称提高训练题单\par}
+\vspace{0.6cm}
+{\fontsize{17}{22}\selectfont 适合初中阶段函数图像专题巩固训练\par}
+
+\vspace{1cm}
+\begin{tcolorbox}[colback=lightblue,colframe=mainblue,width=0.84\textwidth,boxrule=1pt]
+\centering
+{\large 训练目标：把“会套公式”提升到“会判断、会解释、会综合变换”}\\[0.35em]
+{\normalsize 建议分 2--3 次完成，先独立做题，再对照详细解答订正}
+\end{tcolorbox}
+
+\vspace{1cm}
+\renewcommand{\arraystretch}{1.42}
+\begin{tabular}{>{\bfseries}p{3.5cm}p{8cm}}
+题目数量： & 16 题，按层次递进 \\
+专题重点： & 关于 x 轴、关于 y 轴、关于原点对称；奇偶性判断；对称与平移衔接 \\
+答案形式： & 末尾附详细解答，强调“为什么这样改方程” \\
+编译方式： & XeLaTeX \\
+\end{tabular}
+
+\vspace{0.9cm}
+{\large \today\par}
+\end{tcolorbox}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{使用建议}
+
+\begin{goalbox}{做函数对称题时，优先问自己的 4 个问题}
+\begin{itemize}
+  \item 这是关于 x 轴、关于 y 轴，还是关于原点对称？
+  \item 横坐标变了吗？纵坐标变了吗？
+  \item 这是在函数外面加负号，还是在函数里面把 $x$ 换成 $-x$？
+  \item 我能不能用特殊点、顶点或偶函数/奇函数性质来检验结果？
+\end{itemize}
+\end{goalbox}
+
+\begin{notebox}{建议计时}
+\begin{itemize}
+  \item 基础题：每题 2--4 分钟；
+  \item 综合题：每题 5--8 分钟；
+  \item 判断题：先把 $x$ 换成 $-x$，再比较和原函数的关系。
+\end{itemize}
+\end{notebox}
+
+\section{基础巩固}
+
+\begin{exercise}
+把函数
+\[
+y=x^2+1
+\]
+关于 x 轴对称，写出新方程。
+\end{exercise}
+
+\begin{exercise}
+把函数
+\[
+y=2x-3
+\]
+关于 y 轴对称，写出新方程。
+\end{exercise}
+
+\begin{exercise}
+把函数
+\[
+y=x^3
+\]
+关于原点对称，写出新方程。
+\end{exercise}
+
+\begin{exercise}
+把函数
+\[
+y=|x-2|+1
+\]
+关于 y 轴对称，写出新方程。
+\end{exercise}
+
+\section{反向判断}
+
+\begin{exercise}
+已知函数
+\[
+y=-x^2+4,
+\]
+说出它是由
+\[
+y=x^2-4
+\]
+经过怎样的对称得到的。
+\end{exercise}
+
+\begin{exercise}
+已知函数
+\[
+y=(x+3)^2,
+\]
+写出它关于 y 轴对称后的方程，并说明顶点怎样变化。
+\end{exercise}
+
+\begin{exercise}
+已知函数
+\[
+y=x^4+2x^2+5,
+\]
+判断它的图像是否关于 y 轴对称，并说明理由。
+\end{exercise}
+
+\begin{exercise}
+已知函数
+\[
+y=x^5-2x^3+x,
+\]
+判断它的图像是否关于原点对称，并说明理由。
+\end{exercise}
+
+\section{综合应用}
+
+\begin{exercise}
+把函数
+\[
+y=x^2-4x+1
+\]
+关于 y 轴对称，写出化简后的新方程。
+\end{exercise}
+
+\begin{exercise}
+把函数
+\[
+y=\frac{1}{x-1}
+\]
+关于 y 轴对称，再关于 x 轴对称，写出最终方程。
+\end{exercise}
+
+\begin{exercise}
+已知函数
+\[
+y=|x|
+\]
+经过某次对称后，顶点仍在原点，但图像方向改变了吗？请分别讨论关于 x 轴、关于 y 轴、关于原点对称时的结果。
+\end{exercise}
+
+\begin{exercise}
+已知函数
+\[
+y=(x-2)^2+3,
+\]
+先关于 y 轴对称，再向下平移 5 个单位，写出最终方程。
+\end{exercise}
+
+\begin{exercise}
+已知原图像上点 $(2,5)$ 在函数
+\[
+y=f(x)
+\]
+上。若图像关于 y 轴对称，写出对称后对应点的坐标，并写出新图像的方程。
+\end{exercise}
+
+\begin{exercise}
+已知原图像上点 $(-3,4)$ 在函数
+\[
+y=f(x)
+\]
+上。若图像关于原点对称，写出对称后对应点的坐标，并写出新图像的方程。
+\end{exercise}
+
+\begin{exercise}
+已知函数
+\[
+y=x^2+6x+8,
+\]
+说出它是由
+\[
+y=x^2-6x+8
+\]
+经过怎样的对称得到的。
+\end{exercise}
+
+\begin{exercise}
+已知函数
+\[
+y=f(x)
+\]
+关于 x 轴对称后得到
+\[
+y=-f(x),
+\]
+再关于 y 轴对称，写出最终方程。
+\end{exercise}
+
+\newpage
+\section{常见易错点总结}
+
+\begin{goalbox}{做函数对称题时，最容易丢分的 5 个地方}
+\begin{enumerate}
+  \item \textbf{把关于 x 轴和关于 y 轴对称混掉。}  
+  关于 x 轴是改外面，关于 y 轴是改里面。
+
+  \item \textbf{关于 y 轴对称时，只改了一部分。}  
+  必须把整个式子里的 $x$ 都换成 $-x$。
+
+  \item \textbf{关于原点对称时漏了一个负号。}  
+  正确形式是 $y=-f(-x)$。
+
+  \item \textbf{不会用 $f(-x)=f(x)$ 或 $f(-x)=-f(x)$ 判断对称性。}  
+  这是很多判断题最直接的方法。
+
+  \item \textbf{不会用关键点检查。}  
+  顶点、截距点、特殊点往往能快速发现结果是否合理。
+\end{enumerate}
+\end{goalbox}
+
+\begin{notebox}{一个实用检查顺序}
+\begin{itemize}
+  \item 先判断是哪一种对称；
+  \item 再决定是改“外面”还是改“里面”；
+  \item 最后用特殊点或奇偶性检查结果。
+\end{itemize}
+\end{notebox}
+
+\newpage
+\appendix
+\section{详细解答}
+
+\subsection*{基础巩固}
+
+\textbf{1}\begin{solution}
+关于 x 轴对称，就是在原函数外面加负号，所以
+\[
+\boxed{y=-(x^2+1)=-x^2-1}.
+\]
+\end{solution}
+
+\textbf{2}\begin{solution}
+关于 y 轴对称，应把 $x$ 换成 $-x$：
+\[
+y=2(-x)-3=-2x-3.
+\]
+所以
+\[
+\boxed{y=-2x-3}.
+\]
+\end{solution}
+
+\textbf{3}\begin{solution}
+关于原点对称，应写成
+\[
+y=-f(-x).
+\]
+这里 $f(x)=x^3$，所以
+\[
+y=-(-x)^3=x^3.
+\]
+因此
+\[
+\boxed{y=x^3}.
+\]
+\end{solution}
+
+\textbf{4}\begin{solution}
+关于 y 轴对称，应把 $x$ 换成 $-x$：
+\[
+y=|(-x)-2|+1=|x+2|+1.
+\]
+所以
+\[
+\boxed{y=|x+2|+1}.
+\]
+\end{solution}
+
+\subsection*{反向判断}
+
+\textbf{5}\begin{solution}
+原函数是
+\[
+y=x^2-4.
+\]
+关于 x 轴对称后应变成
+\[
+y=-(x^2-4)=-x^2+4.
+\]
+因此题目中的函数是由原函数\textbf{关于 x 轴对称}得到的。
+\end{solution}
+
+\textbf{6}\begin{solution}
+关于 y 轴对称时，应把式子里的 $x$ 换成 $-x$：
+\[
+y=((-x)+3)^2=(x-3)^2.
+\]
+所以对称后的方程为
+\[
+\boxed{y=(x-3)^2}.
+\]
+
+原函数顶点是 $(-3,0)$，关于 y 轴对称后变成 $(3,0)$。
+\end{solution}
+
+\textbf{7}\begin{solution}
+把 $x$ 换成 $-x$：
+\[
+f(-x)=(-x)^4+2(-x)^2+5=x^4+2x^2+5=f(x).
+\]
+因此图像\textbf{关于 y 轴对称}。
+\end{solution}
+
+\textbf{8}\begin{solution}
+把 $x$ 换成 $-x$：
+\[
+f(-x)=(-x)^5-2(-x)^3+(-x)=-x^5+2x^3-x=-(x^5-2x^3+x)=-f(x).
+\]
+因此图像\textbf{关于原点对称}。
+\end{solution}
+
+\subsection*{综合应用}
+
+\textbf{9}\begin{solution}
+关于 y 轴对称，应把整个式子里的 $x$ 都换成 $-x$：
+\[
+y=(-x)^2-4(-x)+1=x^2+4x+1.
+\]
+所以
+\[
+\boxed{y=x^2+4x+1}.
+\]
+\end{solution}
+
+\textbf{10}\begin{solution}
+先关于 y 轴对称：
+\[
+y=\frac{1}{(-x)-1}=-\frac{1}{x+1}.
+\]
+再关于 x 轴对称：
+\[
+y=-\left(-\frac{1}{x+1}\right)=\frac{1}{x+1}.
+\]
+所以最终方程为
+\[
+\boxed{y=\frac{1}{x+1}}.
+\]
+\end{solution}
+
+\textbf{11}\begin{solution}
+原函数 $y=|x|$ 的图像是一个顶点在原点的 V 形。
+\begin{itemize}
+  \item 关于 x 轴对称后，变成倒着开的 V 形，方程是 $y=-|x|$；
+  \item 关于 y 轴对称后，图像不变，方程仍是 $y=|x|$；
+  \item 关于原点对称后，先左右翻，再上下翻，最终也是 $y=-|x|$。
+\end{itemize}
+\end{solution}
+
+\textbf{12}\begin{solution}
+先关于 y 轴对称：
+\[
+y=((-x)-2)^2+3=(x+2)^2+3.
+\]
+再向下平移 5 个单位：
+\[
+y=(x+2)^2+3-5=(x+2)^2-2.
+\]
+所以
+\[
+\boxed{y=(x+2)^2-2}.
+\]
+\end{solution}
+
+\textbf{13}\begin{solution}
+点 $(2,5)$ 关于 y 轴对称后，横坐标变号，纵坐标不变，所以对应点是
+\[
+\boxed{(-2,5)}.
+\]
+
+新图像的方程为
+\[
+\boxed{y=f(-x)}.
+\]
+\end{solution}
+
+\textbf{14}\begin{solution}
+点 $(-3,4)$ 关于原点对称后，横纵坐标都变号，所以对应点是
+\[
+\boxed{(3,-4)}.
+\]
+
+新图像的方程为
+\[
+\boxed{y=-f(-x)}.
+\]
+\end{solution}
+
+\textbf{15}\begin{solution}
+把
+\[
+y=x^2-6x+8
+\]
+关于 y 轴对称，应把式子里的 $x$ 换成 $-x$：
+\[
+y=(-x)^2-6(-x)+8=x^2+6x+8.
+\]
+所以题目中的函数是由原函数\textbf{关于 y 轴对称}得到的。
+\end{solution}
+
+\textbf{16}\begin{solution}
+先关于 x 轴对称，得到
+\[
+y=-f(x).
+\]
+再关于 y 轴对称，应把其中的 $x$ 换成 $-x$，得到
+\[
+y=-f(-x).
+\]
+所以最终方程为
+\[
+\boxed{y=-f(-x)}.
+\]
+\end{solution}
+
+\end{document}

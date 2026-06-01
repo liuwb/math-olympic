@@ -1,0 +1,289 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.25cm,bottom=2.45cm,left=2.25cm,right=2.25cm,headheight=18pt,headsep=0.55cm,footskip=24pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black
+}
+
+\setstretch{1.13}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.25em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.45em, topsep=0.35em, leftmargin=2.4em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=1.9em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{rulegray}{RGB}{110,118,128}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.2em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.1em}{0.7em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 函数图像平移周测 B 卷}
+\fancyhead[C]{\small 代数专题：综合判断与变式}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{infobox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newenvironment{solution}{\par\noindent\textbf{参考解答：}}{\hfill$\square$\par}
+\newcommand{\answerspace}{\vspace{2.3cm}}
+\newcommand{\biganswerspace}{\vspace{3.2cm}}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{center}
+{\fontsize{22}{28}\selectfont\bfseries 函数图像平移周测 B 卷\par}
+\vspace{0.4cm}
+{\large 适合初中阶段函数专题提高训练\par}
+\end{center}
+
+\begin{infobox}{考试说明}
+\begin{itemize}
+  \item 测试时间：70--75 分钟
+  \item 满分：100 分
+  \item B 卷更强调方法迁移，请尽量说明“为什么这样平移”，不要只写最后结果。
+\end{itemize}
+\end{infobox}
+
+\section{试题}
+
+\begin{enumerate}
+  \item （12 分）请用“图像上的点跟着移动”的方法说明：为什么函数
+  \[
+  y=f(x)
+  \]
+  向右平移 $a$ 个单位后，新方程应写成
+  \[
+  y=f(x-a).
+  \]
+  \biganswerspace
+
+  \item （12 分）把函数
+  \[
+  y=x^2-2x
+  \]
+  向右平移 $3$ 个单位，再向下平移 $2$ 个单位，求化简后的新方程。
+  \answerspace
+
+  \item （12 分）已知函数
+  \[
+  y=|x|
+  \]
+  经过平移后，顶点变成 $(4,-3)$。求新方程。
+  \answerspace
+
+  \item （12 分）已知函数
+  \[
+  y=f(x)
+  \]
+  经过平移后变成
+  \[
+  y=f(x+2)-5.
+  \]
+  如果原图像上有点 $(3,7)$，那么平移后对应点的坐标是什么？
+  \answerspace
+
+  \item （12 分）已知函数
+  \[
+  y=(x-4)^2+6,
+  \]
+  说出它是由
+  \[
+  y=x^2
+  \]
+  怎样平移得到的。
+  \answerspace
+
+  \item （12 分）已知函数
+  \[
+  y=x^2-8x+13,
+  \]
+  说出它是由
+  \[
+  y=x^2
+  \]
+  怎样平移得到的。
+  \answerspace
+
+  \item （14 分）将直线
+  \[
+  y=2x+1
+  \]
+  先向右平移 $1$ 个单位，再作一次竖直平移后，恰好经过原点。求第二次平移的方向、距离以及最终方程。
+  \biganswerspace
+
+  \item （14 分）已知原图像上的点 $(1,2)$ 在函数
+  \[
+  y=f(x)
+  \]
+  上，平移后该点对应到新图像上的点 $(5,-1)$。求新图像的方程，并说明平移方向和距离。
+  \biganswerspace
+\end{enumerate}
+
+\newpage
+\section{详细解答}
+
+\begin{enumerate}
+  \item \begin{solution}
+  设原图像上有一点 $(x_0,y_0)$，因为它在函数
+  \[
+  y=f(x)
+  \]
+  上，所以有
+  \[
+  y_0=f(x_0).
+  \]
+
+  如果整张图像向右平移 $a$ 个单位，那么这个点会变成
+  \[
+  (x_0+a,y_0).
+  \]
+
+  现在把新图像上的横坐标记作 $x$，那么它对应原图像上的横坐标应是
+  \[
+  x-a.
+  \]
+  因此新图像上的函数值应为
+  \[
+  y=f(x-a).
+  \]
+
+  所以，函数 $y=f(x)$ 向右平移 $a$ 个单位后，新方程应写成
+  \[
+  \boxed{y=f(x-a)}.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  先向右平移 $3$ 个单位，把整个式子里的 $x$ 换成 $x-3$：
+  \[
+  y=(x-3)^2-2(x-3).
+  \]
+  再向下平移 $2$ 个单位：
+  \[
+  y=(x-3)^2-2(x-3)-2.
+  \]
+  展开化简：
+  \[
+  y=x^2-6x+9-2x+6-2=x^2-8x+13.
+  \]
+  所以新方程为
+  \[
+  \boxed{y=x^2-8x+13}.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  函数 $y=|x|$ 的顶点原来是 $(0,0)$。
+
+  现在顶点变成 $(4,-3)$，说明图像向右平移了 $4$ 个单位，再向下平移了 $3$ 个单位。
+
+  因此新方程为
+  \[
+  \boxed{y=|x-4|-3}.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  方程
+  \[
+  y=f(x+2)-5
+  \]
+  表示图像向左平移 $2$ 个单位，再向下平移 $5$ 个单位。
+
+  所以点 $(3,7)$ 平移后，横坐标减 $2$，纵坐标减 $5$，得到
+  \[
+  \boxed{(1,2)}.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  方程
+  \[
+  y=(x-4)^2+6
+  \]
+  已经直接告诉我们：从 $y=x^2$ 出发，图像先向右平移 $4$ 个单位，再向上平移 $6$ 个单位。
+  \end{solution}
+
+  \item \begin{solution}
+  先配方：
+  \[
+  y=x^2-8x+13=(x-4)^2-3.
+  \]
+  因此它是由 $y=x^2$ \textbf{向右平移 $4$ 个单位，再向下平移 $3$ 个单位}得到的。
+  \end{solution}
+
+  \item \begin{solution}
+  第一次向右平移 $1$ 个单位后，直线变为
+  \[
+  y=2(x-1)+1=2x-1.
+  \]
+
+  现在它还没有经过原点，因为当 $x=0$ 时，
+  \[
+  y=-1.
+  \]
+
+  要让它经过原点，就需要再向上平移 $1$ 个单位。
+
+  所以第二次平移是\textbf{向上平移 $1$ 个单位}，最终方程为
+  \[
+  y=2x-1+1=2x.
+  \]
+  即
+  \[
+  \boxed{y=2x}.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  点 $(1,2)$ 平移后变成 $(5,-1)$。
+
+  横坐标从 $1$ 变到 $5$，增加了 $4$，说明向右平移 $4$ 个单位；
+
+  纵坐标从 $2$ 变到 $-1$，减少了 $3$，说明向下平移了 $3$ 个单位。
+
+  因此新图像方程为
+  \[
+  \boxed{y=f(x-4)-3}.
+  \]
+
+  所以平移方式是：\textbf{向右平移 $4$ 个单位，再向下平移 $3$ 个单位}。
+  \end{solution}
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,710 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.45cm,bottom=2.6cm,left=2.35cm,right=2.35cm,headheight=18pt,headsep=0.55cm,footskip=26pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+\usetikzlibrary{arrows.meta,positioning}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black,
+  citecolor=blue!50!black
+}
+
+\setstretch{1.17}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.35em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.32em, topsep=0.32em, leftmargin=2.3em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=2em}
+\setcounter{tocdepth}{2}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{accent}{RGB}{153,76,0}
+\definecolor{rulegray}{RGB}{110,118,128}
+\definecolor{softgreen}{RGB}{236,247,240}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.25em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.3em}{0.9em}
+\titleformat{\subsection}{\large\bfseries\color{mainblue}}{\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{1.05em}{0.55em}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{accent}}{\thesubsubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 代数专题课堂讲义}
+\fancyhead[C]{\small 函数图像对称与方程}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtheoremstyle{formaltheorem}
+  {0.8em}{0.8em}{\normalfont}{}{\bfseries\color{mainblue}}{．}{0.6em}{}
+\newtheoremstyle{formalexample}
+  {0.8em}{0.8em}{\normalfont}{}{\bfseries\color{accent}}{．}{0.6em}{}
+
+\theoremstyle{formaltheorem}
+\newtheorem{theorem}{结论}[section]
+\newtheorem{method}{方法}[section]
+\theoremstyle{formalexample}
+\newtheorem{example}{例题}[section]
+\newtheorem{exercise}{练习}[section]
+
+\newenvironment{solution}{\par\noindent\textbf{解：}}{\hfill$\square$\par}
+
+\newtcolorbox{goalbox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{notebox}[1]{
+  breakable,
+  colback=lightgray,
+  colframe=black!50,
+  boxrule=0.55pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{skillbox}[1]{
+  breakable,
+  colback=softgreen,
+  colframe=green!40!black,
+  boxrule=0.65pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newcommand{\basef}{y=f(x)}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{titlepage}
+\centering
+\vspace*{0.9cm}
+
+\begin{tcolorbox}[
+  enhanced,
+  width=0.92\textwidth,
+  colback=white,
+  colframe=mainblue,
+  boxrule=1pt,
+  arc=0mm,
+  left=6mm,
+  right=6mm,
+  top=8mm,
+  bottom=8mm
+]
+\centering
+
+{\fontsize{24}{30}\selectfont\bfseries 代数专题课堂讲义\par}
+\vspace{0.7cm}
+{\fontsize{17}{22}\selectfont 函数图像对称与方程\par}
+
+\vspace{1.1cm}
+\color{rulegray}\rule{0.72\textwidth}{0.7pt}\par
+\vspace{1cm}
+
+\begin{tcolorbox}[colback=lightblue,colframe=mainblue,width=0.82\textwidth,boxrule=1pt]
+\centering
+{\Large 适合对象：初中阶段正在学习函数图像的学生}\\[0.4em]
+{\large 已学过坐标系，接触过一次函数、二次函数或基本函数图像}
+\end{tcolorbox}
+
+\vspace{1.2cm}
+
+\renewcommand{\arraystretch}{1.42}
+\begin{tabular}{>{\bfseries}p{3.5cm}p{8cm}}
+讲义作者： & 刘文博 \\
+专题关键词： & 图像对称、关于 $x$ 轴、关于 $y$ 轴、关于原点、方程变形 \\
+建议课时： & 1--2 课时 \\
+专题目标： & 学会从已知函数方程快速写出对称后的新方程，并能反向判断对称方式 \\
+编译方式： & XeLaTeX \\
+\end{tabular}
+
+\vspace{1.2cm}
+\color{rulegray}\rule{0.72\textwidth}{0.7pt}\par
+\vspace{0.8cm}
+
+{\normalsize 本讲以“图像关于哪条轴或哪个点对称，方程应该怎么改”为主线，重点解决学生最容易混淆的“改 $x$ 还是改 $y$、在里面改还是在外面改”问题，并配上可直接订正的练习。\par}
+
+\vspace{0.5cm}
+{\large \today\par}
+\end{tcolorbox}
+\end{titlepage}
+
+\pagenumbering{Roman}
+\pagestyle{plain}
+\tableofcontents
+\newpage
+\pagestyle{fancy}
+\pagenumbering{arabic}
+
+\section{专题目标与使用说明}
+
+\begin{goalbox}{本讲要解决的核心问题}
+已知一个函数的方程，例如
+\[
+y=f(x),
+\]
+如果把它的图像关于 $x$ 轴、关于 $y$ 轴、关于原点作对称，新的函数方程该怎么写？
+
+这是函数图像学习里的关键一步，因为它把\textbf{图像变化}和\textbf{代数式变化}再次连在了一起，而且会直接影响以后学习二次函数、反比例函数和综合变换。
+\end{goalbox}
+
+\begin{goalbox}{学完以后希望达到的能力}
+\begin{itemize}
+  \item 看见“关于 $x$ 轴对称”就能立即写出 $y=-f(x)$；
+  \item 看见“关于 $y$ 轴对称”就能立即写出 $y=f(-x)$；
+  \item 看见“关于原点对称”就能立即写出 $y=-f(-x)$；
+  \item 会用点坐标变化解释这些结论为什么成立；
+  \item 会反向从新方程判断原图像经历了怎样的对称；
+  \item 会处理平移和对称之间的简单衔接题。
+\end{itemize}
+\end{goalbox}
+
+\begin{notebox}{给家长和自学同学的提醒}
+\begin{itemize}
+  \item 本讲的最大难点不在计算，而在\textbf{关于 $x$ 轴和关于 $y$ 轴容易混淆}；
+  \item 建议每做一道题，都先口头说一遍：“横坐标变没变？纵坐标变没变？哪个变号了？”；
+  \item 真正掌握的标准不是背公式，而是能用“图上的点怎样变”来解释每一个公式。
+\end{itemize}
+\end{notebox}
+
+\section{先抓住最根本的点坐标变化}
+
+\subsection{图像对称就是图上每个点一起变化}
+如果点 $(x_0,y_0)$ 在图像 $\basef$ 上，那么一定有
+\[
+y_0=f(x_0).
+\]
+因此，研究图像对称时，最自然的方法就是研究：\textbf{图上的每一个点对称以后，新坐标变成什么。}
+
+\begin{method}
+若原图像上有点 $(x_0,y_0)$，那么：
+\begin{itemize}
+  \item 关于 $x$ 轴对称后，它变成 $(x_0,-y_0)$；
+  \item 关于 $y$ 轴对称后，它变成 $(-x_0,y_0)$；
+  \item 关于原点对称后，它变成 $(-x_0,-y_0)$。
+\end{itemize}
+\end{method}
+
+\subsection{先分清谁变、谁不变}
+\begin{itemize}
+  \item 关于 $x$ 轴对称：横坐标不变，纵坐标变号；
+  \item 关于 $y$ 轴对称：纵坐标不变，横坐标变号；
+  \item 关于原点对称：横坐标和纵坐标都变号。
+\end{itemize}
+
+这三句话看起来简单，但几乎能决定整份讲义里所有结论。
+
+\section{三种基本对称公式}
+
+\subsection{关于 x 轴对称}
+
+\begin{theorem}
+已知原函数为
+\[
+y=f(x).
+\]
+把它的图像关于 $x$ 轴对称，所得新方程为
+\[
+y=-f(x).
+\]
+\end{theorem}
+
+\begin{solution}
+关于 $x$ 轴对称时，图像上每个点 $(x_0,y_0)$ 变成 $(x_0,-y_0)$。横坐标不变，只是函数值整体变成相反数，所以新方程就是
+\[
+y=-f(x).
+\]
+\end{solution}
+
+\subsection{关于 y 轴对称}
+
+\begin{theorem}
+已知原函数为
+\[
+y=f(x).
+\]
+把它的图像关于 $y$ 轴对称，所得新方程为
+\[
+y=f(-x).
+\]
+\end{theorem}
+
+\begin{solution}
+关于 $y$ 轴对称时，图像上每个点 $(x_0,y_0)$ 变成 $(-x_0,y_0)$。纵坐标不变，横坐标变号。
+
+设新图像上的横坐标记成 $x$，那么它对应原图像上的横坐标就是 $-x$，因此新图像上的函数值应为
+\[
+y=f(-x).
+\]
+\end{solution}
+
+\subsection{关于原点对称}
+
+\begin{theorem}
+已知原函数为
+\[
+y=f(x).
+\]
+把它的图像关于原点对称，所得新方程为
+\[
+y=-f(-x).
+\]
+\end{theorem}
+
+\begin{solution}
+关于原点对称时，图像上每个点 $(x_0,y_0)$ 变成 $(-x_0,-y_0)$。这相当于：
+\begin{itemize}
+  \item 先关于 $y$ 轴对称，得到 $y=f(-x)$；
+  \item 再关于 $x$ 轴对称，得到 $y=-f(-x)$。
+\end{itemize}
+所以关于原点对称后的方程为
+\[
+y=-f(-x).
+\]
+\end{solution}
+
+\begin{skillbox}{一句话记忆}
+\begin{itemize}
+  \item 关于 $x$ 轴：\textbf{外面加负号}；
+  \item 关于 $y$ 轴：\textbf{里面把 $x$ 变成 $-x$}；
+  \item 关于原点：\textbf{里面外面都处理}，即 $y=-f(-x)$。
+\end{itemize}
+\end{skillbox}
+
+\subsection{图像直观对比}
+
+\begin{center}
+\begin{minipage}{0.48\textwidth}
+\centering
+\begin{tikzpicture}[scale=0.72,>=Stealth]
+  \draw[->,gray!70] (-3.2,0) -- (3.2,0) node[right] {$x$};
+  \draw[->,gray!70] (0,-5.2) -- (0,5.2) node[above] {$y$};
+  \draw[smooth,domain=-2.1:2.1,samples=100,thick,mainblue] plot (\x,{\x*\x});
+  \draw[smooth,domain=-2.1:2.1,samples=100,thick,red!70!black] plot (\x,{-(\x*\x)});
+  \node[mainblue] at (1.8,4.5) {$y=x^2$};
+  \node[red!70!black] at (1.6,-3.8) {$y=-x^2$};
+\end{tikzpicture}
+
+\small 关于 $x$ 轴对称：外面加负号
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+\centering
+\begin{tikzpicture}[scale=0.72,>=Stealth]
+  \draw[->,gray!70] (-4.2,0) -- (4.2,0) node[right] {$x$};
+  \draw[->,gray!70] (0,-1.2) -- (0,5.2) node[above] {$y$};
+  \draw[smooth,domain=-3.2:2.2,samples=100,thick,mainblue] plot (\x,{\x+1});
+  \draw[smooth,domain=-2.2:3.2,samples=100,thick,red!70!black] plot (\x,{-\x+1});
+  \node[mainblue] at (2.2,3.5) {$y=x+1$};
+  \node[red!70!black] at (-2.3,3.5) {$y=-x+1$};
+\end{tikzpicture}
+
+\small 关于 $y$ 轴对称：里面把 $x$ 变成 $-x$
+\end{minipage}
+\end{center}
+
+\section{怎样快速判断一个函数有没有对称性}
+
+\subsection{偶函数与关于 y 轴对称}
+
+\begin{theorem}
+如果一个函数满足
+\[
+f(-x)=f(x),
+\]
+那么它的图像关于 $y$ 轴对称。
+\end{theorem}
+
+\begin{solution}
+若 $f(-x)=f(x)$，说明横坐标互为相反数的两个点，对应的函数值相同，也就是点 $(x,f(x))$ 和 $(-x,f(x))$ 同时在图像上，因此图像关于 $y$ 轴对称。
+\end{solution}
+
+\subsection{奇函数与关于原点对称}
+
+\begin{theorem}
+如果一个函数满足
+\[
+f(-x)=-f(x),
+\]
+那么它的图像关于原点对称。
+\end{theorem}
+
+\begin{solution}
+若 $f(-x)=-f(x)$，说明点 $(x,f(x))$ 和 $(-x,-f(x))$ 同时在图像上，因此图像关于原点对称。
+\end{solution}
+
+\begin{notebox}{先有结论，再做验证}
+初中阶段遇到“判断图像是否关于 $y$ 轴对称”或“是否关于原点对称”时，最常见的方法就是把 $x$ 换成 $-x$，看看函数值怎样变化。
+\end{notebox}
+
+\section{例题讲解}
+
+\begin{example}
+把抛物线
+\[
+y=x^2+3
+\]
+关于 $x$ 轴对称，求新方程。
+\end{example}
+
+\begin{solution}
+关于 $x$ 轴对称，应在整个函数外面加负号，所以新方程为
+\[
+y=-(x^2+3)=-x^2-3.
+\]
+因此
+\[
+\boxed{y=-x^2-3}.
+\]
+\end{solution}
+
+\begin{example}
+把直线
+\[
+y=2x-1
+\]
+关于 $y$ 轴对称，求新方程。
+\end{example}
+
+\begin{solution}
+关于 $y$ 轴对称，应把式子里的 $x$ 换成 $-x$，得到
+\[
+y=2(-x)-1=-2x-1.
+\]
+因此
+\[
+\boxed{y=-2x-1}.
+\]
+\end{solution}
+
+\begin{example}
+把函数
+\[
+y=x^3-2x
+\]
+关于原点对称，求新方程。
+\end{example}
+
+\begin{solution}
+关于原点对称，应写成
+\[
+y=-f(-x).
+\]
+这里
+\[
+f(x)=x^3-2x.
+\]
+先求
+\[
+f(-x)=(-x)^3-2(-x)=-x^3+2x.
+\]
+再整体加负号：
+\[
+y=-(-x^3+2x)=x^3-2x.
+\]
+所以新方程仍然是
+\[
+\boxed{y=x^3-2x}.
+\]
+这说明它本身就关于原点对称。
+\end{solution}
+
+\begin{example}
+已知函数
+\[
+y=(x+3)^2-4,
+\]
+说出它是由
+\[
+y=x^2
+\]
+经过哪些变化得到的，并写出它关于 $y$ 轴对称后的方程。
+\end{example}
+
+\begin{solution}
+原式表示由 $y=x^2$ 先向左平移 $3$ 个单位，再向下平移 $4$ 个单位得到。
+
+现在要关于 $y$ 轴对称，只需把式子里的 $x$ 换成 $-x$：
+\[
+y=((-x)+3)^2-4=(x-3)^2-4.
+\]
+所以对称后的方程是
+\[
+\boxed{y=(x-3)^2-4}.
+\]
+\end{solution}
+
+\section{最容易犯的几个错误}
+
+\begin{notebox}{误区一：把关于 $x$ 轴对称和关于 $y$ 轴对称混掉}
+关于 $x$ 轴对称时，是纵坐标变号，所以写成
+\[
+y=-f(x).
+\]
+关于 $y$ 轴对称时，是横坐标变号，所以写成
+\[
+y=f(-x).
+\]
+一个是改外面，一个是改里面，千万别混。
+\end{notebox}
+
+\begin{notebox}{误区二：关于 $y$ 轴对称时，只改了一部分}
+例如原函数是
+\[
+y=x^2-4x+1.
+\]
+关于 $y$ 轴对称后，不能只把前面的 $x^2$ 看成不变，而后面的 $-4x$ 随便改。
+
+正确做法是把\textbf{整个式子里的 $x$ 都换成 $-x$}，即
+\[
+y=(-x)^2-4(-x)+1=x^2+4x+1.
+\]
+\end{notebox}
+
+\begin{notebox}{误区三：关于原点对称时，漏掉一个负号}
+关于原点对称是
+\[
+y=-f(-x),
+\]
+不是单独的 $f(-x)$，也不是单独的 $-f(x)$。必须同时处理里面和外面。
+\end{notebox}
+
+\section{课堂练习}
+
+\begin{exercise}
+把函数
+\[
+y=x^2
+\]
+关于 $x$ 轴对称，写出新方程。
+\end{exercise}
+
+\begin{exercise}
+把函数
+\[
+y=|x|
+\]
+关于 $y$ 轴对称，写出新方程。
+\end{exercise}
+
+\begin{exercise}
+把函数
+\[
+y=2x+3
+\]
+关于 $y$ 轴对称，写出新方程。
+\end{exercise}
+
+\begin{exercise}
+把函数
+\[
+y=x^3
+\]
+关于原点对称，写出新方程。
+\end{exercise}
+
+\begin{exercise}
+已知函数
+\[
+y=-x^2+4,
+\]
+说出它是由
+\[
+y=x^2-4
+\]
+经过怎样的对称得到的。
+\end{exercise}
+
+\begin{exercise}
+已知函数
+\[
+y=(x-2)^2+1,
+\]
+写出它关于 $y$ 轴对称后的方程。
+\end{exercise}
+
+\begin{exercise}
+判断下列函数图像是否关于 $y$ 轴对称，若是，请说明理由：
+\[
+y=x^4+2x^2+1.
+\]
+\end{exercise}
+
+\begin{exercise}
+判断下列函数图像是否关于原点对称，若是，请说明理由：
+\[
+y=x^5-3x.
+\]
+\end{exercise}
+
+\section{练习解答}
+
+\begin{solution}
+\textbf{第 1 题：}
+关于 $x$ 轴对称，就是在原函数外面加负号，所以
+\[
+\boxed{y=-x^2}.
+\]
+\end{solution}
+
+\begin{solution}
+\textbf{第 2 题：}
+函数 $y=|x|$ 本来就关于 $y$ 轴对称，所以关于 $y$ 轴对称后仍然是
+\[
+\boxed{y=|x|}.
+\]
+\end{solution}
+
+\begin{solution}
+\textbf{第 3 题：}
+关于 $y$ 轴对称，应把 $x$ 换成 $-x$，得到
+\[
+y=2(-x)+3=-2x+3.
+\]
+所以
+\[
+\boxed{y=-2x+3}.
+\]
+\end{solution}
+
+\begin{solution}
+\textbf{第 4 题：}
+关于原点对称，应写成
+\[
+y=-f(-x).
+\]
+这里 $f(x)=x^3$，于是
+\[
+y=-(-x)^3=x^3.
+\]
+所以
+\[
+\boxed{y=x^3}.
+\]
+\end{solution}
+
+\begin{solution}
+\textbf{第 5 题：}
+原函数是
+\[
+y=x^2-4.
+\]
+关于 $x$ 轴对称后，应变成
+\[
+y=-(x^2-4)=-x^2+4.
+\]
+因此题目中的函数是由原函数\textbf{关于 $x$ 轴对称}得到的。
+\end{solution}
+
+\begin{solution}
+\textbf{第 6 题：}
+关于 $y$ 轴对称，应把式子里的 $x$ 换成 $-x$：
+\[
+y=((-x)-2)^2+1=(x+2)^2+1.
+\]
+所以
+\[
+\boxed{y=(x+2)^2+1}.
+\]
+\end{solution}
+
+\begin{solution}
+\textbf{第 7 题：}
+把 $x$ 换成 $-x$：
+\[
+f(-x)=(-x)^4+2(-x)^2+1=x^4+2x^2+1=f(x).
+\]
+因此这个函数满足
+\[
+f(-x)=f(x),
+\]
+所以图像\textbf{关于 $y$ 轴对称}。
+\end{solution}
+
+\begin{solution}
+\textbf{第 8 题：}
+把 $x$ 换成 $-x$：
+\[
+f(-x)=(-x)^5-3(-x)=-x^5+3x=-(x^5-3x)=-f(x).
+\]
+因此这个函数满足
+\[
+f(-x)=-f(x),
+\]
+所以图像\textbf{关于原点对称}。
+\end{solution}
+
+\section{本讲小结}
+
+\begin{goalbox}{三个最关键的结论}
+\[
+\begin{array}{rcl}
+\text{关于 }x\text{ 轴对称} &\Longrightarrow& y=-f(x),\\[0.4em]
+\text{关于 }y\text{ 轴对称} &\Longrightarrow& y=f(-x),\\[0.4em]
+\text{关于原点对称} &\Longrightarrow& y=-f(-x).
+\end{array}
+\]
+\end{goalbox}
+
+\begin{skillbox}{最后再提醒一次}
+\begin{itemize}
+  \item 关于 $x$ 轴：看外面；
+  \item 关于 $y$ 轴：看里面；
+  \item 关于原点：里面外面都要看；
+  \item 遇到不会的题，就回到“图上的点怎样变”这个最根本的问题。
+\end{itemize}
+\end{skillbox}
+
+\begin{notebox}{自检清单}
+\begin{itemize}
+  \item 我能不能不看答案，直接写出 $y=|x-2|+3$ 关于 $y$ 轴对称后的方程？
+  \item 我能不能解释为什么“关于 $y$ 轴对称”要把 $x$ 换成 $-x$？
+  \item 我会不会用 $f(-x)=f(x)$ 或 $f(-x)=-f(x)$ 判断图像对称性？
+\end{itemize}
+如果这三项都能做到，就说明这部分已经真正掌握了。
+\end{notebox}
+
+\end{document}

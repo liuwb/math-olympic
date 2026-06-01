@@ -1,0 +1,293 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.25cm,bottom=2.45cm,left=2.25cm,right=2.25cm,headheight=18pt,headsep=0.55cm,footskip=24pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black
+}
+
+\setstretch{1.13}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.25em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.45em, topsep=0.35em, leftmargin=2.4em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=1.9em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{rulegray}{RGB}{110,118,128}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.2em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.1em}{0.7em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 函数图像对称周测 B 卷}
+\fancyhead[C]{\small 代数专题：综合判断与变式}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{infobox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newenvironment{solution}{\par\noindent\textbf{参考解答：}}{\hfill$\square$\par}
+\newcommand{\answerspace}{\vspace{2.3cm}}
+\newcommand{\biganswerspace}{\vspace{3.2cm}}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{center}
+{\fontsize{22}{28}\selectfont\bfseries 函数图像对称周测 B 卷\par}
+\vspace{0.4cm}
+{\large 适合初中阶段函数专题提高训练\par}
+\end{center}
+
+\begin{infobox}{考试说明}
+\begin{itemize}
+  \item 测试时间：70--75 分钟
+  \item 满分：100 分
+  \item B 卷更强调方法迁移，请尽量说明“为什么这样对称”，不要只写最后结果。
+\end{itemize}
+\end{infobox}
+
+\section{试题}
+
+\begin{enumerate}
+  \item （12 分）请用“图像上的点跟着变化”的方法说明：为什么函数
+  \[
+  y=f(x)
+  \]
+  关于 y 轴对称后，新方程应写成
+  \[
+  y=f(-x).
+  \]
+  \biganswerspace
+
+  \item （12 分）把函数
+  \[
+  y=x^2-4x+3
+  \]
+  关于 y 轴对称，求化简后的新方程。
+  \answerspace
+
+  \item （12 分）已知函数
+  \[
+  y=|x|
+  \]
+  经过某次对称后，顶点仍然在原点，且图像开口向下。求新方程，并说明是哪种对称。
+  \answerspace
+
+  \item （12 分）已知函数
+  \[
+  y=f(x)
+  \]
+  关于原点对称后变成
+  \[
+  y=-f(-x).
+  \]
+  如果原图像上有点 $(3,7)$，那么对称后对应点的坐标是什么？
+  \answerspace
+
+  \item （12 分）已知函数
+  \[
+  y=(x+2)^2-5,
+  \]
+  说出它关于 y 轴对称后的方程，并说明顶点怎样变化。
+  \answerspace
+
+  \item （12 分）已知函数
+  \[
+  y=x^2+6x+8,
+  \]
+  说出它是由
+  \[
+  y=x^2-6x+8
+  \]
+  经过怎样的对称得到的。
+  \answerspace
+
+  \item （14 分）将函数
+  \[
+  y=2x+1
+  \]
+  先关于 y 轴对称，再作一次竖直平移后，恰好经过原点。求第二次变化的方向、距离以及最终方程。
+  \biganswerspace
+
+  \item （14 分）已知原图像上的点 $(-2,5)$ 在函数
+  \[
+  y=f(x)
+  \]
+  上。若新图像由原图像先关于 x 轴对称，再关于 y 轴对称得到，求新图像的方程，并说明点的对应变化。
+  \biganswerspace
+\end{enumerate}
+
+\newpage
+\section{详细解答}
+
+\begin{enumerate}
+  \item \begin{solution}
+  设原图像上有一点 $(x_0,y_0)$，因为它在函数
+  \[
+  y=f(x)
+  \]
+  上，所以有
+  \[
+  y_0=f(x_0).
+  \]
+
+  如果图像关于 y 轴对称，那么这个点会变成
+  \[
+  (-x_0,y_0).
+  \]
+
+  现在把新图像上的横坐标记作 $x$，那么它对应原图像上的横坐标应是
+  \[
+  -x.
+  \]
+  因此新图像上的函数值应为
+  \[
+  y=f(-x).
+  \]
+
+  所以，函数 $y=f(x)$ 关于 y 轴对称后，新方程应写成
+  \[
+  \boxed{y=f(-x)}.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  关于 y 轴对称，应把整个式子里的 $x$ 换成 $-x$：
+  \[
+  y=(-x)^2-4(-x)+3=x^2+4x+3.
+  \]
+  所以新方程为
+  \[
+  \boxed{y=x^2+4x+3}.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  函数 $y=|x|$ 的顶点是 $(0,0)$。
+
+  如果对称后顶点仍在原点，且图像开口向下，那么它应变成倒着开的 V 形，也就是
+  \[
+  \boxed{y=-|x|}.
+  \]
+
+  这可以由\textbf{关于 x 轴对称}得到；由于 $|x|$ 本来关于 y 轴对称，所以先关于 y 轴再关于 x 轴，也就是关于原点对称，结果同样是 $y=-|x|$。
+  \end{solution}
+
+  \item \begin{solution}
+  关于原点对称时，点 $(x,y)$ 会变成 $(-x,-y)$。
+
+  因此点 $(3,7)$ 对应到
+  \[
+  \boxed{(-3,-7)}.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  关于 y 轴对称，应把 $x$ 换成 $-x$：
+  \[
+  y=((-x)+2)^2-5=(x-2)^2-5.
+  \]
+  所以新方程为
+  \[
+  \boxed{y=(x-2)^2-5}.
+  \]
+
+  原函数顶点是 $(-2,-5)$，关于 y 轴对称后变成
+  \[
+  \boxed{(2,-5)}.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  把函数
+  \[
+  y=x^2-6x+8
+  \]
+  关于 y 轴对称，应把式子里的 $x$ 换成 $-x$：
+  \[
+  y=(-x)^2-6(-x)+8=x^2+6x+8.
+  \]
+  因此题目中的函数是由原函数\textbf{关于 y 轴对称}得到的。
+  \end{solution}
+
+  \item \begin{solution}
+  第一步先关于 y 轴对称：
+  \[
+  y=2(-x)+1=-2x+1.
+  \]
+
+  现在它还没有经过原点，因为当 $x=0$ 时，
+  \[
+  y=1.
+  \]
+
+  要让它经过原点，就需要再向下平移 $1$ 个单位。
+
+  所以第二次变化是\textbf{向下平移 $1$ 个单位}，最终方程为
+  \[
+  y=-2x+1-1=-2x.
+  \]
+  即
+  \[
+  \boxed{y=-2x}.
+  \]
+  \end{solution}
+
+  \item \begin{solution}
+  先关于 x 轴对称，点 $(-2,5)$ 变成
+  \[
+  (-2,-5).
+  \]
+  再关于 y 轴对称，变成
+  \[
+  (2,-5).
+  \]
+
+  因此这个复合变化等价于关于原点对称。
+
+  所以新图像方程为
+  \[
+  \boxed{y=-f(-x)}.
+  \]
+
+  点的对应变化为
+  \[
+  (-2,5)\longrightarrow (-2,-5)\longrightarrow (2,-5).
+  \]
+  \end{solution}
+\end{enumerate}
+
+\end{document}

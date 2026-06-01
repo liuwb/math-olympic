@@ -1,0 +1,260 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.4cm,bottom=2.6cm,left=2.35cm,right=2.35cm,headheight=18pt,headsep=0.55cm,footskip=26pt]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black
+}
+
+\setstretch{1.16}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.32em}
+\setlist[enumerate]{itemsep=0.35em, topsep=0.35em, leftmargin=2.3em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=2em}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{rulegray}{RGB}{110,118,128}
+\definecolor{softgreen}{RGB}{236,247,240}
+\definecolor{softyellow}{RGB}{254,249,229}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.25em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.2em}{0.8em}
+\titleformat{\subsection}{\large\bfseries\color{mainblue}}{\thesubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 函数图像综合变换专题目录页}
+\fancyhead[C]{\small 代数专题资料索引}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtcolorbox{goalbox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{infobox}[1]{
+  breakable,
+  colback=softgreen,
+  colframe=green!40!black,
+  boxrule=0.65pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{warnbox}[1]{
+  breakable,
+  colback=softyellow,
+  colframe=orange!60!black,
+  boxrule=0.65pt,
+  arc=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{titlepage}
+\centering
+\vspace*{0.9cm}
+
+\begin{tcolorbox}[
+  enhanced,
+  width=0.92\textwidth,
+  colback=white,
+  colframe=mainblue,
+  boxrule=1pt,
+  arc=0mm,
+  left=6mm,
+  right=6mm,
+  top=8mm,
+  bottom=8mm
+]
+\centering
+
+{\fontsize{24}{30}\selectfont\bfseries 函数图像综合变换专题目录页\par}
+\vspace{0.65cm}
+{\fontsize{17}{22}\selectfont 讲义、题单与周测的使用说明\par}
+
+\vspace{1cm}
+\begin{tcolorbox}[colback=lightblue,colframe=mainblue,width=0.84\textwidth,boxrule=1pt]
+\centering
+{\large 适合对象：已经分别学过函数平移和函数对称，准备进入综合判断的学生}\\[0.35em]
+{\normalsize 本目录页帮助把“平移 + 对称”的综合专题资料串成一个完整训练包}
+\end{tcolorbox}
+
+\vspace{1.0cm}
+\renewcommand{\arraystretch}{1.42}
+\begin{tabular}{>{\bfseries}p{3.5cm}p{8cm}}
+专题名称： & 函数图像的综合变换（平移 + 对称） \\
+资料组成： & 课堂讲义、提高训练题单、周测 A 卷、周测 B 卷 \\
+使用方式： & 先复习平移与对称，再学综合讲义，最后用题单和 A/B 周测检查掌握情况 \\
+编译方式： & XeLaTeX \\
+\end{tabular}
+
+\vspace{0.9cm}
+{\large \today\par}
+\end{tcolorbox}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{专题包包含哪些资料}
+
+\begin{goalbox}{四份核心资料}
+\begin{enumerate}
+  \item 课堂讲义：帮助理解怎样把平移和对称按顺序叠加，怎样分层看式子；
+  \item 提高训练题单：用于课后巩固和变式提升，重点训练顺序比较、反向判断和关键点检验；
+  \item 周测 A 卷：检查标准综合变换题和点的跟踪题是否稳定；
+  \item 周测 B 卷：检查顺序是否影响结果、分层解释能力和较强综合判断是否真正到位。
+\end{enumerate}
+\end{goalbox}
+
+\begin{infobox}{对应文件名}
+\begin{itemize}
+  \item 讲义：\texttt{function\_transformations\_handout}（对应同名 \texttt{.tex} 与 \texttt{.pdf}）
+  \item 提高训练题单：\texttt{function\_transformations\_advanced\_problem\_set}（对应同名 \texttt{.tex} 与 \texttt{.pdf}）
+  \item 周测 A 卷：\texttt{function\_transformations\_weekly\_test\_A}（对应同名 \texttt{.tex} 与 \texttt{.pdf}）
+  \item 周测 B 卷：\texttt{function\_transformations\_weekly\_test\_B}（对应同名 \texttt{.tex} 与 \texttt{.pdf}）
+\end{itemize}
+\end{infobox}
+
+\section{建议学习顺序}
+
+\begin{goalbox}{推荐顺序}
+\begin{enumerate}
+  \item 先复习函数平移和函数对称的单个动作，确保“改外面还是改里面”已经比较稳；
+  \item 再学习综合变换讲义，重点吃透“先后顺序可能影响结果”的情况；
+  \item 接着做提高训练题单，训练从文字、式子分层和点坐标变化三个角度判断综合变换；
+  \item 最后做周测 A 卷和 B 卷，检查基础稳定性和综合解释能力。
+\end{enumerate}
+\end{goalbox}
+
+\begin{warnbox}{不建议的做法}
+\begin{itemize}
+  \item 还没学稳单个平移和单个对称，就直接硬做综合题；
+  \item 一看到复合式子就急着展开，结果把变换层次弄乱；
+  \item 看到两个过程名字差不多，就默认顺序一定无关；
+  \item 不做点坐标或顶点检验，只凭感觉判断结果是否正确。
+\end{itemize}
+\end{warnbox}
+
+\section{每份资料主要解决什么问题}
+
+\subsection{课堂讲义}
+讲义适合第一次系统学习这个专题，主要解决以下问题：
+\begin{itemize}
+  \item 怎样把多个基本动作按顺序组合起来；
+  \item 怎样把式子统一看成 \(y=\pm f(\pm(x-a))+b\) 这样的形式；
+  \item 哪些顺序可以交换，哪些顺序通常不能交换；
+  \item 怎样用顶点、特殊点和点坐标变化检验结果是否合理。
+\end{itemize}
+
+\subsection{提高训练题单}
+题单适合第二阶段训练，主要用来把方法做熟。它更强调：
+\begin{itemize}
+  \item 能否熟练处理一次函数、二次函数、绝对值函数和反比例函数的综合变换；
+  \item 能否比较两个不同顺序的变换结果是否相同；
+  \item 能否从新方程反向判断原图像经历了哪些变化；
+  \item 能否抓关键点跟踪，而不是只会盯着式子机械改写。
+\end{itemize}
+
+\subsection{周测 A 卷}
+A 卷偏基础，适合检查：
+\begin{itemize}
+  \item 标准综合变换方程是否会写；
+  \item 关于 \(x\) 轴对称与平移的配合是否稳定；
+  \item 点的对应变化是否掌握；
+  \item 顶点和简单反向判断是否到位。
+\end{itemize}
+
+\subsection{周测 B 卷}
+B 卷偏综合，适合检查：
+\begin{itemize}
+  \item 是否会用点的变化解释复合变换公式；
+  \item 是否会处理“顺序不同，结果通常不同”的题；
+  \item 是否会做较复杂的分层改写；
+  \item 是否能清楚说明“为什么这样变换”，而不只是写出答案。
+\end{itemize}
+
+\section{一个推荐的 4 次训练安排}
+
+\begin{goalbox}{4 次完成一个小专题}
+\begin{enumerate}
+  \item 第 1 次：复习平移与对称讲义中的关键结论，再学习综合变换讲义前半部分；
+  \item 第 2 次：学习讲义后半部分，完成题单基础题和顺序比较题；
+  \item 第 3 次：完成题单综合题，并把错题按“顺序判断错了/里外分层错了/符号写反了/不会检验”分类订正；
+  \item 第 4 次：完成周测 A 卷或 B 卷，作为阶段性检查。
+\end{enumerate}
+\end{goalbox}
+
+\begin{infobox}{如果孩子基础较好，可以这样压缩}
+\begin{itemize}
+  \item 第 1 天：讲义 + 题单基础题；
+  \item 第 2 天：题单顺序比较题 + 综合题；
+  \item 第 3 天：周测 A 卷；
+  \item 第 4 天：周测 B 卷。
+\end{itemize}
+\end{infobox}
+
+\section{专题学习后的自检清单}
+
+\begin{goalbox}{如果下面 8 条都能做到，说明这个专题基本过关}
+\begin{enumerate}
+  \item 我会把复合式子分层看成“里面、外面、最外面”三个层次；
+  \item 我会从 \(y=\pm f(\pm(x-a))+b\) 反向说出图像变化；
+  \item 我知道关于 \(x\) 轴对称常和水平平移可以交换，而关于 \(y\) 轴对称常常不能随意交换顺序；
+  \item 我会跟踪图像上的关键点一起变化；
+  \item 我会从顶点位置和开口方向判断二次函数综合变换；
+  \item 我会处理绝对值函数和反比例函数的综合变化；
+  \item 我会用点坐标、顶点或特殊值检验结果；
+  \item 我能用完整的话解释每一步为什么这样改，而不是只写最后式子。
+\end{enumerate}
+\end{goalbox}
+
+\section{给家长的使用建议}
+
+\begin{warnbox}{更有效的带练方式}
+\begin{itemize}
+  \item 如果孩子顺序一乱就出错，先让他把每一步单独写出来，不要求一步到位；
+  \item 如果孩子总把左右平移和关于 \(y\) 轴对称混掉，可以多练“点先怎么动，再怎么动”；
+  \item 做错题订正时，重点追问“你这一步改的是横坐标，还是函数值”；
+  \item 每做完一道题，都尽量补一句“结果为什么合理”，训练表达比单纯算对更重要。
+\end{itemize}
+\end{warnbox}
+
+\begin{infobox}{和前后专题的衔接}
+这个专题最好放在\textbf{函数图像平移}和\textbf{函数图像对称}之后学习。学稳以后，孩子处理二次函数顶点式、图像最值、对称轴和综合图像题会顺畅很多。
+\end{infobox}
+
+\end{document}

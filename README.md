@@ -111,10 +111,119 @@
       <td>欧拉路径与哈密顿路径</td>
       <td><a href="组合讲义/euler_hamilton_topic_index.pdf"><code>组合讲义/euler_hamilton_topic_index.pdf</code></a></td>
     </tr>
+    <tr>
+      <td>代数专题</td>
+      <td>函数图像平移与方程</td>
+      <td><a href="代数讲义/function_translation_topic_index.pdf"><code>代数讲义/function_translation_topic_index.pdf</code></a></td>
+    </tr>
+    <tr>
+      <td>代数专题</td>
+      <td>函数图像对称与方程</td>
+      <td><a href="代数讲义/function_symmetry_topic_index.pdf"><code>代数讲义/function_symmetry_topic_index.pdf</code></a></td>
+    </tr>
+    <tr>
+      <td>代数专题</td>
+      <td>函数图像的综合变换（平移 + 对称）</td>
+      <td><a href="代数讲义/function_transformations_topic_index.pdf"><code>代数讲义/function_transformations_topic_index.pdf</code></a></td>
+    </tr>
   </tbody>
 </table>
 
 ## 文档目录
+
+### `代数讲义`
+
+<table>
+  <colgroup>
+    <col style="width: 14%;">
+    <col style="width: 36%;">
+    <col style="width: 50%;">
+  </colgroup>
+  <thead>
+    <tr>
+      <th align="left">类型</th>
+      <th align="left">适合什么时候用</th>
+      <th align="left">文件</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>专题目录页</td>
+      <td>想先看这一组资料该按什么顺序使用、每份资料各自解决什么问题时使用</td>
+      <td><a href="代数讲义/function_translation_topic_index.tex"><code>代数讲义/function_translation_topic_index.tex</code></a> / <a href="代数讲义/function_translation_topic_index.pdf"><code>代数讲义/function_translation_topic_index.pdf</code></a></td>
+    </tr>
+    <tr>
+      <td>课堂讲义</td>
+      <td>孩子刚开始系统学习函数平移，想先把“上下改外面，左右改里面”这件事讲清楚时使用</td>
+      <td><a href="代数讲义/function_translation_handout.tex"><code>代数讲义/function_translation_handout.tex</code></a> / <a href="代数讲义/function_translation_handout.pdf"><code>代数讲义/function_translation_handout.pdf</code></a></td>
+    </tr>
+    <tr>
+      <td>提高题单</td>
+      <td>孩子已经会基础平移公式，想继续练综合变形、反向判断和关键点检验时使用</td>
+      <td><a href="代数讲义/function_translation_advanced_problem_set.tex"><code>代数讲义/function_translation_advanced_problem_set.tex</code></a> / <a href="代数讲义/function_translation_advanced_problem_set.pdf"><code>代数讲义/function_translation_advanced_problem_set.pdf</code></a></td>
+    </tr>
+    <tr>
+      <td>周测 A 卷</td>
+      <td>想检查基础平移、标准变式和反向判断是否掌握稳定时使用</td>
+      <td><a href="代数讲义/function_translation_weekly_test_A.tex"><code>代数讲义/function_translation_weekly_test_A.tex</code></a> / <a href="代数讲义/function_translation_weekly_test_A.pdf"><code>代数讲义/function_translation_weekly_test_A.pdf</code></a></td>
+    </tr>
+    <tr>
+      <td>周测 B 卷</td>
+      <td>想继续检查综合判断、点的平移和较强文字说明能力时使用</td>
+      <td><a href="代数讲义/function_translation_weekly_test_B.tex"><code>代数讲义/function_translation_weekly_test_B.tex</code></a> / <a href="代数讲义/function_translation_weekly_test_B.pdf"><code>代数讲义/function_translation_weekly_test_B.pdf</code></a></td>
+    </tr>
+    <tr>
+      <td>专题目录页</td>
+      <td>想先看这一组对称资料该按什么顺序使用、每份资料各自解决什么问题时使用</td>
+      <td><a href="代数讲义/function_symmetry_topic_index.tex"><code>代数讲义/function_symmetry_topic_index.tex</code></a> / <a href="代数讲义/function_symmetry_topic_index.pdf"><code>代数讲义/function_symmetry_topic_index.pdf</code></a></td>
+    </tr>
+    <tr>
+      <td>课堂讲义</td>
+      <td>孩子已经学过图像平移，准备继续理解“关于 x 轴、关于 y 轴、关于原点对称”时使用</td>
+      <td><a href="代数讲义/function_symmetry_handout.tex"><code>代数讲义/function_symmetry_handout.tex</code></a> / <a href="代数讲义/function_symmetry_handout.pdf"><code>代数讲义/function_symmetry_handout.pdf</code></a></td>
+    </tr>
+    <tr>
+      <td>提高题单</td>
+      <td>孩子已经会基础对称公式，想继续练奇偶性判断、反向判断和对称与平移衔接时使用</td>
+      <td><a href="代数讲义/function_symmetry_advanced_problem_set.tex"><code>代数讲义/function_symmetry_advanced_problem_set.tex</code></a> / <a href="代数讲义/function_symmetry_advanced_problem_set.pdf"><code>代数讲义/function_symmetry_advanced_problem_set.pdf</code></a></td>
+    </tr>
+    <tr>
+      <td>周测 A 卷</td>
+      <td>想检查基础对称、标准变式和奇偶性判断是否掌握稳定时使用</td>
+      <td><a href="代数讲义/function_symmetry_weekly_test_A.tex"><code>代数讲义/function_symmetry_weekly_test_A.tex</code></a> / <a href="代数讲义/function_symmetry_weekly_test_A.pdf"><code>代数讲义/function_symmetry_weekly_test_A.pdf</code></a></td>
+    </tr>
+    <tr>
+      <td>周测 B 卷</td>
+      <td>想继续检查综合判断、点的对称变化和复合变换说明能力时使用</td>
+      <td><a href="代数讲义/function_symmetry_weekly_test_B.tex"><code>代数讲义/function_symmetry_weekly_test_B.tex</code></a> / <a href="代数讲义/function_symmetry_weekly_test_B.pdf"><code>代数讲义/function_symmetry_weekly_test_B.pdf</code></a></td>
+    </tr>
+    <tr>
+      <td>专题目录页</td>
+      <td>想先看这一组综合变换资料该按什么顺序使用、每份资料各自解决什么问题时使用</td>
+      <td><a href="代数讲义/function_transformations_topic_index.tex"><code>代数讲义/function_transformations_topic_index.tex</code></a> / <a href="代数讲义/function_transformations_topic_index.pdf"><code>代数讲义/function_transformations_topic_index.pdf</code></a></td>
+    </tr>
+    <tr>
+      <td>课堂讲义</td>
+      <td>孩子已经分别学过平移和对称，准备进入“先变换、再判断顺序是否影响结果”的综合题时使用</td>
+      <td><a href="代数讲义/function_transformations_handout.tex"><code>代数讲义/function_transformations_handout.tex</code></a> / <a href="代数讲义/function_transformations_handout.pdf"><code>代数讲义/function_transformations_handout.pdf</code></a></td>
+    </tr>
+    <tr>
+      <td>提高题单</td>
+      <td>孩子已经会做基础综合变换，想继续练顺序比较、反向判断和关键点跟踪时使用</td>
+      <td><a href="代数讲义/function_transformations_advanced_problem_set.tex"><code>代数讲义/function_transformations_advanced_problem_set.tex</code></a> / <a href="代数讲义/function_transformations_advanced_problem_set.pdf"><code>代数讲义/function_transformations_advanced_problem_set.pdf</code></a></td>
+    </tr>
+    <tr>
+      <td>周测 A 卷</td>
+      <td>想检查标准综合变换、点的对应变化和基础反向判断是否掌握稳定时使用</td>
+      <td><a href="代数讲义/function_transformations_weekly_test_A.tex"><code>代数讲义/function_transformations_weekly_test_A.tex</code></a> / <a href="代数讲义/function_transformations_weekly_test_A.pdf"><code>代数讲义/function_transformations_weekly_test_A.pdf</code></a></td>
+    </tr>
+    <tr>
+      <td>周测 B 卷</td>
+      <td>想继续检查顺序是否影响结果、分层解释能力和较强综合判断时使用</td>
+      <td><a href="代数讲义/function_transformations_weekly_test_B.tex"><code>代数讲义/function_transformations_weekly_test_B.tex</code></a> / <a href="代数讲义/function_transformations_weekly_test_B.pdf"><code>代数讲义/function_transformations_weekly_test_B.pdf</code></a></td>
+    </tr>
+  </tbody>
+</table>
 
 ### `数论讲义`
 
@@ -334,6 +443,83 @@
 ## 打印版 PDF 目录
 
 如果只是准备打印，不需要看 `.tex` 源文件，可以直接按下面的 PDF 目录使用。
+
+### `代数讲义`
+
+<table>
+  <colgroup>
+    <col style="width: 24%;">
+    <col style="width: 76%;">
+  </colgroup>
+  <thead>
+    <tr>
+      <th align="left">类别</th>
+      <th align="left">PDF 文件</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>专题目录页</td>
+      <td><a href="代数讲义/function_translation_topic_index.pdf"><code>代数讲义/function_translation_topic_index.pdf</code></a></td>
+    </tr>
+    <tr>
+      <td>课堂讲义</td>
+      <td><a href="代数讲义/function_translation_handout.pdf"><code>代数讲义/function_translation_handout.pdf</code></a></td>
+    </tr>
+    <tr>
+      <td>提高题单</td>
+      <td><a href="代数讲义/function_translation_advanced_problem_set.pdf"><code>代数讲义/function_translation_advanced_problem_set.pdf</code></a></td>
+    </tr>
+    <tr>
+      <td>周测 A 卷</td>
+      <td><a href="代数讲义/function_translation_weekly_test_A.pdf"><code>代数讲义/function_translation_weekly_test_A.pdf</code></a></td>
+    </tr>
+    <tr>
+      <td>周测 B 卷</td>
+      <td><a href="代数讲义/function_translation_weekly_test_B.pdf"><code>代数讲义/function_translation_weekly_test_B.pdf</code></a></td>
+    </tr>
+    <tr>
+      <td>专题目录页</td>
+      <td><a href="代数讲义/function_symmetry_topic_index.pdf"><code>代数讲义/function_symmetry_topic_index.pdf</code></a></td>
+    </tr>
+    <tr>
+      <td>课堂讲义</td>
+      <td><a href="代数讲义/function_symmetry_handout.pdf"><code>代数讲义/function_symmetry_handout.pdf</code></a></td>
+    </tr>
+    <tr>
+      <td>提高题单</td>
+      <td><a href="代数讲义/function_symmetry_advanced_problem_set.pdf"><code>代数讲义/function_symmetry_advanced_problem_set.pdf</code></a></td>
+    </tr>
+    <tr>
+      <td>周测 A 卷</td>
+      <td><a href="代数讲义/function_symmetry_weekly_test_A.pdf"><code>代数讲义/function_symmetry_weekly_test_A.pdf</code></a></td>
+    </tr>
+    <tr>
+      <td>周测 B 卷</td>
+      <td><a href="代数讲义/function_symmetry_weekly_test_B.pdf"><code>代数讲义/function_symmetry_weekly_test_B.pdf</code></a></td>
+    </tr>
+    <tr>
+      <td>专题目录页</td>
+      <td><a href="代数讲义/function_transformations_topic_index.pdf"><code>代数讲义/function_transformations_topic_index.pdf</code></a></td>
+    </tr>
+    <tr>
+      <td>课堂讲义</td>
+      <td><a href="代数讲义/function_transformations_handout.pdf"><code>代数讲义/function_transformations_handout.pdf</code></a></td>
+    </tr>
+    <tr>
+      <td>提高题单</td>
+      <td><a href="代数讲义/function_transformations_advanced_problem_set.pdf"><code>代数讲义/function_transformations_advanced_problem_set.pdf</code></a></td>
+    </tr>
+    <tr>
+      <td>周测 A 卷</td>
+      <td><a href="代数讲义/function_transformations_weekly_test_A.pdf"><code>代数讲义/function_transformations_weekly_test_A.pdf</code></a></td>
+    </tr>
+    <tr>
+      <td>周测 B 卷</td>
+      <td><a href="代数讲义/function_transformations_weekly_test_B.pdf"><code>代数讲义/function_transformations_weekly_test_B.pdf</code></a></td>
+    </tr>
+  </tbody>
+</table>
 
 ### `数论讲义`
 

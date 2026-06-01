@@ -1,0 +1,634 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.45cm,bottom=2.6cm,left=2.35cm,right=2.35cm,headheight=18pt,headsep=0.55cm,footskip=26pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+\usepackage{array}
+\usetikzlibrary{arrows.meta,positioning}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black,
+  citecolor=blue!50!black
+}
+
+\setstretch{1.17}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.35em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.32em, topsep=0.32em, leftmargin=2.3em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em, leftmargin=2em}
+\setcounter{tocdepth}{2}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{accent}{RGB}{153,76,0}
+\definecolor{rulegray}{RGB}{110,118,128}
+\definecolor{softgreen}{RGB}{236,247,240}
+
+\titleformat{\section}
+  {\Large\bfseries\color{mainblue}}
+  {\thesection.}
+  {0.45em}
+  {}
+  [\vspace{0.25em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.3em}{0.9em}
+\titleformat{\subsection}{\large\bfseries\color{mainblue}}{\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{1.05em}{0.55em}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{accent}}{\thesubsubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 代数专题课堂讲义}
+\fancyhead[C]{\small 函数图像综合变换}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtheoremstyle{formaltheorem}
+  {0.8em}{0.8em}{\normalfont}{}{\bfseries\color{mainblue}}{．}{0.6em}{}
+\newtheoremstyle{formalexample}
+  {0.8em}{0.8em}{\normalfont}{}{\bfseries\color{accent}}{．}{0.6em}{}
+
+\theoremstyle{formaltheorem}
+\newtheorem{theorem}{结论}[section]
+\newtheorem{method}{方法}[section]
+\theoremstyle{formalexample}
+\newtheorem{example}{例题}[section]
+\newtheorem{exercise}{练习}[section]
+
+\newenvironment{solution}{\par\noindent\textbf{解：}}{\hfill$\square$\par}
+
+\newtcolorbox{goalbox}[1]{
+  breakable,
+  colback=lightblue,
+  colframe=mainblue,
+  boxrule=0.7pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{notebox}[1]{
+  breakable,
+  colback=lightgray,
+  colframe=black!50,
+  boxrule=0.55pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{skillbox}[1]{
+  breakable,
+  colback=softgreen,
+  colframe=green!40!black,
+  boxrule=0.65pt,
+  arc=1mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm,
+  title=\textbf{#1},
+  fonttitle=\bfseries
+}
+
+\newcommand{\basef}{y=f(x)}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{titlepage}
+\centering
+\vspace*{0.9cm}
+
+\begin{tcolorbox}[
+  enhanced,
+  width=0.92\textwidth,
+  colback=white,
+  colframe=mainblue,
+  boxrule=1pt,
+  arc=0mm,
+  left=6mm,
+  right=6mm,
+  top=8mm,
+  bottom=8mm
+]
+\centering
+
+{\fontsize{24}{30}\selectfont\bfseries 代数专题课堂讲义\par}
+\vspace{0.7cm}
+{\fontsize{17}{22}\selectfont 函数图像的综合变换（平移 + 对称）\par}
+
+\vspace{1.1cm}
+\color{rulegray}\rule{0.72\textwidth}{0.7pt}\par
+\vspace{1cm}
+
+\begin{tcolorbox}[colback=lightblue,colframe=mainblue,width=0.82\textwidth,boxrule=1pt]
+\centering
+{\Large 适合对象：已经学过函数平移和函数对称的初中学生}\\[0.4em]
+{\large 准备把多个基本变换连起来，提升综合判断能力}
+\end{tcolorbox}
+
+\vspace{1.2cm}
+
+\renewcommand{\arraystretch}{1.42}
+\begin{tabular}{>{\bfseries}p{3.5cm}p{8cm}}
+讲义作者： & 刘文博 \\
+专题关键词： & 综合变换、平移、对称、先后顺序、反向判断 \\
+建议课时： & 1--2 课时 \\
+专题目标： & 学会把平移和对称组合起来，快速写出新方程，并能分辨变换顺序是否相同 \\
+编译方式： & XeLaTeX \\
+\end{tabular}
+
+\vspace{1.2cm}
+\color{rulegray}\rule{0.72\textwidth}{0.7pt}\par
+\vspace{0.8cm}
+
+{\normalsize 本讲不再只看单个动作，而是把“向左向右平移”和“关于坐标轴、原点对称”连在一起，重点解决学生最容易混淆的两个问题：\textbf{式子里应该怎样分层改写}，以及\textbf{变换先后顺序会不会影响结果}。\par}
+
+\vspace{0.5cm}
+{\large \today\par}
+\end{tcolorbox}
+\end{titlepage}
+
+\pagenumbering{Roman}
+\pagestyle{plain}
+\tableofcontents
+\newpage
+\pagestyle{fancy}
+\pagenumbering{arabic}
+
+\section{专题目标与使用说明}
+
+\begin{goalbox}{本讲要解决的核心问题}
+已知一个函数的方程，例如
+\[
+y=f(x),
+\]
+如果把它先平移，再对称；或者先对称，再平移；甚至既有左右变化，又有上下变化，新的函数方程该怎么写？
+
+这一步是函数图像学习里真正进入“综合题”的起点，因为题目不再只问一个动作，而是要把几个动作连起来思考。
+\end{goalbox}
+
+\begin{goalbox}{学完以后希望达到的能力}
+\begin{itemize}
+  \item 看到复合变换时，能先分清是改外面还是改里面；
+  \item 会把 \(y=f(x)\) 改写成 \(y=\pm f(\pm(x-a))+b\) 这样的统一形式；
+  \item 能判断“先平移后对称”和“先对称后平移”是否相同；
+  \item 会用关键点或特殊点检验自己写出的新方程；
+  \item 能从一个新方程反向说出图像经历了哪些基本变换。
+\end{itemize}
+\end{goalbox}
+
+\begin{notebox}{给家长和自学同学的提醒}
+\begin{itemize}
+  \item 本讲的真正难点不是运算，而是\textbf{变换顺序和层次}；
+  \item 建议每次都先用一句话描述图像怎么动，再动笔改式子；
+  \item 如果孩子写完后心里没底，就抓一两个熟悉点代入验证，比如抛物线顶点、一次函数截距、明显的对称点。
+\end{itemize}
+\end{notebox}
+
+\section{先把单个动作复习成一张表}
+
+\subsection{四类最基础的改写}
+从 \(y=f(x)\) 出发，先把单个动作记稳：
+\begin{center}
+\renewcommand{\arraystretch}{1.45}
+\begin{tabular}{|m{3.4cm}|m{4.2cm}|m{5.1cm}|}
+\hline
+图像变化 & 新方程 & 记忆重点 \\
+\hline
+向上平移 \(k\) 个单位 & \(y=f(x)+k\) & 在外面加 \\
+\hline
+向下平移 \(k\) 个单位 & \(y=f(x)-k\) & 在外面减 \\
+\hline
+向右平移 \(a\) 个单位 & \(y=f(x-a)\) & 里面写减 \\
+\hline
+向左平移 \(a\) 个单位 & \(y=f(x+a)\) & 里面写加 \\
+\hline
+关于 \(x\) 轴对称 & \(y=-f(x)\) & 整体变号 \\
+\hline
+关于 \(y\) 轴对称 & \(y=f(-x)\) & 把 \(x\) 变成 \(-x\) \\
+\hline
+关于原点对称 & \(y=-f(-x)\) & 里外都变号 \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{为什么综合变换还是这些规则在叠加}
+无论题目多复杂，本质上都只是把上面的几个基础动作按顺序拼起来。
+
+所以综合变换的关键不是背很多新公式，而是做到两点：
+\begin{itemize}
+  \item 先认出每一个动作分别在改哪里；
+  \item 再按题目给出的顺序一步一步写。
+\end{itemize}
+
+\begin{skillbox}{一个统一观察角度}
+当我们看到
+\[
+y=\pm f(\pm(x-a))+b
+\]
+这种形式时，可以这样看：
+\begin{itemize}
+  \item 最外面的 \(+b\) 或 \(-b\)，负责上下平移；
+  \item \(f\) 前面的负号，负责关于 \(x\) 轴对称；
+  \item 括号里 \(x-a\) 或 \(x+a\)，负责左右平移；
+  \item 括号里若还有整体负号，说明和关于 \(y\) 轴对称有关。
+\end{itemize}
+先把式子分层看清楚，再解释图像变化，思路就不会乱。
+\end{skillbox}
+
+\section{写综合变换方程的两种方法}
+
+\subsection{方法一：按顺序逐步改写}
+这是最稳妥的方法，尤其适合刚开始学综合变换时使用。
+
+例如：原函数是 \(y=f(x)\)，先向右平移 2 个单位，再向上平移 3 个单位。
+
+第一步，向右平移 2 个单位：
+\[
+y=f(x-2).
+\]
+第二步，再向上平移 3 个单位：
+\[
+y=f(x-2)+3.
+\]
+
+也就是说，遇到两个动作时，不要急着一步写完，\textbf{先写第一步，再在第一步得到的新式子上继续改}。
+
+\subsection{方法二：抓关键点或关键图形验证}
+如果你已经写出了一个式子，但不确定对不对，就抓图像上的关键点验证。
+
+比如原图像上有点 \((x_0,y_0)\)。如果题目说“先向左平移 1 个单位，再关于 \(x\) 轴对称”，那么这个点会变成
+\[
+(x_0-1,-y_0).
+\]
+如果你写出的新方程不能让这些点落到正确位置上，那就说明式子写错了。
+
+\begin{method}
+综合变换题中，常见的关键点包括：
+\begin{itemize}
+  \item 一次函数的截距点；
+  \item 二次函数的顶点；
+  \item 反比例函数上容易代入的整点；
+  \item 原点、与坐标轴交点、对称中心附近的点。
+\end{itemize}
+\end{method}
+
+\section{几个最典型的综合模型}
+
+\subsection{平移和关于 x 轴对称的组合}
+\begin{theorem}
+若由 \(y=f(x)\) 经过“左右平移 + 关于 \(x\) 轴对称 + 上下平移”得到新图像，则常见结果可以写成
+\[
+y=-f(x-a)+b
+\]
+或
+\[
+y=-f(x+a)+b.
+\]
+\end{theorem}
+
+其中：
+\begin{itemize}
+  \item \(x-a\) 表示向右平移 \(a\) 个单位；
+  \item \(x+a\) 表示向左平移 \(a\) 个单位；
+  \item 最前面的负号表示关于 \(x\) 轴对称；
+  \item 最后的 \(+b\) 或 \(-b\) 表示上下平移。
+\end{itemize}
+
+\begin{example}
+把抛物线 \(y=x^2\) 先向右平移 2 个单位，再关于 \(x\) 轴对称，最后向上平移 1 个单位，求新方程。
+\end{example}
+
+\begin{solution}
+按顺序写：
+\[
+y=x^2 \rightarrow y=(x-2)^2 \rightarrow y=-(x-2)^2 \rightarrow y=-(x-2)^2+1.
+\]
+所以新方程为
+\[
+y=-(x-2)^2+1.
+\]
+\end{solution}
+
+\subsection{平移和关于 y 轴对称的组合}
+这里最需要注意：\textbf{和水平方向有关的变换，顺序往往会影响结果。}
+
+\begin{example}
+比较下面两个过程是否相同：
+\begin{enumerate}
+  \item 先把 \(y=f(x)\) 向右平移 3 个单位，再关于 \(y\) 轴对称；
+  \item 先把 \(y=f(x)\) 关于 \(y\) 轴对称，再向右平移 3 个单位。
+\end{enumerate}
+\end{example}
+
+\begin{solution}
+第 1 个过程：
+\[
+y=f(x) \rightarrow y=f(x-3) \rightarrow y=f(-x-3).
+\]
+
+第 2 个过程：
+\[
+y=f(x) \rightarrow y=f(-x) \rightarrow y=f(-(x-3))=f(3-x).
+\]
+
+这两个结果一般\textbf{不相同}。
+
+所以，涉及左右平移和关于 \(y\) 轴对称时，一定要按顺序逐步改写，不能想当然地合并。
+\end{solution}
+
+\subsection{平移和关于原点对称的组合}
+关于原点对称相当于“关于 \(y\) 轴对称”和“关于 \(x\) 轴对称”同时发生，因此式子里通常会同时出现里外变号。
+
+\begin{example}
+把函数 \(y=2x+1\) 先关于原点对称，再向左平移 2 个单位，求新方程。
+\end{example}
+
+\begin{solution}
+先关于原点对称：
+\[
+y=-(2(-x)+1)=2x-1.
+\]
+再向左平移 2 个单位：
+\[
+y=2(x+2)-1=2x+3.
+\]
+所以新方程为
+\[
+y=2x+3.
+\]
+\end{solution}
+
+\section{最容易犯的几个错误}
+
+\begin{notebox}{错误一：把左右平移的符号写反}
+看到“向右平移 4 个单位”，有些同学会写成 \(f(x+4)\)，这是最常见错误。
+
+记住：图像向右走，式子里面写减；图像向左走，式子里面写加。
+\end{notebox}
+
+\begin{notebox}{错误二：看见负号就只会机械背公式}
+比如 \(y=-f(x-2)\) 里，前面的负号表示关于 \(x\) 轴对称，\(x-2\) 表示向右平移 2 个单位。这两个动作作用的位置不同，不能混成一句模糊的“整体往下翻”。
+\end{notebox}
+
+\begin{notebox}{错误三：忽略先后顺序}
+特别是“左右平移”和“关于 \(y\) 轴对称”放在一起时，先后顺序通常不同，结果也不同。
+
+如果题目写了“先……再……”，那就必须一步一步写，不要跳步。
+\end{notebox}
+
+\begin{notebox}{错误四：只改方程，不做检验}
+综合变换的题目非常适合用关键点检验。哪怕只检查一个顶点或一个截距点，也能帮你及时发现符号错误。
+\end{notebox}
+
+\section{例题讲解}
+
+\begin{example}
+已知函数 \(y=|x|\)，把它的图像先向左平移 3 个单位，再向下平移 2 个单位，最后关于 \(x\) 轴对称，求新方程。
+\end{example}
+
+\begin{solution}
+逐步改写：
+\[
+y=|x| \rightarrow y=|x+3| \rightarrow y=|x+3|-2 \rightarrow y=-\bigl(|x+3|-2\bigr).
+\]
+化简得
+\[
+y=-|x+3|+2.
+\]
+\end{solution}
+
+\begin{example}
+已知函数 \(y=x^2\)，把它的图像先关于 \(y\) 轴对称，再向右平移 1 个单位，最后向下平移 4 个单位，求新方程。
+\end{example}
+
+\begin{solution}
+因为 \(y=x^2\) 本身关于 \(y\) 轴对称，所以第一步以后图像不变，仍为
+\[
+y=x^2.
+\]
+再向右平移 1 个单位，得
+\[
+y=(x-1)^2.
+\]
+最后向下平移 4 个单位，得
+\[
+y=(x-1)^2-4.
+\]
+\end{solution}
+
+\begin{example}
+已知新函数方程为
+\[
+y=-f(x+5)+2.
+\]
+请反向说出它是由 \(y=f(x)\) 经过哪些变换得到的。
+\end{example}
+
+\begin{solution}
+看式子分层：
+\begin{itemize}
+  \item \(x+5\) 表示向左平移 5 个单位；
+  \item 前面的负号表示关于 \(x\) 轴对称；
+  \item 最后的 \(+2\) 表示向上平移 2 个单位。
+\end{itemize}
+所以它是由原图像先向左平移 5 个单位，再关于 \(x\) 轴对称，最后向上平移 2 个单位得到的。
+\end{solution}
+
+\begin{example}
+函数 \(y=f(x)\) 经过“先向右平移 2 个单位，再关于 \(y\) 轴对称”后得到函数 \(g(x)\)。已知点 \((1,4)\) 在 \(y=f(x)\) 的图像上，求对应点在 \(y=g(x)\) 图像上的坐标。
+\end{example}
+
+\begin{solution}
+先向右平移 2 个单位，点 \((1,4)\) 变成 \((3,4)\)。
+
+再关于 \(y\) 轴对称，点 \((3,4)\) 变成 \((-3,4)\)。
+
+所以对应点坐标是
+\[
+(-3,4).
+\]
+这类题也提醒我们：综合变换不一定都要靠式子，有时先追踪点更直接。
+\end{solution}
+
+\section{课堂练习}
+
+\begin{exercise}
+把函数 \(y=x^2\) 的图像先向左平移 2 个单位，再关于 \(x\) 轴对称，写出新方程。
+\end{exercise}
+
+\begin{exercise}
+把函数 \(y=2x-3\) 的图像先关于原点对称，再向上平移 5 个单位，写出新方程。
+\end{exercise}
+
+\begin{exercise}
+把函数 \(y=|x|\) 的图像先向右平移 4 个单位，再关于 \(y\) 轴对称，写出新方程。
+\end{exercise}
+
+\begin{exercise}
+已知 \(y=f(x)\) 经过综合变换后得到 \(y=f(x-6)-1\)。请用文字描述图像变化。
+\end{exercise}
+
+\begin{exercise}
+已知 \(y=f(x)\) 经过综合变换后得到 \(y=-f(-x)+3\)。请用文字描述图像变化。
+\end{exercise}
+
+\begin{exercise}
+函数 \(y=f(x)\) 先向左平移 1 个单位，再关于 \(x\) 轴对称。已知点 \((2,-1)\) 在原图像上，求对应点的新坐标。
+\end{exercise}
+
+\begin{exercise}
+比较下列两个结果是否一定相同，并说明理由：
+\begin{enumerate}
+  \item 先向右平移 2 个单位，再关于 \(x\) 轴对称；
+  \item 先关于 \(x\) 轴对称，再向右平移 2 个单位。
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+比较下列两个结果是否一定相同，并说明理由：
+\begin{enumerate}
+  \item 先向右平移 2 个单位，再关于 \(y\) 轴对称；
+  \item 先关于 \(y\) 轴对称，再向右平移 2 个单位。
+\end{enumerate}
+\end{exercise}
+
+\section{练习解答}
+
+\begin{solution}
+第 1 题：先向左平移 2 个单位得
+\[
+y=(x+2)^2,
+\]
+再关于 \(x\) 轴对称，得
+\[
+y=-(x+2)^2.
+\]
+\end{solution}
+
+\begin{solution}
+第 2 题：先关于原点对称，得
+\[
+y=-(2(-x)-3)=2x+3.
+\]
+再向上平移 5 个单位，得
+\[
+y=2x+8.
+\]
+\end{solution}
+
+\begin{solution}
+第 3 题：先向右平移 4 个单位，得
+\[
+y=|x-4|.
+\]
+再关于 \(y\) 轴对称，得
+\[
+y=|-x-4|=|x+4|.
+\]
+\end{solution}
+
+\begin{solution}
+第 4 题：\(x-6\) 表示向右平移 6 个单位，\(-1\) 表示向下平移 1 个单位。
+
+所以图像变化是：先向右平移 6 个单位，再向下平移 1 个单位。
+\end{solution}
+
+\begin{solution}
+第 5 题：\(-x\) 表示关于 \(y\) 轴对称，最前面的负号表示关于 \(x\) 轴对称，\(+3\) 表示向上平移 3 个单位。
+
+所以图像变化是：先关于 \(y\) 轴对称，再关于 \(x\) 轴对称，最后向上平移 3 个单位。
+
+若把前两步合起来看，也可说“先关于原点对称，再向上平移 3 个单位”。
+\end{solution}
+
+\begin{solution}
+第 6 题：点 \((2,-1)\) 先向左平移 1 个单位，变成 \((1,-1)\)。
+
+再关于 \(x\) 轴对称，变成 \((1,1)\)。
+
+所以新坐标是
+\[
+(1,1).
+\]
+\end{solution}
+
+\begin{solution}
+第 7 题：一定相同。
+
+过程 1：
+\[
+y=f(x) \rightarrow y=f(x-2) \rightarrow y=-f(x-2).
+\]
+
+过程 2：
+\[
+y=f(x) \rightarrow y=-f(x) \rightarrow y=-f(x-2).
+\]
+
+结果相同，是因为关于 \(x\) 轴对称只改函数值，向右平移只改横坐标，这两步互不冲突。
+\end{solution}
+
+\begin{solution}
+第 8 题：不一定相同。
+
+过程 1：
+\[
+y=f(x) \rightarrow y=f(x-2) \rightarrow y=f(-x-2).
+\]
+
+过程 2：
+\[
+y=f(x) \rightarrow y=f(-x) \rightarrow y=f(2-x).
+\]
+
+这两个式子一般不同，所以两个结果通常不相同。
+
+原因是：向右平移和关于 \(y\) 轴对称都作用在横坐标上，顺序不同就可能导致结果不同。
+\end{solution}
+
+\section{本讲小结}
+
+\begin{goalbox}{请孩子带着这 4 句话离开本讲}
+\begin{enumerate}
+  \item 综合变换并不神秘，本质上就是把几个基本动作按顺序叠加；
+  \item 上下平移改外面，左右平移改里面；
+  \item 关于 \(x\) 轴对称改外面符号，关于 \(y\) 轴对称改里面符号；
+  \item 只要牵涉到横坐标的多个动作，尤其要注意先后顺序。
+\end{enumerate}
+\end{goalbox}
+
+\begin{skillbox}{建议下一步怎么练}
+如果孩子已经能稳定写出这类综合变换方程，下一步就可以进入两类训练：
+\begin{itemize}
+  \item 反向题：给出新方程，倒推经历了哪些变换；
+  \item 综合图像题：把平移、对称和二次函数顶点、对称轴、最值一起分析。
+\end{itemize}
+这两类题会直接帮助后续学习二次函数综合题。
+\end{skillbox}
+
+\end{document}
