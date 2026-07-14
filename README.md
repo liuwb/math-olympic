@@ -126,6 +126,11 @@
       <td>函数图像的综合变换（平移 + 对称）</td>
       <td><a href="代数讲义/function_transformations_topic_index.pdf"><code>代数讲义/function_transformations_topic_index.pdf</code></a></td>
     </tr>
+    <tr>
+      <td>代数专题</td>
+      <td>取整函数与小数部分</td>
+      <td><a href="代数讲义/floor_fractional_part_handout.pdf"><code>代数讲义/floor_fractional_part_handout.pdf</code></a></td>
+    </tr>
   </tbody>
 </table>
 
@@ -221,6 +226,26 @@
       <td>周测 B 卷</td>
       <td>想继续检查顺序是否影响结果、分层解释能力和较强综合判断时使用</td>
       <td><a href="代数讲义/function_transformations_weekly_test_B.tex"><code>代数讲义/function_transformations_weekly_test_B.tex</code></a> / <a href="代数讲义/function_transformations_weekly_test_B.pdf"><code>代数讲义/function_transformations_weekly_test_B.pdf</code></a></td>
+    </tr>
+    <tr>
+      <td>课堂讲义</td>
+      <td>准备系统学习取整函数与小数部分，建立“设整数、夹区间、分情况”基本方法时使用</td>
+      <td><a href="代数讲义/floor_fractional_part_handout.tex"><code>代数讲义/floor_fractional_part_handout.tex</code></a> / <a href="代数讲义/floor_fractional_part_handout.pdf"><code>代数讲义/floor_fractional_part_handout.pdf</code></a></td>
+    </tr>
+    <tr>
+      <td>提高题单</td>
+      <td>讲义学完后，集中训练计算、方程、不等式、恒等式证明与整数参数问题时使用</td>
+      <td><a href="代数讲义/floor_fractional_part_advanced_problem_set.tex"><code>代数讲义/floor_fractional_part_advanced_problem_set.tex</code></a> / <a href="代数讲义/floor_fractional_part_advanced_problem_set.pdf"><code>代数讲义/floor_fractional_part_advanced_problem_set.pdf</code></a></td>
+    </tr>
+    <tr>
+      <td>周测 A 卷</td>
+      <td>检查负数取整、基础方程、标准不等式和基本证明是否掌握稳定时使用</td>
+      <td><a href="代数讲义/floor_fractional_part_weekly_test_A.tex"><code>代数讲义/floor_fractional_part_weekly_test_A.tex</code></a> / <a href="代数讲义/floor_fractional_part_weekly_test_A.pdf"><code>代数讲义/floor_fractional_part_weekly_test_A.pdf</code></a></td>
+    </tr>
+    <tr>
+      <td>周测 B 卷</td>
+      <td>继续检查分段讨论、嵌套取整、整数参数与较强证明能力时使用</td>
+      <td><a href="代数讲义/floor_fractional_part_weekly_test_B.tex"><code>代数讲义/floor_fractional_part_weekly_test_B.tex</code></a> / <a href="代数讲义/floor_fractional_part_weekly_test_B.pdf"><code>代数讲义/floor_fractional_part_weekly_test_B.pdf</code></a></td>
     </tr>
   </tbody>
 </table>

@@ -1,0 +1,42 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+\input{代数讲义/floor_fractional_part_problem_style.sty}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small 取整与小数部分周测 A 卷}\fancyhead[C]{\small 基础与标准模型}\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}\renewcommand{\footrulewidth}{0.35pt}
+\begin{document}
+\thispagestyle{empty}
+\begin{center}{\fontsize{22}{28}\selectfont\bfseries 取整函数与小数部分周测 A 卷\par}\vspace{0.35cm}{\large 初中数学联赛专题基础检测\par}\end{center}
+\begin{infobox}{考试说明}
+\begin{itemize}\item 测试时间：60 分钟\item 满分：100 分\item 独立完成，注意负数取整、整数条件和区间端点。\end{itemize}
+\end{infobox}
+\section{试题}
+\begin{enumerate}
+\item（10 分）计算 $[-3.6]$、$\{-3.6\}$ 和 $[\sqrt7]+[-\sqrt7]$。\answerspace
+\item（12 分）已知 $[x]=2$，求 $[3x]$ 的所有可能值。\answerspace
+\item（12 分）解方程 $x+[x]=8$。\answerspace
+\item（12 分）解方程 $[x]+\{2x\}=3$。\answerspace
+\item（12 分）解不等式 $-1\le[2x-3]<4$。\answerspace
+\item（12 分）解不等式 $[x]>\{x\}$。\answerspace
+\item（14 分）证明 $[x]+[y]\le[x+y]\le[x]+[y]+1$。\biganswerspace
+\item（16 分）证明对任意实数 $x$，
+\[
+[x]+[x+\tfrac13]+[x+\tfrac23]=[3x].
+\]\biganswerspace
+\end{enumerate}
+\newpage\section{详细解答}
+\begin{enumerate}
+\item\begin{testsolution}$[-3.6]=-4$，$\{-3.6\}=0.4$。因 $2<\sqrt7<3$，后两项之和为 $2+(-3)=-1$。\end{testsolution}
+\item\begin{testsolution}设 $x=2+t$，$0\le t<1$，则 $[3x]=6+[3t]$，所以可能为 $6,7,8$。\end{testsolution}
+\item\begin{testsolution}设 $[x]=n$，则 $x=8-n$ 是整数，故 $[x]=x$，即 $n=8-n$。得 $n=4$、$x=4$。\end{testsolution}
+\item\begin{testsolution}设 $x=n+t$。因 $n+\{2t\}=3$ 且第二项既是 $[0,1)$ 内的数，又等于整数 $3-n$，故它为 $0$，$n=3$。于是 $t=0$ 或 $\frac12$，所以 $x=3$ 或 $\frac72$。\end{testsolution}
+\item\begin{testsolution}$[2x-3]\ge-1$ 等价于 $2x-3\ge-1$；$[2x-3]<4$ 等价于 $2x-3<4$。故 $x\in[1,\frac72)$。\end{testsolution}
+\item\begin{testsolution}设 $x=n+t$，条件为 $n>t$。若 $n\le0$ 无解；若 $n\ge1$，因 $t<1\le n$，全部成立。解集为 $[1,+\infty)$。\end{testsolution}
+\item\begin{testsolution}写 $x=[x]+\{x\}$、$y=[y]+\{y\}$，则
+\[
+[x+y]=[x]+[y]+[\{x\}+\{y\}].
+\]
+最后一项只能为 $0$ 或 $1$，结论成立。\end{testsolution}
+\item\begin{testsolution}设 $x=n+t$。按 $t\in[0,\frac13)$、$[\frac13,\frac23)$、$[\frac23,1)$ 分段，左边依次为 $3n,3n+1,3n+2$，恰与 $[3x]$ 相同。\end{testsolution}
+\end{enumerate}
+\end{document}

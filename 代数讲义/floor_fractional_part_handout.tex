@@ -1,0 +1,430 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+
+\usepackage[a4paper,top=2.45cm,bottom=2.6cm,left=2.35cm,right=2.35cm,headheight=18pt,headsep=0.55cm,footskip=26pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr,lastpage,enumitem,titlesec,xcolor,hyperref,bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace,array}
+
+\hypersetup{colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!50!black}
+\setstretch{1.17}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.35em}
+\allowdisplaybreaks
+\setlist[enumerate]{itemsep=0.38em,topsep=0.35em,leftmargin=2.3em}
+\setlist[itemize]{itemsep=0.28em,topsep=0.3em,leftmargin=2em}
+\setcounter{tocdepth}{2}
+
+\definecolor{mainblue}{RGB}{36,83,140}
+\definecolor{lightblue}{RGB}{241,246,252}
+\definecolor{lightgray}{RGB}{246,246,246}
+\definecolor{accent}{RGB}{153,76,0}
+\definecolor{rulegray}{RGB}{110,118,128}
+\definecolor{softgreen}{RGB}{236,247,240}
+
+\titleformat{\section}{\Large\bfseries\color{mainblue}}{\thesection.}{0.45em}{}[\vspace{0.25em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.3em}{0.9em}
+\titleformat{\subsection}{\large\bfseries\color{mainblue}}{\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{1.05em}{0.55em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 代数专题课堂讲义}
+\fancyhead[C]{\small 取整函数与小数部分}
+\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}
+\renewcommand{\footrulewidth}{0.35pt}
+
+\newtheoremstyle{formaltheorem}{0.8em}{0.8em}{\normalfont}{}{\bfseries\color{mainblue}}{．}{0.6em}{}
+\newtheoremstyle{formalexample}{0.8em}{0.8em}{\normalfont}{}{\bfseries\color{accent}}{．}{0.6em}{}
+\theoremstyle{formaltheorem}
+\newtheorem{theorem}{结论}[section]
+\newtheorem{method}{方法}[section]
+\theoremstyle{formalexample}
+\newtheorem{example}{例题}[section]
+\newtheorem{exercise}{练习}[section]
+\newenvironment{solution}{\par\noindent\textbf{解：}}{\hfill$\square$\par}
+
+\newtcolorbox{goalbox}[1]{breakable,colback=lightblue,colframe=mainblue,boxrule=0.7pt,arc=1mm,left=1.2mm,right=1.2mm,top=1mm,bottom=1mm,title=\textbf{#1},fonttitle=\bfseries}
+\newtcolorbox{notebox}[1]{breakable,colback=lightgray,colframe=black!50,boxrule=0.55pt,arc=1mm,left=1.2mm,right=1.2mm,top=1mm,bottom=1mm,title=\textbf{#1},fonttitle=\bfseries}
+\newtcolorbox{skillbox}[1]{breakable,colback=softgreen,colframe=green!40!black,boxrule=0.65pt,arc=1mm,left=1.2mm,right=1.2mm,top=1mm,bottom=1mm,title=\textbf{#1},fonttitle=\bfseries}
+\newcommand{\fl}[1]{\left\lfloor #1\right\rfloor}
+\newcommand{\fr}[1]{\left\{#1\right\}}
+
+\begin{document}
+\thispagestyle{empty}
+\begin{titlepage}
+\centering\vspace*{0.9cm}
+\begin{tcolorbox}[enhanced,width=0.92\textwidth,colback=white,colframe=mainblue,boxrule=1pt,arc=0mm,left=6mm,right=6mm,top=8mm,bottom=8mm]
+\centering
+{\fontsize{24}{30}\selectfont\bfseries 代数专题课堂讲义\par}
+\vspace{0.7cm}
+{\fontsize{18}{23}\selectfont 取整函数 $[x]$ 与小数部分 $\{x\}$\par}
+\vspace{1cm}\color{rulegray}\rule{0.72\textwidth}{0.7pt}\par\vspace{0.9cm}
+\begin{tcolorbox}[colback=lightblue,colframe=mainblue,width=0.84\textwidth,boxrule=1pt]
+\centering
+{\Large 适合对象：准备初中数学联赛的学生}\\[0.4em]
+{\large 计算、方程、不等式与证明的完整入门}
+\end{tcolorbox}
+\vspace{1.1cm}
+\renewcommand{\arraystretch}{1.42}
+\begin{tabular}{>{\bfseries}p{3.2cm}p{8.2cm}}
+讲义作者： & 刘文博 \\
+专题关键词： & 取整、小数部分、分段、整数参数、周期性 \\
+建议课时： & 3--4 课时 \\
+核心能力： & 把含取整符号的问题翻译成整数与区间问题 \\
+编译方式： & XeLaTeX
+\end{tabular}
+\vspace{1cm}\color{rulegray}\rule{0.72\textwidth}{0.7pt}\par\vspace{0.7cm}
+{\normalsize 本讲统一约定：$[x]=\lfloor x\rfloor$ 表示不超过 $x$ 的最大整数，$\{x\}=x-[x]$ 表示 $x$ 的小数部分。重点不是记零散技巧，而是掌握“设整数、夹区间、分情况”的通法。\par}
+\vspace{0.5cm}{\large \today\par}
+\end{tcolorbox}
+\end{titlepage}
+
+\pagenumbering{Roman}\pagestyle{plain}\tableofcontents\newpage
+\pagestyle{fancy}\pagenumbering{arabic}
+
+\section{定义、图像与基本语言}
+\begin{goalbox}{本讲目标}
+\begin{itemize}
+  \item 正确计算正数、负数及复杂式子的整数部分与小数部分；
+  \item 熟练求解含 $[x]$、$\{x\}$ 的方程和不等式；
+  \item 会证明取整恒等式、估计式以及带整数参数的结论；
+  \item 形成三个基本动作：\textbf{设整数、夹区间、查端点}。
+\end{itemize}
+\end{goalbox}
+
+\begin{theorem}[定义的等价形式]
+对任意实数 $x$，令 $n=[x]$，则
+\[
+n\le x<n+1,\qquad x=n+\{x\},\qquad 0\le\{x\}<1.
+\]
+反过来，如果整数 $n$ 满足 $n\le x<n+1$，那么 $[x]=n$。
+\end{theorem}
+
+\begin{notebox}{负数是第一道关}
+$[-2.3]=-3$，而不是 $-2$；因此
+\[
+\{-2.3\}=-2.3-(-3)=0.7.
+\]
+“小数部分”始终属于 $[0,1)$，它不是把负号后面的 $0.3$ 原样抄下来。
+\end{notebox}
+
+\begin{theorem}[四条基本性质]
+若 $m\in\mathbb Z$，则
+\[
+[x+m]=[x]+m,\qquad \{x+m\}=\{x\}.
+\]
+并且
+\[
+[x]\le x<[x]+1,\qquad x-1<[x]\le x.
+\]
+若 $x\notin\mathbb Z$，还有
+\[
+[-x]=-[x]-1,\qquad \{-x\}=1-\{x\};
+\]
+若 $x\in\mathbb Z$，则 $[-x]=-[x]$ 且 $\{-x\}=0$。
+\end{theorem}
+
+\begin{example}[基础计算]
+计算 $[\sqrt{10}]$、$[-\sqrt{10}]$、$\{-\sqrt{10}\}$ 以及 $[3\{ -2.4\}]$。
+\end{example}
+\begin{solution}
+因 $3<\sqrt{10}<4$，故 $[\sqrt{10}]=3$，$[-\sqrt{10}]=-4$，
+$\{-\sqrt{10}\}=4-\sqrt{10}$。又 $\{-2.4\}=0.6$，所以 $[3\{-2.4\}]=[1.8]=1$。
+\end{solution}
+
+\section{计算与化简}
+\begin{method}[先拆成整数部分与小数部分]
+遇到同一个 $x$ 的多个符号时，设
+\[
+x=n+t,\qquad n=[x]\in\mathbb Z,\quad t=\{x\}\in[0,1).
+\]
+所有复杂性就集中到 $t$ 所在的短区间中。
+\end{method}
+
+\begin{example}[缩放后取整]
+把 $[2x]$ 用 $[x]$ 和 $\{x\}$ 表示。
+\end{example}
+\begin{solution}
+设 $x=n+t$，其中 $0\le t<1$。则
+\[
+[2x]=[2n+2t]=2n+[2t].
+\]
+当 $0\le t<\tfrac12$ 时 $[2t]=0$；当 $\tfrac12\le t<1$ 时 $[2t]=1$。所以
+\[
+[2x]=\begin{cases}2[x],&0\le\{x\}<\tfrac12,\\2[x]+1,&\tfrac12\le\{x\}<1.\end{cases}
+\]
+\end{solution}
+
+\begin{example}[互补型计算]
+求 $[x]+[-x]$ 的所有可能值。
+\end{example}
+\begin{solution}
+若 $x$ 为整数，和为 $0$；若 $x$ 不是整数，则 $[-x]=-[x]-1$，和为 $-1$。故可能值为 $0,-1$。
+\end{solution}
+
+\begin{skillbox}{常用夹逼}
+由 $0\le\{x\}<1$ 可立刻得到
+\[
+a[x]\le ax<a[x]+a\quad(a>0).
+\]
+需要估计和式时，把每一项写成“原数减去一个 $[0,1)$ 中的误差”通常最有效。
+\end{skillbox}
+
+\section{含取整符号的方程}
+\begin{method}[标准流程]
+\begin{enumerate}
+  \item 设 $n=[x]\in\mathbb Z$，于是 $n\le x<n+1$；
+  \item 用原方程把 $x$ 表示为 $n$；
+  \item 代回区间，筛选整数 $n$；
+  \item 写出 $x$，并代回原式检查端点。
+\end{enumerate}
+\end{method}
+
+\begin{example}[线性方程]
+解方程 $x+[x]=7.6$。
+\end{example}
+\begin{solution}
+设 $[x]=n$，则 $x=7.6-n$。条件 $n\le x<n+1$ 化为
+\[
+n\le7.6-n<n+1,
+\]
+即 $3.3<n\le3.8$。这个区间中没有整数，所以原方程无解。
+\end{solution}
+
+\begin{notebox}{为什么必须检查整数条件}
+含取整方程的候选值很容易因端点或整数条件出错。联赛解答中，最后代回不是装饰，而是必要步骤。本例也提醒我们：得到的区间中必须真的存在整数。
+\end{notebox}
+
+\begin{example}[小数部分方程]
+解方程 $\{x\}=2x-1$。
+\end{example}
+\begin{solution}
+由 $0\le\{x\}<1$，先得 $\tfrac12\le x<1$。在此区间 $[x]=0$，所以 $\{x\}=x$。方程变为 $x=2x-1$，得 $x=1$，但 $1$ 不在 $[\tfrac12,1)$ 中，故无解。
+\end{solution}
+
+\begin{example}[整数参数法]
+解方程 $[2x]=x+3$。
+\end{example}
+\begin{solution}
+左边是整数，所以 $x+3$ 必为整数，设 $x+3=k\in\mathbb Z$，即 $x=k-3$。代入得
+\[
+[2k-6]=k.
+\]
+因 $2k-6$ 本身是整数，故 $2k-6=k$，从而 $k=6$，$x=3$。代回成立。
+\end{solution}
+
+\section{含取整符号的不等式}
+\begin{theorem}[四个翻译公式]
+设 $n\in\mathbb Z$，则
+\[
+[x]\ge n\iff x\ge n,\qquad [x]<n\iff x<n,
+\]
+\[
+[x]\le n\iff x<n+1,\qquad [x]>n\iff x\ge n+1.
+\]
+注意：右端点是否能取，完全由定义中的 $n\le x<n+1$ 决定。
+\end{theorem}
+
+\begin{example}[直接翻译]
+解不等式 $2\le[3x-1]\le5$。
+\end{example}
+\begin{solution}
+$[3x-1]\ge2$ 等价于 $3x-1\ge2$；$[3x-1]\le5$ 等价于 $3x-1<6$。所以
+\[
+1\le x<\frac73.
+\]
+\end{solution}
+
+\begin{example}[需要分段]
+解不等式 $[x]>2\{x\}$。
+\end{example}
+\begin{solution}
+设 $x=n+t$，其中 $n\in\mathbb Z$，$0\le t<1$。不等式变成 $n>2t$。
+若 $n\le0$，无解；若 $n=1$，则 $0\le t<\tfrac12$；若 $n\ge2$，则任意 $t\in[0,1)$ 都成立。因此
+\[
+x\in[1,\tfrac32)\cup[2,+\infty).
+\]
+\end{solution}
+
+\section{证明题的三种基本方法}
+\begin{method}[方法一：从定义夹逼]
+证明 $[x]+[y]\le[x+y]\le[x]+[y]+1$。
+\end{method}
+\begin{solution}
+写成 $x=[x]+\{x\}$，$y=[y]+\{y\}$。于是
+\[
+[x+y]=[x]+[y]+[\{x\}+\{y\}].
+\]
+因 $0\le\{x\}+\{y\}<2$，最后一项只能是 $0$ 或 $1$，结论成立。等号何时成立也一目了然：左等号对应 $\{x\}+\{y\}<1$，右等号对应 $\{x\}+\{y\}\ge1$。
+\end{solution}
+
+\begin{method}[方法二：寻找互补]
+若 $n$ 为正整数，证明对任意实数 $x$，
+\[
+\sum_{k=0}^{n-1}\left\{x+\frac{k}{n}\right\}
+=\{nx\}+\frac{n-1}{2}.
+\]
+\end{method}
+\begin{solution}
+只需考虑 $t=\{x\}$。数 $t,t+\frac1n,\ldots,t+\frac{n-1}{n}$ 中，越过 $1$ 的项减去 $1$ 后，恰好把单位区间按步长 $\frac1n$ 排成一组。更代数地，设 $m=[nt]$，则恰有 $m$ 项不小于 $1$，故
+\[
+\sum_{k=0}^{n-1}\left\{t+\frac{k}{n}\right\}
+=nt+\frac{0+1+\cdots+(n-1)}n-m
+=\{nt\}+\frac{n-1}{2}.
+\]
+又 $\{nt\}=\{nx\}$，结论成立。
+\end{solution}
+
+\begin{method}[方法三：把误差控制在一个短区间]
+证明对任意正整数 $n$ 和实数 $x$，
+\[
+n[x]\le[nx]\le n[x]+n-1.
+\]
+\end{method}
+\begin{solution}
+设 $x=[x]+t$，$0\le t<1$，则
+\[
+[nx]=n[x]+[nt].
+\]
+而 $0\le nt<n$，所以 $0\le[nt]\le n-1$，结论成立。
+\end{solution}
+
+\section{课堂练习}
+\begin{exercise}[计算题]
+\begin{enumerate}
+  \item 计算 $[-3.01]$、$\{-3.01\}$、$[-\sqrt5]+[\sqrt5]$。
+  \item 已知 $[x]=4$，求 $[3x]$ 的所有可能值。
+  \item 求 $[x]+[x+\frac13]+[x+\frac23]$ 与 $[3x]$ 的关系。
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}[方程]
+\begin{enumerate}
+  \item 解 $[x]=2x-3$。
+  \item 解 $x-\{x\}=5$。
+  \item 解 $[x]+\{2x\}=2$。
+  \item 解 $[x]+[2x]=7$。
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}[不等式]
+\begin{enumerate}
+  \item 解 $-2<[2x+1]\le3$。
+  \item 解 $\{x\}<\frac13$。
+  \item 解 $[x]\le x^2<[x]+1$。
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}[证明题]
+\begin{enumerate}
+  \item 证明：$[x]+[y]+[z]\le[x+y+z]\le[x]+[y]+[z]+2$。
+  \item 证明：若 $m\in\mathbb Z$，则 $[x+m]=[x]+m$。
+  \item 证明：对正整数 $n$，$\displaystyle\left[\frac{[x]}n\right]=\left[\frac xn\right]$。
+  \item 证明：若 $x+y\in\mathbb Z$，则 $\{x\}+\{y\}$ 只能为 $0$ 或 $1$。
+\end{enumerate}
+\end{exercise}
+
+\section{课堂练习详细解答}
+\subsection{计算题}
+\begin{solution}
+第 1 题：$[-3.01]=-4$，$\{-3.01\}=0.99$。因 $2<\sqrt5<3$，故 $[-\sqrt5]=-3$、$[\sqrt5]=2$，和为 $-1$。
+\end{solution}
+\begin{solution}
+第 2 题：写 $x=4+t$，$0\le t<1$，则 $[3x]=12+[3t]$，所以可能为 $12,13,14$，且都能取得。
+\end{solution}
+\begin{solution}
+第 3 题：设 $x=n+t$。只需按 $t\in[0,\frac13)$、$[\frac13,\frac23)$、$[\frac23,1)$ 三段检查，三项之和分别为 $3n,3n+1,3n+2$，恰好都等于 $[3x]$。故
+\[
+[x]+[x+\tfrac13]+[x+\tfrac23]=[3x].
+\]
+\end{solution}
+
+\subsection{方程}
+\begin{solution}
+第 1 题：设 $[x]=n$，则 $x=\frac{n+3}{2}$。由 $n\le x<n+1$ 得 $1<n\le3$，故 $n=2,3$。对应
+\[
+x=\frac52,3.
+\]
+逐一代回均成立。
+\end{solution}
+\begin{solution}
+第 2 题：因 $x-\{x\}=[x]$，原方程等价于 $[x]=5$，所以 $x\in[5,6)$。
+\end{solution}
+\begin{solution}
+第 3 题：设 $x=n+t$。方程为 $n+\{2t\}=2$。左边第二项在 $[0,1)$，而右边与 $n$ 都是整数，故必须 $\{2t\}=0$、$n=2$。于是 $t=0$ 或 $\frac12$，所以 $x=2$ 或 $\frac52$。
+\end{solution}
+\begin{solution}
+第 4 题：设 $x=n+t$，则
+\[
+[x]+[2x]=3n+[2t]=7.
+\]
+其中 $[2t]\in\{0,1\}$。只有 $n=2$、$[2t]=1$，故 $\frac12\le t<1$，解集为 $[\frac52,3)$。
+\end{solution}
+
+\subsection{不等式}
+\begin{solution}
+第 1 题：$[2x+1]>-2$ 等价于 $2x+1\ge-1$；$[2x+1]\le3$ 等价于 $2x+1<4$。故 $x\in[-1,\frac32)$。
+\end{solution}
+\begin{solution}
+第 2 题：在每个整数区间 $[k,k+1)$ 内，条件为 $x-k<\frac13$。因此
+\[
+x\in\bigcup_{k\in\mathbb Z}[k,k+\tfrac13).
+\]
+\end{solution}
+\begin{solution}
+第 3 题：双边条件说明 $[x^2]=[x]$。设共同值为整数 $n$，则 $n\le x<n+1$ 且 $n\le x^2<n+1$。因 $x^2\ge0$，故 $n\ge0$。若 $n=0$，交集给出 $x\in[0,1)$；若 $n\ge1$，由 $x\in[n,n+1)$ 可知 $x^2\ge n^2$，要有 $x^2<n+1$ 只能 $n=1$，此时 $x\in[1,\sqrt2)$。合并得 $x\in[0,\sqrt2)$。
+\end{solution}
+
+\subsection{证明题}
+\begin{solution}
+第 1 题：
+\[
+[x+y+z]=[x]+[y]+[z]+[\{x\}+\{y\}+\{z\}].
+\]
+括号内属于 $[0,3)$，其整数部分为 $0,1$ 或 $2$，结论成立。
+\end{solution}
+\begin{solution}
+第 2 题：由 $[x]\le x<[x]+1$，两边同加整数 $m$，得
+\[
+[x]+m\le x+m<[x]+m+1.
+\]
+中间数的整数部分就是 $[x]+m$。
+\end{solution}
+\begin{solution}
+第 3 题：设 $[x]=qn+r$，其中 $q\in\mathbb Z$，$0\le r<n$。再写 $x=[x]+t$，$0\le t<1$，则
+\[
+\frac xn=q+\frac{r+t}{n},\qquad 0\le\frac{r+t}{n}<1.
+\]
+故 $[x/n]=q$；同时 $[[x]/n]=[q+r/n]=q$。
+\end{solution}
+\begin{solution}
+第 4 题：
+\[
+x+y=[x]+[y]+\{x\}+\{y\}.
+\]
+前两项及左边都是整数，所以 $\{x\}+\{y\}$ 是整数；它又属于 $[0,2)$，只能为 $0$ 或 $1$。
+\end{solution}
+
+\section{常见误区与自检}
+\begin{notebox}{四个高频错误}
+\begin{enumerate}
+  \item 把 $[-2.7]$ 错写成 $-2$；
+  \item 把 $[x]\le n$ 错译成 $x\le n$，漏掉区间 $[n,n+1)$；
+  \item 设 $n=[x]$ 后忘记写 $n\in\mathbb Z$；
+  \item 分段时忽略左闭右开，或求出候选值后不代回。
+\end{enumerate}
+\end{notebox}
+
+\begin{goalbox}{离开本讲前应会的四句话}
+\begin{enumerate}
+  \item $[x]$ 的核心语言是 $[x]\le x<[x]+1$；
+  \item $\{x\}$ 的核心语言是 $x=[x]+\{x\}$ 且 $0\le\{x\}<1$；
+  \item 方程与不等式的核心方法是设 $x=n+t$；
+  \item 所有端点、整数参数与候选解都要回到原题检查。
+\end{enumerate}
+\end{goalbox}
+
+\end{document}

@@ -1,0 +1,52 @@
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+\input{代数讲义/floor_fractional_part_problem_style.sty}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small 取整与小数部分周测 B 卷}\fancyhead[C]{\small 迁移、参数与证明}\fancyhead[R]{\small 刘文博}
+\fancyfoot[C]{\small 第 \thepage 页 / 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.55pt}\renewcommand{\footrulewidth}{0.35pt}
+\begin{document}
+\thispagestyle{empty}
+\begin{center}{\fontsize{22}{28}\selectfont\bfseries 取整函数与小数部分周测 B 卷\par}\vspace{0.35cm}{\large 初中数学联赛专题提高检测\par}\end{center}
+\begin{infobox}{考试说明}
+\begin{itemize}\item 测试时间：75 分钟\item 满分：100 分\item B 卷强调分段完整性、参数筛选和证明表达。\end{itemize}
+\end{infobox}
+\section{试题}
+\begin{enumerate}
+\item（10 分）求 $[2x]-2[x]$ 的所有可能值，并写出相应的 $\{x\}$ 范围。\answerspace
+\item（12 分）解方程 $[x]+[2x]=10$。\answerspace
+\item（12 分）解方程 $\{x\}=\frac{2-x}{2}$。\answerspace
+\item（12 分）解不等式 $[x]<2\{x\}$。\answerspace
+\item（12 分）求所有实数 $x$，使 $[x]=[x^2]$。\biganswerspace
+\item（14 分）证明对正整数 $n$，
+\[
+n[x]\le[nx]\le n[x]+n-1.
+\]\biganswerspace
+\item（14 分）若 $x+y\in\mathbb Z$，证明 $\{x\}+\{y\}$ 只能为 $0$ 或 $1$，并说明何时为 $0$。\biganswerspace
+\item（14 分）求所有正整数 $m$，使得对任意实数 $x$ 都有
+\[
+[mx]=m[x].
+\]\biganswerspace
+\end{enumerate}
+\newpage\section{详细解答}
+\begin{enumerate}
+\item\begin{testsolution}设 $x=n+t$。则 $[2x]-2[x]=[2t]$。当 $0\le t<\frac12$ 时为 $0$；当 $\frac12\le t<1$ 时为 $1$。\end{testsolution}
+\item\begin{testsolution}设 $x=n+t$，则 $3n+[2t]=10$。因 $[2t]$ 为 $0$ 或 $1$，只能 $n=3$、$[2t]=1$。故 $t\in[\frac12,1)$，解集为 $[\frac72,4)$。\end{testsolution}
+\item\begin{testsolution}右边属于 $[0,1)$，故 $0<x\le2$。在 $(0,1)$ 内有 $\{x\}=x$，得 $x=\frac23$；在 $[1,2]$ 内有 $\{x\}=x-1$（端点 $2$ 单独代回），得 $x=\frac43$。两者都成立。\end{testsolution}
+\item\begin{testsolution}设 $x=n+t$，条件为 $n<2t$。若 $n\le-1$，全部成立；若 $n=0$，需 $t>0$；若 $n=1$，需 $t>\frac12$；若 $n\ge2$，无解。因此
+\[
+x\in(-\infty,0)\cup(0,1)\cup(\tfrac32,2).
+\]\end{testsolution}
+\item\begin{testsolution}共同整数部分记为 $n$。因 $x^2\ge0$，故 $n\ge0$。当 $n=0$ 时，$x\in[0,1)$；当 $n\ge1$ 时，$x\in[n,n+1)$，而 $x^2<n+1$ 只可能在 $n=1$，给出 $x\in[1,\sqrt2)$。合并为 $[0,\sqrt2)$。\end{testsolution}
+\item\begin{testsolution}写 $x=[x]+t$，$0\le t<1$，则
+\[
+[nx]=n[x]+[nt].
+\]
+由 $0\le nt<n$ 得 $0\le[nt]\le n-1$，结论成立。\end{testsolution}
+\item\begin{testsolution}由
+\[
+x+y=[x]+[y]+\{x\}+\{y\}
+\]
+知小数部分之和是整数，且属于 $[0,2)$，故为 $0$ 或 $1$。它为 $0$ 当且仅当两项小数部分都为 $0$，即 $x,y$ 都是整数。\end{testsolution}
+\item\begin{testsolution}$m=1$ 成立。若 $m\ge2$，取 $x=1/m$，则 $[mx]=1$，而 $m[x]=0$，矛盾。故只有 $m=1$。\end{testsolution}
+\end{enumerate}
+\end{document}
